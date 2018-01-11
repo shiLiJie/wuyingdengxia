@@ -11,13 +11,17 @@
 #import "MDFlipCollectionView.h"
 #import "MeetingNewViewController.h"
 #import "SearchBarEffectController.h"
-
+#import "PastViewController.h"
+#import "MeetDetailViewController.h"
+#import "PassMeetViewController.h"
 
 #define segViewHigh     44
 
 @interface TrainViewController ()<MDMultipleSegmentViewDeletegate,
                                 MDFlipCollectionViewDelegate,
-                                SearchBarDelegate>
+                                SearchBarDelegate,
+                                MeetNewDelegate,
+                                PassDelegate>
 {
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
@@ -53,7 +57,7 @@
     
     NSArray *arr = @[
                      [self tablecontroller],
-                     [self tablecontroller]
+                     [self tablecontroller1]
                      ];
     
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
@@ -68,7 +72,13 @@
 #pragma mark - 私有action -
 -(MeetingNewViewController *)tablecontroller{
     MeetingNewViewController *vc = [[MeetingNewViewController alloc] init];
-//    vc.delegate = self;
+    vc.delegate = self;
+    
+    return vc;
+}
+-(PastViewController *)tablecontroller1{
+    PastViewController *vc = [[PastViewController alloc] init];
+    vc.delegate = self;
     
     return vc;
 }
@@ -93,6 +103,19 @@
 
 #pragma mark - 搜索页代理方法 -
 - (void)didSelectKey:(NSString *)key{
+    
+}
+
+#pragma mark - 会议资讯和往期回顾点击代理方法 -
+-(void)meetTbleviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+    
+    MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)passTableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+    PassMeetViewController *vc = [[PassMeetViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

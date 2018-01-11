@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="165" id="KGk-i7-Jjw" customClass="MeetingNewCell">
+            <rect key="frame" x="0.0" y="0.0" width="528" height="165"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="528" height="164.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3U0-Tc-1GV">
+                        <rect key="frame" x="0.0" y="0.0" width="528" height="108.5"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RUy-ho-39x">
+                        <rect key="frame" x="10" y="139.5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="4jt-nY-JxS"/>
+                            <constraint firstAttribute="height" constant="20" id="TA9-Ot-8IL"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大会名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rr7-yW-eN9">
+                        <rect key="frame" x="10" y="113.5" width="70" height="24.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="具体时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ver-7Z-YNQ">
+                        <rect key="frame" x="40" y="143" width="49.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3U0-Tc-1GV" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.66" id="3EN-Lf-4fq"/>
+                    <constraint firstItem="RUy-ho-39x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="6R4-hp-TEN"/>
+                    <constraint firstItem="Ver-7Z-YNQ" firstAttribute="centerY" secondItem="RUy-ho-39x" secondAttribute="centerY" id="MeX-OD-pJm"/>
+                    <constraint firstAttribute="bottom" secondItem="RUy-ho-39x" secondAttribute="bottom" constant="5" id="OTC-eT-IoI"/>
+                    <constraint firstItem="3U0-Tc-1GV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Scd-Di-g0Z"/>
+                    <constraint firstItem="Ver-7Z-YNQ" firstAttribute="top" secondItem="Rr7-yW-eN9" secondAttribute="bottom" constant="5" id="U7o-uc-bIu"/>
+                    <constraint firstAttribute="trailing" secondItem="3U0-Tc-1GV" secondAttribute="trailing" id="VbP-cC-ufl"/>
+                    <constraint firstItem="3U0-Tc-1GV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="igW-9F-sYr"/>
+                    <constraint firstItem="Ver-7Z-YNQ" firstAttribute="leading" secondItem="RUy-ho-39x" secondAttribute="trailing" constant="10" id="izq-7k-sec"/>
+                    <constraint firstItem="Rr7-yW-eN9" firstAttribute="leading" secondItem="RUy-ho-39x" secondAttribute="leading" id="pIw-le-bE8"/>
+                    <constraint firstItem="Rr7-yW-eN9" firstAttribute="top" secondItem="3U0-Tc-1GV" secondAttribute="bottom" constant="5" id="qhe-8K-t6X"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="meetImage" destination="3U0-Tc-1GV" id="7h4-uR-sJ5"/>
+                <outlet property="meetName" destination="Rr7-yW-eN9" id="SOe-JD-cdI"/>
+                <outlet property="meetTime" destination="Ver-7Z-YNQ" id="vXu-es-HPC"/>
+            </connections>
+            <point key="canvasLocation" x="27" y="106"/>
+        </tableViewCell>
+    </objects>
+</document>

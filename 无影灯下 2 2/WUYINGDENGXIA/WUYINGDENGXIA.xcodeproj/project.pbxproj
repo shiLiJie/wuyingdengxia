@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0423C3E420070F6F005E3F9D /* PastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423C3E220070F6F005E3F9D /* PastViewController.m */; };
+		0423C3E520070F6F005E3F9D /* PastViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0423C3E320070F6F005E3F9D /* PastViewController.xib */; };
+		0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423C3E9200711E6005E3F9D /* MeetingNewCell.m */; };
+		0423C3EC200711E6005E3F9D /* MeetingNewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0423C3EA200711E6005E3F9D /* MeetingNewCell.xib */; };
+		0423C3F520073D7F005E3F9D /* MeetDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423C3F320073D7F005E3F9D /* MeetDetailViewController.m */; };
+		0423C3F620073D7F005E3F9D /* MeetDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0423C3F420073D7F005E3F9D /* MeetDetailViewController.xib */; };
 		042F7D3620033BB7005138C0 /* UIColor+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 042F7D3420033BB7005138C0 /* UIColor+Tools.m */; };
 		042F7D3A200344F9005138C0 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042F7D37200344F9005138C0 /* DetailTableViewController.m */; };
 		042F7D3B200344F9005138C0 /* DetailTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042F7D38200344F9005138C0 /* DetailTableViewController.xib */; };
@@ -17,6 +23,10 @@
 		04372A681FFDDD9500D0762C /* SearchBarEffectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04372A661FFDDD9400D0762C /* SearchBarEffectController.m */; };
 		04372A6F1FFE1E6A00D0762C /* HW3DBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04372A6B1FFE1E6A00D0762C /* HW3DBannerView.m */; };
 		04372A701FFE1E6A00D0762C /* UIView+Banner.m in Sources */ = {isa = PBXBuildFile; fileRef = 04372A6E1FFE1E6A00D0762C /* UIView+Banner.m */; };
+		0445223F200762BC006DEA70 /* PassMeetTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445223D200762BC006DEA70 /* PassMeetTableCell.m */; };
+		04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445223E200762BC006DEA70 /* PassMeetTableCell.xib */; };
+		0445224420076300006DEA70 /* PassMeetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445224220076300006DEA70 /* PassMeetViewController.m */; };
+		0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445224320076300006DEA70 /* PassMeetViewController.xib */; };
 		045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045781201FFF619D0098D6FC /* DetailTableViewCell.m */; };
 		045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045781211FFF619D0098D6FC /* DetailTableViewCell.xib */; };
 		046653832005AD870051B276 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046653822005AD870051B276 /* CommentViewController.m */; };
@@ -108,6 +118,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0423C3E120070F6F005E3F9D /* PastViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PastViewController.h; sourceTree = "<group>"; };
+		0423C3E220070F6F005E3F9D /* PastViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PastViewController.m; sourceTree = "<group>"; };
+		0423C3E320070F6F005E3F9D /* PastViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PastViewController.xib; sourceTree = "<group>"; };
+		0423C3E8200711E6005E3F9D /* MeetingNewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetingNewCell.h; sourceTree = "<group>"; };
+		0423C3E9200711E6005E3F9D /* MeetingNewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetingNewCell.m; sourceTree = "<group>"; };
+		0423C3EA200711E6005E3F9D /* MeetingNewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetingNewCell.xib; sourceTree = "<group>"; };
+		0423C3F220073D7F005E3F9D /* MeetDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetDetailViewController.h; sourceTree = "<group>"; };
+		0423C3F320073D7F005E3F9D /* MeetDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetDetailViewController.m; sourceTree = "<group>"; };
+		0423C3F420073D7F005E3F9D /* MeetDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetDetailViewController.xib; sourceTree = "<group>"; };
 		042F7D3420033BB7005138C0 /* UIColor+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tools.m"; sourceTree = "<group>"; };
 		042F7D3520033BB7005138C0 /* UIColor+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Tools.h"; sourceTree = "<group>"; };
 		042F7D37200344F9005138C0 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
@@ -128,6 +147,12 @@
 		04372A6C1FFE1E6A00D0762C /* HW3DBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HW3DBannerView.h; sourceTree = "<group>"; };
 		04372A6D1FFE1E6A00D0762C /* UIView+Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Banner.h"; sourceTree = "<group>"; };
 		04372A6E1FFE1E6A00D0762C /* UIView+Banner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Banner.m"; sourceTree = "<group>"; };
+		0445223C200762BC006DEA70 /* PassMeetTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassMeetTableCell.h; sourceTree = "<group>"; };
+		0445223D200762BC006DEA70 /* PassMeetTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassMeetTableCell.m; sourceTree = "<group>"; };
+		0445223E200762BC006DEA70 /* PassMeetTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassMeetTableCell.xib; sourceTree = "<group>"; };
+		0445224120076300006DEA70 /* PassMeetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassMeetViewController.h; sourceTree = "<group>"; };
+		0445224220076300006DEA70 /* PassMeetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassMeetViewController.m; sourceTree = "<group>"; };
+		0445224320076300006DEA70 /* PassMeetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassMeetViewController.xib; sourceTree = "<group>"; };
 		0457811F1FFF619D0098D6FC /* DetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
 		045781201FFF619D0098D6FC /* DetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewCell.m; sourceTree = "<group>"; };
 		045781211FFF619D0098D6FC /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
@@ -293,6 +318,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0423C3E6200711B0005E3F9D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0423C3E8200711E6005E3F9D /* MeetingNewCell.h */,
+				0423C3E9200711E6005E3F9D /* MeetingNewCell.m */,
+				0423C3EA200711E6005E3F9D /* MeetingNewCell.xib */,
+				0445223C200762BC006DEA70 /* PassMeetTableCell.h */,
+				0445223D200762BC006DEA70 /* PassMeetTableCell.m */,
+				0445223E200762BC006DEA70 /* PassMeetTableCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0423C3E7200711C1005E3F9D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				047E96E11FFCC4800062F1E1 /* TrainViewController.h */,
+				047E96E21FFCC4800062F1E1 /* TrainViewController.m */,
+				047E96E31FFCC4800062F1E1 /* TrainViewController.xib */,
+				046653C32006051D0051B276 /* MeetingNewViewController.h */,
+				046653C42006051D0051B276 /* MeetingNewViewController.m */,
+				046653C52006051D0051B276 /* MeetingNewViewController.xib */,
+				0423C3E120070F6F005E3F9D /* PastViewController.h */,
+				0423C3E220070F6F005E3F9D /* PastViewController.m */,
+				0423C3E320070F6F005E3F9D /* PastViewController.xib */,
+				0423C3F220073D7F005E3F9D /* MeetDetailViewController.h */,
+				0423C3F320073D7F005E3F9D /* MeetDetailViewController.m */,
+				0423C3F420073D7F005E3F9D /* MeetDetailViewController.xib */,
+				0445224120076300006DEA70 /* PassMeetViewController.h */,
+				0445224220076300006DEA70 /* PassMeetViewController.m */,
+				0445224320076300006DEA70 /* PassMeetViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		04372A691FFE1E4800D0762C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,12 +738,8 @@
 		047E96DA1FFCC4230062F1E1 /* TrainVC */ = {
 			isa = PBXGroup;
 			children = (
-				047E96E11FFCC4800062F1E1 /* TrainViewController.h */,
-				047E96E21FFCC4800062F1E1 /* TrainViewController.m */,
-				047E96E31FFCC4800062F1E1 /* TrainViewController.xib */,
-				046653C32006051D0051B276 /* MeetingNewViewController.h */,
-				046653C42006051D0051B276 /* MeetingNewViewController.m */,
-				046653C52006051D0051B276 /* MeetingNewViewController.xib */,
+				0423C3E7200711C1005E3F9D /* Controller */,
+				0423C3E6200711B0005E3F9D /* View */,
 			);
 			path = TrainVC;
 			sourceTree = "<group>";
@@ -877,15 +933,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */,
 				047E96EB1FFCC4C00062F1E1 /* InforViewController.xib in Resources */,
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,
 				047E96471FFCC1370062F1E1 /* HeadlineViewController.xib in Resources */,
+				0423C3F620073D7F005E3F9D /* MeetDetailViewController.xib in Resources */,
 				0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */,
 				047E96F11FFCC4DC0062F1E1 /* MyViewController.xib in Resources */,
 				047E96E51FFCC4800062F1E1 /* TrainViewController.xib in Resources */,
 				042F7D3B200344F9005138C0 /* DetailTableViewController.xib in Resources */,
 				046653C72006051D0051B276 /* MeetingNewViewController.xib in Resources */,
 				047E96181FFCBDEF0062F1E1 /* Assets.xcassets in Resources */,
+				0423C3E520070F6F005E3F9D /* PastViewController.xib in Resources */,
+				0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */,
+				0423C3EC200711E6005E3F9D /* MeetingNewCell.xib in Resources */,
 				045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */,
 				048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */,
 				047E96D61FFCC2C30062F1E1 /* MBProgressHUD.bundle in Resources */,
@@ -1010,11 +1071,14 @@
 				047E96A91FFCC2870062F1E1 /* UIImage+Vector.m in Sources */,
 				042F7D4520036E5A005138C0 /* MDFlipCollectionView.m in Sources */,
 				047E96591FFCC1670062F1E1 /* PlusButton.m in Sources */,
+				0445224420076300006DEA70 /* PassMeetViewController.m in Sources */,
+				0423C3E420070F6F005E3F9D /* PastViewController.m in Sources */,
 				047E96A41FFCC2870062F1E1 /* UIImage+PDF.m in Sources */,
 				047E96F01FFCC4DC0062F1E1 /* MyViewController.m in Sources */,
 				047E96671FFCC2050062F1E1 /* HttpRequest.m in Sources */,
 				047E96AC1FFCC2870062F1E1 /* UIImage+Capture.m in Sources */,
 				04372A701FFE1E6A00D0762C /* UIView+Banner.m in Sources */,
+				0423C3F520073D7F005E3F9D /* MeetDetailViewController.m in Sources */,
 				042F7D4720036E5A005138C0 /* MDMultipleSegmentLayout.m in Sources */,
 				047E964C1FFCC14F0062F1E1 /* BaseViewController.m in Sources */,
 				047E96A01FFCC2870062F1E1 /* UIImage+Alpha.m in Sources */,
@@ -1027,6 +1091,7 @@
 				047E96A81FFCC2870062F1E1 /* UIImage+Resize.m in Sources */,
 				047E969E1FFCC2870062F1E1 /* UIImage+RoundedCorner.m in Sources */,
 				046653C62006051D0051B276 /* MeetingNewViewController.m in Sources */,
+				0445223F200762BC006DEA70 /* PassMeetTableCell.m in Sources */,
 				046653882005C63F0051B276 /* PersonViewController.m in Sources */,
 				047E96AF1FFCC28D0062F1E1 /* UINavigationBar+Awesome.m in Sources */,
 				0466538E2005F6330051B276 /* PublicPageViewController.m in Sources */,
@@ -1044,6 +1109,7 @@
 				046653832005AD870051B276 /* CommentViewController.m in Sources */,
 				04372A6F1FFE1E6A00D0762C /* HW3DBannerView.m in Sources */,
 				047E96A21FFCC2870062F1E1 /* UIImage+Orientation.m in Sources */,
+				0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */,
 				047E96D11FFCC29D0062F1E1 /* UIImage+XHLaunchAd.m in Sources */,
 				048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */,
 				045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */,
