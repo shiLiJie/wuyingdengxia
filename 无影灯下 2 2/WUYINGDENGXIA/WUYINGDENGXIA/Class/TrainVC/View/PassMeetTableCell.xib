@@ -6,21 +6,88 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="98" id="KGk-i7-Jjw" customClass="PassMeetTableCell">
-            <rect key="frame" x="0.0" y="0.0" width="542" height="98"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="145" id="KGk-i7-Jjw" customClass="PassMeetTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="542" height="145"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="542" height="97.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="542" height="144.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tZK-wR-2Gh">
+                        <rect key="frame" x="10" y="15" width="189.5" height="119.5"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手术器械在手术中的使用教程" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWi-hO-uRO">
+                        <rect key="frame" x="204.5" y="15" width="317.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主讲:主讲人名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GU4-tw-0d1">
+                        <rect key="frame" x="204.5" y="41" width="104" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点赞数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEF-on-QGP">
+                        <rect key="frame" x="446.5" y="129.5" width="81" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="播放数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPv-zT-alB">
+                        <rect key="frame" x="284.5" y="130" width="81" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MwU-PA-dEl">
+                        <rect key="frame" x="365.5" y="130" width="81" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GU4-tw-0d1" firstAttribute="top" secondItem="JWi-hO-uRO" secondAttribute="bottom" constant="5" id="1sW-fD-opy"/>
+                    <constraint firstItem="tZK-wR-2Gh" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.35" id="3Hl-Kc-KdJ"/>
+                    <constraint firstAttribute="bottom" secondItem="sPv-zT-alB" secondAttribute="bottom" id="6d4-kA-4Rv"/>
+                    <constraint firstItem="MwU-PA-dEl" firstAttribute="height" secondItem="sPv-zT-alB" secondAttribute="height" id="9LT-jP-QHO"/>
+                    <constraint firstItem="GEF-on-QGP" firstAttribute="centerY" secondItem="MwU-PA-dEl" secondAttribute="centerY" id="I3M-1S-o1J"/>
+                    <constraint firstAttribute="bottom" secondItem="tZK-wR-2Gh" secondAttribute="bottom" constant="10" id="Ir3-Al-Ohg"/>
+                    <constraint firstItem="MwU-PA-dEl" firstAttribute="width" secondItem="sPv-zT-alB" secondAttribute="width" id="JAe-hR-t5i"/>
+                    <constraint firstItem="sPv-zT-alB" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="1.2" id="Lro-Rx-dpT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JWi-hO-uRO" secondAttribute="trailing" id="MJY-0Y-xCB"/>
+                    <constraint firstItem="tZK-wR-2Gh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="RIH-9z-tdF"/>
+                    <constraint firstItem="GU4-tw-0d1" firstAttribute="leading" secondItem="JWi-hO-uRO" secondAttribute="leading" id="V9Z-MO-RfW"/>
+                    <constraint firstItem="MwU-PA-dEl" firstAttribute="centerY" secondItem="sPv-zT-alB" secondAttribute="centerY" id="Ypa-0x-R4w"/>
+                    <constraint firstItem="JWi-hO-uRO" firstAttribute="leading" secondItem="tZK-wR-2Gh" secondAttribute="trailing" constant="5" id="dpr-Us-sGN"/>
+                    <constraint firstItem="tZK-wR-2Gh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="h2c-Ao-67x"/>
+                    <constraint firstItem="JWi-hO-uRO" firstAttribute="top" secondItem="tZK-wR-2Gh" secondAttribute="top" id="hWl-a2-r8G"/>
+                    <constraint firstItem="GEF-on-QGP" firstAttribute="width" secondItem="MwU-PA-dEl" secondAttribute="width" id="jma-vm-yT1"/>
+                    <constraint firstItem="MwU-PA-dEl" firstAttribute="leading" secondItem="sPv-zT-alB" secondAttribute="trailing" id="lGE-T5-f9L"/>
+                    <constraint firstItem="GEF-on-QGP" firstAttribute="leading" secondItem="MwU-PA-dEl" secondAttribute="trailing" id="nKN-4f-FWW"/>
+                    <constraint firstItem="GEF-on-QGP" firstAttribute="height" secondItem="MwU-PA-dEl" secondAttribute="height" id="t6D-06-lNR"/>
+                    <constraint firstItem="sPv-zT-alB" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.15" id="uT6-d6-wck"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
-            <point key="canvasLocation" x="-68" y="118"/>
+            <connections>
+                <outlet property="goodNum" destination="GEF-on-QGP" id="QRY-ah-2Bd"/>
+                <outlet property="playNum" destination="sPv-zT-alB" id="kej-jG-4S4"/>
+                <outlet property="talkNum" destination="MwU-PA-dEl" id="XFH-Nf-z48"/>
+                <outlet property="videoImage" destination="tZK-wR-2Gh" id="hbS-Wf-VMX"/>
+                <outlet property="videoName" destination="JWi-hO-uRO" id="cmL-ue-4b1"/>
+                <outlet property="videoPerson" destination="GU4-tw-0d1" id="sj4-xN-yqU"/>
+            </connections>
+            <point key="canvasLocation" x="-339" y="38"/>
         </tableViewCell>
     </objects>
 </document>

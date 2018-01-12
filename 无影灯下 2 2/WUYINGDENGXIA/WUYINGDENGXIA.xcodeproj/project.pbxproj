@@ -97,6 +97,8 @@
 		048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFDB2004759200C6510B /* ZZNewsSheetConfig.m */; };
 		048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFE22004A5D100C6510B /* PageDetailViewController.m */; };
 		048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048EEFE32004A5D100C6510B /* PageDetailViewController.xib */; };
+		04C45C072008992100B188F9 /* PlayDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C45C052008992100B188F9 /* PlayDetailViewController.m */; };
+		04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C45C062008992100B188F9 /* PlayDetailViewController.xib */; };
 		99026D2A15BB502A7E5EBEE0 /* Pods_WUYINGDENGXIA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */; };
 /* End PBXBuildFile section */
 
@@ -287,6 +289,9 @@
 		048EEFE12004A5D100C6510B /* PageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageDetailViewController.h; sourceTree = "<group>"; };
 		048EEFE22004A5D100C6510B /* PageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageDetailViewController.m; sourceTree = "<group>"; };
 		048EEFE32004A5D100C6510B /* PageDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageDetailViewController.xib; sourceTree = "<group>"; };
+		04C45C042008992100B188F9 /* PlayDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayDetailViewController.h; sourceTree = "<group>"; };
+		04C45C052008992100B188F9 /* PlayDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayDetailViewController.m; sourceTree = "<group>"; };
+		04C45C062008992100B188F9 /* PlayDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayDetailViewController.xib; sourceTree = "<group>"; };
 		1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WUYINGDENGXIA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DEB56FF3770F67287BFA43 /* Pods-WUYINGDENGXIA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.release.xcconfig"; sourceTree = "<group>"; };
 		D59E5D584A9C7A9F934CEE87 /* Pods-WUYINGDENGXIA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.debug.xcconfig"; sourceTree = "<group>"; };
@@ -349,6 +354,9 @@
 				0445224120076300006DEA70 /* PassMeetViewController.h */,
 				0445224220076300006DEA70 /* PassMeetViewController.m */,
 				0445224320076300006DEA70 /* PassMeetViewController.xib */,
+				04C45C042008992100B188F9 /* PlayDetailViewController.h */,
+				04C45C052008992100B188F9 /* PlayDetailViewController.m */,
+				04C45C062008992100B188F9 /* PlayDetailViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -938,6 +946,7 @@
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,
 				047E96471FFCC1370062F1E1 /* HeadlineViewController.xib in Resources */,
 				0423C3F620073D7F005E3F9D /* MeetDetailViewController.xib in Resources */,
+				04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */,
 				0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */,
 				047E96F11FFCC4DC0062F1E1 /* MyViewController.xib in Resources */,
 				047E96E51FFCC4800062F1E1 /* TrainViewController.xib in Resources */,
@@ -1085,6 +1094,7 @@
 				047E96D01FFCC29D0062F1E1 /* XHLaunchAdDownload.m in Sources */,
 				042F7D4420036E5A005138C0 /* MDMultipleSegmentView.m in Sources */,
 				047E96D31FFCC29D0062F1E1 /* NSString+XHLaunchAd.m in Sources */,
+				04C45C072008992100B188F9 /* PlayDetailViewController.m in Sources */,
 				047E96701FFCC2130062F1E1 /* UserTool.m in Sources */,
 				047E96D91FFCC2DB0062F1E1 /* AppDelegate+YCLaunchAd.m in Sources */,
 				047E96641FFCC1FD0062F1E1 /* Reachability.m in Sources */,

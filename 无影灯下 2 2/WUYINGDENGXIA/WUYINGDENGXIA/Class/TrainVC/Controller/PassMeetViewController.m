@@ -8,6 +8,7 @@
 
 #import "PassMeetViewController.h"
 #import "PassMeetTableCell.h"
+#import "PlayDetailViewController.h"
 
 @interface PassMeetViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
@@ -48,7 +49,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 145;
+    return Main_Screen_Height/6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -69,6 +70,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 //    [self.delegate passTableviewDidSelectPageWithIndex:indexPath];
+    
+    PlayDetailViewController *vc = [[PlayDetailViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 
