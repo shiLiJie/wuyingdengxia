@@ -7,6 +7,7 @@
 //
 
 #import "PlusButton.h"
+#import "QuickQAViewController.h"
 
 @interface PlusButton ()<UIActionSheetDelegate> {
     CGFloat _buttonImageHeight;
@@ -38,15 +39,15 @@
     
     // 控件大小,间距大小
     // 注意：一定要根据项目中的图片去调整下面的0.7和0.9，Demo之所以这么设置，因为demo中的 plusButton 的 icon 不是正方形。
-    CGFloat const imageViewEdgeWidth   = self.bounds.size.width * 0.7;
-    CGFloat const imageViewEdgeHeight  = imageViewEdgeWidth * 0.9;
+    CGFloat const imageViewEdgeWidth   = self.bounds.size.height;
+    CGFloat const imageViewEdgeHeight  = imageViewEdgeWidth;
     
     CGFloat const centerOfView    = self.bounds.size.width * 0.5;
     CGFloat const labelLineHeight = self.titleLabel.font.lineHeight;
     CGFloat const verticalMargin  = (self.bounds.size.height - labelLineHeight - imageViewEdgeHeight) * 0.5;
     
     // imageView 和 titleLabel 中心的 Y 值
-    CGFloat const centerOfImageView  = verticalMargin + imageViewEdgeHeight * 0.5;
+    CGFloat const centerOfImageView  = imageViewEdgeHeight * 0.5;
     CGFloat const centerOfTitleLabel = imageViewEdgeHeight  + verticalMargin * 2 + labelLineHeight * 0.5 + 10;
     
     //imageView position 位置
@@ -68,8 +69,9 @@
  */
 + (id)plusButton {
     PlusButton *button = [[PlusButton alloc] init];
-    UIImage *buttonImage = [UIImage imageNamed:@"post_normal"];
+    UIImage *buttonImage = GetImage(@"Snip20180115_1");
     [button setImage:buttonImage forState:UIControlStateNormal];
+//    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
 //    [button setTitle:@"发布" forState:UIControlStateNormal];
 //    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
 //
@@ -79,9 +81,9 @@
     button.titleLabel.font = [UIFont systemFontOfSize:9.5];
     [button sizeToFit];
     if (kDevice_Is_iPhoneX) {
-        button.frame = CGRectMake(0.0, 0.0, 83, 83);
+        button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 83);
     }else{
-        button.frame = CGRectMake(0.0, 0.0, 49, 49);
+        button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 49);
     }
     
     button.backgroundColor = [UIColor redColor];
@@ -115,16 +117,24 @@
 #pragma mark -
 #pragma mark - Event Response
 
-- (void)clickPublish {
-    CYLTabBarController *tabBarController = [self cyl_tabBarController];
-    UIViewController *viewController = tabBarController.selectedViewController;
++ (UIViewController *)plusChildViewController{
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:nil
-                                                    cancelButtonTitle:@"取消"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"拍照", @"从相册选取", @"淘宝一键转卖", nil];
-    [actionSheet showInView:viewController.view];
+    QuickQAViewController *vc = [[QuickQAViewController alloc] init];
+    return vc;
+    
+}
+
+- (void)clickPublish {
+    
+    [self setImage:GetImage(@"") forState:UIControlStateNormal];
+    self.backgroundColor = [UIColor greenColor];
+    
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+//                                                             delegate:nil
+//                                                    cancelButtonTitle:@"取消"
+//                                               destructiveButtonTitle:nil
+//                                                    otherButtonTitles:@"拍照", @"从相册选取", @"淘宝一键转卖", nil];
+//    [actionSheet showInView:viewController.view];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -143,11 +153,19 @@
 //                                                   initWithRootViewController:plusChildViewController];
 //    return plusChildNavigationController;
 //}
-//
-//+ (NSUInteger)indexOfPlusButtonInTabBar {
-//    return 4;
-//}
-//
+
++ (NSUInteger)indexOfPlusButtonInTabBar {
+    
+//    PlusButton *button = [[PlusButton alloc] init];
+//    button.frame = CGRectMake(2 * CYLTabBarItemWidth,
+//                                       CGRectGetMinY(button.frame),
+//                                       CGRectGetWidth(button.frame),
+//                                       CGRectGetHeight(button.frame)
+//                                       );
+    
+    return 2;
+}
+
 //+ (BOOL)shouldSelectPlusChildViewController {
 //    BOOL isSelected = CYLExternPlusButton.selected;
 //    if (isSelected) {

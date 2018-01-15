@@ -412,6 +412,9 @@ static void * const CYLTabImageViewDefaultOffsetContext = (void*)&CYLTabImageVie
     BOOL shouldConfigureSelectionStatus = (hasPlusChildViewController && isNotCurrentViewController);
     if (shouldConfigureSelectionStatus) {
         plusButton.selected = NO;
+#pragma mark - 设置选中其他控制器,中间按钮变换 -
+        //设置选中其他控制器,中间按钮变换
+        plusButton.backgroundColor = [UIColor redColor];
     }
 }
 
@@ -431,6 +434,7 @@ static void * const CYLTabImageViewDefaultOffsetContext = (void*)&CYLTabImageVie
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectControl:(UIControl *)control {
+    
 }
 
 - (void)didSelectControl:(UIControl *)control {

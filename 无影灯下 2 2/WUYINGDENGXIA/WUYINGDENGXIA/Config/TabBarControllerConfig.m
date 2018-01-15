@@ -8,15 +8,21 @@
 
 #import "TabBarControllerConfig.h"
 #import "LJNavigationController.h"
+#import "QuickQAViewController.h"
 
 
-@interface TabBarControllerConfig()
+@interface TabBarControllerConfig()<CYLTabBarControllerDelegate>
 
 @property (nonatomic, readwrite, strong) CYLTabBarController *tabBarController;
 
 @end
 
 @implementation TabBarControllerConfig
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectControl:(UIControl *)control{
+    
+    
+}
 
 /**
  *  lazy load tabBarController
@@ -29,6 +35,7 @@
         CYLTabBarController *tabBarController = [CYLTabBarController tabBarControllerWithViewControllers:self.viewControllers tabBarItemsAttributes:self.tabBarItemsAttributesForController];
         [self customizeTabBarAppearance:tabBarController];
         _tabBarController = tabBarController;
+        
     }
     return _tabBarController;
 }
@@ -40,16 +47,22 @@
 
     TrainViewController *secondViewController = [[TrainViewController alloc]init];
     LJNavigationController *secondNavigationController = [[LJNavigationController alloc]initWithRootViewController:secondViewController];
+    
+//    QuickQAViewController *fourViewController1 = [[QuickQAViewController alloc]init];
+//    LJNavigationController *fourNavigationController1 = [[LJNavigationController alloc]initWithRootViewController:fourViewController1];
 
     InforViewController *thirdViewController = [[InforViewController alloc]init];
     LJNavigationController *thirdNavigationController = [[LJNavigationController alloc]initWithRootViewController:thirdViewController];
     
     MyViewController *fourViewController = [[MyViewController alloc]init];
     LJNavigationController *fourNavigationController = [[LJNavigationController alloc]initWithRootViewController:fourViewController];
+    
+
 
     
     NSArray *viewControllers = @[firstNavigationController,
                                  secondNavigationController,
+//                                 fourNavigationController1,
                                  thirdNavigationController,
                                  fourNavigationController];
     
@@ -69,21 +82,30 @@
                                                   CYLTabBarItemImage : @"MusicList-ico",
                                                   CYLTabBarItemSelectedImage : @"musiclist-y",
                                                   };
+//    NSDictionary *fourTabBarItemsAttributes1 = @{
+//                                                 CYLTabBarItemTitle : @"",
+//                                                 CYLTabBarItemImage : @"",
+//                                                 CYLTabBarItemSelectedImage : @"",
+//                                                 };
     NSDictionary *thirdTabBarItemsAttributes = @{
                                                  CYLTabBarItemTitle : @"消息",
                                                  CYLTabBarItemImage : @"me-ico",
                                                  CYLTabBarItemSelectedImage : @"me-ico-y",
                                                  };
+    
     NSDictionary *fourTabBarItemsAttributes = @{
                                                  CYLTabBarItemTitle : @"我的",
                                                  CYLTabBarItemImage : @"me-ico",
                                                  CYLTabBarItemSelectedImage : @"me-ico-y",
                                                  };
+    
+
 
 
     NSArray *tabBarItemsAttributes = @[
                                        firstTabBarItemsAttributes,
                                        secondTabBarItemsAttributes,
+//                                       fourTabBarItemsAttributes1,
                                        thirdTabBarItemsAttributes,
                                        fourTabBarItemsAttributes
                                        ];

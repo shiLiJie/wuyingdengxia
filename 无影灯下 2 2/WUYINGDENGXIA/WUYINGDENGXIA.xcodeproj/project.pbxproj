@@ -36,6 +36,8 @@
 		0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0466538D2005F6330051B276 /* PublicPageViewController.xib */; };
 		046653C62006051D0051B276 /* MeetingNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046653C42006051D0051B276 /* MeetingNewViewController.m */; };
 		046653C72006051D0051B276 /* MeetingNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046653C52006051D0051B276 /* MeetingNewViewController.xib */; };
+		0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473EBE7200C7C3900D0463C /* QuickQAViewController.m */; };
+		0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */; };
 		047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */; };
 		047E96181FFCBDEF0062F1E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047E96171FFCBDEF0062F1E1 /* Assets.xcassets */; };
 		047E961E1FFCBDEF0062F1E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E961D1FFCBDEF0062F1E1 /* main.m */; };
@@ -169,6 +171,9 @@
 		046653C32006051D0051B276 /* MeetingNewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetingNewViewController.h; sourceTree = "<group>"; };
 		046653C42006051D0051B276 /* MeetingNewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetingNewViewController.m; sourceTree = "<group>"; };
 		046653C52006051D0051B276 /* MeetingNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetingNewViewController.xib; sourceTree = "<group>"; };
+		0473EBE6200C7C3900D0463C /* QuickQAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickQAViewController.h; sourceTree = "<group>"; };
+		0473EBE7200C7C3900D0463C /* QuickQAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickQAViewController.m; sourceTree = "<group>"; };
+		0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickQAViewController.xib; sourceTree = "<group>"; };
 		047E960B1FFCBDEF0062F1E1 /* WUYINGDENGXIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WUYINGDENGXIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		047E960E1FFCBDEF0062F1E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -454,6 +459,32 @@
 			path = publicPage;
 			sourceTree = "<group>";
 		};
+		0473EBE3200C7BFC00D0463C /* QuickQAVC */ = {
+			isa = PBXGroup;
+			children = (
+				0473EBE5200C7C2000D0463C /* Controller */,
+				0473EBE4200C7C0B00D0463C /* View */,
+			);
+			path = QuickQAVC;
+			sourceTree = "<group>";
+		};
+		0473EBE4200C7C0B00D0463C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0473EBE5200C7C2000D0463C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0473EBE6200C7C3900D0463C /* QuickQAViewController.h */,
+				0473EBE7200C7C3900D0463C /* QuickQAViewController.m */,
+				0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		047E96021FFCBDEF0062F1E1 = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +551,7 @@
 			children = (
 				047E96421FFCC12F0062F1E1 /* HeadlineVC */,
 				047E96DA1FFCC4230062F1E1 /* TrainVC */,
+				0473EBE3200C7BFC00D0463C /* QuickQAVC */,
 				047E96E61FFCC48E0062F1E1 /* InforVC */,
 				047E96EC1FFCC4CC0062F1E1 /* MyVC */,
 			);
@@ -956,6 +988,7 @@
 				0423C3E520070F6F005E3F9D /* PastViewController.xib in Resources */,
 				0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */,
 				0423C3EC200711E6005E3F9D /* MeetingNewCell.xib in Resources */,
+				0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */,
 				045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */,
 				048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */,
 				047E96D61FFCC2C30062F1E1 /* MBProgressHUD.bundle in Resources */,
@@ -1120,6 +1153,7 @@
 				04372A6F1FFE1E6A00D0762C /* HW3DBannerView.m in Sources */,
 				047E96A21FFCC2870062F1E1 /* UIImage+Orientation.m in Sources */,
 				0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */,
+				0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */,
 				047E96D11FFCC29D0062F1E1 /* UIImage+XHLaunchAd.m in Sources */,
 				048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */,
 				045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */,
