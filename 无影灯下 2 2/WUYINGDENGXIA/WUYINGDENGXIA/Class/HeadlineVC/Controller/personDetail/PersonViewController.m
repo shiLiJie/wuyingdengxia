@@ -7,15 +7,14 @@
 //
 
 #import "PersonViewController.h"
-#import "DetailTableViewController.h"
+#import "PersonDetailVC.h"
 #import "MDMultipleSegmentView.h"
 #import "MDFlipCollectionView.h"
 
 #define segViewHigh     44
 
 @interface PersonViewController ()<MDMultipleSegmentViewDeletegate,
-                                    MDFlipCollectionViewDelegate,
-                                    JohnScrollViewDelegate>
+                                    MDFlipCollectionViewDelegate>
 {
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
@@ -64,11 +63,10 @@
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
     _segView.frame = CGRectMake(0,CGRectGetMaxY(self.backView.frame), Main_Screen_Width, segViewHigh);
-    _segView.items = @[@"发表",@"提问", @"制回答"];
+    _segView.items = @[@"发表",@"提问"];
     [self.view addSubview:_segView];
     
     NSArray *arr = @[
-                     [self tablecontroller],
                      [self tablecontroller],
                      [self tablecontroller]
                      ];
@@ -76,7 +74,7 @@
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
                                                                           CGRectGetMaxY(_segView.frame),
                                                                           Main_Screen_Width,
-                                                                          Main_Screen_Height - 75)
+                                                                          Main_Screen_Height - Main_Screen_Height*0.168)
                                                      withArray:arr];
     _collectView.delegate = self;
     [self.view addSubview:_collectView];
@@ -92,22 +90,34 @@
 }
 
 #pragma mark - 私有action -
--(DetailTableViewController *)tablecontroller{
-    DetailTableViewController *vc = [[DetailTableViewController alloc] init];
-    vc.delegate = self;
+-(PersonDetailVC *)tablecontroller{
+    PersonDetailVC *vc = [[PersonDetailVC alloc] init];
+//    vc.delegate = self;
 
     return vc;
+}
+
+//监听点击table点击的索引
+-(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+    
 }
 
 #pragma mark - segement代理方法 -
 - (void)changeSegmentAtIndex:(NSInteger)index
 {
     [_collectView selectIndex:index];
+    
+    NSDictionary *dict = @{@"index":[NSString stringWithFormat:@"%ld",(long)index]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PAGEORANSWERCHANGE" object:nil userInfo:dict];
+
 }
 
 - (void)flipToIndex:(NSInteger)index
 {
     [_segView selectIndex:index];
+    
+    NSDictionary *dict = @{@"index":[NSString stringWithFormat:@"%ld",(long)index]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PAGEORANSWERCHANGE" object:nil userInfo:dict];
 }
 
 

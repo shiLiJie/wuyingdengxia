@@ -101,6 +101,16 @@
 		048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048EEFE32004A5D100C6510B /* PageDetailViewController.xib */; };
 		04C45C072008992100B188F9 /* PlayDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C45C052008992100B188F9 /* PlayDetailViewController.m */; };
 		04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C45C062008992100B188F9 /* PlayDetailViewController.xib */; };
+		04E1BDC7200DD0BA00BC9CE5 /* QATableVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */; };
+		04E1BDC8200DD0BA00BC9CE5 /* QATableVIewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1BDC6200DD0BA00BC9CE5 /* QATableVIewController.xib */; };
+		04E1BDCC200DD32400BC9CE5 /* QATableVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDCA200DD32400BC9CE5 /* QATableVIewCell.m */; };
+		04E1BDCD200DD32400BC9CE5 /* QATableVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1BDCB200DD32400BC9CE5 /* QATableVIewCell.xib */; };
+		04E1BDD1200DE8CF00BC9CE5 /* PersonDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDCF200DE8CF00BC9CE5 /* PersonDetailVC.m */; };
+		04E1BDD2200DE8CF00BC9CE5 /* PersonDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1BDD0200DE8CF00BC9CE5 /* PersonDetailVC.xib */; };
+		04E1BDD6200DF32700BC9CE5 /* PageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDD4200DF32700BC9CE5 /* PageTableViewCell.m */; };
+		04E1BDD7200DF32700BC9CE5 /* PageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1BDD5200DF32700BC9CE5 /* PageTableViewCell.xib */; };
+		04E1BDDB200DF33800BC9CE5 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDD9200DF33800BC9CE5 /* AnswerTableViewCell.m */; };
+		04E1BDDC200DF33800BC9CE5 /* AnswerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1BDDA200DF33800BC9CE5 /* AnswerTableViewCell.xib */; };
 		99026D2A15BB502A7E5EBEE0 /* Pods_WUYINGDENGXIA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */; };
 /* End PBXBuildFile section */
 
@@ -297,6 +307,21 @@
 		04C45C042008992100B188F9 /* PlayDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayDetailViewController.h; sourceTree = "<group>"; };
 		04C45C052008992100B188F9 /* PlayDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayDetailViewController.m; sourceTree = "<group>"; };
 		04C45C062008992100B188F9 /* PlayDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayDetailViewController.xib; sourceTree = "<group>"; };
+		04E1BDC4200DD0BA00BC9CE5 /* QATableVIewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATableVIewController.h; sourceTree = "<group>"; };
+		04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATableVIewController.m; sourceTree = "<group>"; };
+		04E1BDC6200DD0BA00BC9CE5 /* QATableVIewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QATableVIewController.xib; sourceTree = "<group>"; };
+		04E1BDC9200DD32400BC9CE5 /* QATableVIewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATableVIewCell.h; sourceTree = "<group>"; };
+		04E1BDCA200DD32400BC9CE5 /* QATableVIewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATableVIewCell.m; sourceTree = "<group>"; };
+		04E1BDCB200DD32400BC9CE5 /* QATableVIewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QATableVIewCell.xib; sourceTree = "<group>"; };
+		04E1BDCE200DE8CF00BC9CE5 /* PersonDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonDetailVC.h; sourceTree = "<group>"; };
+		04E1BDCF200DE8CF00BC9CE5 /* PersonDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonDetailVC.m; sourceTree = "<group>"; };
+		04E1BDD0200DE8CF00BC9CE5 /* PersonDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonDetailVC.xib; sourceTree = "<group>"; };
+		04E1BDD3200DF32700BC9CE5 /* PageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageTableViewCell.h; sourceTree = "<group>"; };
+		04E1BDD4200DF32700BC9CE5 /* PageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageTableViewCell.m; sourceTree = "<group>"; };
+		04E1BDD5200DF32700BC9CE5 /* PageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageTableViewCell.xib; sourceTree = "<group>"; };
+		04E1BDD8200DF33800BC9CE5 /* AnswerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerTableViewCell.h; sourceTree = "<group>"; };
+		04E1BDD9200DF33800BC9CE5 /* AnswerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerTableViewCell.m; sourceTree = "<group>"; };
+		04E1BDDA200DF33800BC9CE5 /* AnswerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerTableViewCell.xib; sourceTree = "<group>"; };
 		1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WUYINGDENGXIA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DEB56FF3770F67287BFA43 /* Pods-WUYINGDENGXIA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.release.xcconfig"; sourceTree = "<group>"; };
 		D59E5D584A9C7A9F934CEE87 /* Pods-WUYINGDENGXIA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.debug.xcconfig"; sourceTree = "<group>"; };
@@ -445,6 +470,15 @@
 				046653852005C63F0051B276 /* PersonViewController.h */,
 				046653862005C63F0051B276 /* PersonViewController.m */,
 				046653872005C63F0051B276 /* PersonViewController.xib */,
+				04E1BDCE200DE8CF00BC9CE5 /* PersonDetailVC.h */,
+				04E1BDCF200DE8CF00BC9CE5 /* PersonDetailVC.m */,
+				04E1BDD0200DE8CF00BC9CE5 /* PersonDetailVC.xib */,
+				04E1BDD3200DF32700BC9CE5 /* PageTableViewCell.h */,
+				04E1BDD4200DF32700BC9CE5 /* PageTableViewCell.m */,
+				04E1BDD5200DF32700BC9CE5 /* PageTableViewCell.xib */,
+				04E1BDD8200DF33800BC9CE5 /* AnswerTableViewCell.h */,
+				04E1BDD9200DF33800BC9CE5 /* AnswerTableViewCell.m */,
+				04E1BDDA200DF33800BC9CE5 /* AnswerTableViewCell.xib */,
 			);
 			path = personDetail;
 			sourceTree = "<group>";
@@ -471,6 +505,12 @@
 		0473EBE4200C7C0B00D0463C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04E1BDC4200DD0BA00BC9CE5 /* QATableVIewController.h */,
+				04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */,
+				04E1BDC6200DD0BA00BC9CE5 /* QATableVIewController.xib */,
+				04E1BDC9200DD32400BC9CE5 /* QATableVIewCell.h */,
+				04E1BDCA200DD32400BC9CE5 /* QATableVIewCell.m */,
+				04E1BDCB200DD32400BC9CE5 /* QATableVIewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -976,10 +1016,13 @@
 				04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */,
 				047E96EB1FFCC4C00062F1E1 /* InforViewController.xib in Resources */,
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,
+				04E1BDDC200DF33800BC9CE5 /* AnswerTableViewCell.xib in Resources */,
 				047E96471FFCC1370062F1E1 /* HeadlineViewController.xib in Resources */,
+				04E1BDD2200DE8CF00BC9CE5 /* PersonDetailVC.xib in Resources */,
 				0423C3F620073D7F005E3F9D /* MeetDetailViewController.xib in Resources */,
 				04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */,
 				0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */,
+				04E1BDCD200DD32400BC9CE5 /* QATableVIewCell.xib in Resources */,
 				047E96F11FFCC4DC0062F1E1 /* MyViewController.xib in Resources */,
 				047E96E51FFCC4800062F1E1 /* TrainViewController.xib in Resources */,
 				042F7D3B200344F9005138C0 /* DetailTableViewController.xib in Resources */,
@@ -988,6 +1031,8 @@
 				0423C3E520070F6F005E3F9D /* PastViewController.xib in Resources */,
 				0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */,
 				0423C3EC200711E6005E3F9D /* MeetingNewCell.xib in Resources */,
+				04E1BDC8200DD0BA00BC9CE5 /* QATableVIewController.xib in Resources */,
+				04E1BDD7200DF32700BC9CE5 /* PageTableViewCell.xib in Resources */,
 				0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */,
 				045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */,
 				048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */,
@@ -1116,6 +1161,7 @@
 				0445224420076300006DEA70 /* PassMeetViewController.m in Sources */,
 				0423C3E420070F6F005E3F9D /* PastViewController.m in Sources */,
 				047E96A41FFCC2870062F1E1 /* UIImage+PDF.m in Sources */,
+				04E1BDD1200DE8CF00BC9CE5 /* PersonDetailVC.m in Sources */,
 				047E96F01FFCC4DC0062F1E1 /* MyViewController.m in Sources */,
 				047E96671FFCC2050062F1E1 /* HttpRequest.m in Sources */,
 				047E96AC1FFCC2870062F1E1 /* UIImage+Capture.m in Sources */,
@@ -1133,8 +1179,10 @@
 				047E96641FFCC1FD0062F1E1 /* Reachability.m in Sources */,
 				047E96A81FFCC2870062F1E1 /* UIImage+Resize.m in Sources */,
 				047E969E1FFCC2870062F1E1 /* UIImage+RoundedCorner.m in Sources */,
+				04E1BDC7200DD0BA00BC9CE5 /* QATableVIewController.m in Sources */,
 				046653C62006051D0051B276 /* MeetingNewViewController.m in Sources */,
 				0445223F200762BC006DEA70 /* PassMeetTableCell.m in Sources */,
+				04E1BDCC200DD32400BC9CE5 /* QATableVIewCell.m in Sources */,
 				046653882005C63F0051B276 /* PersonViewController.m in Sources */,
 				047E96AF1FFCC28D0062F1E1 /* UINavigationBar+Awesome.m in Sources */,
 				0466538E2005F6330051B276 /* PublicPageViewController.m in Sources */,
@@ -1146,6 +1194,7 @@
 				047E966F1FFCC2130062F1E1 /* UserObj.m in Sources */,
 				047E96A31FFCC2870062F1E1 /* UIImage+GIF.m in Sources */,
 				047E96D21FFCC29D0062F1E1 /* XHLaunchAd.m in Sources */,
+				04E1BDDB200DF33800BC9CE5 /* AnswerTableViewCell.m in Sources */,
 				047E96E41FFCC4800062F1E1 /* TrainViewController.m in Sources */,
 				042F7D4620036E5A005138C0 /* MDMultipleSegmentViewCell.m in Sources */,
 				047E969D1FFCC2870062F1E1 /* UIImage+RemoteSize.m in Sources */,
@@ -1155,6 +1204,7 @@
 				0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */,
 				0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */,
 				047E96D11FFCC29D0062F1E1 /* UIImage+XHLaunchAd.m in Sources */,
+				04E1BDD6200DF32700BC9CE5 /* PageTableViewCell.m in Sources */,
 				048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */,
 				045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */,
 				047E969F1FFCC2870062F1E1 /* UIImage+animatedGIF.m in Sources */,

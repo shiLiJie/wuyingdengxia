@@ -8,6 +8,7 @@
 
 #import "PlusButton.h"
 #import "QuickQAViewController.h"
+#import "LJNavigationController.h"
 
 @interface PlusButton ()<UIActionSheetDelegate> {
     CGFloat _buttonImageHeight;
@@ -120,7 +121,8 @@
 + (UIViewController *)plusChildViewController{
     
     QuickQAViewController *vc = [[QuickQAViewController alloc] init];
-    return vc;
+    LJNavigationController *secondNavigationController = [[LJNavigationController alloc]initWithRootViewController:vc];
+    return secondNavigationController;
     
 }
 
