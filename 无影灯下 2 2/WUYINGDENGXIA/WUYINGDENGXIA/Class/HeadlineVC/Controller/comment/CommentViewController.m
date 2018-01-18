@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UITextView *commentView;
 
+
+
 @end
 
 @implementation CommentViewController
@@ -43,6 +45,8 @@
 //导航颜色
 -(UIColor*)set_colorBackground{
     return RGB(247, 247, 247);
+    
+
 }
 
 //右侧按钮设置点击
@@ -53,6 +57,7 @@
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     return btn;
 }
+
 
 -(void)right_button_event:(UIButton*)sender{
     

@@ -26,6 +26,11 @@
     
     [self.view addSubview:self.titleLab];
     [self.view addSubview:self.commentView];
+    
+    UIView *line = [[UIView alloc] init];
+    line.frame = CGRectMake(20, CGRectGetMaxY(self.titleLab.frame), Main_Screen_Width-40, 1);
+    line.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:line];
 }
 
 -(UILabel *)titleLab{
@@ -34,7 +39,7 @@
         _titleLab = [[UILabel alloc] init];
         _titleLab.text = @"问题的大标题";
         _titleLab.font = [UIFont systemFontOfSize:17];
-        _titleLab.frame = CGRectMake(0, 0, Main_Screen_Width, 50);
+        _titleLab.frame = CGRectMake(20, 70, Main_Screen_Width-40, 50);
         _titleLab.numberOfLines = 0;
     }
     return _titleLab;
@@ -44,9 +49,9 @@
     
     if (!_commentView) {
         _commentView = [[UITextView alloc] init];
-        _commentView.frame = CGRectMake(0, CGRectGetMaxY(_titleLab.frame), Main_Screen_Width, Main_Screen_Height/2);
+        _commentView.frame = CGRectMake(0, CGRectGetMaxY(_titleLab.frame)+10, Main_Screen_Width, Main_Screen_Height/3);
         _commentView.delegate = self;
-        _commentView.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
+        _commentView.textContainerInset = UIEdgeInsetsMake(0, 20, 20, 20);
         _commentView.text = @"输入回答内容";
         _commentView.font = [UIFont systemFontOfSize:15];
         _commentView.textColor = [UIColor lightGrayColor];

@@ -104,6 +104,8 @@
 		049C0963200EE8C00057BC5F /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0961200EE8C00057BC5F /* AnswerViewController.m */; };
 		049C0964200EE8C00057BC5F /* AnswerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049C0962200EE8C00057BC5F /* AnswerViewController.xib */; };
 		049C0967200EEA920057BC5F /* JoinAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0966200EEA920057BC5F /* JoinAnswerViewController.m */; };
+		04C10E9F20107BA0003C204D /* QuestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C10E9D20107BA0003C204D /* QuestionsViewController.m */; };
+		04C10EA020107BA0003C204D /* QuestionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C10E9E20107BA0003C204D /* QuestionsViewController.xib */; };
 		04C45C072008992100B188F9 /* PlayDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C45C052008992100B188F9 /* PlayDetailViewController.m */; };
 		04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C45C062008992100B188F9 /* PlayDetailViewController.xib */; };
 		04E1BDC7200DD0BA00BC9CE5 /* QATableVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */; };
@@ -317,6 +319,9 @@
 		049C0962200EE8C00057BC5F /* AnswerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerViewController.xib; sourceTree = "<group>"; };
 		049C0965200EEA920057BC5F /* JoinAnswerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JoinAnswerViewController.h; sourceTree = "<group>"; };
 		049C0966200EEA920057BC5F /* JoinAnswerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JoinAnswerViewController.m; sourceTree = "<group>"; };
+		04C10E9C20107BA0003C204D /* QuestionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionsViewController.h; sourceTree = "<group>"; };
+		04C10E9D20107BA0003C204D /* QuestionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionsViewController.m; sourceTree = "<group>"; };
+		04C10E9E20107BA0003C204D /* QuestionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionsViewController.xib; sourceTree = "<group>"; };
 		04C45C042008992100B188F9 /* PlayDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayDetailViewController.h; sourceTree = "<group>"; };
 		04C45C052008992100B188F9 /* PlayDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayDetailViewController.m; sourceTree = "<group>"; };
 		04C45C062008992100B188F9 /* PlayDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayDetailViewController.xib; sourceTree = "<group>"; };
@@ -541,6 +546,9 @@
 				049C0962200EE8C00057BC5F /* AnswerViewController.xib */,
 				049C0965200EEA920057BC5F /* JoinAnswerViewController.h */,
 				049C0966200EEA920057BC5F /* JoinAnswerViewController.m */,
+				04C10E9C20107BA0003C204D /* QuestionsViewController.h */,
+				04C10E9D20107BA0003C204D /* QuestionsViewController.m */,
+				04C10E9E20107BA0003C204D /* QuestionsViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1058,6 +1066,7 @@
 				04E1BDD7200DF32700BC9CE5 /* PageTableViewCell.xib in Resources */,
 				0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */,
 				045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */,
+				04C10EA020107BA0003C204D /* QuestionsViewController.xib in Resources */,
 				048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */,
 				047E96D61FFCC2C30062F1E1 /* MBProgressHUD.bundle in Resources */,
 			);
@@ -1176,6 +1185,7 @@
 				047E96CD1FFCC29D0062F1E1 /* XHLaunchImageView.m in Sources */,
 				049C0963200EE8C00057BC5F /* AnswerViewController.m in Sources */,
 				047E966A1FFCC20C0062F1E1 /* SLJJudgementString.m in Sources */,
+				04C10E9F20107BA0003C204D /* QuestionsViewController.m in Sources */,
 				048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */,
 				042F7D3620033BB7005138C0 /* UIColor+Tools.m in Sources */,
 				042F7D3A200344F9005138C0 /* DetailTableViewController.m in Sources */,

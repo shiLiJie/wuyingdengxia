@@ -16,6 +16,7 @@
 #import "QATableVIewController.h"
 #import "PersonViewController.h"
 #import "AnswerViewController.h"
+#import "QuestionsViewController.h"
 
 @interface QuickQAViewController ()<SearchBarDelegate,MDMultipleSegmentViewDeletegate,MDFlipCollectionViewDelegate,QATableVIewDelegate>
 {
@@ -138,10 +139,10 @@
 }
 
 #pragma mark - 按钮action -
-//发表文章
+//提问按钮点击
 -(void)right_button_event:(UIButton*)sender{
-//    PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
-//    [self.navigationController pushViewController:publicPage animated:YES];
+    QuestionsViewController *publicPage = [[QuestionsViewController alloc] init];
+    [self.navigationController pushViewController:publicPage animated:YES];
     self.searchBtn.hidden = YES;
 }
 
