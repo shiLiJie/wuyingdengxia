@@ -94,11 +94,16 @@
 		047E96EB1FFCC4C00062F1E1 /* InforViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E96E91FFCC4C00062F1E1 /* InforViewController.xib */; };
 		047E96F01FFCC4DC0062F1E1 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E96EE1FFCC4DC0062F1E1 /* MyViewController.m */; };
 		047E96F11FFCC4DC0062F1E1 /* MyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E96EF1FFCC4DC0062F1E1 /* MyViewController.xib */; };
+		04849083200EE2D000D0ACF1 /* AnswerTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04849081200EE2D000D0ACF1 /* AnswerTableVC.m */; };
+		04849084200EE2D000D0ACF1 /* AnswerTableVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04849082200EE2D000D0ACF1 /* AnswerTableVC.xib */; };
 		048EEFDC2004759200C6510B /* ZZNewsSheetItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFD72004759200C6510B /* ZZNewsSheetItem.m */; };
 		048EEFDD2004759200C6510B /* ZZNewsSheetMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFD82004759200C6510B /* ZZNewsSheetMenu.m */; };
 		048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFDB2004759200C6510B /* ZZNewsSheetConfig.m */; };
 		048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFE22004A5D100C6510B /* PageDetailViewController.m */; };
 		048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048EEFE32004A5D100C6510B /* PageDetailViewController.xib */; };
+		049C0963200EE8C00057BC5F /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0961200EE8C00057BC5F /* AnswerViewController.m */; };
+		049C0964200EE8C00057BC5F /* AnswerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049C0962200EE8C00057BC5F /* AnswerViewController.xib */; };
+		049C0967200EEA920057BC5F /* JoinAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0966200EEA920057BC5F /* JoinAnswerViewController.m */; };
 		04C45C072008992100B188F9 /* PlayDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C45C052008992100B188F9 /* PlayDetailViewController.m */; };
 		04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C45C062008992100B188F9 /* PlayDetailViewController.xib */; };
 		04E1BDC7200DD0BA00BC9CE5 /* QATableVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */; };
@@ -295,6 +300,9 @@
 		047E96ED1FFCC4DC0062F1E1 /* MyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		047E96EE1FFCC4DC0062F1E1 /* MyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		047E96EF1FFCC4DC0062F1E1 /* MyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyViewController.xib; sourceTree = "<group>"; };
+		04849080200EE2D000D0ACF1 /* AnswerTableVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerTableVC.h; sourceTree = "<group>"; };
+		04849081200EE2D000D0ACF1 /* AnswerTableVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerTableVC.m; sourceTree = "<group>"; };
+		04849082200EE2D000D0ACF1 /* AnswerTableVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerTableVC.xib; sourceTree = "<group>"; };
 		048EEFD62004759200C6510B /* ZZNewsSheetMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNewsSheetMenu.h; sourceTree = "<group>"; };
 		048EEFD72004759200C6510B /* ZZNewsSheetItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNewsSheetItem.m; sourceTree = "<group>"; };
 		048EEFD82004759200C6510B /* ZZNewsSheetMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNewsSheetMenu.m; sourceTree = "<group>"; };
@@ -304,6 +312,11 @@
 		048EEFE12004A5D100C6510B /* PageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageDetailViewController.h; sourceTree = "<group>"; };
 		048EEFE22004A5D100C6510B /* PageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageDetailViewController.m; sourceTree = "<group>"; };
 		048EEFE32004A5D100C6510B /* PageDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageDetailViewController.xib; sourceTree = "<group>"; };
+		049C0960200EE8C00057BC5F /* AnswerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
+		049C0961200EE8C00057BC5F /* AnswerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
+		049C0962200EE8C00057BC5F /* AnswerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerViewController.xib; sourceTree = "<group>"; };
+		049C0965200EEA920057BC5F /* JoinAnswerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JoinAnswerViewController.h; sourceTree = "<group>"; };
+		049C0966200EEA920057BC5F /* JoinAnswerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JoinAnswerViewController.m; sourceTree = "<group>"; };
 		04C45C042008992100B188F9 /* PlayDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayDetailViewController.h; sourceTree = "<group>"; };
 		04C45C052008992100B188F9 /* PlayDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayDetailViewController.m; sourceTree = "<group>"; };
 		04C45C062008992100B188F9 /* PlayDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayDetailViewController.xib; sourceTree = "<group>"; };
@@ -397,7 +410,6 @@
 				048EEFDF2004A57200C6510B /* headline */,
 				048EEFE02004A59000C6510B /* pageDetail */,
 				046653802005AD450051B276 /* comment */,
-				046653842005C6230051B276 /* personDetail */,
 				0466538A2005F6160051B276 /* publicPage */,
 			);
 			path = Controller;
@@ -464,7 +476,7 @@
 			path = comment;
 			sourceTree = "<group>";
 		};
-		046653842005C6230051B276 /* personDetail */ = {
+		046653842005C6230051B276 /* PersonDetailVC */ = {
 			isa = PBXGroup;
 			children = (
 				046653852005C63F0051B276 /* PersonViewController.h */,
@@ -473,6 +485,9 @@
 				04E1BDCE200DE8CF00BC9CE5 /* PersonDetailVC.h */,
 				04E1BDCF200DE8CF00BC9CE5 /* PersonDetailVC.m */,
 				04E1BDD0200DE8CF00BC9CE5 /* PersonDetailVC.xib */,
+				04849080200EE2D000D0ACF1 /* AnswerTableVC.h */,
+				04849081200EE2D000D0ACF1 /* AnswerTableVC.m */,
+				04849082200EE2D000D0ACF1 /* AnswerTableVC.xib */,
 				04E1BDD3200DF32700BC9CE5 /* PageTableViewCell.h */,
 				04E1BDD4200DF32700BC9CE5 /* PageTableViewCell.m */,
 				04E1BDD5200DF32700BC9CE5 /* PageTableViewCell.xib */,
@@ -480,7 +495,7 @@
 				04E1BDD9200DF33800BC9CE5 /* AnswerTableViewCell.m */,
 				04E1BDDA200DF33800BC9CE5 /* AnswerTableViewCell.xib */,
 			);
-			path = personDetail;
+			path = PersonDetailVC;
 			sourceTree = "<group>";
 		};
 		0466538A2005F6160051B276 /* publicPage */ = {
@@ -505,9 +520,6 @@
 		0473EBE4200C7C0B00D0463C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				04E1BDC4200DD0BA00BC9CE5 /* QATableVIewController.h */,
-				04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */,
-				04E1BDC6200DD0BA00BC9CE5 /* QATableVIewController.xib */,
 				04E1BDC9200DD32400BC9CE5 /* QATableVIewCell.h */,
 				04E1BDCA200DD32400BC9CE5 /* QATableVIewCell.m */,
 				04E1BDCB200DD32400BC9CE5 /* QATableVIewCell.xib */,
@@ -521,6 +533,14 @@
 				0473EBE6200C7C3900D0463C /* QuickQAViewController.h */,
 				0473EBE7200C7C3900D0463C /* QuickQAViewController.m */,
 				0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */,
+				04E1BDC4200DD0BA00BC9CE5 /* QATableVIewController.h */,
+				04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */,
+				04E1BDC6200DD0BA00BC9CE5 /* QATableVIewController.xib */,
+				049C0960200EE8C00057BC5F /* AnswerViewController.h */,
+				049C0961200EE8C00057BC5F /* AnswerViewController.m */,
+				049C0962200EE8C00057BC5F /* AnswerViewController.xib */,
+				049C0965200EEA920057BC5F /* JoinAnswerViewController.h */,
+				049C0966200EEA920057BC5F /* JoinAnswerViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -589,6 +609,7 @@
 		047E96411FFCC1230062F1E1 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				046653842005C6230051B276 /* PersonDetailVC */,
 				047E96421FFCC12F0062F1E1 /* HeadlineVC */,
 				047E96DA1FFCC4230062F1E1 /* TrainVC */,
 				0473EBE3200C7BFC00D0463C /* QuickQAVC */,
@@ -1031,6 +1052,8 @@
 				0423C3E520070F6F005E3F9D /* PastViewController.xib in Resources */,
 				0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */,
 				0423C3EC200711E6005E3F9D /* MeetingNewCell.xib in Resources */,
+				049C0964200EE8C00057BC5F /* AnswerViewController.xib in Resources */,
+				04849084200EE2D000D0ACF1 /* AnswerTableVC.xib in Resources */,
 				04E1BDC8200DD0BA00BC9CE5 /* QATableVIewController.xib in Resources */,
 				04E1BDD7200DF32700BC9CE5 /* PageTableViewCell.xib in Resources */,
 				0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */,
@@ -1144,12 +1167,14 @@
 				047E96EA1FFCC4C00062F1E1 /* InforViewController.m in Sources */,
 				047E967C1FFCC2790062F1E1 /* MBProgressHUD+BYHUDTools.m in Sources */,
 				047E96581FFCC1670062F1E1 /* TabBarControllerConfig.m in Sources */,
+				04849083200EE2D000D0ACF1 /* AnswerTableVC.m in Sources */,
 				047E96C91FFCC29D0062F1E1 /* UIImageView+XHLaunchAdCache.m in Sources */,
 				047E96CE1FFCC29D0062F1E1 /* XHLaunchAdCache.m in Sources */,
 				04372A681FFDDD9500D0762C /* SearchBarEffectController.m in Sources */,
 				047E96AB1FFCC2870062F1E1 /* UIImage+Merge.m in Sources */,
 				047E96CF1FFCC29D0062F1E1 /* XHLaunchAdConfiguration.m in Sources */,
 				047E96CD1FFCC29D0062F1E1 /* XHLaunchImageView.m in Sources */,
+				049C0963200EE8C00057BC5F /* AnswerViewController.m in Sources */,
 				047E966A1FFCC20C0062F1E1 /* SLJJudgementString.m in Sources */,
 				048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */,
 				042F7D3620033BB7005138C0 /* UIColor+Tools.m in Sources */,
@@ -1184,6 +1209,7 @@
 				0445223F200762BC006DEA70 /* PassMeetTableCell.m in Sources */,
 				04E1BDCC200DD32400BC9CE5 /* QATableVIewCell.m in Sources */,
 				046653882005C63F0051B276 /* PersonViewController.m in Sources */,
+				049C0967200EEA920057BC5F /* JoinAnswerViewController.m in Sources */,
 				047E96AF1FFCC28D0062F1E1 /* UINavigationBar+Awesome.m in Sources */,
 				0466538E2005F6330051B276 /* PublicPageViewController.m in Sources */,
 				047E96A71FFCC2870062F1E1 /* UIImage+Color.m in Sources */,

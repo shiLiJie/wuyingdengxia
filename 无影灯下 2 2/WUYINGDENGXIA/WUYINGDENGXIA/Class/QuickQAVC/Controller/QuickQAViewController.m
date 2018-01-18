@@ -15,7 +15,7 @@
 #import "ZZNewsSheetMenu.h"
 #import "QATableVIewController.h"
 #import "PersonViewController.h"
-#import "PageDetailViewController.h"
+#import "AnswerViewController.h"
 
 @interface QuickQAViewController ()<SearchBarDelegate,MDMultipleSegmentViewDeletegate,MDFlipCollectionViewDelegate,QATableVIewDelegate>
 {
@@ -50,6 +50,7 @@
         }
     }
     self.searchBtn.hidden = NO;
+
 }
 
 - (void)viewDidLoad {
@@ -97,7 +98,7 @@
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
     _segView.frame = CGRectMake(0,66, Main_Screen_Width, segViewHigh);
-    _segView.items = @[@"头条",@"热门", @"制标", @"动态", @"课题"];
+    _segView.items = @[@"问题1",@"问题2",@"问题3",@"问题4",@"问题5"];
     [self.view addSubview:_segView];
     
     //添加加号➕按钮
@@ -166,7 +167,7 @@
     
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu];
     self.newsMenu = sheetMenu;
-    sheetMenu.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
+    sheetMenu.mySubjectArray = @[@"问题1",@"问题2",@"问题3",@"问题4",@"问题5"].mutableCopy;
     sheetMenu.recommendSubjectArray = @[@"体育",@"军事",@"音乐",@"电影",@"中国风",@"摇滚",@"小说",@"梦想",@"机器",@"电脑"].mutableCopy;
     
     //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
@@ -202,8 +203,9 @@
 //监听table点击方法传来索引
 -(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
     
-    PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
+    AnswerViewController *pageDetail = [[AnswerViewController alloc] init];
     [self.navigationController pushViewController:pageDetail animated:YES];
+    self.searchBtn.hidden = YES;
     
 }
 

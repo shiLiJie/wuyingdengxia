@@ -10,6 +10,7 @@
 #import "PersonDetailVC.h"
 #import "MDMultipleSegmentView.h"
 #import "MDFlipCollectionView.h"
+#import "AnswerTableVC.h"
 
 #define segViewHigh     44
 
@@ -68,7 +69,7 @@
     
     NSArray *arr = @[
                      [self tablecontroller],
-                     [self tablecontroller]
+                     [self tablecontroller1]
                      ];
     
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
@@ -97,6 +98,13 @@
     return vc;
 }
 
+-(AnswerTableVC *)tablecontroller1{
+    AnswerTableVC *vc = [[AnswerTableVC alloc] init];
+    //    vc.delegate = self;
+    
+    return vc;
+}
+
 //监听点击table点击的索引
 -(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
     
@@ -106,18 +114,11 @@
 - (void)changeSegmentAtIndex:(NSInteger)index
 {
     [_collectView selectIndex:index];
-    
-    NSDictionary *dict = @{@"index":[NSString stringWithFormat:@"%ld",(long)index]};
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PAGEORANSWERCHANGE" object:nil userInfo:dict];
-
 }
 
 - (void)flipToIndex:(NSInteger)index
 {
     [_segView selectIndex:index];
-    
-    NSDictionary *dict = @{@"index":[NSString stringWithFormat:@"%ld",(long)index]};
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PAGEORANSWERCHANGE" object:nil userInfo:dict];
 }
 
 
