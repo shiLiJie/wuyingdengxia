@@ -13,6 +13,7 @@ pod "JTCalendar"
 pod "FMDB"
 pod "CYLTabBarController"
 pod "IQKeyboardManager"
+pod "BRPickerView"
 
 end
 

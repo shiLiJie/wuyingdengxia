@@ -128,7 +128,11 @@
 {
     if (_searchBar == nil) {
         _searchBar = [[UISearchBar alloc]init];
-        _searchBar.frame = CGRectMake(70, 15, Main_Screen_Width-120, 44);
+        if (kDevice_Is_iPhoneX) {
+            _searchBar.frame = CGRectMake(70, 40, Main_Screen_Width-120, 44);
+        }else{
+            _searchBar.frame = CGRectMake(70, 15, Main_Screen_Width-120, 44);
+        }
         _searchBar.userInteractionEnabled = NO;
         // 去除searchbar上下两条黑线及设置背景
         _searchBar.barTintColor = [UIColor whiteColor];
@@ -172,8 +176,12 @@
 
 //添加banner
 -(void)addBannerView{
+    if (kDevice_Is_iPhoneX) {
+        _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 90, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
+    }else{
+        _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 75, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
+    }
     
-    _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 75, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
     _scrollView.initAlpha = 0.5; // 设置两边卡片的透明度
     _scrollView.imageRadius = 10; // 设置卡片圆角
     _scrollView.imageHeightPoor = 10; // 设置中间卡片与两边卡片的高度差
@@ -289,13 +297,27 @@
         
         [self.scrollView.timer invalidate];//滚动过程中banner定时器停止
         self.scrollView.timer = nil;
-        headerViewY = -scrollY + 75;
+        if (kDevice_Is_iPhoneX) {
+            headerViewY = -scrollY + 90;
+        }else{
+            headerViewY = -scrollY + 75;
+        }
+        
         if (scrollY > bannerHigh) {
-            headerViewY = -bannerHigh + 64;
+            if (kDevice_Is_iPhoneX) {
+                headerViewY = -bannerHigh + 80;
+            }else{
+                headerViewY = -bannerHigh + 64;
+            }
+            
         }
     }else{
+        if (kDevice_Is_iPhoneX) {
+            headerViewY = 90;
+        }else{
+            headerViewY = 75;
+        }
         
-        headerViewY = 75;
         if (self.scrollView.timer == nil) {
             [self.scrollView createTimer];//滚回来banner定时器再次启动
         }

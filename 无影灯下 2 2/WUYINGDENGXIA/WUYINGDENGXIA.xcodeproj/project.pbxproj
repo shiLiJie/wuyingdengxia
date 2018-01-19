@@ -29,6 +29,8 @@
 		0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445224320076300006DEA70 /* PassMeetViewController.xib */; };
 		045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045781201FFF619D0098D6FC /* DetailTableViewCell.m */; };
 		045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045781211FFF619D0098D6FC /* DetailTableViewCell.xib */; };
+		045C35232011A06000B128CD /* MyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C35212011A06000B128CD /* MyDetailViewController.m */; };
+		045C35242011A06000B128CD /* MyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045C35222011A06000B128CD /* MyDetailViewController.xib */; };
 		046653832005AD870051B276 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046653822005AD870051B276 /* CommentViewController.m */; };
 		046653882005C63F0051B276 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046653862005C63F0051B276 /* PersonViewController.m */; };
 		046653892005C63F0051B276 /* PersonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046653872005C63F0051B276 /* PersonViewController.xib */; };
@@ -38,6 +40,8 @@
 		046653C72006051D0051B276 /* MeetingNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046653C52006051D0051B276 /* MeetingNewViewController.xib */; };
 		0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473EBE7200C7C3900D0463C /* QuickQAViewController.m */; };
 		0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */; };
+		0478D34E2011890A00FB1696 /* NSDate+BRAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */; };
+		0478D3522011895500FB1696 /* BRTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D3512011895500FB1696 /* BRTextField.m */; };
 		047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */; };
 		047E96181FFCBDEF0062F1E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047E96171FFCBDEF0062F1E1 /* Assets.xcassets */; };
 		047E961E1FFCBDEF0062F1E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E961D1FFCBDEF0062F1E1 /* main.m */; };
@@ -177,6 +181,9 @@
 		0457811F1FFF619D0098D6FC /* DetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
 		045781201FFF619D0098D6FC /* DetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewCell.m; sourceTree = "<group>"; };
 		045781211FFF619D0098D6FC /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
+		045C35202011A06000B128CD /* MyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyDetailViewController.h; sourceTree = "<group>"; };
+		045C35212011A06000B128CD /* MyDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDetailViewController.m; sourceTree = "<group>"; };
+		045C35222011A06000B128CD /* MyDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyDetailViewController.xib; sourceTree = "<group>"; };
 		046653812005AD870051B276 /* CommentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		046653822005AD870051B276 /* CommentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		046653852005C63F0051B276 /* PersonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
@@ -191,6 +198,10 @@
 		0473EBE6200C7C3900D0463C /* QuickQAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickQAViewController.h; sourceTree = "<group>"; };
 		0473EBE7200C7C3900D0463C /* QuickQAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickQAViewController.m; sourceTree = "<group>"; };
 		0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickQAViewController.xib; sourceTree = "<group>"; };
+		0478D34C2011890A00FB1696 /* NSDate+BRAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRAdd.h"; sourceTree = "<group>"; };
+		0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRAdd.m"; sourceTree = "<group>"; };
+		0478D3502011895500FB1696 /* BRTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTextField.h; sourceTree = "<group>"; };
+		0478D3512011895500FB1696 /* BRTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTextField.m; sourceTree = "<group>"; };
 		047E960B1FFCBDEF0062F1E1 /* WUYINGDENGXIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WUYINGDENGXIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		047E960E1FFCBDEF0062F1E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -553,6 +564,24 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		0478D34B201188EE00FB1696 /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				0478D34C2011890A00FB1696 /* NSDate+BRAdd.h */,
+				0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
+		0478D34F2011892800FB1696 /* BRTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0478D3502011895500FB1696 /* BRTextField.h */,
+				0478D3512011895500FB1696 /* BRTextField.m */,
+			);
+			path = BRTextField;
+			sourceTree = "<group>";
+		};
 		047E96021FFCBDEF0062F1E1 = {
 			isa = PBXGroup;
 			children = (
@@ -739,6 +768,8 @@
 		047E96751FFCC2570062F1E1 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				0478D34F2011892800FB1696 /* BRTextField */,
+				0478D34B201188EE00FB1696 /* NSDate */,
 				048EEFD4200454A500C6510B /* UIcolor */,
 				047E96791FFCC2710062F1E1 /* MBProgressHUD+BYHUDTools */,
 				047E96781FFCC26A0062F1E1 /* UIImage */,
@@ -869,6 +900,9 @@
 				047E96ED1FFCC4DC0062F1E1 /* MyViewController.h */,
 				047E96EE1FFCC4DC0062F1E1 /* MyViewController.m */,
 				047E96EF1FFCC4DC0062F1E1 /* MyViewController.xib */,
+				045C35202011A06000B128CD /* MyDetailViewController.h */,
+				045C35212011A06000B128CD /* MyDetailViewController.m */,
+				045C35222011A06000B128CD /* MyDetailViewController.xib */,
 			);
 			path = MyVC;
 			sourceTree = "<group>";
@@ -1049,6 +1083,7 @@
 				047E96471FFCC1370062F1E1 /* HeadlineViewController.xib in Resources */,
 				04E1BDD2200DE8CF00BC9CE5 /* PersonDetailVC.xib in Resources */,
 				0423C3F620073D7F005E3F9D /* MeetDetailViewController.xib in Resources */,
+				045C35242011A06000B128CD /* MyDetailViewController.xib in Resources */,
 				04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */,
 				0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */,
 				04E1BDCD200DD32400BC9CE5 /* QATableVIewCell.xib in Resources */,
@@ -1112,11 +1147,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/BRPickerView/BRPickerView.framework",
 				"${BUILT_PRODUCTS_DIR}/CYLTabBarController/CYLTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/JTCalendar/JTCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -1126,11 +1163,13 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BRPickerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CYLTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -1172,6 +1211,7 @@
 				047E96CB1FFCC29D0062F1E1 /* XHLaunchAdButton.m in Sources */,
 				047E96461FFCC1370062F1E1 /* HeadlineViewController.m in Sources */,
 				047E96731FFCC21C0062F1E1 /* ICInfomationView.m in Sources */,
+				0478D34E2011890A00FB1696 /* NSDate+BRAdd.m in Sources */,
 				048EEFDC2004759200C6510B /* ZZNewsSheetItem.m in Sources */,
 				047E96EA1FFCC4C00062F1E1 /* InforViewController.m in Sources */,
 				047E967C1FFCC2790062F1E1 /* MBProgressHUD+BYHUDTools.m in Sources */,
@@ -1199,6 +1239,7 @@
 				04E1BDD1200DE8CF00BC9CE5 /* PersonDetailVC.m in Sources */,
 				047E96F01FFCC4DC0062F1E1 /* MyViewController.m in Sources */,
 				047E96671FFCC2050062F1E1 /* HttpRequest.m in Sources */,
+				0478D3522011895500FB1696 /* BRTextField.m in Sources */,
 				047E96AC1FFCC2870062F1E1 /* UIImage+Capture.m in Sources */,
 				04372A701FFE1E6A00D0762C /* UIView+Banner.m in Sources */,
 				0423C3F520073D7F005E3F9D /* MeetDetailViewController.m in Sources */,
@@ -1236,6 +1277,7 @@
 				047E969D1FFCC2870062F1E1 /* UIImage+RemoteSize.m in Sources */,
 				046653832005AD870051B276 /* CommentViewController.m in Sources */,
 				04372A6F1FFE1E6A00D0762C /* HW3DBannerView.m in Sources */,
+				045C35232011A06000B128CD /* MyDetailViewController.m in Sources */,
 				047E96A21FFCC2870062F1E1 /* UIImage+Orientation.m in Sources */,
 				0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */,
 				0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */,
