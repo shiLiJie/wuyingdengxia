@@ -100,7 +100,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 55;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -118,14 +118,25 @@
     switch (indexPath.section) {
         case 0:
         {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            [self setupNameTF:cell];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            if (indexPath.row == 0) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupNameTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"昵称";
+            }
+            if (indexPath.row == 1) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupcityTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"城市";
+            }
         }
             break;
-    
+        case 1:
+        {
             
-    
+        }
+            break;
 
     }
     return cell;
@@ -154,7 +165,7 @@
 - (void)setupcityTF:(UITableViewCell *)cell {
     if (!_cityTF) {
         _cityTF = [self getTextField:cell];
-        _cityTF.placeholder = @"请输入";
+        _cityTF.placeholder = @"请选择";
         _cityTF.returnKeyType = UIReturnKeyDone;
         _cityTF.tag = 0;
     }
@@ -251,7 +262,7 @@
 
 - (NSArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"* 姓名", @"* 性别", @"* 出生年月", @"   出生时刻", @"* 联系方式", @"* 地址", @"   学历", @"   其它"];
+        _titleArr = @[@"* 姓名", @"* 性别", @"* 出生年月", @"   出生时刻", @"* 联系方式", @"* 地址", @"   学历", @"   其它",@"* 姓名", @"* 性别", @"* 出生年月", @"   出生时刻"];
     }
     return _titleArr;
 }
