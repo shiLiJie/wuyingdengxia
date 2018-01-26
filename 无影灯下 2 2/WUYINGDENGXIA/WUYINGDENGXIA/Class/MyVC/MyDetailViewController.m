@@ -134,8 +134,79 @@
             break;
         case 1:
         {
+            if (indexPath.row == 0) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupyiyuanTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"医院";
+            }
+            if (indexPath.row == 1) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupkeshiTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"科室";
+            }
+            if (indexPath.row == 2) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupzhichengTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"职称";
+            }
+            if (indexPath.row == 3) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupzhiwuTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"行政职务";
+            }
             
         }
+            break;
+        case 2:
+        {
+            if (indexPath.row == 0) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupdanweiTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"单位";
+            }
+            if (indexPath.row == 1) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupzhiweiTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"职位";
+            }
+        }
+            break;
+        case 3:
+        {
+            if (indexPath.row == 0) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupxuexiaoTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"学校";
+            }
+            if (indexPath.row == 1) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupzhuanyeTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"专业";
+            }
+            if (indexPath.row == 2) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupxueliTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"学历";
+            }
+            if (indexPath.row == 3) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [self setupruxuenianfenTF:cell];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"入学年份";
+            }
+            
+        }
+            break;
+        default:
             break;
 
     }
@@ -166,8 +237,13 @@
     if (!_cityTF) {
         _cityTF = [self getTextField:cell];
         _cityTF.placeholder = @"请选择";
-        _cityTF.returnKeyType = UIReturnKeyDone;
-        _cityTF.tag = 0;
+        _cityTF.tag = 1;
+        __weak typeof(self) weakSelf = self;
+        _cityTF.tapAcitonBlock = ^{
+            [BRAddressPickerView showAddressPickerWithDefaultSelected:@[@0, @0, @0] isAutoSelect:YES resultBlock:^(NSArray *selectAddressArr) {
+                weakSelf.cityTF.text = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1], selectAddressArr[2]];
+            }];
+        };
     }
 }
 - (void)setupyiyuanTF:(UITableViewCell *)cell {
@@ -175,7 +251,7 @@
         _yiyuanTF = [self getTextField:cell];
         _yiyuanTF.placeholder = @"请输入";
         _yiyuanTF.returnKeyType = UIReturnKeyDone;
-        _yiyuanTF.tag = 0;
+        _yiyuanTF.tag = 2;
     }
 }
 - (void)setupkeshiTF:(UITableViewCell *)cell {
@@ -183,7 +259,7 @@
         _keshiTF = [self getTextField:cell];
         _keshiTF.placeholder = @"请输入";
         _keshiTF.returnKeyType = UIReturnKeyDone;
-        _keshiTF.tag = 0;
+        _keshiTF.tag = 3;
     }
 }
 - (void)setupzhichengTF:(UITableViewCell *)cell {
@@ -191,7 +267,7 @@
         _zhichengTF = [self getTextField:cell];
         _zhichengTF.placeholder = @"请输入";
         _zhichengTF.returnKeyType = UIReturnKeyDone;
-        _zhichengTF.tag = 0;
+        _zhichengTF.tag = 4;
     }
 }
 - (void)setupzhiwuTF:(UITableViewCell *)cell {
@@ -199,7 +275,7 @@
         _zhiwuTF = [self getTextField:cell];
         _zhiwuTF.placeholder = @"请输入";
         _zhiwuTF.returnKeyType = UIReturnKeyDone;
-        _zhiwuTF.tag = 0;
+        _zhiwuTF.tag = 5;
     }
 }
 - (void)setupdanweiTF:(UITableViewCell *)cell {
@@ -207,7 +283,7 @@
         _danweiTF = [self getTextField:cell];
         _danweiTF.placeholder = @"请输入";
         _danweiTF.returnKeyType = UIReturnKeyDone;
-        _danweiTF.tag = 0;
+        _danweiTF.tag = 6;
     }
 }
 - (void)setupzhiweiTF:(UITableViewCell *)cell {
@@ -215,7 +291,7 @@
         _zhiweiTF = [self getTextField:cell];
         _zhiweiTF.placeholder = @"请输入";
         _zhiweiTF.returnKeyType = UIReturnKeyDone;
-        _zhiweiTF.tag = 0;
+        _zhiweiTF.tag = 7;
     }
 }
 - (void)setupxuexiaoTF:(UITableViewCell *)cell {
@@ -223,7 +299,7 @@
         _xuexiaoTF = [self getTextField:cell];
         _xuexiaoTF.placeholder = @"请输入";
         _xuexiaoTF.returnKeyType = UIReturnKeyDone;
-        _xuexiaoTF.tag = 0;
+        _xuexiaoTF.tag = 8;
     }
 }
 - (void)setupzhuanyeTF:(UITableViewCell *)cell {
@@ -231,7 +307,7 @@
         _zhuanyeTF = [self getTextField:cell];
         _zhuanyeTF.placeholder = @"请输入";
         _zhuanyeTF.returnKeyType = UIReturnKeyDone;
-        _zhuanyeTF.tag = 0;
+        _zhuanyeTF.tag = 9;
     }
 }
 - (void)setupxueliTF:(UITableViewCell *)cell {
@@ -239,22 +315,27 @@
         _xueliTF = [self getTextField:cell];
         _xueliTF.placeholder = @"请输入";
         _xueliTF.returnKeyType = UIReturnKeyDone;
-        _xueliTF.tag = 0;
+        _xueliTF.tag = 10;
     }
 }
 - (void)setupruxuenianfenTF:(UITableViewCell *)cell {
     if (!_ruxuenianfenTF) {
         _ruxuenianfenTF = [self getTextField:cell];
-        _ruxuenianfenTF.placeholder = @"请输入";
-        _ruxuenianfenTF.returnKeyType = UIReturnKeyDone;
-        _ruxuenianfenTF.tag = 0;
+        _ruxuenianfenTF.placeholder = @"请选择";
+        _ruxuenianfenTF.tag = 11;
+        __weak typeof(self) weakSelf = self;
+        _ruxuenianfenTF.tapAcitonBlock = ^{
+            [BRDatePickerView showDatePickerWithTitle:@"入学年份" dateType:UIDatePickerModeDate defaultSelValue:weakSelf.ruxuenianfenTF.text minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:YES resultBlock:^(NSString *selectValue) {
+                weakSelf.ruxuenianfenTF.text = selectValue;
+            }];
+        };
     }
 }
 
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField.tag == 0 || textField.tag == 4) {
+    if (textField.tag == 0 || textField.tag == 2 || textField.tag == 3 || textField.tag == 4 || textField.tag == 5 || textField.tag == 6 || textField.tag == 7 || textField.tag ==  8 || textField.tag == 9 || textField.tag == 10) {
         [textField resignFirstResponder];
     }
     return YES;

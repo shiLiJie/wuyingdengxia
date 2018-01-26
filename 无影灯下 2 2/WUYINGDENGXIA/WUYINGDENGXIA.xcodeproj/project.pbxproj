@@ -27,6 +27,7 @@
 		04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445223E200762BC006DEA70 /* PassMeetTableCell.xib */; };
 		0445224420076300006DEA70 /* PassMeetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445224220076300006DEA70 /* PassMeetViewController.m */; };
 		0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445224320076300006DEA70 /* PassMeetViewController.xib */; };
+		0452A436201AC27C00E5A48D /* BRCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0452A435201AC21F00E5A48D /* BRCity.plist */; };
 		045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045781201FFF619D0098D6FC /* DetailTableViewCell.m */; };
 		045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045781211FFF619D0098D6FC /* DetailTableViewCell.xib */; };
 		045C35232011A06000B128CD /* MyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C35212011A06000B128CD /* MyDetailViewController.m */; };
@@ -178,6 +179,8 @@
 		0445224120076300006DEA70 /* PassMeetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassMeetViewController.h; sourceTree = "<group>"; };
 		0445224220076300006DEA70 /* PassMeetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassMeetViewController.m; sourceTree = "<group>"; };
 		0445224320076300006DEA70 /* PassMeetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassMeetViewController.xib; sourceTree = "<group>"; };
+		0452A434201ABF0400E5A48D /* BRPickerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BRPickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0452A435201AC21F00E5A48D /* BRCity.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BRCity.plist; sourceTree = "<group>"; };
 		0457811F1FFF619D0098D6FC /* DetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
 		045781201FFF619D0098D6FC /* DetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewCell.m; sourceTree = "<group>"; };
 		045781211FFF619D0098D6FC /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
@@ -621,6 +624,7 @@
 				047E961C1FFCBDEF0062F1E1 /* Info.plist */,
 				047E961D1FFCBDEF0062F1E1 /* main.m */,
 				047E96401FFCBEA00062F1E1 /* PrefixHeader.pch */,
+				0452A435201AC21F00E5A48D /* BRCity.plist */,
 			);
 			path = WUYINGDENGXIA;
 			sourceTree = "<group>";
@@ -961,6 +965,7 @@
 		C0FA4F929BC600B071933A49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0452A434201ABF0400E5A48D /* BRPickerView.framework */,
 				04372A641FFDD6E500D0762C /* MobileCoreServices.framework */,
 				1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */,
 			);
@@ -1076,6 +1081,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0452A436201AC27C00E5A48D /* BRCity.plist in Resources */,
 				04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */,
 				047E96EB1FFCC4C00062F1E1 /* InforViewController.xib in Resources */,
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,

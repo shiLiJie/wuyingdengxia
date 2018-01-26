@@ -11,6 +11,7 @@
 #import "BRAddressModel.h"
 #import "MJExtension.h"
 
+
 @interface BRAddressPickerView ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
     NSInteger rowOfProvince; // 保存省份对应的下标
@@ -60,7 +61,7 @@
         if (defaultSelectedArr.count == 3) {
             self.defaultSelectedArr = defaultSelectedArr;
         } else {
-            self.defaultSelectedArr = @[@10, @0, @0];
+            self.defaultSelectedArr = @[@0, @0, @0];
         }
         self.isAutoSelect = isAutoSelect;
         self.themeColor = themeColor;
@@ -75,6 +76,9 @@
 - (void)loadData {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"BRCity" ofType:@"plist"];
     NSArray *arrData = [NSArray arrayWithContentsOfFile:filePath];
+    
+//    [NSBundle bundleForClass:BRPickerView];
+    
     for (NSDictionary *dic in arrData) {
         // 此处用 YYModel 进行解析
         BRProvinceModel *proviceModel = [BRProvinceModel mj_objectWithKeyValues:dic];
