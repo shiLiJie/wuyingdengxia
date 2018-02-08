@@ -49,6 +49,7 @@
     
     // imageView 和 titleLabel 中心的 Y 值
     CGFloat const centerOfImageView  = imageViewEdgeHeight * 0.5;
+//    CGFloat const centerOfImageView  = 0;
     CGFloat const centerOfTitleLabel = imageViewEdgeHeight  + verticalMargin * 2 + labelLineHeight * 0.5 + 10;
     
     //imageView position 位置
@@ -82,7 +83,8 @@
     button.titleLabel.font = [UIFont systemFontOfSize:9.5];
     [button sizeToFit];
     if (kDevice_Is_iPhoneX) {
-        button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 83);
+//        button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 83);
+        button.frame = CGRectMake(0.0, 0.0, 49, 49);
     }else{
         button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 49);
     }

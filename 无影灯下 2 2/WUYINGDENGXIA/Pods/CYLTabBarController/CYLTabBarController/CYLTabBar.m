@@ -169,7 +169,13 @@ static void *const CYLTabBarContext = (void*)&CYLTabBarContext;
         CYLTabBarItemWidth = (tabBarWidth - CYLPlusButtonWidth) / CYLTabbarItemsCount;
         CGFloat multiplierOfTabBarHeight = [self multiplierOfTabBarHeight:tabBarHeight];
         CGFloat constantOfPlusButtonCenterYOffset = [self constantOfPlusButtonCenterYOffsetForTabBarHeight:tabBarHeight];
-        _plusButton.center = CGPointMake(tabBarWidth * 0.5, tabBarHeight * multiplierOfTabBarHeight + constantOfPlusButtonCenterYOffset);
+        
+        if (CYL_IS_IPHONE_X) {
+            _plusButton.center = CGPointMake(tabBarWidth * 0.5, 24);
+        }else{
+            _plusButton.center = CGPointMake(tabBarWidth * 0.5, tabBarHeight * multiplierOfTabBarHeight + constantOfPlusButtonCenterYOffset);
+        }
+        
         NSUInteger plusButtonIndex = [self plusButtonIndex];
         [self.tabBarButtonArray enumerateObjectsUsingBlock:^(UIView * _Nonnull childView, NSUInteger buttonIndex, BOOL * _Nonnull stop) {
             //调整UITabBarItem的位置

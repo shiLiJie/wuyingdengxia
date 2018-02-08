@@ -12,7 +12,7 @@
 //中文字体
 #define CHINESE_FONT_NAME  @"Heiti SC"
 #define CHINESE_SYSTEM(x) [UIFont fontWithName:CHINESE_FONT_NAME size:x]
-    
+
 // 打印
 #ifdef DEBUG
 # define YCLog(fmt, ...) NSLog((@"[文件名:%s]\n" "[函数名:%s]\n" "[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
