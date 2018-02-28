@@ -61,9 +61,10 @@
 
 - (void)initialProperty
 {
-    _titleFont = [UIFont systemFontOfSize:15];
-    _titleNormalColor = [UIColor blackColor];
-    _titleSelectColor = [UIColor blueColor];
+//    _titleFont = [UIFont systemFontOfSize:16];
+    _titleFont = BOLDSYSTEMFONT(17);
+    _titleNormalColor = RGB(51, 51, 51);
+    _titleSelectColor = RGB(10, 147, 255);
     _selectedSegmentIndex = 0;
     
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;

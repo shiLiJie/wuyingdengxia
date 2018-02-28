@@ -29,7 +29,7 @@
     @try {
         [self cyl_setShowTabBadgePoint:showTabBadgePoint];
     } @catch (NSException *exception) {
-        NSLog(@"CYLPlusChildViewController do not support set TabBarItem red point");
+//        NSLog(@"CYLPlusChildViewController do not support set TabBarItem red point");
     }
 }
 

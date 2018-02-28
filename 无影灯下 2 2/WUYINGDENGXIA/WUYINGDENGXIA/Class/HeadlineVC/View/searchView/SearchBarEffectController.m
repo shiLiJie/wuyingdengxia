@@ -64,7 +64,7 @@ static NSString * const searchCell= @"searchCell";
         _cancelBtn = [[UIButton alloc] init];
         _cancelBtn.frame = CGRectMake(kScreenW-60, 20, 40, 40);
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:RGB(10, 147, 255) forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;

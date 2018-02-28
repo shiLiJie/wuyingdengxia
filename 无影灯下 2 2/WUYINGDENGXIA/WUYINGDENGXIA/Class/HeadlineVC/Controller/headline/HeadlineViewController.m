@@ -18,6 +18,7 @@
 #import "ZZNewsSheetMenu.h"
 #import "PageDetailViewController.h"
 #import "PublicPageViewController.h"
+#import "DiscussCollectionVC.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
@@ -94,6 +95,8 @@
     //添加标签控制器
     [self addSegView];
     
+    DiscussCollectionVC *discuss = [[DiscussCollectionVC alloc] init];;
+    
 }
 
 //设置导航栏背景色
@@ -110,8 +113,8 @@
 
 -(UIButton *)set_leftButton{
     UIButton *right = [[UIButton alloc] init];
-    [right setTitle:@"二维码" forState:UIControlStateNormal];
-    [right setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    [right setImage:GetImage(@"saoma") forState:UIControlStateNormal];
     [right setFont: [UIFont systemFontOfSize:14]];
     return right;
 }
@@ -119,8 +122,8 @@
 -(UIButton *)set_rightButton{
     UIButton *right = [[UIButton alloc] init];
     [right setTitle:@"投稿" forState:UIControlStateNormal];
-    [right setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [right setFont: [UIFont systemFontOfSize:14]];
+    [right setTitleColor:RGB(30, 150, 255) forState:UIControlStateNormal];
+    [right setFont: [UIFont systemFontOfSize:17]];
     return right;
 }
 //搜索searchbar 禁用
@@ -129,9 +132,9 @@
     if (_searchBar == nil) {
         _searchBar = [[UISearchBar alloc]init];
         if (kDevice_Is_iPhoneX) {
-            _searchBar.frame = CGRectMake(70, 40, Main_Screen_Width-120, 44);
+            _searchBar.frame = CGRectMake(45, 40, Main_Screen_Width-100, 44);
         }else{
-            _searchBar.frame = CGRectMake(70, 15, Main_Screen_Width-120, 44);
+            _searchBar.frame = CGRectMake(45, 15, Main_Screen_Width-100, 44);
         }
         _searchBar.userInteractionEnabled = NO;
         // 去除searchbar上下两条黑线及设置背景

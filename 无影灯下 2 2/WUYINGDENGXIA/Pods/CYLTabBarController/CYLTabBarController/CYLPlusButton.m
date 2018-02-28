@@ -47,7 +47,7 @@ UIViewController *CYLPlusChildViewController = nil;
 }
 
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations" 
 + (void)registerSubclass {
     [self registerPlusButton];
 }
@@ -65,7 +65,7 @@ UIViewController *CYLPlusChildViewController = nil;
 #pragma mark - 设置中间按钮选中后的图片设置 -
     //设置中间按钮选中后的图片设置
 //    [sender setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    sender.backgroundColor = [UIColor greenColor];
+//    sender.backgroundColor = [UIColor greenColor];
     
     CYLTabBarController *tabBarController = [sender cyl_tabBarController];
     NSInteger index = [tabBarController.viewControllers indexOfObject:CYLPlusChildViewController];

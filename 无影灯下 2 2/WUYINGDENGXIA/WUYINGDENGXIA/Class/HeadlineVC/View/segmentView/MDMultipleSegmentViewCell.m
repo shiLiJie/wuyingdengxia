@@ -22,7 +22,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _bottomLineWidth = 1.0f;
-        _tintColor = [UIColor blueColor];
+        _tintColor = RGB(10, 147, 255);
         [self addSubview:self.titleLabel];
         self.titleLabel.frame = CGRectMake(0,
                                            0,

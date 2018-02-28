@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailTableViewCell : UITableViewCell
+//主标题
+@property (weak, nonatomic) IBOutlet UILabel *mainTitle;
 
 @end

@@ -41,6 +41,9 @@
 		046653C72006051D0051B276 /* MeetingNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046653C52006051D0051B276 /* MeetingNewViewController.xib */; };
 		0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473EBE7200C7C3900D0463C /* QuickQAViewController.m */; };
 		0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */; };
+		047528E62045358D00A9794B /* DiscussCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528E42045358D00A9794B /* DiscussCell.m */; };
+		047528E72045358D00A9794B /* DiscussCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047528E52045358D00A9794B /* DiscussCell.xib */; };
+		047528EA2045361700A9794B /* DiscussCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528E92045361700A9794B /* DiscussCollectionVC.m */; };
 		0478D34E2011890A00FB1696 /* NSDate+BRAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */; };
 		0478D3522011895500FB1696 /* BRTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D3512011895500FB1696 /* BRTextField.m */; };
 		047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */; };
@@ -201,6 +204,11 @@
 		0473EBE6200C7C3900D0463C /* QuickQAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickQAViewController.h; sourceTree = "<group>"; };
 		0473EBE7200C7C3900D0463C /* QuickQAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickQAViewController.m; sourceTree = "<group>"; };
 		0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickQAViewController.xib; sourceTree = "<group>"; };
+		047528E32045358D00A9794B /* DiscussCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussCell.h; sourceTree = "<group>"; };
+		047528E42045358D00A9794B /* DiscussCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussCell.m; sourceTree = "<group>"; };
+		047528E52045358D00A9794B /* DiscussCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscussCell.xib; sourceTree = "<group>"; };
+		047528E82045361700A9794B /* DiscussCollectionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussCollectionVC.h; sourceTree = "<group>"; };
+		047528E92045361700A9794B /* DiscussCollectionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussCollectionVC.m; sourceTree = "<group>"; };
 		0478D34C2011890A00FB1696 /* NSDate+BRAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRAdd.h"; sourceTree = "<group>"; };
 		0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRAdd.m"; sourceTree = "<group>"; };
 		0478D3502011895500FB1696 /* BRTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTextField.h; sourceTree = "<group>"; };
@@ -482,6 +490,11 @@
 				0457811F1FFF619D0098D6FC /* DetailTableViewCell.h */,
 				045781201FFF619D0098D6FC /* DetailTableViewCell.m */,
 				045781211FFF619D0098D6FC /* DetailTableViewCell.xib */,
+				047528E82045361700A9794B /* DiscussCollectionVC.h */,
+				047528E92045361700A9794B /* DiscussCollectionVC.m */,
+				047528E32045358D00A9794B /* DiscussCell.h */,
+				047528E42045358D00A9794B /* DiscussCell.m */,
+				047528E52045358D00A9794B /* DiscussCell.xib */,
 			);
 			path = segmentView;
 			sourceTree = "<group>";
@@ -1085,6 +1098,7 @@
 				04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */,
 				047E96EB1FFCC4C00062F1E1 /* InforViewController.xib in Resources */,
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,
+				047528E72045358D00A9794B /* DiscussCell.xib in Resources */,
 				04E1BDDC200DF33800BC9CE5 /* AnswerTableViewCell.xib in Resources */,
 				047E96471FFCC1370062F1E1 /* HeadlineViewController.xib in Resources */,
 				04E1BDD2200DE8CF00BC9CE5 /* PersonDetailVC.xib in Resources */,
@@ -1234,6 +1248,7 @@
 				04C10E9F20107BA0003C204D /* QuestionsViewController.m in Sources */,
 				048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */,
 				042F7D3620033BB7005138C0 /* UIColor+Tools.m in Sources */,
+				047528E62045358D00A9794B /* DiscussCell.m in Sources */,
 				042F7D3A200344F9005138C0 /* DetailTableViewController.m in Sources */,
 				047E96C81FFCC29D0062F1E1 /* XHLaunchAdDownloader.m in Sources */,
 				047E96A91FFCC2870062F1E1 /* UIImage+Vector.m in Sources */,
@@ -1291,6 +1306,7 @@
 				04E1BDD6200DF32700BC9CE5 /* PageTableViewCell.m in Sources */,
 				048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */,
 				045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */,
+				047528EA2045361700A9794B /* DiscussCollectionVC.m in Sources */,
 				047E969F1FFCC2870062F1E1 /* UIImage+animatedGIF.m in Sources */,
 				047E961E1FFCBDEF0062F1E1 /* main.m in Sources */,
 				047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */,

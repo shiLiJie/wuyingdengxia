@@ -73,14 +73,14 @@
 
     
     NSDictionary *firstTabBarItemsAttributes = @{
-                                                 CYLTabBarItemTitle : @"头条",
-                                                 CYLTabBarItemImage : @"headset-ico",
-                                                 CYLTabBarItemSelectedImage : @"headset-y",
+                                                 CYLTabBarItemTitle : @"首页",
+                                                 CYLTabBarItemImage : @"index-1",
+                                                 CYLTabBarItemSelectedImage : @"index",
                                                  };
     NSDictionary *secondTabBarItemsAttributes = @{
-                                                  CYLTabBarItemTitle : @"培训",
-                                                  CYLTabBarItemImage : @"MusicList-ico",
-                                                  CYLTabBarItemSelectedImage : @"musiclist-y",
+                                                  CYLTabBarItemTitle : @"活动",
+                                                  CYLTabBarItemImage : @"huodong",
+                                                  CYLTabBarItemSelectedImage : @"huodong1",
                                                   };
 //    NSDictionary *fourTabBarItemsAttributes1 = @{
 //                                                 CYLTabBarItemTitle : @"",
@@ -88,15 +88,15 @@
 //                                                 CYLTabBarItemSelectedImage : @"",
 //                                                 };
     NSDictionary *thirdTabBarItemsAttributes = @{
-                                                 CYLTabBarItemTitle : @"消息",
-                                                 CYLTabBarItemImage : @"me-ico",
-                                                 CYLTabBarItemSelectedImage : @"me-ico-y",
+                                                 CYLTabBarItemTitle : @"管理工具",
+                                                 CYLTabBarItemImage : @"Page 1",
+                                                 CYLTabBarItemSelectedImage : @"2",
                                                  };
     
     NSDictionary *fourTabBarItemsAttributes = @{
                                                  CYLTabBarItemTitle : @"我的",
-                                                 CYLTabBarItemImage : @"me-ico",
-                                                 CYLTabBarItemSelectedImage : @"me-ico-y",
+                                                 CYLTabBarItemImage : @"me",
+                                                 CYLTabBarItemSelectedImage : @"me1",
                                                  };
     
 
@@ -125,12 +125,12 @@
     // set the text color for unselected state
     // 普通状态下的文字属性
     NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
-    normalAttrs[NSForegroundColorAttributeName] = [UIColor blackColor];
+    normalAttrs[NSForegroundColorAttributeName] = RGB(115, 115, 115);
     
     // set the text color for selected state
     // 选中状态下的文字属性
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
-    selectedAttrs[NSForegroundColorAttributeName] = RGB(239, 164, 51);
+    selectedAttrs[NSForegroundColorAttributeName] = RGB(42, 152, 252);
     
     // set the text Attributes
     // 设置文字属性
@@ -152,7 +152,7 @@
     // This shadow image attribute is ignored if the tab bar does not also have a custom background image.So at least set somthing.
     // 设置背景色和分割线
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
-    [[UITabBar appearance] setBackgroundColor:[UIColor grayColor]];
+    [[UITabBar appearance] setBackgroundColor:RGB(255, 255, 255)];
     [[UITabBar appearance] setShadowImage:GetImage(@"tapbar_top_line")];
 }
 

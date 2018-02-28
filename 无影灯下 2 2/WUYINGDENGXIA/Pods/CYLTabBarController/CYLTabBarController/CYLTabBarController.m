@@ -414,7 +414,7 @@ static void * const CYLTabImageViewDefaultOffsetContext = (void*)&CYLTabImageVie
         plusButton.selected = NO;
 #pragma mark - 设置选中其他控制器,中间按钮变换 -
         //设置选中其他控制器,中间按钮变换
-        plusButton.backgroundColor = [UIColor redColor];
+//        plusButton.backgroundColor = [UIColor redColor];
     }
 }
 

@@ -71,7 +71,7 @@
  */
 + (id)plusButton {
     PlusButton *button = [[PlusButton alloc] init];
-    UIImage *buttonImage = GetImage(@"Snip20180115_1");
+    UIImage *buttonImage = GetImage(@"wenda");
     [button setImage:buttonImage forState:UIControlStateNormal];
 //    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
 //    [button setTitle:@"发布" forState:UIControlStateNormal];
@@ -89,7 +89,7 @@
         button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 49);
     }
     
-    button.backgroundColor = [UIColor redColor];
+//    button.backgroundColor = [UIColor redColor];
     
     // if you use `+plusChildViewController` , do not addTarget to plusButton.
     [button addTarget:button action:@selector(clickPublish) forControlEvents:UIControlEventTouchUpInside];
@@ -130,8 +130,8 @@
 
 - (void)clickPublish {
     
-    [self setImage:GetImage(@"") forState:UIControlStateNormal];
-    self.backgroundColor = [UIColor greenColor];
+//    [self setImage:GetImage(@"") forState:UIControlStateNormal];
+//    self.backgroundColor = [UIColor greenColor];
     
 //    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
 //                                                             delegate:nil

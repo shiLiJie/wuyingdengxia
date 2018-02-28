@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.mainTitle.font = BOLDSYSTEMFONT(16);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
