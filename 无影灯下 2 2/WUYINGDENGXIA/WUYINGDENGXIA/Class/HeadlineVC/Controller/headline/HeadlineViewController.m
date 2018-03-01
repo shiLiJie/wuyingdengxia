@@ -18,7 +18,7 @@
 #import "ZZNewsSheetMenu.h"
 #import "PageDetailViewController.h"
 #import "PublicPageViewController.h"
-#import "DiscussCollectionVC.h"
+#import "DiscussCollectionView.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
@@ -95,7 +95,21 @@
     //添加标签控制器
     [self addSegView];
     
-    DiscussCollectionVC *discuss = [[DiscussCollectionVC alloc] init];;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    layout.sectionInset = UIEdgeInsetsMake(0 , 0, 0, 0 );
+    
+    layout.itemSize = CGSizeMake(kScreen_Width/5*3, 68);
+
+    // 设置最小行间距
+    layout.minimumLineSpacing = 15 ;
+    // 设置最小列间距
+    
+    DiscussCollectionView *discuss = [[DiscussCollectionView alloc] initWithFrame:CGRectMake(0, 100, kScreen_Width, 78) collectionViewLayout:layout];
+    discuss.backgroundColor = RGB(248, 248, 248);
+    [self.view addSubview:discuss];
     
 }
 

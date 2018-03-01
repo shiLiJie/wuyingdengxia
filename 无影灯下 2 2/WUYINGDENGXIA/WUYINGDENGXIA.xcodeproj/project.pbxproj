@@ -43,7 +43,6 @@
 		0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */; };
 		047528E62045358D00A9794B /* DiscussCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528E42045358D00A9794B /* DiscussCell.m */; };
 		047528E72045358D00A9794B /* DiscussCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047528E52045358D00A9794B /* DiscussCell.xib */; };
-		047528EA2045361700A9794B /* DiscussCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528E92045361700A9794B /* DiscussCollectionVC.m */; };
 		0478D34E2011890A00FB1696 /* NSDate+BRAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */; };
 		0478D3522011895500FB1696 /* BRTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D3512011895500FB1696 /* BRTextField.m */; };
 		047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */; };
@@ -116,6 +115,7 @@
 		04C10EA020107BA0003C204D /* QuestionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C10E9E20107BA0003C204D /* QuestionsViewController.xib */; };
 		04C45C072008992100B188F9 /* PlayDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C45C052008992100B188F9 /* PlayDetailViewController.m */; };
 		04C45C082008992100B188F9 /* PlayDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C45C062008992100B188F9 /* PlayDetailViewController.xib */; };
+		04DDA5AB20479AD600629EC8 /* DiscussCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDA5AA20479AD600629EC8 /* DiscussCollectionView.m */; };
 		04E1BDC7200DD0BA00BC9CE5 /* QATableVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */; };
 		04E1BDC8200DD0BA00BC9CE5 /* QATableVIewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1BDC6200DD0BA00BC9CE5 /* QATableVIewController.xib */; };
 		04E1BDCC200DD32400BC9CE5 /* QATableVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E1BDCA200DD32400BC9CE5 /* QATableVIewCell.m */; };
@@ -207,8 +207,6 @@
 		047528E32045358D00A9794B /* DiscussCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussCell.h; sourceTree = "<group>"; };
 		047528E42045358D00A9794B /* DiscussCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussCell.m; sourceTree = "<group>"; };
 		047528E52045358D00A9794B /* DiscussCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscussCell.xib; sourceTree = "<group>"; };
-		047528E82045361700A9794B /* DiscussCollectionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussCollectionVC.h; sourceTree = "<group>"; };
-		047528E92045361700A9794B /* DiscussCollectionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussCollectionVC.m; sourceTree = "<group>"; };
 		0478D34C2011890A00FB1696 /* NSDate+BRAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRAdd.h"; sourceTree = "<group>"; };
 		0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRAdd.m"; sourceTree = "<group>"; };
 		0478D3502011895500FB1696 /* BRTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTextField.h; sourceTree = "<group>"; };
@@ -347,6 +345,8 @@
 		04C45C042008992100B188F9 /* PlayDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayDetailViewController.h; sourceTree = "<group>"; };
 		04C45C052008992100B188F9 /* PlayDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayDetailViewController.m; sourceTree = "<group>"; };
 		04C45C062008992100B188F9 /* PlayDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayDetailViewController.xib; sourceTree = "<group>"; };
+		04DDA5A920479AD600629EC8 /* DiscussCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussCollectionView.h; sourceTree = "<group>"; };
+		04DDA5AA20479AD600629EC8 /* DiscussCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussCollectionView.m; sourceTree = "<group>"; };
 		04E1BDC4200DD0BA00BC9CE5 /* QATableVIewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATableVIewController.h; sourceTree = "<group>"; };
 		04E1BDC5200DD0BA00BC9CE5 /* QATableVIewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATableVIewController.m; sourceTree = "<group>"; };
 		04E1BDC6200DD0BA00BC9CE5 /* QATableVIewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QATableVIewController.xib; sourceTree = "<group>"; };
@@ -490,8 +490,8 @@
 				0457811F1FFF619D0098D6FC /* DetailTableViewCell.h */,
 				045781201FFF619D0098D6FC /* DetailTableViewCell.m */,
 				045781211FFF619D0098D6FC /* DetailTableViewCell.xib */,
-				047528E82045361700A9794B /* DiscussCollectionVC.h */,
-				047528E92045361700A9794B /* DiscussCollectionVC.m */,
+				04DDA5A920479AD600629EC8 /* DiscussCollectionView.h */,
+				04DDA5AA20479AD600629EC8 /* DiscussCollectionView.m */,
 				047528E32045358D00A9794B /* DiscussCell.h */,
 				047528E42045358D00A9794B /* DiscussCell.m */,
 				047528E52045358D00A9794B /* DiscussCell.xib */,
@@ -1230,6 +1230,7 @@
 				047E96A51FFCC2870062F1E1 /* UIImage+BetterFace.m in Sources */,
 				047E96CB1FFCC29D0062F1E1 /* XHLaunchAdButton.m in Sources */,
 				047E96461FFCC1370062F1E1 /* HeadlineViewController.m in Sources */,
+				04DDA5AB20479AD600629EC8 /* DiscussCollectionView.m in Sources */,
 				047E96731FFCC21C0062F1E1 /* ICInfomationView.m in Sources */,
 				0478D34E2011890A00FB1696 /* NSDate+BRAdd.m in Sources */,
 				048EEFDC2004759200C6510B /* ZZNewsSheetItem.m in Sources */,
@@ -1306,7 +1307,6 @@
 				04E1BDD6200DF32700BC9CE5 /* PageTableViewCell.m in Sources */,
 				048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */,
 				045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */,
-				047528EA2045361700A9794B /* DiscussCollectionVC.m in Sources */,
 				047E969F1FFCC2870062F1E1 /* UIImage+animatedGIF.m in Sources */,
 				047E961E1FFCBDEF0062F1E1 /* main.m in Sources */,
 				047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */,

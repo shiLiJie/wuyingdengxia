@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface DiscussCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UILabel *discussLab;
 
 @end

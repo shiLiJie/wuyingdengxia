@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.discussLab.font = BOLDSYSTEMFONT(14);
 }
 
 @end
