@@ -128,9 +128,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="headImage" destination="65p-Gq-g3P" id="5w3-WE-N3K"/>
                 <outlet property="mainTitle" destination="1WP-sL-hAu" id="HOB-LW-na6"/>
+                <outlet property="pageDetail" destination="wbF-Nt-DaG" id="05L-oA-azq"/>
+                <outlet property="userName" destination="OXE-R5-uC4" id="d1Q-Iv-hgM"/>
             </connections>
-            <point key="canvasLocation" x="-177" y="30"/>
+            <point key="canvasLocation" x="-198" y="33"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -19,6 +19,7 @@
 #import "PageDetailViewController.h"
 #import "PublicPageViewController.h"
 #import "DiscussCollectionView.h"
+#import "PublishPersonVCViewController.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
@@ -40,6 +41,9 @@
 @property(nonatomic,strong) HW3DBannerView *scrollView;
 //兴趣标签编辑界面
 @property(nonatomic, strong) ZZNewsSheetMenu *newsMenu;
+//讨论collection
+@property (nonatomic, strong) DiscussCollectionView *discuss;
+
 
 
 
@@ -94,23 +98,9 @@
     [self addBannerView];
     //添加标签控制器
     [self addSegView];
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
-    layout.sectionInset = UIEdgeInsetsMake(0 , 0, 0, 0 );
-    
-    layout.itemSize = CGSizeMake(kScreen_Width/5*3, 68);
-
-    // 设置最小行间距
-    layout.minimumLineSpacing = 15 ;
-    // 设置最小列间距
-    
-    DiscussCollectionView *discuss = [[DiscussCollectionView alloc] initWithFrame:CGRectMake(0, 100, kScreen_Width, 78) collectionViewLayout:layout];
-    discuss.backgroundColor = RGB(248, 248, 248);
-    [self.view addSubview:discuss];
-    
+    //添加讨论collection
+    [self addDiscussUI];
+   
 }
 
 //设置导航栏背景色
@@ -226,7 +216,8 @@
     
     //添加加号➕按钮
     UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, 0, segViewHigh, segViewHigh)];
-    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
+//    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
+    [addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
     [addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_segView addSubview:addMenuBtn];
@@ -240,12 +231,32 @@
                      ];
     
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                          CGRectGetMaxY(_segView.frame),
+                                                                          CGRectGetMaxY(_segView.frame)+78,
                                                                           Main_Screen_Width,
                                                                           Main_Screen_Height - 75)
                                                      withArray:arr];
     _collectView.delegate = self;
     [self.view addSubview:_collectView];
+}
+
+//添加讨论collection
+-(void)addDiscussUI{
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    layout.sectionInset = UIEdgeInsetsMake(0 , 0, 0, 0 );
+    
+    layout.itemSize = CGSizeMake(kScreen_Width/5*3, 68);
+    
+    // 设置最小行间距
+    layout.minimumLineSpacing = 15 ;
+    // 设置最小列间距
+    
+    self.discuss = [[DiscussCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame), kScreen_Width, 78) collectionViewLayout:layout];
+    self.discuss.backgroundColor = RGB(248, 248, 248);
+    [self.view addSubview:self.discuss];
 }
 
 #pragma mark - 按钮action -
@@ -342,7 +353,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.scrollView.frame = CGRectMake(0,headerViewY, Main_Screen_Width, bannerHigh);
         _segView.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width, segViewHigh);
-        _collectView.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame), Main_Screen_Width, Main_Screen_Height - CGRectGetMaxY(self.scrollView.frame)-100);
+        _discuss.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame), Main_Screen_Width, 78);
+        _collectView.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame)+78, Main_Screen_Width, Main_Screen_Height - CGRectGetMaxY(self.scrollView.frame));
         [self.scrollView updateViewFrameSetting];
         
     });
@@ -353,6 +365,13 @@
     
     PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
     [self.navigationController pushViewController:pageDetail animated:YES];
+    self.searchBar.hidden = YES;
+}
+
+//点击用户名和头像跳入个人发表的文章页
+-(void)clickUserNamePushPublishVc{
+    PublishPersonVCViewController *publishPerson = [[PublishPersonVCViewController alloc] init];
+    [self.navigationController pushViewController:publishPerson animated:YES];
     self.searchBar.hidden = YES;
 }
 

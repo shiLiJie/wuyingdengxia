@@ -108,6 +108,8 @@
 		048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFDB2004759200C6510B /* ZZNewsSheetConfig.m */; };
 		048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFE22004A5D100C6510B /* PageDetailViewController.m */; };
 		048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048EEFE32004A5D100C6510B /* PageDetailViewController.xib */; };
+		04945C30204CEC8E00123D60 /* PublishPersonVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04945C2E204CEC8E00123D60 /* PublishPersonVCViewController.m */; };
+		04945C31204CEC8E00123D60 /* PublishPersonVCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04945C2F204CEC8E00123D60 /* PublishPersonVCViewController.xib */; };
 		049C0963200EE8C00057BC5F /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0961200EE8C00057BC5F /* AnswerViewController.m */; };
 		049C0964200EE8C00057BC5F /* AnswerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049C0962200EE8C00057BC5F /* AnswerViewController.xib */; };
 		049C0967200EEA920057BC5F /* JoinAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0966200EEA920057BC5F /* JoinAnswerViewController.m */; };
@@ -334,6 +336,9 @@
 		048EEFE12004A5D100C6510B /* PageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageDetailViewController.h; sourceTree = "<group>"; };
 		048EEFE22004A5D100C6510B /* PageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageDetailViewController.m; sourceTree = "<group>"; };
 		048EEFE32004A5D100C6510B /* PageDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageDetailViewController.xib; sourceTree = "<group>"; };
+		04945C2D204CEC8E00123D60 /* PublishPersonVCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishPersonVCViewController.h; sourceTree = "<group>"; };
+		04945C2E204CEC8E00123D60 /* PublishPersonVCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishPersonVCViewController.m; sourceTree = "<group>"; };
+		04945C2F204CEC8E00123D60 /* PublishPersonVCViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishPersonVCViewController.xib; sourceTree = "<group>"; };
 		049C0960200EE8C00057BC5F /* AnswerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
 		049C0961200EE8C00057BC5F /* AnswerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
 		049C0962200EE8C00057BC5F /* AnswerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerViewController.xib; sourceTree = "<group>"; };
@@ -669,6 +674,7 @@
 				0473EBE3200C7BFC00D0463C /* QuickQAVC */,
 				047E96E61FFCC48E0062F1E1 /* InforVC */,
 				047E96EC1FFCC4CC0062F1E1 /* MyVC */,
+				04945C2C204CEC2400123D60 /* PublishPersonVC */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -966,6 +972,16 @@
 			path = pageDetail;
 			sourceTree = "<group>";
 		};
+		04945C2C204CEC2400123D60 /* PublishPersonVC */ = {
+			isa = PBXGroup;
+			children = (
+				04945C2D204CEC8E00123D60 /* PublishPersonVCViewController.h */,
+				04945C2E204CEC8E00123D60 /* PublishPersonVCViewController.m */,
+				04945C2F204CEC8E00123D60 /* PublishPersonVCViewController.xib */,
+			);
+			path = PublishPersonVC;
+			sourceTree = "<group>";
+		};
 		BE30470AA549E9C4985E3FA4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1108,6 +1124,7 @@
 				0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */,
 				04E1BDCD200DD32400BC9CE5 /* QATableVIewCell.xib in Resources */,
 				047E96F11FFCC4DC0062F1E1 /* MyViewController.xib in Resources */,
+				04945C31204CEC8E00123D60 /* PublishPersonVCViewController.xib in Resources */,
 				047E96E51FFCC4800062F1E1 /* TrainViewController.xib in Resources */,
 				042F7D3B200344F9005138C0 /* DetailTableViewController.xib in Resources */,
 				046653C72006051D0051B276 /* MeetingNewViewController.xib in Resources */,
@@ -1242,6 +1259,7 @@
 				047E96CE1FFCC29D0062F1E1 /* XHLaunchAdCache.m in Sources */,
 				04372A681FFDDD9500D0762C /* SearchBarEffectController.m in Sources */,
 				047E96AB1FFCC2870062F1E1 /* UIImage+Merge.m in Sources */,
+				04945C30204CEC8E00123D60 /* PublishPersonVCViewController.m in Sources */,
 				047E96CF1FFCC29D0062F1E1 /* XHLaunchAdConfiguration.m in Sources */,
 				047E96CD1FFCC29D0062F1E1 /* XHLaunchImageView.m in Sources */,
 				049C0963200EE8C00057BC5F /* AnswerViewController.m in Sources */,

@@ -7,9 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol DetailTableViewCellDelegate <NSObject>
+//弹出发表人页面
+- (void)pushPublishPersonVc;
+@end
 
 @interface DetailTableViewCell : UITableViewCell
+
+@property (nonatomic, weak) id<DetailTableViewCellDelegate> delegate;
+
 //主标题
 @property (weak, nonatomic) IBOutlet UILabel *mainTitle;
+//头像
+@property (weak, nonatomic) IBOutlet UIButton *headImage;
+//用户名
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+//文章详情
+@property (weak, nonatomic) IBOutlet UILabel *pageDetail;
 
 @end

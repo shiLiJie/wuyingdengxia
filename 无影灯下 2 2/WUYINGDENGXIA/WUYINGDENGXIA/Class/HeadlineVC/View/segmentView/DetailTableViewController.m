@@ -10,9 +10,12 @@
 #import "UIColor+Tools.h"
 #import "DetailTableViewCell.h"
 
-@interface DetailTableViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface DetailTableViewController ()<UITableViewDataSource,UITableViewDelegate,DetailTableViewCellDelegate>
 
 @property (nonatomic, strong) NSArray *dataArr;
+
+@property (nonatomic, strong) DetailTableViewCell * cell;
+
 
 @end
 
@@ -23,6 +26,8 @@
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    
     
     self.dataArr = @[@"1",@"1",@"1",@"1",@"1"];
 }
@@ -41,17 +46,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString * reuseID = @"DetailTableViewCell";
-    DetailTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+    self.cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     
-    if (!cell) {
+    
+    
+    if (!self.cell) {
         
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil] firstObject];
+        self.cell = [[[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil] firstObject];
     }
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 80, 0);
+    self.cell.delegate = self;
     
-    return cell;
+    self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 160, 0);
+    
+    return self.cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -64,6 +73,11 @@
     if (self.DidScrollBlock) {
         self.DidScrollBlock(scrollView.contentOffset.y);
     }
+}
+
+#pragma mark - cell点击头像和用户名代理方法 -
+-(void)pushPublishPersonVc{
+    [self.delegate clickUserNamePushPublishVc];
 }
 
 @end

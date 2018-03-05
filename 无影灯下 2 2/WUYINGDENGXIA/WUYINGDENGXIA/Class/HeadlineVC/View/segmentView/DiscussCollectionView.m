@@ -66,7 +66,7 @@ static NSString *ID = @"DiscussCell";
     cell.contentView.layer.borderColor = [UIColor clearColor].CGColor;
     cell.contentView.layer.masksToBounds = YES;
     
-    cell.layer.shadowColor = [UIColor darkGrayColor].CGColor;
+    cell.layer.shadowColor = RGBA(210, 208, 208,0.7).CGColor;
     cell.layer.shadowOffset = CGSizeMake(0, 0);
     cell.layer.shadowRadius = 3.0f;
     cell.layer.shadowOpacity = 0.5f;
