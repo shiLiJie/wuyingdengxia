@@ -95,12 +95,12 @@
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
     _segView.frame = CGRectMake(0,CGRectGetMaxY(self.backView.frame), Main_Screen_Width, segViewHigh);
-    _segView.items = @[@"发表",@"提问"];
+    _segView.items = @[@"发表"];
     [self.view addSubview:_segView];
     
     NSArray *arr = @[
-                     [self tablecontroller],
-                     [self tablecontroller1]
+                     [self tablecontroller]
+//                     [self tablecontroller1]
                      ];
     
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,

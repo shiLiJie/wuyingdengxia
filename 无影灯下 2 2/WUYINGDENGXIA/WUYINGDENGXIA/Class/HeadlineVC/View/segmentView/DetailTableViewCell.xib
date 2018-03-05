@@ -135,7 +135,7 @@
                 <outlet property="pageDetail" destination="wbF-Nt-DaG" id="05L-oA-azq"/>
                 <outlet property="userName" destination="OXE-R5-uC4" id="d1Q-Iv-hgM"/>
             </connections>
-            <point key="canvasLocation" x="-198" y="33"/>
+            <point key="canvasLocation" x="-426" y="70"/>
         </tableViewCell>
     </objects>
     <resources>
