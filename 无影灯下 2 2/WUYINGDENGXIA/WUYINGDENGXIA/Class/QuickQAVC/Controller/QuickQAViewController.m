@@ -34,6 +34,9 @@
 @implementation QuickQAViewController
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    [self.navigationController.navigationBar setHidden:NO];
+    
     if ([self respondsToSelector:@selector(set_colorBackground)]) {
         UIColor *backgroundColor =  [self set_colorBackground];
         UIImage *bgimage = [UIImage imageWithColor:backgroundColor];

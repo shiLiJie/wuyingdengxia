@@ -27,7 +27,7 @@
                             <constraint firstAttribute="width" constant="26" id="low-vg-ZRV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="头像"/>
+                        <state key="normal" backgroundImage="wenda"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXE-R5-uC4">
                         <rect key="frame" x="56" y="16.5" width="40" height="16"/>
@@ -53,7 +53,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浏览次数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hh0-0s-2e1">
-                        <rect key="frame" x="393.5" y="114.5" width="49.5" height="14.5"/>
+                        <rect key="frame" x="391.5" y="114.5" width="49.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -77,19 +77,21 @@
                         </constraints>
                         <state key="normal" image="dianzai"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKg-WJ-28S">
-                        <rect key="frame" x="463" y="116.5" width="11" height="11"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKg-WJ-28S">
+                        <rect key="frame" x="461" y="116.5" width="13" height="12"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="11" id="QKq-UK-pWU"/>
-                            <constraint firstAttribute="width" constant="11" id="lnx-wO-MLB"/>
+                            <constraint firstAttribute="height" constant="12" id="QKq-UK-pWU"/>
+                            <constraint firstAttribute="width" constant="13" id="lnx-wO-MLB"/>
                         </constraints>
+                        <state key="normal" image="huifu"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzK-PS-VQb">
-                        <rect key="frame" x="377.5" y="116.5" width="11" height="11"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzK-PS-VQb">
+                        <rect key="frame" x="373.5" y="117" width="13" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="TXr-On-TDq"/>
-                            <constraint firstAttribute="width" constant="11" id="Yxf-wn-xhe"/>
+                            <constraint firstAttribute="width" constant="13" id="Yxf-wn-xhe"/>
                         </constraints>
+                        <state key="normal" backgroundImage="guankan"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQU-oH-Ilk">
                         <rect key="frame" x="479" y="114.5" width="37" height="14.5"/>
@@ -138,5 +140,8 @@
     </objects>
     <resources>
         <image name="dianzai" width="13" height="13"/>
+        <image name="guankan" width="14" height="12"/>
+        <image name="huifu" width="14" height="13"/>
+        <image name="wenda" width="43" height="43"/>
     </resources>
 </document>

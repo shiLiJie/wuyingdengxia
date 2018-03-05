@@ -45,16 +45,47 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self.navigationController setNavigationBarHidden:YES animated:nil];
-    [super viewWillAppear:nil];
+    [self.navigationController.navigationBar setHidden:YES];
+    
+    if ([self respondsToSelector:@selector(set_colorBackground)]) {
+        UIColor *backgroundColor =  [self set_colorBackground];
+        UIImage *bgimage = [UIImage imageWithColor:backgroundColor];
+        
+        [self.navigationController.navigationBar setBackgroundImage:bgimage forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    UIImageView* blackLineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    //默认显示黑线
+    blackLineImageView.hidden = NO;
+    if ([self respondsToSelector:@selector(hideNavigationBottomLine)]) {
+        if ([self hideNavigationBottomLine]) {
+            //隐藏黑线
+            blackLineImageView.hidden = YES;
+        }
+    }
+    
+//    [super viewWillAppear:nil];
     //添加segeview
     [self addSegView];
+    
+//    self.guanzhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    //切圆角和设置弧度
+//    self.guanzhuBtn.layer.cornerRadius = 5.0;//半径大小
+//    self.guanzhuBtn.layer.masksToBounds = YES;//是否切割
 }
 
 #pragma mark - UI -
 -(UIColor*)set_colorBackground{
     
     return [UIColor clearColor];
+}
+
+-(BOOL)hideNavigationBottomLine{
+    return YES;
+}
+
+-(UIButton *)set_leftButton{
+    return nil;
 }
 
 

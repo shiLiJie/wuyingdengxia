@@ -19,7 +19,7 @@
 #import "PageDetailViewController.h"
 #import "PublicPageViewController.h"
 #import "DiscussCollectionView.h"
-#import "PublishPersonVCViewController.h"
+#import "PersonViewController.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
@@ -52,13 +52,16 @@
 @implementation HeadlineViewController
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    [self.navigationController.navigationBar setHidden:NO];
+    
     if ([self respondsToSelector:@selector(set_colorBackground)]) {
         UIColor *backgroundColor =  [self set_colorBackground];
         UIImage *bgimage = [UIImage imageWithColor:backgroundColor];
-        
+
         [self.navigationController.navigationBar setBackgroundImage:bgimage forBarMetrics:UIBarMetricsDefault];
     }
-    
+
     UIImageView* blackLineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     //默认显示黑线
     blackLineImageView.hidden = NO;
@@ -69,6 +72,7 @@
         }
     }
     self.searchBar.hidden = NO;
+    self.searchBtn.hidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -265,6 +269,7 @@
     PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
     [self.navigationController pushViewController:publicPage animated:YES];
     self.searchBar.hidden = YES;
+    self.searchBtn.hidden = YES;
 }
 //二维码扫一扫
 -(void)left_button_event:(UIButton *)sender{
@@ -366,13 +371,15 @@
     PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
     [self.navigationController pushViewController:pageDetail animated:YES];
     self.searchBar.hidden = YES;
+    self.searchBtn.hidden = YES;
 }
 
 //点击用户名和头像跳入个人发表的文章页
 -(void)clickUserNamePushPublishVc{
-    PublishPersonVCViewController *publishPerson = [[PublishPersonVCViewController alloc] init];
+    PersonViewController *publishPerson = [[PersonViewController alloc] init];
     [self.navigationController pushViewController:publishPerson animated:YES];
     self.searchBar.hidden = YES;
+    self.searchBtn.hidden = YES;
 }
 
 
