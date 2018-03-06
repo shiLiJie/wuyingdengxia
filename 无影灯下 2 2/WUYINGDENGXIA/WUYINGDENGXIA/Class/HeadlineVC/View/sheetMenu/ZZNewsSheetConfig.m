@@ -19,13 +19,13 @@
 }
 - (void)commit{
     self.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
-    self.sheetBackgroundColor = [UIColor clearColor];
+    self.sheetBackgroundColor = RGB(45, 163, 255);
     self.isShakeAnimation = YES;
     self.sheetMaxColumn = 3;
-    self.closeBackgroundColor = [UIColor lightGrayColor];
+    self.closeBackgroundColor = RGB(237, 86, 89);
     self.isHiddenWhenHasNoneRecomment = NO;
-    self.sheetItemFont = [UIFont systemFontOfSize:12];
-    self.sheetItemTitleColor = [UIColor blackColor];
+    self.sheetItemFont = [UIFont systemFontOfSize:13];
+    self.sheetItemTitleColor = [UIColor whiteColor];
 }
 
 + (instancetype)defaultCofing{

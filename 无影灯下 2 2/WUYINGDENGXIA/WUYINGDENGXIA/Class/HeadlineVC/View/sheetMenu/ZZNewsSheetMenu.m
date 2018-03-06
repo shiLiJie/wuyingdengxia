@@ -119,8 +119,9 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     self.menuNavitem = menuNav;
     
     UIButton * closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
-    [closeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
+//    [closeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [closeButton setImage:GetImage(@"cha1") forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(dismissNewsMenu) forControlEvents:UIControlEventTouchUpInside];
     closeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [closeButton setFont:[UIFont boldSystemFontOfSize:15]];
@@ -129,12 +130,11 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     self.closeMenuButton = closeButton;
     
     UIButton * editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [editButton setTitle:@"编辑管理" forState:UIControlStateNormal];
-    [editButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [editButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [editButton setTitleColor:RGB(45, 163, 255) forState:UIControlStateNormal];
+    [editButton setTitleColor:RGB(45, 163, 255) forState:UIControlStateSelected];
     [editButton addTarget:self action:@selector(editMenu:) forControlEvents:UIControlEventTouchUpInside];
     [editButton setFont:[UIFont boldSystemFontOfSize:15]];
-    [editButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [menuNav addSubview:editButton];
     self.editMenuButton = editButton;
     
@@ -178,8 +178,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 
     
     UILabel *lab = [[UILabel alloc]init];
-    lab.text = @"推荐频道";
-    lab.textColor = [UIColor grayColor];
+    lab.text = @"推荐导航";
+    lab.textColor = RGB(51, 51, 51);
     lab.font = [UIFont boldSystemFontOfSize:15];
     [recommendSubjectView addSubview:lab];
     self.recommentTitleLab = lab;
@@ -211,8 +211,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60 - 100, 0,100, self.menuNavitem.bounds.size.height);
     
     UILabel *lab = [[UILabel alloc] init];
-    lab.text = @"导航设置";
-    lab.textColor = [UIColor grayColor];
+    lab.text = @"我的导航";
+    lab.textColor = RGB(51, 51, 51);
     lab.font = [UIFont boldSystemFontOfSize:15];
     CGSize size = [ZZNewsSheetConfig defaultCofing].sheetItemSize;
     NSInteger column = [ZZNewsSheetConfig defaultCofing].sheetMaxColumn;

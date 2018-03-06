@@ -57,16 +57,45 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
     if (self.flagType == ZZCornerFlagTypeDelete) {
         if (isShakeAnimation) {
             [self startShakeAnimation];
+            
+            self.closeButton.hidden = NO;
+            
+            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
+            [self.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
+            
         }
     }else{
         if (isShakeAnimation) {
              [self removeAnimation];
+            
+            self.closeButton.hidden = YES;
+            
+            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
+            
+            self.backgroundColor = RGB(255, 255, 255);
+            self.itemTitleLab.textColor = RGB(1, 1, 1);
+            self.layer.borderWidth = 1;
+            self.layer.borderColor = [RGB(221, 221, 221) CGColor];
+            
+//            NSString * title = self.cornerFlagDictionary[[NSString stringWithFormat:@"%d",(int)flagType]];
+//            [self.closeButton setTitle:@"+" forState:UIControlStateNormal];
+            
+            
         }
     }
     
     NSString * title = self.cornerFlagDictionary[[NSString stringWithFormat:@"%d",(int)flagType]];
-    self.closeButton.hidden = NO;
-    [self.closeButton setTitle:title forState:UIControlStateNormal];
+    
+    
+//    [self.closeButton setTitle:title forState:UIControlStateNormal];
+    
+//    if ([title isEqualToString:@"X"]) {
+//
+//        [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
+//        [self.closeButton setTitle:title forState:UIControlStateNormal];
+//    }else{
+//        [self.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
+//    }
 }
 
 - (void)setItemTitle:(NSString *)itemTitle{
@@ -130,7 +159,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 #pragma mark - SetUp
 - (void)defaultConfig{
     self.backgroundColor = [ZZNewsSheetConfig defaultCofing].sheetBackgroundColor;
-    self.layer.cornerRadius = 4.0f;
+    self.layer.cornerRadius = 17.0f;
 }
 - (void)setUp{
     [self defaultConfig];
@@ -160,7 +189,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 - (void)addCloseButton{
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeButton setTitle:@"X" forState:UIControlStateNormal];
-    closeButton.titleLabel.font = [UIFont systemFontOfSize:10];
+    closeButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [closeButton addTarget:self action:@selector(zz_close) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeButton];
     self.closeButton = closeButton;
@@ -170,12 +199,13 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 - (void)addLongPanGesture{
     UILongPressGestureRecognizer * ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPanGesture:)];
     [self addGestureRecognizer:ges];
-    self.longGestureEnable = YES;
+    UITapGestureRecognizer *ges1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(zz_close)];
+    [self addGestureRecognizer:ges1];
 }
 
 - (NSDictionary *)cornerFlagDictionary{
     return @{
-        @"1":@"x",
+        @"1":@"X",
         @"2":@"+"
         };
 }
