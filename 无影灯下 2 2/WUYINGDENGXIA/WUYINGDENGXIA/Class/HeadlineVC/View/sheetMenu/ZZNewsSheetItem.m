@@ -106,7 +106,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
     _cornerFlagHidden = cornerFlagHidden;
     
     self.longGestureEnable = !cornerFlagHidden;
-    if (self.flagType != ZZCornerFlagTypeDelete) {
+    if (self.flagType != ZZCornerFlagTypeDelete && self.flagType != ZZCornerFlagTypeAddition) {
         self.longGestureEnable = NO;
     }
     
@@ -214,6 +214,9 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 - (void)longPanGesture:(UILongPressGestureRecognizer*)ges{
     if (!self.isGestureEnable) 
         return;
+    if (self.flagType == ZZCornerFlagTypeAddition) {
+        return;
+    }
     
     if (self.longPressBlock) {
         self.longPressBlock(ges);
@@ -221,6 +224,10 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 }
 
 - (void)zz_close{
+    if (!self.isGestureEnable) {
+        return;
+    }
+    
     if (self.itemCloseBlock) {
         self.itemCloseBlock(self);
     }

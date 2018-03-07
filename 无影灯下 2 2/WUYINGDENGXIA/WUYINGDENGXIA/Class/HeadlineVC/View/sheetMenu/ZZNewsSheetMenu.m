@@ -248,10 +248,15 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 }
 
 - (void)moveItemFromMySubjectToRecommend:(ZZNewsSheetItem *)item{
+    if (self.mySubjectItemArray.count == 1) {
+        NSLog(@"最少留一个");
+        return;
+    }
+    
     [self.mySubjectItemArray removeObject:item];
     [self.mySubjectArray removeObject:item.itemTitle];
     
-    item.longGestureEnable = NO;
+    item.longGestureEnable = YES;
     item.flagType = ZZCornerFlagTypeAddition;
     
     [self.recommendSubjectItemArray addObject:item];
@@ -266,7 +271,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     [self.recommendSubjectItemArray removeObject:item];
     [self.recommendSubjectArray removeObject:item.itemTitle];
     
-    item.longGestureEnable = YES; 
+    item.longGestureEnable = YES;
     item.flagType = ZZCornerFlagTypeDelete;
     
     [self.mySubjectItemArray addObject:item];
