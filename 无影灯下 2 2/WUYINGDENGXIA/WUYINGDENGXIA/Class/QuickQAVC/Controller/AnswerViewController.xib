@@ -24,25 +24,26 @@
                     <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Wj-vU-6sa">
-                            <rect key="frame" x="20" y="9" width="62" height="30"/>
-                            <state key="normal" title="参与回答"/>
+                            <rect key="frame" x="20" y="10" width="54" height="28"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="参与回答">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="AnswerQuestionClick:" destination="-1" eventType="touchUpInside" id="LhG-pO-tI3"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akN-2K-AX0">
-                            <rect key="frame" x="330" y="11.5" width="25" height="25"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akN-2K-AX0">
+                            <rect key="frame" x="330" y="12" width="25" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="25" id="0RO-dI-543"/>
                                 <constraint firstAttribute="height" constant="25" id="J2c-f7-mis"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="分享"/>
+                            <state key="normal" image="fenxiang"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwl-wP-LRd">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwl-wP-LRd">
                             <rect key="frame" x="285" y="12" width="25" height="25"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="收藏"/>
+                            <state key="normal" image="yishoucang"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.89582403269999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -66,7 +67,11 @@
                 <constraint firstItem="8lD-PC-AgO" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="i7V-Vh-5nV"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-104" y="10"/>
+            <point key="canvasLocation" x="-514" y="-436"/>
         </view>
     </objects>
+    <resources>
+        <image name="fenxiang" width="21" height="21"/>
+        <image name="yishoucang" width="24" height="23"/>
+    </resources>
 </document>

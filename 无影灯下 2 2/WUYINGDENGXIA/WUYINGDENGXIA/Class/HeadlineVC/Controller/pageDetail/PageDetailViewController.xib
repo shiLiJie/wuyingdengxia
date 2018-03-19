@@ -24,30 +24,30 @@
                     <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixu-CO-hjU">
-                            <rect key="frame" x="20" y="9" width="200" height="30"/>
-                            <state key="normal" title="参与评论"/>
+                            <rect key="frame" x="20" y="10" width="200" height="28"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="参与评论">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="clickToComment:" destination="-1" eventType="touchUpInside" id="MuP-bf-V3a"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKf-4D-G6v">
-                            <rect key="frame" x="330" y="11.5" width="25" height="25"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKf-4D-G6v">
+                            <rect key="frame" x="330" y="12" width="25" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="25" id="9XQ-zq-MdW"/>
                                 <constraint firstAttribute="height" constant="25" id="sVr-0R-iyX"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="分享"/>
+                            <state key="normal" image="fenxiang"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eV3-Ux-A0q">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eV3-Ux-A0q">
                             <rect key="frame" x="285" y="12" width="25" height="25"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="收藏"/>
+                            <state key="normal" image="yishoucang"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLl-Ux-MiG">
-                            <rect key="frame" x="240" y="12" width="25" height="25"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="点赞"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLl-Ux-MiG">
+                            <rect key="frame" x="240" y="12.5" width="25" height="25"/>
+                            <state key="normal" image="dadianzan"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.89582403273809508" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -79,4 +79,9 @@
             <point key="canvasLocation" x="26.5" y="52.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="dadianzan" width="22" height="22"/>
+        <image name="fenxiang" width="21" height="21"/>
+        <image name="yishoucang" width="24" height="23"/>
+    </resources>
 </document>

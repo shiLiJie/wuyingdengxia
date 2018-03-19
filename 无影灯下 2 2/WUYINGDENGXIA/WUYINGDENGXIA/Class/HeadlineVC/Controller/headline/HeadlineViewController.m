@@ -135,52 +135,59 @@
     return right;
 }
 //搜索searchbar 禁用
-- (UISearchBar *)searchBar
-{
-    if (_searchBar == nil) {
-        _searchBar = [[UISearchBar alloc]init];
-        if (kDevice_Is_iPhoneX) {
-            _searchBar.frame = CGRectMake(45, 40, Main_Screen_Width-100, 44);
-        }else{
-            _searchBar.frame = CGRectMake(45, 15, Main_Screen_Width-100, 44);
-        }
-        _searchBar.userInteractionEnabled = NO;
-        // 去除searchbar上下两条黑线及设置背景
-        _searchBar.barTintColor = [UIColor whiteColor];
-        _searchBar.layer.borderColor = [UIColor whiteColor].CGColor;
-        _searchBar.layer.borderWidth = 1;
-        [_searchBar sizeToFit];
-        [_searchBar setPlaceholder:@"输入想要搜索的关键词"];
-        [_searchBar setDelegate:self];
-        [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-        [_searchBar setTranslucent:NO];//设置是否透明
-        [_searchBar setSearchBarStyle:UISearchBarStyleProminent];
-        _searchBar.tintColor = [UIColor blackColor];
-        //设置searchbar背景颜色
-        for (UIView *subView in _searchBar.subviews) {
-            if ([subView isKindOfClass:[UIView  class]]) {
-                [[subView.subviews objectAtIndex:0] removeFromSuperview];
-                if ([[subView.subviews objectAtIndex:0] isKindOfClass:[UITextField class]]) {
-                    UITextField *textField = [subView.subviews objectAtIndex:0];
-                    textField.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
-                    if (kDevice_Is_iPhone5) {
-                        textField.font = [UIFont systemFontOfSize:11];
-                    }else{
-                        textField.font = [UIFont systemFontOfSize:12];
-                    }
-                }
-            }
-        }
-    }
-    return _searchBar;
-}
+//- (UISearchBar *)searchBar
+//{
+//    if (_searchBar == nil) {
+//        _searchBar = [[UISearchBar alloc]init];
+//        if (kDevice_Is_iPhoneX) {
+//            _searchBar.frame = CGRectMake(45, 40, Main_Screen_Width-100, 44);
+//        }else{
+//            _searchBar.frame = CGRectMake(45, 15, Main_Screen_Width-100, 44);
+//        }
+//        _searchBar.userInteractionEnabled = NO;
+//        // 去除searchbar上下两条黑线及设置背景
+//        _searchBar.barTintColor = [UIColor whiteColor];
+//        _searchBar.layer.borderColor = [UIColor whiteColor].CGColor;
+//        _searchBar.layer.borderWidth = 1;
+//        [_searchBar sizeToFit];
+//        [_searchBar setPlaceholder:@"输入想要搜索的关键词"];
+//        [_searchBar setDelegate:self];
+//        [_searchBar setKeyboardType:UIKeyboardTypeDefault];
+//        [_searchBar setTranslucent:NO];//设置是否透明
+//        [_searchBar setSearchBarStyle:UISearchBarStyleProminent];
+//        _searchBar.tintColor = [UIColor blackColor];
+//        //设置searchbar背景颜色
+//        for (UIView *subView in _searchBar.subviews) {
+//            if ([subView isKindOfClass:[UIView  class]]) {
+//                [[subView.subviews objectAtIndex:0] removeFromSuperview];
+//                if ([[subView.subviews objectAtIndex:0] isKindOfClass:[UITextField class]]) {
+//                    UITextField *textField = [subView.subviews objectAtIndex:0];
+//                    textField.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+//                    if (kDevice_Is_iPhone5) {
+//                        textField.font = [UIFont systemFontOfSize:11];
+//                    }else{
+//                        textField.font = [UIFont systemFontOfSize:12];
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    return _searchBar;
+//}
 
 //搜索bar上边的按钮,实际点击的是他
 -(UIButton *)searchBtn{
     if (_searchBtn == nil) {
         _searchBtn = [[UIButton alloc] init];
-        _searchBtn.frame = _searchBar.frame;
+//        _searchBtn.frame = _searchBar.frame;
+        if (kDevice_Is_iPhoneX) {
+            _searchBtn.frame = CGRectMake(45, 40, Main_Screen_Width-110, 33);
+        }else{
+            _searchBtn.frame = CGRectMake(45, 25, Main_Screen_Width-110, 33);
+        }
         [_searchBtn addTarget:self action:@selector(setUpSearch) forControlEvents:UIControlEventTouchUpInside];
+        [_searchBtn setImage:GetImage(@"shouye") forState:UIControlStateNormal];
+        [_searchBtn setImage:GetImage(@"shouye") forState:UIControlStateHighlighted];
     }
     return _searchBtn;
 }

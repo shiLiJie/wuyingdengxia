@@ -28,12 +28,14 @@
                         <constraint firstAttribute="height" constant="64" id="ze9-bF-CCn"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="534-jE-yUm">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="534-jE-yUm">
                     <rect key="frame" x="30" y="64" width="315" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="QLK-ey-KR7"/>
                     </constraints>
-                    <state key="normal" title="输入想搜索的关键词"/>
+                    <state key="normal" image="zixun"/>
+                    <state key="selected" image="zixun"/>
+                    <state key="highlighted" image="zixun"/>
                     <connections>
                         <action selector="gotoSearchKey:" destination="-1" eventType="touchUpInside" id="YVx-1g-y6y"/>
                     </connections>
@@ -52,4 +54,7 @@
             <point key="canvasLocation" x="-181" y="55"/>
         </view>
     </objects>
+    <resources>
+        <image name="zixun" width="336" height="33"/>
+    </resources>
 </document>

@@ -31,28 +31,28 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大会名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rr7-yW-eN9">
-                        <rect key="frame" x="10" y="113.5" width="70" height="24.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <rect key="frame" x="10" y="113.5" width="61.5" height="24.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="具体时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ver-7Z-YNQ">
-                        <rect key="frame" x="40" y="143" width="49.5" height="14.5"/>
+                        <rect key="frame" x="10" y="143" width="49.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="3U0-Tc-1GV" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.66" id="3EN-Lf-4fq"/>
                     <constraint firstItem="RUy-ho-39x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="6R4-hp-TEN"/>
+                    <constraint firstItem="Ver-7Z-YNQ" firstAttribute="leading" secondItem="Rr7-yW-eN9" secondAttribute="leading" id="Dzm-I8-q7F"/>
                     <constraint firstItem="Ver-7Z-YNQ" firstAttribute="centerY" secondItem="RUy-ho-39x" secondAttribute="centerY" id="MeX-OD-pJm"/>
                     <constraint firstAttribute="bottom" secondItem="RUy-ho-39x" secondAttribute="bottom" constant="5" id="OTC-eT-IoI"/>
                     <constraint firstItem="3U0-Tc-1GV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Scd-Di-g0Z"/>
                     <constraint firstItem="Ver-7Z-YNQ" firstAttribute="top" secondItem="Rr7-yW-eN9" secondAttribute="bottom" constant="5" id="U7o-uc-bIu"/>
                     <constraint firstAttribute="trailing" secondItem="3U0-Tc-1GV" secondAttribute="trailing" id="VbP-cC-ufl"/>
                     <constraint firstItem="3U0-Tc-1GV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="igW-9F-sYr"/>
-                    <constraint firstItem="Ver-7Z-YNQ" firstAttribute="leading" secondItem="RUy-ho-39x" secondAttribute="trailing" constant="10" id="izq-7k-sec"/>
                     <constraint firstItem="Rr7-yW-eN9" firstAttribute="leading" secondItem="RUy-ho-39x" secondAttribute="leading" id="pIw-le-bE8"/>
                     <constraint firstItem="Rr7-yW-eN9" firstAttribute="top" secondItem="3U0-Tc-1GV" secondAttribute="bottom" constant="5" id="qhe-8K-t6X"/>
                 </constraints>

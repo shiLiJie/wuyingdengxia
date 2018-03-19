@@ -21,6 +21,18 @@
     
 }
 
+//左侧按钮设置点击
+-(UIButton *)set_leftButton{
+    UIButton *btn = [[UIButton alloc] init];
+    [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
+    return btn;
+}
+
+-(void)left_button_event:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 -(NSMutableAttributedString *)setTitle{
     return [self changeTitle:@"文章详情"];
 }

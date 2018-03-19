@@ -63,7 +63,7 @@
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
                                                                           CGRectGetMaxY(self.searchBtn.frame),
                                                                           Main_Screen_Width,
-                                                                          Main_Screen_Height - 75 - self.searchBtn.frame.size.height)
+                                                                          Main_Screen_Height - 49 - self.searchBtn.frame.size.height)
                                                      withArray:arr];
     _collectView.delegate = self;
     [self.view addSubview:_collectView];

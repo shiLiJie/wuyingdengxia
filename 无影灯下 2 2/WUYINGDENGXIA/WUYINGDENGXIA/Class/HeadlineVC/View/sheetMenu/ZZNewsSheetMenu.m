@@ -32,6 +32,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 @property(nonatomic,weak)UIButton *editMenuButton;
 @property(nonatomic,weak)UILabel *recommentTitleLab;
 @property(nonatomic,weak)UILabel *myTitleLab;
+
+
 @end
 
 
@@ -424,7 +426,6 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     self.hiddenAllCornerFlag = !sender.selected;
     NSString * title = sender.selected ? @"完成":@"编辑";
     [sender setTitle:title forState:UIControlStateNormal];
-    
 }
 - (void)itemLongPress:(UILongPressGestureRecognizer *)gesture{
     ZZNewsSheetItem *item = (ZZNewsSheetItem *)gesture.view;
@@ -462,8 +463,15 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     
     [self.mySubjectItemArray enumerateObjectsUsingBlock:^(ZZNewsSheetItem *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (CGRectContainsPoint(obj.frame, point) && obj != item) {
-            [self.mySubjectItemArray removeObject:_placeHolderItem];
-            [self.mySubjectItemArray insertObject:_placeHolderItem atIndex:idx];
+            
+//            [self.mySubjectItemArray removeObject:_placeHolderItem];
+//            [self.mySubjectItemArray insertObject:_placeHolderItem atIndex:idx];
+            
+            [self.mySubjectArray removeObject:item.itemTitle];
+            if (obj.itemTitle != nil) {
+                [self.mySubjectArray insertObject:item.itemTitle atIndex:idx];
+            }
+
             *stop = YES;
             
             [UIView animateWithDuration:kAnimationDuration animations:^{
@@ -482,6 +490,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     long index = [self.mySubjectItemArray indexOfObject:_placeHolderItem];
     [self.mySubjectItemArray removeObject:_placeHolderItem];
     [self.mySubjectItemArray insertObject:_currentItem atIndex:index];
+    
    
     [UIView animateWithDuration:kAnimationDuration animations:^{
         _currentItem.transform = CGAffineTransformIdentity;

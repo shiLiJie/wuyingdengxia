@@ -14,6 +14,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 @property(nonatomic,weak)UIButton *closeButton;
 @property(nonatomic,weak)UILabel *itemTitleLab;
 @property(nonatomic,weak)UIImageView *btnImage;
+
 @end
 
 @implementation ZZNewsSheetItem
@@ -27,7 +28,6 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
     if (self = [super initWithFrame:frame]) {
         [self setUp];
         
-
     }
     return self;
 }
@@ -60,8 +60,12 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
             
             self.closeButton.hidden = NO;
             
-            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
+//            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
             [self.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
+            self.layer.borderWidth = 0;
+            self.layer.borderColor = [RGB(221, 221, 221) CGColor];
+            self.backgroundColor = RGB(45, 163, 255);
+            self.itemTitleLab.textColor = RGB(1, 1, 1);
             
         }
     }else{
@@ -70,7 +74,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
             
             self.closeButton.hidden = YES;
             
-            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
+//            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
             
             self.backgroundColor = RGB(255, 255, 255);
             self.itemTitleLab.textColor = RGB(1, 1, 1);
@@ -188,7 +192,8 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 
 - (void)addCloseButton{
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton setTitle:@"X" forState:UIControlStateNormal];
+//    [closeButton setTitle:@"X" forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
     closeButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [closeButton addTarget:self action:@selector(zz_close) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeButton];

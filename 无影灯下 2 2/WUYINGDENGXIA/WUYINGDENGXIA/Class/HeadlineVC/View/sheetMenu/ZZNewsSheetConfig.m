@@ -22,7 +22,7 @@
     self.sheetBackgroundColor = RGB(45, 163, 255);
     self.isShakeAnimation = YES;
     self.sheetMaxColumn = 3;
-    self.closeBackgroundColor = RGB(237, 86, 89);
+//    self.closeBackgroundColor = RGB(237, 86, 89);
     self.isHiddenWhenHasNoneRecomment = NO;
     self.sheetItemFont = [UIFont systemFontOfSize:13];
     self.sheetItemTitleColor = [UIColor whiteColor];
