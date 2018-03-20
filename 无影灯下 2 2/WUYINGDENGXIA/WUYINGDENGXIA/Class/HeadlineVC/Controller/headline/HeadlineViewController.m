@@ -221,17 +221,17 @@
     
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
-    _segView.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width, segViewHigh);
+    _segView.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width-segViewHigh, segViewHigh);
     _segView.items = @[@"头条",@"热门", @"制标", @"动态", @"课题"];
     [self.view addSubview:_segView];
     
     //添加加号➕按钮
-    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, 0, segViewHigh, segViewHigh)];
+    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh)];
 //    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
     [addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
     [addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [_segView addSubview:addMenuBtn];
+    [self.view addSubview:addMenuBtn];
     
     NSArray *arr = @[
                      [self tablecontroller],

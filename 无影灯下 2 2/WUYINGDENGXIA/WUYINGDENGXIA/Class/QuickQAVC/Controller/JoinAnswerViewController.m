@@ -11,7 +11,7 @@
 @interface JoinAnswerViewController ()<UITextViewDelegate>
 
 //问题标题
-@property (nonatomic, strong) UILabel *titleLab;
+@property (nonatomic, strong) UITextView *titleLab;
 //回答内容视图
 @property (nonatomic, strong) UITextView *commentView;
 
@@ -33,14 +33,18 @@
     [self.view addSubview:line];
 }
 
--(UILabel *)titleLab{
+-(UITextView *)titleLab{
     
     if (!_titleLab) {
-        _titleLab = [[UILabel alloc] init];
-        _titleLab.text = @"问题的大标题";
+        _titleLab = [[UITextView alloc] init];
+        _titleLab.delegate = self;
+        _titleLab.text = @"请输入文章标题";
         _titleLab.font = [UIFont systemFontOfSize:17];
         _titleLab.frame = CGRectMake(20, 70, Main_Screen_Width-40, 50);
-        _titleLab.numberOfLines = 0;
+        _titleLab.font = [UIFont systemFontOfSize:13];
+        _titleLab.textColor = RGB(191, 191, 191);
+        _titleLab.contentSize = CGSizeMake(Main_Screen_Width-40, 50);
+
     }
     return _titleLab;
 }
@@ -52,9 +56,9 @@
         _commentView.frame = CGRectMake(0, CGRectGetMaxY(_titleLab.frame)+10, Main_Screen_Width, Main_Screen_Height/3);
         _commentView.delegate = self;
         _commentView.textContainerInset = UIEdgeInsetsMake(0, 20, 20, 20);
-        _commentView.text = @"输入回答内容";
-        _commentView.font = [UIFont systemFontOfSize:15];
-        _commentView.textColor = [UIColor lightGrayColor];
+        _commentView.text = @"请输入文章内容";
+        _commentView.font = [UIFont systemFontOfSize:13];
+        _commentView.textColor = RGB(191, 191, 191);
         //        //初始化就是编辑模式
         //        [_commentView becomeFirstResponder];
     }
@@ -88,8 +92,15 @@
 
 // 开始编辑
 - (void)textViewDidBeginEditing:(UITextView *)textView{
-    if ([textView.text isEqualToString:@"输入回答内容"]) {
-        textView.text = @"";
+    if (textView == self.titleLab) {
+        if ([textView.text isEqualToString:@"请输入文章标题"]) {
+            textView.text = @"";
+        }
+    }else{
+        
+        if ([textView.text isEqualToString:@"请输入文章内容"]) {
+            textView.text = @"";
+        }
     }
 }
 
@@ -100,8 +111,7 @@
 
 // 文本将要改变
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
-    return YES;
+        return YES;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

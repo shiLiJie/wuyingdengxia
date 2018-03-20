@@ -464,11 +464,12 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     [self.mySubjectItemArray enumerateObjectsUsingBlock:^(ZZNewsSheetItem *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (CGRectContainsPoint(obj.frame, point) && obj != item) {
             
-//            [self.mySubjectItemArray removeObject:_placeHolderItem];
-//            [self.mySubjectItemArray insertObject:_placeHolderItem atIndex:idx];
+            [self.mySubjectItemArray removeObject:_placeHolderItem];
+            [self.mySubjectItemArray insertObject:_placeHolderItem atIndex:idx];
             
-            [self.mySubjectArray removeObject:item.itemTitle];
+            
             if (obj.itemTitle != nil) {
+                [self.mySubjectArray removeObject:item.itemTitle];
                 [self.mySubjectArray insertObject:item.itemTitle atIndex:idx];
             }
 
