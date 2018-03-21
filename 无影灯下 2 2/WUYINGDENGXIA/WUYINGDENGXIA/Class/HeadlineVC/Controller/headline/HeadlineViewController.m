@@ -264,7 +264,6 @@
     // 设置最小行间距
     layout.minimumLineSpacing = 15 ;
     // 设置最小列间距
-    
     self.discuss = [[DiscussCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame), kScreen_Width, 78) collectionViewLayout:layout];
     self.discuss.backgroundColor = RGB(248, 248, 248);
     [self.view addSubview:self.discuss];
