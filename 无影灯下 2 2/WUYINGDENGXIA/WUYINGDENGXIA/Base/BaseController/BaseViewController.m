@@ -62,6 +62,7 @@ static NSString* const kURL_Reachability__Address=@"www.baidu.com";
     //实现监听
     [reach startNotifier];
     
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -190,10 +191,10 @@ static NSString* const kURL_Reachability__Address=@"www.baidu.com";
 {
     BOOL isright = [self respondsToSelector:@selector(set_rightButton)];
     if (isright) {
-        UIButton *right_button = [self set_rightButton];
-        [right_button addTarget:self action:@selector(right_click:) forControlEvents:UIControlEventTouchUpInside];
-        right_button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:right_button];
+        self.right_button = [self set_rightButton];
+        [self.right_button addTarget:self action:@selector(right_click:) forControlEvents:UIControlEventTouchUpInside];
+        self.right_button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.right_button];
         self.navigationItem.rightBarButtonItem = item;
     }
     return isright;

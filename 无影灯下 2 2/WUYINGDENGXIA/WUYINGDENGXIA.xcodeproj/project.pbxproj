@@ -39,6 +39,8 @@
 		0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0466538D2005F6330051B276 /* PublicPageViewController.xib */; };
 		046653C62006051D0051B276 /* MeetingNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046653C42006051D0051B276 /* MeetingNewViewController.m */; };
 		046653C72006051D0051B276 /* MeetingNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046653C52006051D0051B276 /* MeetingNewViewController.xib */; };
+		046B368F2064F45C00C82166 /* PublicPageResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B368D2064F45C00C82166 /* PublicPageResultVC.m */; };
+		046B36902064F45C00C82166 /* PublicPageResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046B368E2064F45C00C82166 /* PublicPageResultVC.xib */; };
 		0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473EBE7200C7C3900D0463C /* QuickQAViewController.m */; };
 		0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */; };
 		047528E62045358D00A9794B /* DiscussCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528E42045358D00A9794B /* DiscussCell.m */; };
@@ -233,6 +235,9 @@
 		046653C32006051D0051B276 /* MeetingNewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetingNewViewController.h; sourceTree = "<group>"; };
 		046653C42006051D0051B276 /* MeetingNewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetingNewViewController.m; sourceTree = "<group>"; };
 		046653C52006051D0051B276 /* MeetingNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetingNewViewController.xib; sourceTree = "<group>"; };
+		046B368C2064F45C00C82166 /* PublicPageResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicPageResultVC.h; sourceTree = "<group>"; };
+		046B368D2064F45C00C82166 /* PublicPageResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublicPageResultVC.m; sourceTree = "<group>"; };
+		046B368E2064F45C00C82166 /* PublicPageResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicPageResultVC.xib; sourceTree = "<group>"; };
 		0473EBE6200C7C3900D0463C /* QuickQAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickQAViewController.h; sourceTree = "<group>"; };
 		0473EBE7200C7C3900D0463C /* QuickQAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickQAViewController.m; sourceTree = "<group>"; };
 		0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickQAViewController.xib; sourceTree = "<group>"; };
@@ -615,6 +620,9 @@
 				0466538B2005F6330051B276 /* PublicPageViewController.h */,
 				0466538C2005F6330051B276 /* PublicPageViewController.m */,
 				0466538D2005F6330051B276 /* PublicPageViewController.xib */,
+				046B368C2064F45C00C82166 /* PublicPageResultVC.h */,
+				046B368D2064F45C00C82166 /* PublicPageResultVC.m */,
+				046B368E2064F45C00C82166 /* PublicPageResultVC.xib */,
 			);
 			path = publicPage;
 			sourceTree = "<group>";
@@ -1279,6 +1287,7 @@
 				04E1BDC8200DD0BA00BC9CE5 /* QATableVIewController.xib in Resources */,
 				04E1BDD7200DF32700BC9CE5 /* PageTableViewCell.xib in Resources */,
 				0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */,
+				046B36902064F45C00C82166 /* PublicPageResultVC.xib in Resources */,
 				045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */,
 				04C10EA020107BA0003C204D /* QuestionsViewController.xib in Resources */,
 				048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */,
@@ -1476,6 +1485,7 @@
 				0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */,
 				0487A138206382D500198B33 /* HX_PhotoModel.m in Sources */,
 				0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */,
+				046B368F2064F45C00C82166 /* PublicPageResultVC.m in Sources */,
 				047E96D11FFCC29D0062F1E1 /* UIImage+XHLaunchAd.m in Sources */,
 				04E1BDD6200DF32700BC9CE5 /* PageTableViewCell.m in Sources */,
 				048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */,

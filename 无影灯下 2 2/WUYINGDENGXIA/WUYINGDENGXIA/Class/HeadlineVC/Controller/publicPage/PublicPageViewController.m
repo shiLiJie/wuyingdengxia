@@ -14,8 +14,15 @@ typedef enum _chooseType{
 } chooseType;
 
 #import "PublicPageViewController.h"
+#import "HX_AddPhotoView.h"
+#import <Photos/Photos.h>
+#import "HX_AssetManager.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "PublicPageResultVC.h"
 
-@interface PublicPageViewController ()<UITextViewDelegate>
+#define VERSION [[UIDevice currentDevice].systemVersion doubleValue]
+
+@interface PublicPageViewController ()<UITextViewDelegate,HX_AddPhotoViewDelegate>
 //标题输入框
 @property (nonatomic, strong) UITextView *titieTextLab;
 //内容输入框
@@ -24,8 +31,12 @@ typedef enum _chooseType{
 @property (weak, nonatomic) IBOutlet UIView *picView;
 //最底部区域
 @property (weak, nonatomic) IBOutlet UIView *chooseView;
-
+//选择哪个编辑框的类型
 @property (nonatomic, assign) chooseType choosetype;
+//图片选择器view
+@property (nonatomic, strong) HX_AddPhotoView *addPhotoView;
+//是否正在编辑中
+@property (nonatomic, assign) BOOL isEditor;
 @end
 
 @implementation PublicPageViewController
@@ -68,8 +79,17 @@ typedef enum _chooseType{
     //设置标题框和内容框中间的分割线
     UILabel *lab = [[UILabel alloc] init];
     lab.frame = CGRectMake(17, 113, kScreen_Width-17, 1);
-    lab.backgroundColor = RGB(232, 232, 232);
+    lab.backgroundColor = RGB(240, 240, 240);
     [self.view addSubview:lab];
+    
+    //添加图片选择器视图
+    if (self.addPhotoView != nil) {
+        [self.picView addSubview:self.addPhotoView];
+    }
+    //进来默认隐藏图片选择器
+    self.picView.hidden = YES;
+    //不可投稿状态
+    self.isEditor = NO;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
@@ -88,6 +108,8 @@ typedef enum _chooseType{
 }
 
 -(void)left_button_event:(UIButton *)sender{
+
+    self.addPhotoView = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -96,11 +118,22 @@ typedef enum _chooseType{
     UIButton *btn = [[UIButton alloc] init];
     [btn setTitle:@"投稿" forState:UIControlStateNormal];
     [btn setTitleColor:RGB(191, 191, 191) forState:UIControlStateNormal];
+    
     return btn;
 }
 
+//投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
-    NSLog(@"投稿");
+    if (self.isEditor) {
+        //跳转到提交结果界面
+        PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
+        [self.navigationController pushViewController:publicPageRusult animated:YES];
+        //假的占位,模拟提交成功
+        publicPageRusult.isSucess = YES;
+    }else{
+        
+    }
+    
 }
 
 -(UIColor*)set_colorBackground{
@@ -118,7 +151,16 @@ typedef enum _chooseType{
 #pragma mark - 按钮点击方法和私有方法 -
 //选择图片按钮点击方法
 - (IBAction)choosePicBtnClick:(UIButton *)sender {
+    
+    [self.titieTextLab resignFirstResponder];
+    [self.detailTextView resignFirstResponder];
+  
+    NSNotification *notification =[NSNotification notificationWithName:@"XUANZETUPIAN" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
 }
+
 //选择标签按钮点击方法
 - (IBAction)chooseSheetBtnClick:(UIButton *)sender {
 }
@@ -156,11 +198,26 @@ typedef enum _chooseType{
 
 // 文本发生改变
 - (void)textViewDidChange:(UITextView *)textView{
-    
+    if (![self.titieTextLab.text isEqualToString:@""] &&
+        ![self.detailTextView.text isEqualToString:@""] &&
+        ![self.titieTextLab.text isEqualToString:@"请输入文章标题"] &&
+        ![self.detailTextView.text isEqualToString:@"请输入文章内容"])
+    {
+        self.isEditor = YES;
+        [self.right_button setTitleColor:RGB(19, 151, 255) forState:UIControlStateNormal];//右上角按钮变蓝色
+        self.right_button.userInteractionEnabled = YES;
+    }else{
+        self.isEditor = NO;
+        [self.right_button setTitleColor:RGB(191, 191, 191) forState:UIControlStateNormal];//右上角按钮变灰色
+        self.right_button.userInteractionEnabled = YES;
+    }
 }
 
 //暂时或永久结束编辑调用
 - (void)textViewDidEndEditing:(UITextView *)textView{
+    //结束编辑状态
+//    self.isEditor = NO;
+    
     if (textView == self.titieTextLab) {
         //标题截取20字符
         if (textView.text.length >= 20){
@@ -186,6 +243,17 @@ typedef enum _chooseType{
 // 文本将要改变
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     return YES;
+}
+
+#pragma mark - 图片选择器代理方法 -
+- (void)updateViewFrame:(CGRect)frame WithView:(UIView *)view
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    CGFloat buttonY = CGRectGetMaxY(frame);
+    
+    button.frame = CGRectMake(0, buttonY, 100, 100);
+    [self.view layoutSubviews];
 }
 
 #pragma mark - 监听键盘通知方法 -
@@ -236,10 +304,80 @@ typedef enum _chooseType{
     
 }
 
+#pragma mark - 懒加载控件 -
+-(HX_AddPhotoView *)addPhotoView{
+    if (!_addPhotoView) {
+        // 只选择照片
+        _addPhotoView = [[HX_AddPhotoView alloc] initWithMaxPhotoNum:5 WithSelectType:SelectPhoto];
+        
+        // 每行最大个数  不设置默认为4
+        _addPhotoView.lineNum = 5;
+        
+        // collectionView 距离顶部的距离  底部与顶部一样  不设置,默认为0
+        _addPhotoView.margin_Top = 5;
+        
+        // 距离左边的距离  右边与左边一样  不设置,默认为0
+        _addPhotoView.margin_Left = 10;
+        
+        // 每个item间隔的距离  如果最小不能小于5   不设置,默认为5
+        _addPhotoView.lineSpacing = 5;
+        
+        // 录制视频时最大多少秒   默认为60;
+        _addPhotoView.videoMaximumDuration = 60.f;
+        
+        // 自定义相册的名称 - 不设置默认为自定义相册
+        _addPhotoView.customName = @"郑莹";
+        
+        _addPhotoView.delegate = self;
+        _addPhotoView.backgroundColor = [UIColor whiteColor];
+        _addPhotoView.frame = CGRectMake(0, 0, kScreen_Width, CGRectGetHeight(self.picView.frame));
+//        [self.picView addSubview:self.addPhotoView];
+        /**  当前选择的个数  */
+        _addPhotoView.selectNum;
+        __weak typeof(self) weakSelf = self;
+        
+        [_addPhotoView setSelectPhotos:^(NSArray *photos, NSArray *videoFileNames, BOOL iforiginal) {
+
+            //选择图片后展示图片视图
+            weakSelf.picView.hidden = NO;
+            
+            [photos enumerateObjectsUsingBlock:^(id asset, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                // ios8.0 以下返回的是ALAsset对象 以上是PHAsset对象
+                if (VERSION < 8.0f) {
+                    //                ALAsset *oneAsset = (ALAsset *)asset;
+                    // 缩略图
+                    // UIImage *image = [UIImage imageWithCGImage:[asset aspectRatioThumbnail]];
+                    // 原图
+                    // CGImageRef fullImage = [[asset defaultRepresentation] fullResolutionImage];
+                    // url
+                    // NSURL *url = [[asset defaultRepresentation] url];
+                }else {
+                    PHAsset *twoAsset = (PHAsset *)asset;
+                    
+                    CGFloat scale = [UIScreen mainScreen].scale;
+                    
+                    // 根据输入的大小来控制返回的图片质量
+                    CGSize size = CGSizeMake(300 * scale, 300 * scale);
+                    [[HX_AssetManager sharedManager] accessToImageAccordingToTheAsset:twoAsset size:size resizeMode:PHImageRequestOptionsResizeModeFast completion:^(UIImage *image, NSDictionary *info) {
+                        // image为高清图时
+                        if (![info objectForKey:PHImageResultIsDegradedKey]) {
+                            // 高清图
+                            //                        image;
+                            //
+                            //                        NSLog(@"%@",image);
+                        }
+                    }];
+                }
+                
+            }];
+        }];
+    }
+    return _addPhotoView;
+}
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-//    [self.titieTextLab resignFirstResponder];
-//    [self.detailTextView resignFirstResponder];
+
 }
 
 

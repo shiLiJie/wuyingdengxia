@@ -64,6 +64,7 @@ static NSString *addPhotoCellId = @"cellId";
         }
         [self setup];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sureSelectPhotos:) name:@"HX_SureSelectPhotosNotice" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goAddPhotoVC)name:@"XUANZETUPIAN" object:nil];
     }
     return self;
 }

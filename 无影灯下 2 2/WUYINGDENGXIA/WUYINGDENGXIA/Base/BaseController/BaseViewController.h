@@ -36,6 +36,8 @@
 
 @interface BaseViewController : UIViewController<BaseViewControllerDataSource,BaseViewControllerDelegate>
 
+@property (nonatomic, strong) UIButton *right_button;//右侧按钮
+
 -(void)changeNavigationBarTranslationY:(CGFloat)translationY;
 -(void)set_Title:(NSMutableAttributedString *)title;
 

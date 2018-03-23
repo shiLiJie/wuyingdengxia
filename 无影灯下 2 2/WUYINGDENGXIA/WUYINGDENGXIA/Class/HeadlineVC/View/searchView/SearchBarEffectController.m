@@ -28,6 +28,7 @@
 @implementation SearchBarEffectController
 static NSString * const searchCell= @"searchCell";
 
+
 - (instancetype)init
 {
     self = [super init];

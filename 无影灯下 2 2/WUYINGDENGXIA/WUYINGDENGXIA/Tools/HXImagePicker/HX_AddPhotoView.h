@@ -84,4 +84,5 @@ typedef enum{
 - (instancetype)initWithMaxPhotoNum:(NSInteger)num WithSelectType:(SelectType)type;
 
 //- (instancetype)initWithWebImageUrls:(NSArray *)urls MaxPhotoNum:(NSInteger)num;
+
 @end
