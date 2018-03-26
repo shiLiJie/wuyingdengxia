@@ -121,7 +121,7 @@
 
 -(UIButton *)set_leftButton{
     UIButton *right = [[UIButton alloc] init];
-
+    right.frame = CGRectMake(0, 0, 44, 60);
     [right setImage:GetImage(@"saoma") forState:UIControlStateNormal];
     [right setFont: [UIFont systemFontOfSize:14]];
     return right;

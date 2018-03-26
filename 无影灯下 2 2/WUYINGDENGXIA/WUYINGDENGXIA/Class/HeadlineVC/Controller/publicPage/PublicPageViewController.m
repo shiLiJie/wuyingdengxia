@@ -19,6 +19,7 @@ typedef enum _chooseType{
 #import "HX_AssetManager.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PublicPageResultVC.h"
+#import "AddSheetViewController.h"
 
 #define VERSION [[UIDevice currentDevice].systemVersion doubleValue]
 
@@ -27,6 +28,8 @@ typedef enum _chooseType{
 @property (nonatomic, strong) UITextView *titieTextLab;
 //内容输入框
 @property (nonatomic, strong) UITextView *detailTextView;
+//选择文章标签按钮
+@property (weak, nonatomic) IBOutlet UIButton *chooseMenuBtn;
 //图片区
 @property (weak, nonatomic) IBOutlet UIView *picView;
 //最底部区域
@@ -37,6 +40,8 @@ typedef enum _chooseType{
 @property (nonatomic, strong) HX_AddPhotoView *addPhotoView;
 //是否正在编辑中
 @property (nonatomic, assign) BOOL isEditor;
+
+
 @end
 
 @implementation PublicPageViewController
@@ -103,6 +108,7 @@ typedef enum _chooseType{
 //左侧按钮设置点击
 -(UIButton *)set_leftButton{
     UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(0, 0, 44, 60);
     [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
     return btn;
 }
@@ -163,6 +169,22 @@ typedef enum _chooseType{
 
 //选择标签按钮点击方法
 - (IBAction)chooseSheetBtnClick:(UIButton *)sender {
+    AddSheetViewController *vc = [[AddSheetViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    vc.clossviewblock = ^(NSMutableArray *itemArray) {
+        //回调返回的标签数组
+        UIButton *btn = [[UIButton alloc] init];
+        btn.frame = CGRectMake(CGRectGetWidth(self.chooseMenuBtn.frame)/2, -5, CGRectGetWidth(self.chooseMenuBtn.frame)/2, CGRectGetWidth(self.chooseMenuBtn.frame)/2);
+        [btn setBackgroundColor:RGB(255, 81, 81)];
+        [btn setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)itemArray.count] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setFont:[UIFont systemFontOfSize:9]];
+        btn.layer.cornerRadius = btn.frame.size.width / 2;
+        //将多余的部分切掉
+        btn.layer.masksToBounds = YES;
+        [self.chooseMenuBtn addSubview:btn];
+    };
 }
 
 #pragma mark - textview代理方法 -
@@ -326,7 +348,7 @@ typedef enum _chooseType{
         _addPhotoView.videoMaximumDuration = 60.f;
         
         // 自定义相册的名称 - 不设置默认为自定义相册
-        _addPhotoView.customName = @"郑莹";
+        _addPhotoView.customName = @"无影灯下";
         
         _addPhotoView.delegate = self;
         _addPhotoView.backgroundColor = [UIColor whiteColor];

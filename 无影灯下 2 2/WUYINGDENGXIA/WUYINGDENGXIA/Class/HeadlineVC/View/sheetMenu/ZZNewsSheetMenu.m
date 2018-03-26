@@ -28,10 +28,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 @property(nonatomic,strong)NSMutableArray<ZZNewsSheetItem *> *mySubjectItemArray;
 @property(nonatomic,strong)NSMutableArray<ZZNewsSheetItem*> *recommendSubjectItemArray;
 
-@property(nonatomic,weak)UIButton *closeMenuButton;
-@property(nonatomic,weak)UIButton *editMenuButton;
-@property(nonatomic,weak)UILabel *recommentTitleLab;
-@property(nonatomic,weak)UILabel *myTitleLab;
+
 
 
 @end
@@ -46,6 +43,17 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
     CGRect rect = CGRectMake(0, 75, KScreenWidth, KScreenHeight - statuHeight);
+    [UIView animateWithDuration:kAnimationDuration delay:0.05 usingSpringWithDamping:0.8 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.frame = rect;
+        self.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)showNewsMenu1{
+    [[UIApplication sharedApplication].keyWindow addSubview:self];
+    CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGRect rect = CGRectMake(0, 75, KScreenWidth, KScreenHeight - statuHeight-100);
     [UIView animateWithDuration:kAnimationDuration delay:0.05 usingSpringWithDamping:0.8 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveLinear animations:^{
         self.frame = rect;
         self.alpha = 1.0f;
@@ -95,6 +103,12 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 +(instancetype)newsSheetMenu{
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
     CGRect rect = CGRectMake(0, KScreenHeight, KScreenWidth, KScreenHeight - statuHeight);
+    return [[self alloc]initWithFrame:rect];
+}
+
++(instancetype)newsSheetMenu1{
+    CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGRect rect = CGRectMake(0, 75, KScreenWidth, KScreenHeight - statuHeight-120);
     return [[self alloc]initWithFrame:rect];
 }
 - (void)commit{
@@ -220,7 +234,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     NSInteger column = [ZZNewsSheetConfig defaultCofing].sheetMaxColumn;
     CGFloat margin = 1.0 * (KScreenWidth - size.width * column)/(column + 1);
     lab.frame = CGRectMake(margin, 0, 100, self.menuNavitem.bounds.size.height);
-    [self.menuNavitem addSubview:lab];
+    self.myTitleLab1 = lab;
+    [self.menuNavitem addSubview:self.myTitleLab1];
     
     [self updateAllView];
 }

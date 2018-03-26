@@ -179,7 +179,7 @@ static NSString* const kURL_Reachability__Address=@"www.baidu.com";
     if (isleft) {
         UIButton *leftbutton = [self set_leftButton];
         [leftbutton addTarget:self action:@selector(left_click:) forControlEvents:UIControlEventTouchUpInside];
-        leftbutton.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+        leftbutton.contentEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 0);
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
         self.navigationItem.leftBarButtonItem = item;
     }

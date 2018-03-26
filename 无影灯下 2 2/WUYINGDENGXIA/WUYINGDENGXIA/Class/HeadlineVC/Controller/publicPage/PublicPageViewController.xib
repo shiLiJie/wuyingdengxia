@@ -6,12 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PublicPageViewController">
             <connections>
+                <outlet property="chooseMenuBtn" destination="es6-Vl-XHN" id="Q5y-ci-z7J"/>
                 <outlet property="chooseView" destination="ywu-sZ-XwD" id="BQM-oN-UOw"/>
                 <outlet property="picView" destination="rOf-kp-nQd" id="kw2-67-fPh"/>
                 <outlet property="view" destination="CB9-RG-wwS" id="20l-wx-zRg"/>
@@ -23,27 +25,27 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ywu-sZ-XwD">
-                    <rect key="frame" x="0.0" y="529" width="320" height="39"/>
+                    <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCg-3l-aaJ">
-                            <rect key="frame" x="21" y="4" width="30" height="30"/>
+                            <rect key="frame" x="21" y="13.5" width="22" height="22"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="30" id="EF8-V4-jCx"/>
-                                <constraint firstAttribute="height" constant="30" id="XZN-MG-AsT"/>
+                                <constraint firstAttribute="width" secondItem="hCg-3l-aaJ" secondAttribute="height" multiplier="1:1" id="8oB-n6-PRL"/>
+                                <constraint firstAttribute="height" constant="22" id="XZN-MG-AsT"/>
                             </constraints>
-                            <state key="normal" image="tupian"/>
+                            <state key="normal" backgroundImage="tupian"/>
                             <state key="highlighted" image="tupian"/>
                             <connections>
                                 <action selector="choosePicBtnClick:" destination="-1" eventType="touchUpInside" id="hxa-3H-lkt"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="es6-Vl-XHN">
-                            <rect key="frame" x="72" y="2.5" width="27" height="33"/>
+                            <rect key="frame" x="64" y="13.5" width="22" height="22"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="27" id="0hb-Wr-eZI"/>
-                                <constraint firstAttribute="height" constant="33" id="vVQ-mL-x1g"/>
+                                <constraint firstAttribute="width" secondItem="es6-Vl-XHN" secondAttribute="height" multiplier="1:1" id="cdo-ql-iRy"/>
+                                <constraint firstAttribute="height" constant="22" id="vVQ-mL-x1g"/>
                             </constraints>
-                            <state key="normal" image="biaoqian"/>
+                            <state key="normal" backgroundImage="biaoqian"/>
                             <state key="highlighted" image="biaoqian"/>
                             <connections>
                                 <action selector="chooseSheetBtnClick:" destination="-1" eventType="touchUpInside" id="ar7-ce-Xlr"/>
@@ -52,7 +54,7 @@
                     </subviews>
                     <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="39" id="21r-gd-uXe"/>
+                        <constraint firstAttribute="height" constant="50" id="21r-gd-uXe"/>
                         <constraint firstItem="hCg-3l-aaJ" firstAttribute="leading" secondItem="ywu-sZ-XwD" secondAttribute="leading" constant="21" id="7Ys-nK-YOi"/>
                         <constraint firstItem="es6-Vl-XHN" firstAttribute="centerY" secondItem="hCg-3l-aaJ" secondAttribute="centerY" id="Axb-IK-JpT"/>
                         <constraint firstItem="hCg-3l-aaJ" firstAttribute="centerY" secondItem="ywu-sZ-XwD" secondAttribute="centerY" id="dIc-h5-XSz"/>
@@ -60,7 +62,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOf-kp-nQd">
-                    <rect key="frame" x="0.0" y="451" width="320" height="66"/>
+                    <rect key="frame" x="0.0" y="440" width="320" height="66"/>
                     <color key="backgroundColor" white="0.80208333333333337" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="66" id="C9Y-Gy-hWd"/>

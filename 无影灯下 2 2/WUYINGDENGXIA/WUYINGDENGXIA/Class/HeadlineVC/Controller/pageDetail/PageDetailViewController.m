@@ -24,6 +24,7 @@
 //左侧按钮设置点击
 -(UIButton *)set_leftButton{
     UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(0, 0, 44, 60);
     [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
     return btn;
 }

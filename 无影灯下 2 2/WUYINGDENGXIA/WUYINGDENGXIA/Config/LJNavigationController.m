@@ -90,8 +90,9 @@
     
     // 只有在导航控制器里面有子控制器的时候才需要截图
     if (self.childViewControllers.count > 0) {
-        
+
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+
 //        [backButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
 //        [backButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
         [backButton setTitle:@"返回" forState:UIControlStateNormal];
