@@ -22,6 +22,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3U0-Tc-1GV">
                         <rect key="frame" x="0.0" y="0.0" width="528" height="108.5"/>
+                        <color key="backgroundColor" red="0.1764705882" green="0.63921568630000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RUy-ho-39x">
                         <rect key="frame" x="10" y="139.5" width="20" height="20"/>
@@ -42,6 +43,15 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-Xw-T7A">
+                        <rect key="frame" x="80.5" y="116.5" width="41" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="EP0-hh-Ij8"/>
+                            <constraint firstAttribute="width" constant="41" id="yE8-Fg-ggL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <state key="normal" title="报名中"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="3U0-Tc-1GV" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.66" id="3EN-Lf-4fq"/>
@@ -53,17 +63,20 @@
                     <constraint firstItem="Ver-7Z-YNQ" firstAttribute="top" secondItem="Rr7-yW-eN9" secondAttribute="bottom" constant="5" id="U7o-uc-bIu"/>
                     <constraint firstAttribute="trailing" secondItem="3U0-Tc-1GV" secondAttribute="trailing" id="VbP-cC-ufl"/>
                     <constraint firstItem="3U0-Tc-1GV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="igW-9F-sYr"/>
+                    <constraint firstItem="Tsa-Xw-T7A" firstAttribute="centerY" secondItem="Rr7-yW-eN9" secondAttribute="centerY" id="lq5-aK-3dw"/>
+                    <constraint firstItem="Tsa-Xw-T7A" firstAttribute="leading" secondItem="Rr7-yW-eN9" secondAttribute="trailing" constant="9" id="mRX-q5-R31"/>
                     <constraint firstItem="Rr7-yW-eN9" firstAttribute="leading" secondItem="RUy-ho-39x" secondAttribute="leading" id="pIw-le-bE8"/>
                     <constraint firstItem="Rr7-yW-eN9" firstAttribute="top" secondItem="3U0-Tc-1GV" secondAttribute="bottom" constant="5" id="qhe-8K-t6X"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="baomingBtn" destination="Tsa-Xw-T7A" id="AFE-em-RYx"/>
                 <outlet property="meetImage" destination="3U0-Tc-1GV" id="7h4-uR-sJ5"/>
                 <outlet property="meetName" destination="Rr7-yW-eN9" id="SOe-JD-cdI"/>
                 <outlet property="meetTime" destination="Ver-7Z-YNQ" id="vXu-es-HPC"/>
             </connections>
-            <point key="canvasLocation" x="27" y="106"/>
+            <point key="canvasLocation" x="-224" y="90"/>
         </tableViewCell>
     </objects>
 </document>

@@ -30,7 +30,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 145;
+    return kScreen_Height * 0.29;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -41,6 +41,11 @@
     if (!cell) {
         
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MeetingNewCell" owner:nil options:nil] firstObject];
+        cell.baomingBtn.layer.cornerRadius = CGRectGetHeight(cell.baomingBtn.frame)/2;//2.0是圆角的弧度，根据需求自己更改
+        cell.baomingBtn.layer.masksToBounds = YES;
+        cell.baomingBtn.layer.borderColor = RGB(245, 166, 35).CGColor;//设置边框颜色
+        [cell.baomingBtn setTitleColor:RGB(245, 166, 35) forState:UIControlStateNormal];
+        cell.baomingBtn.layer.borderWidth = 1.0f;//设置边框颜色
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -45,13 +45,25 @@
     return YES;
 }
 
+//左侧按钮设置点击
+-(UIButton *)set_leftButton{
+    UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(0, 0, 44, 60);
+    [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
+    return btn;
+}
+
 //右上角分享
 -(UIButton *)set_rightButton{
     UIButton *btn = [[UIButton alloc] init];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn setTitle:@"分享" forState:UIControlStateNormal];
+    [btn setImage:GetImage(@"fenxiang") forState:UIControlStateNormal];
     return btn;
 }
+
+-(void)left_button_event:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)right_button_event:(UIButton *)sender{
     
 }
@@ -60,7 +72,7 @@
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSFontAttributeName value:CHINESE_SYSTEM(18) range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
 
