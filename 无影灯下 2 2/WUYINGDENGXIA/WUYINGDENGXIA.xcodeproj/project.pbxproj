@@ -41,6 +41,8 @@
 		046653C72006051D0051B276 /* MeetingNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046653C52006051D0051B276 /* MeetingNewViewController.xib */; };
 		046B368F2064F45C00C82166 /* PublicPageResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B368D2064F45C00C82166 /* PublicPageResultVC.m */; };
 		046B36902064F45C00C82166 /* PublicPageResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046B368E2064F45C00C82166 /* PublicPageResultVC.xib */; };
+		04701E26206B4429007AB2D0 /* MeetRichengCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04701E24206B4429007AB2D0 /* MeetRichengCell.m */; };
+		04701E27206B4429007AB2D0 /* MeetRichengCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04701E25206B4429007AB2D0 /* MeetRichengCell.xib */; };
 		0473EBE9200C7C3900D0463C /* QuickQAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473EBE7200C7C3900D0463C /* QuickQAViewController.m */; };
 		0473EBEA200C7C3900D0463C /* QuickQAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */; };
 		047528E62045358D00A9794B /* DiscussCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528E42045358D00A9794B /* DiscussCell.m */; };
@@ -240,6 +242,9 @@
 		046B368C2064F45C00C82166 /* PublicPageResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicPageResultVC.h; sourceTree = "<group>"; };
 		046B368D2064F45C00C82166 /* PublicPageResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublicPageResultVC.m; sourceTree = "<group>"; };
 		046B368E2064F45C00C82166 /* PublicPageResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicPageResultVC.xib; sourceTree = "<group>"; };
+		04701E23206B4429007AB2D0 /* MeetRichengCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetRichengCell.h; sourceTree = "<group>"; };
+		04701E24206B4429007AB2D0 /* MeetRichengCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetRichengCell.m; sourceTree = "<group>"; };
+		04701E25206B4429007AB2D0 /* MeetRichengCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetRichengCell.xib; sourceTree = "<group>"; };
 		0473EBE6200C7C3900D0463C /* QuickQAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickQAViewController.h; sourceTree = "<group>"; };
 		0473EBE7200C7C3900D0463C /* QuickQAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickQAViewController.m; sourceTree = "<group>"; };
 		0473EBE8200C7C3900D0463C /* QuickQAViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickQAViewController.xib; sourceTree = "<group>"; };
@@ -491,6 +496,9 @@
 				0445223C200762BC006DEA70 /* PassMeetTableCell.h */,
 				0445223D200762BC006DEA70 /* PassMeetTableCell.m */,
 				0445223E200762BC006DEA70 /* PassMeetTableCell.xib */,
+				04701E23206B4429007AB2D0 /* MeetRichengCell.h */,
+				04701E24206B4429007AB2D0 /* MeetRichengCell.m */,
+				04701E25206B4429007AB2D0 /* MeetRichengCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1257,6 +1265,7 @@
 				04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */,
 				047E96EB1FFCC4C00062F1E1 /* InforViewController.xib in Resources */,
 				0487A15E206382F700198B33 /* photo_original_def@2x.png in Resources */,
+				04701E27206B4429007AB2D0 /* MeetRichengCell.xib in Resources */,
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,
 				0487A15F206382F700198B33 /* activate_friends_not_seleted@2x.png in Resources */,
 				0487A158206382F700198B33 /* login_bg@2x.png in Resources */,
@@ -1406,6 +1415,7 @@
 				047E96AA1FFCC2870062F1E1 /* UIImage+FileName.m in Sources */,
 				0487A132206382D500198B33 /* HX_VideoManager.m in Sources */,
 				047E96A51FFCC2870062F1E1 /* UIImage+BetterFace.m in Sources */,
+				04701E26206B4429007AB2D0 /* MeetRichengCell.m in Sources */,
 				047E96CB1FFCC29D0062F1E1 /* XHLaunchAdButton.m in Sources */,
 				047E96461FFCC1370062F1E1 /* HeadlineViewController.m in Sources */,
 				04DDA5AB20479AD600629EC8 /* DiscussCollectionView.m in Sources */,
