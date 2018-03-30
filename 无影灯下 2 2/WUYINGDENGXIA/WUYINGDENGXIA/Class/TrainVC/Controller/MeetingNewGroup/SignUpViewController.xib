@@ -96,9 +96,8 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Elg-XM-mbG">
-                                    <rect key="frame" x="188.66666666666666" y="114.66666666666663" width="36" height="17"/>
+                                    <rect key="frame" x="191.33333333333334" y="114.66666666666663" width="31" height="17"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="36" id="dw5-O6-HkX"/>
                                         <constraint firstAttribute="height" constant="17" id="x1i-g8-paL"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>

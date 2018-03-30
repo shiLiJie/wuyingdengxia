@@ -31,6 +31,8 @@
 		04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445223E200762BC006DEA70 /* PassMeetTableCell.xib */; };
 		0445224420076300006DEA70 /* PassMeetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445224220076300006DEA70 /* PassMeetViewController.m */; };
 		0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445224320076300006DEA70 /* PassMeetViewController.xib */; };
+		044783D6206E2CA700342737 /* SignUpResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 044783D4206E2CA700342737 /* SignUpResultVC.m */; };
+		044783D7206E2CA700342737 /* SignUpResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044783D5206E2CA700342737 /* SignUpResultVC.xib */; };
 		0452A436201AC27C00E5A48D /* BRCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0452A435201AC21F00E5A48D /* BRCity.plist */; };
 		045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045781201FFF619D0098D6FC /* DetailTableViewCell.m */; };
 		045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045781211FFF619D0098D6FC /* DetailTableViewCell.xib */; };
@@ -232,6 +234,9 @@
 		0445224120076300006DEA70 /* PassMeetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassMeetViewController.h; sourceTree = "<group>"; };
 		0445224220076300006DEA70 /* PassMeetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassMeetViewController.m; sourceTree = "<group>"; };
 		0445224320076300006DEA70 /* PassMeetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassMeetViewController.xib; sourceTree = "<group>"; };
+		044783D3206E2CA700342737 /* SignUpResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpResultVC.h; sourceTree = "<group>"; };
+		044783D4206E2CA700342737 /* SignUpResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpResultVC.m; sourceTree = "<group>"; };
+		044783D5206E2CA700342737 /* SignUpResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpResultVC.xib; sourceTree = "<group>"; };
 		0452A434201ABF0400E5A48D /* BRPickerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BRPickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0452A435201AC21F00E5A48D /* BRCity.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BRCity.plist; sourceTree = "<group>"; };
 		0457811F1FFF619D0098D6FC /* DetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
@@ -530,24 +535,8 @@
 				047E96E11FFCC4800062F1E1 /* TrainViewController.h */,
 				047E96E21FFCC4800062F1E1 /* TrainViewController.m */,
 				047E96E31FFCC4800062F1E1 /* TrainViewController.xib */,
-				046653C32006051D0051B276 /* MeetingNewViewController.h */,
-				046653C42006051D0051B276 /* MeetingNewViewController.m */,
-				046653C52006051D0051B276 /* MeetingNewViewController.xib */,
-				0423C3E120070F6F005E3F9D /* PastViewController.h */,
-				0423C3E220070F6F005E3F9D /* PastViewController.m */,
-				0423C3E320070F6F005E3F9D /* PastViewController.xib */,
-				0423C3F220073D7F005E3F9D /* MeetDetailViewController.h */,
-				0423C3F320073D7F005E3F9D /* MeetDetailViewController.m */,
-				0423C3F420073D7F005E3F9D /* MeetDetailViewController.xib */,
-				04914674206C91AD0050DC5C /* SignUpViewController.h */,
-				04914675206C91AD0050DC5C /* SignUpViewController.m */,
-				04914676206C91AD0050DC5C /* SignUpViewController.xib */,
-				0445224120076300006DEA70 /* PassMeetViewController.h */,
-				0445224220076300006DEA70 /* PassMeetViewController.m */,
-				0445224320076300006DEA70 /* PassMeetViewController.xib */,
-				04C45C042008992100B188F9 /* PlayDetailViewController.h */,
-				04C45C052008992100B188F9 /* PlayDetailViewController.m */,
-				04C45C062008992100B188F9 /* PlayDetailViewController.xib */,
+				044783D8206E2CB100342737 /* MeetingNewGroup */,
+				044783D9206E2CD500342737 /* PassMeetGroup */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -572,6 +561,41 @@
 				0457810E1FFF172C0098D6FC /* bannerView */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		044783D8206E2CB100342737 /* MeetingNewGroup */ = {
+			isa = PBXGroup;
+			children = (
+				046653C32006051D0051B276 /* MeetingNewViewController.h */,
+				046653C42006051D0051B276 /* MeetingNewViewController.m */,
+				046653C52006051D0051B276 /* MeetingNewViewController.xib */,
+				0423C3E120070F6F005E3F9D /* PastViewController.h */,
+				0423C3E220070F6F005E3F9D /* PastViewController.m */,
+				0423C3E320070F6F005E3F9D /* PastViewController.xib */,
+				0423C3F220073D7F005E3F9D /* MeetDetailViewController.h */,
+				0423C3F320073D7F005E3F9D /* MeetDetailViewController.m */,
+				0423C3F420073D7F005E3F9D /* MeetDetailViewController.xib */,
+				04914674206C91AD0050DC5C /* SignUpViewController.h */,
+				04914675206C91AD0050DC5C /* SignUpViewController.m */,
+				04914676206C91AD0050DC5C /* SignUpViewController.xib */,
+				044783D3206E2CA700342737 /* SignUpResultVC.h */,
+				044783D4206E2CA700342737 /* SignUpResultVC.m */,
+				044783D5206E2CA700342737 /* SignUpResultVC.xib */,
+			);
+			path = MeetingNewGroup;
+			sourceTree = "<group>";
+		};
+		044783D9206E2CD500342737 /* PassMeetGroup */ = {
+			isa = PBXGroup;
+			children = (
+				0445224120076300006DEA70 /* PassMeetViewController.h */,
+				0445224220076300006DEA70 /* PassMeetViewController.m */,
+				0445224320076300006DEA70 /* PassMeetViewController.xib */,
+				04C45C042008992100B188F9 /* PlayDetailViewController.h */,
+				04C45C052008992100B188F9 /* PlayDetailViewController.m */,
+				04C45C062008992100B188F9 /* PlayDetailViewController.xib */,
+			);
+			path = PassMeetGroup;
 			sourceTree = "<group>";
 		};
 		0457810D1FFF17170098D6FC /* searchView */ = {
@@ -1293,6 +1317,7 @@
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,
 				0487A15F206382F700198B33 /* activate_friends_not_seleted@2x.png in Resources */,
 				0487A158206382F700198B33 /* login_bg@2x.png in Resources */,
+				044783D7206E2CA700342737 /* SignUpResultVC.xib in Resources */,
 				0481795C2068C5BC00326E28 /* AddSheetViewController.xib in Resources */,
 				0487A160206382F700198B33 /* qz_phototlist_shadow@2x.png in Resources */,
 				047528E72045358D00A9794B /* DiscussCell.xib in Resources */,
@@ -1509,6 +1534,7 @@
 				0445223F200762BC006DEA70 /* PassMeetTableCell.m in Sources */,
 				04E1BDCC200DD32400BC9CE5 /* QATableVIewCell.m in Sources */,
 				046653882005C63F0051B276 /* PersonViewController.m in Sources */,
+				044783D6206E2CA700342737 /* SignUpResultVC.m in Sources */,
 				049C0967200EEA920057BC5F /* JoinAnswerViewController.m in Sources */,
 				047E96AF1FFCC28D0062F1E1 /* UINavigationBar+Awesome.m in Sources */,
 				0466538E2005F6330051B276 /* PublicPageViewController.m in Sources */,

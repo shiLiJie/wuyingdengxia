@@ -11,6 +11,7 @@
 #import "TakeCarView.h"
 #import "BRPickerView.h"
 #import "NSDate+BRAdd.h"
+#import "SignUpResultVC.h"
 
 @interface SignUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 //scroller
@@ -90,7 +91,6 @@
     self.pushBtn.layer.masksToBounds = YES;//是否切割
     //初始化时候添加乘车次数为0;
     self.addNum = 0 ;
-
 }
 
 -(NSMutableAttributedString *)setTitle{
@@ -126,16 +126,6 @@
     return title;
 }
 
-//字符串转日期
-- (NSDate *)StringTODate:(NSString *)sender
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"YYYY-MMMM-dd HH:mm:ss";
-    [dateFormatter setMonthSymbols:[NSArray arrayWithObjects:@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil]];
-    NSDate * ValueDate = [dateFormatter dateFromString:sender];
-    return ValueDate;
-}
-
 //添加乘车信息按钮点击
 - (IBAction)addCarBtnClick:(UIButton *)sender {
     //添加乘车信息的次数 + 1
@@ -163,18 +153,40 @@
     self.zhusuViewConstraint.constant = 300 * (self.addNum + 1) + 10;
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2/*延迟执行时间*/ * NSEC_PER_SEC));
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-        
+
         self.acrollerView.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhusuView.frame));
     });
-    
+
+
+    //通知主线程刷新
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.zhusuViewConstraint.constant = 300 * (self.addNum + 1) + 10;
+        
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2/*延迟执行时间*/ * NSEC_PER_SEC));
+        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+            
+            self.acrollerView.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhusuView.frame));
+        });
+    });
 }
+
 //选择入住日期按钮点击
 - (IBAction)ruzhuBtnClick:(UIButton *)sender {
     
     __weak typeof(self) weakSelf = self;
     
-    [BRDatePickerView showDatePickerWithTitle:@"入住日期" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:YES resultBlock:^(NSString *selectValue) {
-        [weakSelf.ruzhuBtn setTitle:selectValue forState:UIControlStateNormal];
+    [BRDatePickerView showDatePickerWithTitle:@"入住日期"
+                                     dateType:UIDatePickerModeDate
+                              defaultSelValue:@""
+                                   minDateStr:@""
+                                   maxDateStr:@""
+                                 isAutoSelect:YES
+                                  resultBlock:^(NSString *selectValue) {
+                                      //回调设置选好的日期
+                                      [weakSelf.ruzhuBtn setTitle:selectValue forState:UIControlStateNormal];
+                                      //计算天数并显示
+                                      [weakSelf planDays];
+                                      
     }];
 }
 //选择离开日期按钮点击
@@ -182,41 +194,41 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [BRDatePickerView showDatePickerWithTitle:@"离开日期" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:@"" isAutoSelect:YES resultBlock:^(NSString *selectValue) {
-        [weakSelf.likaiBtn setTitle:selectValue forState:UIControlStateNormal];
-        
-//
-//        //字符串转NSDate格式的方法
-//        NSDate * ValueDate = [self StringTODate:self.ruzhuBtn.titleLabel.text];
-//        NSDate * ValueDate1 = [self StringTODate:selectValue];
-//        //计算两个中间差值(秒)
-//        NSTimeInterval time = [ValueDate timeIntervalSinceDate:ValueDate1];
-//
-//        //开始时间和结束时间的中间相差的时间
-//        int days;
-//        days = ((int)time)/(3600*24);  //一天是24小时*3600秒
-//        NSString * dateValue = [NSString stringWithFormat:@"%i",days];
-//
-//        NSLog(@"打印出时间的差值--->>%@",dateValue);
-        
-        //创建日期格式化对象
-        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSDate *dateFromString = [dateFormatter dateFromString:@"2012-05-10"];
-        NSDate *dateToString = [dateFormatter dateFromString:@"2012-05-11"];
-        int timediff = [dateToString timeIntervalSince1970]-[dateFromString timeIntervalSince1970];
-        //开始时间和结束时间的中间相差的时间
-        int days;
-        days = ((int)timediff)/(3600*24);  //一天是24小时*3600秒
-        NSString * dateValue = [NSString stringWithFormat:@"%i",days];
-        
-        NSLog(@"打印出时间的差值--->>%@",dateValue);
-        
+    [BRDatePickerView showDatePickerWithTitle:@"离开日期"
+                                     dateType:UIDatePickerModeDate
+                              defaultSelValue:@""
+                                   minDateStr:@""
+                                   maxDateStr:@""
+                                 isAutoSelect:YES
+                                  resultBlock:^(NSString *selectValue) {
+                                      //回调设置选好的日期
+                                      [weakSelf.likaiBtn setTitle:selectValue forState:UIControlStateNormal];
+                                      //计算天数并显示
+                                      [weakSelf planDays];
     }];
 }
+//计算天数方法
+-(void)planDays{
+    //创建日期格式化对象
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *dateFromString = [dateFormatter dateFromString:self.ruzhuBtn.titleLabel.text];
+    NSDate *dateToString = [dateFormatter dateFromString:self.likaiBtn.titleLabel.text];
+    int timediff = [dateToString timeIntervalSince1970]-[dateFromString timeIntervalSince1970];
+    //开始时间和结束时间的中间相差的时间
+    int days;
+    days = ((int)timediff)/(3600*24);  //一天是24小时*3600秒
+    NSString * dateValue = [NSString stringWithFormat:@"%i",days];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //回调或者说是通知主线程刷新，
+        [self.totalDateBtn setTitle:[NSString stringWithFormat:@"共%@天",dateValue] forState:UIControlStateNormal];
+    });
+}
+
 //提交按钮点击方法
 - (IBAction)pushBtnClick:(UIButton *)sender {
-    
+    SignUpResultVC *vc = [[SignUpResultVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - tableview代理 -

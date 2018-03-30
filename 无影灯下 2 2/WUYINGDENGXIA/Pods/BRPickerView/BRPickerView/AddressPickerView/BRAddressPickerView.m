@@ -167,7 +167,7 @@
 
 #pragma mark - 确定按钮的点击事件
 - (void)clickRightBtn {
-    NSLog(@"点击确定按钮后，执行block回调");
+//    NSLog(@"点击确定按钮后，执行block回调");
     [self dismissWithAnimation:YES];
     if(self.resultBlock) {
         NSArray *arr = [self getChooseCityArr];

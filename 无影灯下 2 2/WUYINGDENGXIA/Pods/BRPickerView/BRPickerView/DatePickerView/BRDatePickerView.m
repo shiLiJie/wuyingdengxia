@@ -169,7 +169,7 @@
 - (void)didSelectValueChanged:(UIDatePicker *)sender {
     // 读取日期：datePicker.date
     _selectValue = [self toStringWithDate:sender.date];
-    NSLog(@"滚动完成后，执行block回调:%@", _selectValue);
+//    NSLog(@"滚动完成后，执行block回调:%@", _selectValue);
     // 设置是否开启自动回调
     if (_isAutoSelect) {
         if (_resultBlock) {
@@ -185,7 +185,7 @@
 
 #pragma mark - 确定按钮的点击事件
 - (void)clickRightBtn {
-    NSLog(@"点击确定按钮后，执行block回调");
+//    NSLog(@"点击确定按钮后，执行block回调");
     [self dismissWithAnimation:YES];
     if (_resultBlock) {
         _resultBlock(_selectValue);
