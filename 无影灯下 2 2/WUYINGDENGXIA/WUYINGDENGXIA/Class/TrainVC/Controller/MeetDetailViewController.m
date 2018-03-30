@@ -8,8 +8,9 @@
 
 #import "MeetDetailViewController.h"
 #import "MeetRichengCell.h"
+#import "SignUpViewController.h"
 
-@interface MeetDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MeetDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 //会议介绍按钮是否展开
 @property (nonatomic, assign) BOOL isJieshao;
 //会议日程按钮是否展开
@@ -42,12 +43,15 @@
     self.isRicheng = NO;
     
     //报名按钮切圆角
-    self.baomingBtn.layer.cornerRadius = CGRectGetHeight(self.baomingBtn.frame)/2;//半径大小
+    self.baomingBtn.layer.cornerRadius = 42/2;//半径大小
     self.baomingBtn.layer.masksToBounds = YES;//是否切割
     
     //tableview设置代理
     self.richengTableView.delegate = self;
     self.richengTableView.dataSource = self;
+    
+    //设置Scroller的代理
+    self.scroller.delegate = self;
     
     self.viewheight = 100;
     
@@ -115,6 +119,8 @@
 #pragma mark - 私有方法 -
 //参会按钮点击
 - (IBAction)joinMeetBtnClick:(UIButton *)sender {
+    SignUpViewController *vc = [[SignUpViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 //会议介绍按钮点击
@@ -191,7 +197,6 @@
     
     self.viewheight+= height;
     self.viewHeight.constant = self.viewheight;
-    NSLog(@"%f",self.viewHeight.constant);
     
     return height;
 }
@@ -212,11 +217,16 @@
     
     return self.cell;
 }
+
+#pragma mark - scrollerview代理 -
+//scrollView滚动时，就调用该方法。任何offset值改变都调用该方法。即滚动过程中，调用多次
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+//    NSLog(@"scrollViewDidScroll");
+//    CGPoint point=scrollView.contentOffset;
+//    NSLog(@"%f,%f",point.x,point.y);
 //
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    [self.delegate meetTbleviewDidSelectPageWithIndex:indexPath];
-//}
+}
 
 #pragma mark - 懒加载 -
 -(MeetRichengCell *)cell{

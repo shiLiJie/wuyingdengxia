@@ -23,6 +23,10 @@
 		04372A681FFDDD9500D0762C /* SearchBarEffectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04372A661FFDDD9400D0762C /* SearchBarEffectController.m */; };
 		04372A6F1FFE1E6A00D0762C /* HW3DBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04372A6B1FFE1E6A00D0762C /* HW3DBannerView.m */; };
 		04372A701FFE1E6A00D0762C /* UIView+Banner.m in Sources */ = {isa = PBXBuildFile; fileRef = 04372A6E1FFE1E6A00D0762C /* UIView+Banner.m */; };
+		043DE6D8206CC61800C00289 /* SignUpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DE6D6206CC61800C00289 /* SignUpTableViewCell.m */; };
+		043DE6D9206CC61800C00289 /* SignUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043DE6D7206CC61800C00289 /* SignUpTableViewCell.xib */; };
+		043DE6DC206CDE3400C00289 /* TakeCarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DE6DB206CDE3400C00289 /* TakeCarView.m */; };
+		043DE6DE206CDE5600C00289 /* TakeCarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043DE6DD206CDE5600C00289 /* TakeCarView.xib */; };
 		0445223F200762BC006DEA70 /* PassMeetTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445223D200762BC006DEA70 /* PassMeetTableCell.m */; };
 		04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445223E200762BC006DEA70 /* PassMeetTableCell.xib */; };
 		0445224420076300006DEA70 /* PassMeetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445224220076300006DEA70 /* PassMeetViewController.m */; };
@@ -146,6 +150,8 @@
 		048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFDB2004759200C6510B /* ZZNewsSheetConfig.m */; };
 		048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048EEFE22004A5D100C6510B /* PageDetailViewController.m */; };
 		048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048EEFE32004A5D100C6510B /* PageDetailViewController.xib */; };
+		04914677206C91AD0050DC5C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04914675206C91AD0050DC5C /* SignUpViewController.m */; };
+		04914678206C91AD0050DC5C /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04914676206C91AD0050DC5C /* SignUpViewController.xib */; };
 		049C0963200EE8C00057BC5F /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0961200EE8C00057BC5F /* AnswerViewController.m */; };
 		049C0964200EE8C00057BC5F /* AnswerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049C0962200EE8C00057BC5F /* AnswerViewController.xib */; };
 		049C0967200EEA920057BC5F /* JoinAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C0966200EEA920057BC5F /* JoinAnswerViewController.m */; };
@@ -214,6 +220,12 @@
 		04372A6C1FFE1E6A00D0762C /* HW3DBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HW3DBannerView.h; sourceTree = "<group>"; };
 		04372A6D1FFE1E6A00D0762C /* UIView+Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Banner.h"; sourceTree = "<group>"; };
 		04372A6E1FFE1E6A00D0762C /* UIView+Banner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Banner.m"; sourceTree = "<group>"; };
+		043DE6D5206CC61800C00289 /* SignUpTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpTableViewCell.h; sourceTree = "<group>"; };
+		043DE6D6206CC61800C00289 /* SignUpTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpTableViewCell.m; sourceTree = "<group>"; };
+		043DE6D7206CC61800C00289 /* SignUpTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpTableViewCell.xib; sourceTree = "<group>"; };
+		043DE6DA206CDE3400C00289 /* TakeCarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeCarView.h; sourceTree = "<group>"; };
+		043DE6DB206CDE3400C00289 /* TakeCarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeCarView.m; sourceTree = "<group>"; };
+		043DE6DD206CDE5600C00289 /* TakeCarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TakeCarView.xib; sourceTree = "<group>"; };
 		0445223C200762BC006DEA70 /* PassMeetTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassMeetTableCell.h; sourceTree = "<group>"; };
 		0445223D200762BC006DEA70 /* PassMeetTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassMeetTableCell.m; sourceTree = "<group>"; };
 		0445223E200762BC006DEA70 /* PassMeetTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassMeetTableCell.xib; sourceTree = "<group>"; };
@@ -428,6 +440,9 @@
 		048EEFE12004A5D100C6510B /* PageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageDetailViewController.h; sourceTree = "<group>"; };
 		048EEFE22004A5D100C6510B /* PageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageDetailViewController.m; sourceTree = "<group>"; };
 		048EEFE32004A5D100C6510B /* PageDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageDetailViewController.xib; sourceTree = "<group>"; };
+		04914674206C91AD0050DC5C /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		04914675206C91AD0050DC5C /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		04914676206C91AD0050DC5C /* SignUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
 		049C0960200EE8C00057BC5F /* AnswerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
 		049C0961200EE8C00057BC5F /* AnswerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
 		049C0962200EE8C00057BC5F /* AnswerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerViewController.xib; sourceTree = "<group>"; };
@@ -499,6 +514,12 @@
 				04701E23206B4429007AB2D0 /* MeetRichengCell.h */,
 				04701E24206B4429007AB2D0 /* MeetRichengCell.m */,
 				04701E25206B4429007AB2D0 /* MeetRichengCell.xib */,
+				043DE6D5206CC61800C00289 /* SignUpTableViewCell.h */,
+				043DE6D6206CC61800C00289 /* SignUpTableViewCell.m */,
+				043DE6D7206CC61800C00289 /* SignUpTableViewCell.xib */,
+				043DE6DA206CDE3400C00289 /* TakeCarView.h */,
+				043DE6DB206CDE3400C00289 /* TakeCarView.m */,
+				043DE6DD206CDE5600C00289 /* TakeCarView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -518,6 +539,9 @@
 				0423C3F220073D7F005E3F9D /* MeetDetailViewController.h */,
 				0423C3F320073D7F005E3F9D /* MeetDetailViewController.m */,
 				0423C3F420073D7F005E3F9D /* MeetDetailViewController.xib */,
+				04914674206C91AD0050DC5C /* SignUpViewController.h */,
+				04914675206C91AD0050DC5C /* SignUpViewController.m */,
+				04914676206C91AD0050DC5C /* SignUpViewController.xib */,
 				0445224120076300006DEA70 /* PassMeetViewController.h */,
 				0445224220076300006DEA70 /* PassMeetViewController.m */,
 				0445224320076300006DEA70 /* PassMeetViewController.xib */,
@@ -1273,6 +1297,7 @@
 				0487A160206382F700198B33 /* qz_phototlist_shadow@2x.png in Resources */,
 				047528E72045358D00A9794B /* DiscussCell.xib in Resources */,
 				0487A164206382F700198B33 /* 37x-Checkmark.png in Resources */,
+				043DE6D9206CC61800C00289 /* SignUpTableViewCell.xib in Resources */,
 				04E1BDDC200DF33800BC9CE5 /* AnswerTableViewCell.xib in Resources */,
 				047E96471FFCC1370062F1E1 /* HeadlineViewController.xib in Resources */,
 				04E1BDD2200DE8CF00BC9CE5 /* PersonDetailVC.xib in Resources */,
@@ -1300,6 +1325,7 @@
 				0487A15C206382F700198B33 /* qmusic_player_play_default@2x.png in Resources */,
 				0487A161206382F700198B33 /* back_single@2x.png in Resources */,
 				04849084200EE2D000D0ACF1 /* AnswerTableVC.xib in Resources */,
+				04914678206C91AD0050DC5C /* SignUpViewController.xib in Resources */,
 				0487A15D206382F700198B33 /* login_btn_blue_nor@2x.png in Resources */,
 				0487A15A206382F700198B33 /* activate_friends_seleted@2x.png in Resources */,
 				04E1BDC8200DD0BA00BC9CE5 /* QATableVIewController.xib in Resources */,
@@ -1309,6 +1335,7 @@
 				045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */,
 				04C10EA020107BA0003C204D /* QuestionsViewController.xib in Resources */,
 				048EEFE52004A5D100C6510B /* PageDetailViewController.xib in Resources */,
+				043DE6DE206CDE5600C00289 /* TakeCarView.xib in Resources */,
 				047E96D61FFCC2C30062F1E1 /* MBProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1415,6 +1442,7 @@
 				047E96AA1FFCC2870062F1E1 /* UIImage+FileName.m in Sources */,
 				0487A132206382D500198B33 /* HX_VideoManager.m in Sources */,
 				047E96A51FFCC2870062F1E1 /* UIImage+BetterFace.m in Sources */,
+				043DE6D8206CC61800C00289 /* SignUpTableViewCell.m in Sources */,
 				04701E26206B4429007AB2D0 /* MeetRichengCell.m in Sources */,
 				047E96CB1FFCC29D0062F1E1 /* XHLaunchAdButton.m in Sources */,
 				047E96461FFCC1370062F1E1 /* HeadlineViewController.m in Sources */,
@@ -1457,6 +1485,7 @@
 				047E96F01FFCC4DC0062F1E1 /* MyViewController.m in Sources */,
 				047E96671FFCC2050062F1E1 /* HttpRequest.m in Sources */,
 				0478D3522011895500FB1696 /* BRTextField.m in Sources */,
+				043DE6DC206CDE3400C00289 /* TakeCarView.m in Sources */,
 				047E96AC1FFCC2870062F1E1 /* UIImage+Capture.m in Sources */,
 				04372A701FFE1E6A00D0762C /* UIView+Banner.m in Sources */,
 				0423C3F520073D7F005E3F9D /* MeetDetailViewController.m in Sources */,
@@ -1464,6 +1493,7 @@
 				047E964C1FFCC14F0062F1E1 /* BaseViewController.m in Sources */,
 				047E96A01FFCC2870062F1E1 /* UIImage+Alpha.m in Sources */,
 				047E96D01FFCC29D0062F1E1 /* XHLaunchAdDownload.m in Sources */,
+				04914677206C91AD0050DC5C /* SignUpViewController.m in Sources */,
 				042F7D4420036E5A005138C0 /* MDMultipleSegmentView.m in Sources */,
 				0481795B2068C5BC00326E28 /* AddSheetViewController.m in Sources */,
 				047E96D31FFCC29D0062F1E1 /* NSString+XHLaunchAd.m in Sources */,
