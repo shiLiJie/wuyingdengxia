@@ -43,6 +43,8 @@
 @property(nonatomic, strong) ZZNewsSheetMenu *newsMenu;
 //讨论collection
 @property (nonatomic, strong) DiscussCollectionView *discuss;
+//添加加号➕按钮
+@property (nonatomic, strong) UIButton *addMenuBtn;
 
 
 
@@ -226,12 +228,12 @@
     [self.view addSubview:_segView];
     
     //添加加号➕按钮
-    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh)];
+    self.addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh)];
 //    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
-    [addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
-    [addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:addMenuBtn];
+    [self.addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
+    [self.addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.addMenuBtn];
     
     NSArray *arr = @[
                      [self tablecontroller],
@@ -365,6 +367,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.scrollView.frame = CGRectMake(0,headerViewY, Main_Screen_Width, bannerHigh);
         _segView.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width, segViewHigh);
+        self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
         _discuss.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame), Main_Screen_Width, 78);
         _collectView.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame)+78, Main_Screen_Width, Main_Screen_Height - CGRectGetMaxY(self.scrollView.frame));
         [self.scrollView updateViewFrameSetting];

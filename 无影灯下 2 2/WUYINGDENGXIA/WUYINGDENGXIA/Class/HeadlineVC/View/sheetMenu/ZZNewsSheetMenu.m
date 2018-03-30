@@ -42,7 +42,13 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 - (void)showNewsMenu{
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGRect rect = CGRectMake(0, 75, KScreenWidth, KScreenHeight - statuHeight);
+    CGRect rect;
+    if (kDevice_Is_iPhoneX) {
+        rect = CGRectMake(0, 80, KScreenWidth, KScreenHeight - statuHeight);
+    }else{
+        rect = CGRectMake(0, 64, KScreenWidth, KScreenHeight - statuHeight);
+    }
+    
     [UIView animateWithDuration:kAnimationDuration delay:0.05 usingSpringWithDamping:0.8 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveLinear animations:^{
         self.frame = rect;
         self.alpha = 1.0f;
@@ -53,7 +59,12 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 - (void)showNewsMenu1{
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGRect rect = CGRectMake(0, 75, KScreenWidth, KScreenHeight - statuHeight-100);
+    CGRect rect;
+    if (kDevice_Is_iPhoneX) {
+        rect = CGRectMake(0, 80, KScreenWidth, KScreenHeight - statuHeight-100);
+    }else{
+        rect = CGRectMake(0, 64, KScreenWidth, KScreenHeight - statuHeight-100);
+    }
     [UIView animateWithDuration:kAnimationDuration delay:0.05 usingSpringWithDamping:0.8 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveLinear animations:^{
         self.frame = rect;
         self.alpha = 1.0f;

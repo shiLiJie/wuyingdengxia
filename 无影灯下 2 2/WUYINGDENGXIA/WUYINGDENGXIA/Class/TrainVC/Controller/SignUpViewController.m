@@ -9,7 +9,8 @@
 #import "SignUpViewController.h"
 #import "SignUpTableViewCell.h"
 #import "TakeCarView.h"
-
+#import "BRPickerView.h"
+#import "NSDate+BRAdd.h"
 
 @interface SignUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 //scroller
@@ -34,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *totalDateBtn;
 //住宿view距离上个控件的约束,添加乘车信息是约束增大
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *zhusuViewConstraint;
+//添加乘车信息的次数
+@property (nonatomic, assign) int addNum;
 @end
 
 @implementation SignUpViewController
@@ -85,6 +88,8 @@
     //报名按钮切圆角
     self.pushBtn.layer.cornerRadius = CGRectGetHeight(self.pushBtn.frame)/2;//半径大小
     self.pushBtn.layer.masksToBounds = YES;//是否切割
+    //初始化时候添加乘车次数为0;
+    self.addNum = 0 ;
 
 }
 
@@ -120,8 +125,21 @@
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
+
+//字符串转日期
+- (NSDate *)StringTODate:(NSString *)sender
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"YYYY-MMMM-dd HH:mm:ss";
+    [dateFormatter setMonthSymbols:[NSArray arrayWithObjects:@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil]];
+    NSDate * ValueDate = [dateFormatter dateFromString:sender];
+    return ValueDate;
+}
+
 //添加乘车信息按钮点击
 - (IBAction)addCarBtnClick:(UIButton *)sender {
+    //添加乘车信息的次数 + 1
+    self.addNum = self.addNum + 1;
     
     //先添加一个选择乘车信息view占位
     TakeCarView *takecarView = [[TakeCarView alloc] initWithFrame:
@@ -129,15 +147,20 @@
                         ];
     
     [self.acrollerView addSubview:takecarView];
-    
+    //设置增加乘车信息的view约束
     [takecarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).with.offset(0);
-        make.top.equalTo(self.contentview.mas_bottom).with.offset(310);
+        make.top.equalTo(self.contentview.mas_bottom).with.offset(300 * self.addNum +11);
         make.right.equalTo(self.view).with.offset(0);
         make.height.mas_equalTo(300);
     }];
     
-    self.zhusuViewConstraint.constant = 310+310;
+    //回调回来选择好的信息
+    takecarView.takeCarViewkBlcok = ^(NSArray *arr) {
+        
+    };
+    
+    self.zhusuViewConstraint.constant = 300 * (self.addNum + 1) + 10;
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2/*延迟执行时间*/ * NSEC_PER_SEC));
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
         
@@ -147,9 +170,49 @@
 }
 //选择入住日期按钮点击
 - (IBAction)ruzhuBtnClick:(UIButton *)sender {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [BRDatePickerView showDatePickerWithTitle:@"入住日期" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:YES resultBlock:^(NSString *selectValue) {
+        [weakSelf.ruzhuBtn setTitle:selectValue forState:UIControlStateNormal];
+    }];
 }
 //选择离开日期按钮点击
 - (IBAction)likaiBtnClick:(UIButton *)sender {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [BRDatePickerView showDatePickerWithTitle:@"离开日期" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:@"" isAutoSelect:YES resultBlock:^(NSString *selectValue) {
+        [weakSelf.likaiBtn setTitle:selectValue forState:UIControlStateNormal];
+        
+//
+//        //字符串转NSDate格式的方法
+//        NSDate * ValueDate = [self StringTODate:self.ruzhuBtn.titleLabel.text];
+//        NSDate * ValueDate1 = [self StringTODate:selectValue];
+//        //计算两个中间差值(秒)
+//        NSTimeInterval time = [ValueDate timeIntervalSinceDate:ValueDate1];
+//
+//        //开始时间和结束时间的中间相差的时间
+//        int days;
+//        days = ((int)time)/(3600*24);  //一天是24小时*3600秒
+//        NSString * dateValue = [NSString stringWithFormat:@"%i",days];
+//
+//        NSLog(@"打印出时间的差值--->>%@",dateValue);
+        
+        //创建日期格式化对象
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate *dateFromString = [dateFormatter dateFromString:@"2012-05-10"];
+        NSDate *dateToString = [dateFormatter dateFromString:@"2012-05-11"];
+        int timediff = [dateToString timeIntervalSince1970]-[dateFromString timeIntervalSince1970];
+        //开始时间和结束时间的中间相差的时间
+        int days;
+        days = ((int)timediff)/(3600*24);  //一天是24小时*3600秒
+        NSString * dateValue = [NSString stringWithFormat:@"%i",days];
+        
+        NSLog(@"打印出时间的差值--->>%@",dateValue);
+        
+    }];
 }
 //提交按钮点击方法
 - (IBAction)pushBtnClick:(UIButton *)sender {

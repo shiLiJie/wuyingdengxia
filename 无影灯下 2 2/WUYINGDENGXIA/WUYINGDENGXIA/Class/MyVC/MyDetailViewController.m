@@ -327,7 +327,7 @@
         _ruxuenianfenTF.tapAcitonBlock = ^{
             [BRDatePickerView showDatePickerWithTitle:@"入学年份" dateType:UIDatePickerModeDate defaultSelValue:weakSelf.ruxuenianfenTF.text minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:YES resultBlock:^(NSString *selectValue) {
                 weakSelf.ruxuenianfenTF.text = selectValue;
-            }];
+            }]; 
         };
     }
 }
