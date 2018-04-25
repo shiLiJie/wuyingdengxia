@@ -10,24 +10,26 @@
 #import "MDMultipleSegmentView.h"
 #import "MDFlipCollectionView.h"
 #import "MeetingNewViewController.h"
-#import "SearchBarEffectController.h"
 #import "PastViewController.h"
 #import "MeetDetailViewController.h"
 #import "PassMeetViewController.h"
+#import "PYSearch.h"
+#import "SearchResultVcViewController.h"
 
 #define segViewHigh     44
 
 @interface TrainViewController ()<MDMultipleSegmentViewDeletegate,
                                 MDFlipCollectionViewDelegate,
-                                SearchBarDelegate,
                                 MeetNewDelegate,
-                                PassDelegate>
+                                PassDelegate,
+                                PYSearchViewControllerDelegate>
 {
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
 }
 
-@property (weak, nonatomic) IBOutlet UIButton *searchBtn;
+@property (nonatomic, strong) UIButton *searchBtn;
+
 
 @end
 
@@ -50,21 +52,40 @@
     
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
-    _segView.frame = CGRectMake(0,20, Main_Screen_Width, segViewHigh);
+    if (kDevice_Is_iPhoneX) {
+        _segView.frame = CGRectMake(0,45, Main_Screen_Width, segViewHigh);
+    }else{
+        _segView.frame = CGRectMake(0,20, Main_Screen_Width, segViewHigh);
+    }
     _segView.items = @[@"会议资讯",@"往期回顾"];
-    _segView.titleFont = [UIFont systemFontOfSize:18];
+    _segView.titleFont = BOLDSYSTEMFONT(18);
     [self.view addSubview:_segView];
+    
+    self.searchBtn = [[UIButton alloc] init];
+    [self.searchBtn setImage:GetImage(@"zixun") forState:UIControlStateNormal];
+    self.searchBtn.frame = CGRectMake(30, CGRectGetMaxY(_segView.frame)+6, kScreen_Width-60, 33);
+    [self.searchBtn addTarget:self action:@selector(gotoSearchKey) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.searchBtn];
     
     NSArray *arr = @[
                      [self tablecontroller],
                      [self tablecontroller1]
                      ];
     
-    _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                          CGRectGetMaxY(self.searchBtn.frame),
-                                                                          Main_Screen_Width,
-                                                                          Main_Screen_Height - 49 - self.searchBtn.frame.size.height)
-                                                     withArray:arr];
+    if (kDevice_Is_iPhoneX) {
+        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                              CGRectGetMaxY(self.searchBtn.frame)+5,
+                                                                              Main_Screen_Width,
+                                                                              Main_Screen_Height - 64 - self.searchBtn.frame.size.height-5)
+                                                         withArray:arr];
+    }else
+    {
+        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                              CGRectGetMaxY(self.searchBtn.frame)+5,
+                                                                              Main_Screen_Width,
+                                                                              Main_Screen_Height - 49 - self.searchBtn.frame.size.height-5)
+                                                         withArray:arr];
+    }
     _collectView.delegate = self;
     [self.view addSubview:_collectView];
 }
@@ -82,12 +103,23 @@
     
     return vc;
 }
-- (IBAction)gotoSearchKey:(UIButton *)sender {
+//搜索按钮点击
+-(void)gotoSearchKey{
+    //数据数组
+    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+    //创建搜索控制器
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        //创建搜索后的控制器
+        [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
+    }];
     
-    SearchBarEffectController * searchView = [[SearchBarEffectController alloc]init];
-    searchView.delegate = self;
+    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
+    searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
     
-    [searchView show];
+    searchViewController.delegate = self;
+    // 5. Present a navigation controller
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:nav animated:NO completion:nil];
 }
 
 #pragma mark - segement代理方法 -
@@ -101,9 +133,23 @@
     [_segView selectIndex:index];
 }
 
-#pragma mark - 搜索页代理方法 -
-- (void)didSelectKey:(NSString *)key{
-    
+#pragma mark - 搜索控制器Delegate -
+- (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
+{
+    if (searchText.length) {
+        // Simulate a send request to get a search suggestions
+        //发起网络请求,请求联想的内容
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
+            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
+                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
+                
+                [searchSuggestionsM addObject:searchSuggestion];
+            }
+            //联想数组复制
+            searchViewController.searchSuggestions = searchSuggestionsM;
+        });
+    }
 }
 
 #pragma mark - 会议资讯和往期回顾点击代理方法 -

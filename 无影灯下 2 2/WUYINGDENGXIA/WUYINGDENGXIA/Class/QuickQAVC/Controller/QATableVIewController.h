@@ -12,7 +12,7 @@
 
 @optional
 //监听点击table点击的索引
--(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath;
+-(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath;
 
 //点击头像推出个人展示页
 -(void)clickHeadImageJumpToPersonDetailPage:(NSInteger)indexPath;

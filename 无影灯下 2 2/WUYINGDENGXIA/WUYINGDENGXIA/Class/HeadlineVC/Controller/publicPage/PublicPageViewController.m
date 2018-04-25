@@ -66,14 +66,24 @@ typedef enum _chooseType{
     
     //输入标题框
     self.titieTextLab = [[UITextView alloc] init];
-    self.titieTextLab.frame = CGRectMake(17, 65, kScreen_Width-17, 46);
+    if (kDevice_Is_iPhoneX) {
+        self.titieTextLab.frame = CGRectMake(17, 99, kScreen_Width-17, 46);
+    }else{
+        self.titieTextLab.frame = CGRectMake(17, 75, kScreen_Width-17, 46);
+    }
+    
     [self.view addSubview:self.titieTextLab];
     self.titieTextLab.text = @"请输入文章标题";
     self.titieTextLab.font = [UIFont systemFontOfSize:13];
     self.titieTextLab.textColor = RGB(191, 191, 191);
     //输入内容框
     self.detailTextView = [[UITextView alloc] init];
-    self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130);
+    if (kDevice_Is_iPhoneX) {
+        self.detailTextView.frame = CGRectMake(17, 141, kScreen_Width-17, kScreen_Height-173-130);
+    }else{
+        self.detailTextView.frame = CGRectMake(17, 117, kScreen_Width-17, kScreen_Height-115-130);
+    }
+    
     [self.view addSubview:self.detailTextView];
     self.detailTextView.text = @"请输入文章内容";
     self.detailTextView.font = [UIFont systemFontOfSize:13];
@@ -83,8 +93,8 @@ typedef enum _chooseType{
     self.detailTextView.delegate = self;
     //设置标题框和内容框中间的分割线
     UILabel *lab = [[UILabel alloc] init];
-    lab.frame = CGRectMake(17, 113, kScreen_Width-17, 1);
-    lab.backgroundColor = RGB(240, 240, 240);
+    lab.frame = CGRectMake(22, 113, kScreen_Width-17, 0.3);
+    lab.backgroundColor = RGB(235, 235, 235);
     [self.view addSubview:lab];
     
     //添加图片选择器视图
@@ -150,7 +160,7 @@ typedef enum _chooseType{
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSFontAttributeName value:CHINESE_SYSTEM(18) range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
 
@@ -195,7 +205,12 @@ typedef enum _chooseType{
         self.choosetype = titleType;
     }else{
         self.choosetype = detailType;
-        self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130-180 -39 -10 );
+        if (kDevice_Is_iPhoneX) {
+            self.detailTextView.frame = CGRectMake(17, 139, kScreen_Width-17, kScreen_Height-173-130-180 -39 -10 -34 );
+        }else{
+            self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130-180 -39 -10 );
+        }
+        
     }
     return YES;
 }
@@ -320,7 +335,12 @@ typedef enum _chooseType{
     [UIView animateKeyframesWithDuration:animationDuration delay:0 options:options animations:^{
 
         self.chooseView.transform = CGAffineTransformIdentity;
-        self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130);
+        if (kDevice_Is_iPhoneX) {
+            self.detailTextView.frame = CGRectMake(17, 139, kScreen_Width-17, kScreen_Height-173-130);
+        }else{
+            self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130);
+        }
+        
 
     } completion:nil];
     

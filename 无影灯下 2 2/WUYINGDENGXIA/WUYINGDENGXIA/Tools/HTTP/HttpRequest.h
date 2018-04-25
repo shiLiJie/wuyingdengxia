@@ -84,7 +84,7 @@ typedef NSURLSessionTask PPURLSessionTask;
  *  上传图片
  *
  *  @param url        请求url
- *  @param image      要上传的文件流
+ *  @param imageData      要上传的文件流
  *  @param completion 文件上传成功的回调
  *  @param errorBlock 文件上传失败的回调
  *
@@ -103,7 +103,7 @@ typedef NSURLSessionTask PPURLSessionTask;
  *  上传音视频文件
  *
  *  @param url        请求url
- *  @param image      要上传的文件流
+ *  @param vedioData      要上传的文件流
  *  @param completion 文件上传成功的回调
  *  @param errorBlock 文件上传失败的回调
  *
@@ -122,7 +122,7 @@ typedef NSURLSessionTask PPURLSessionTask;
  *  上传txt文件
  *
  *  @param url        请求url
- *  @param image      要上传的文件流
+ *  @param txtData      要上传的文件流
  *  @param completion 文件上传成功的回调
  *  @param errorBlock 文件上传失败的回调
  *

@@ -8,7 +8,7 @@
 
 #import "PersonDetailVC.h"
 #import "PageTableViewCell.h"
-
+#import "PageDetailViewController.h"
 
 @interface PersonDetailVC ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -22,7 +22,7 @@
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
-    
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 
@@ -51,8 +51,11 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     return cell;
-    
+}
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    PageDetailViewController *vc = [[PageDetailViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -153,7 +153,18 @@
     // 设置背景色和分割线
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
     [[UITabBar appearance] setBackgroundColor:RGB(255, 255, 255)];
-    [[UITabBar appearance] setShadowImage:GetImage(@"tapbar_top_line")];
+    
+    //改变tabbar 线条颜色
+    CGRect rect = CGRectMake(0, 0, kScreen_Width, 0.5);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context,
+                                   RGB(235, 235, 235).CGColor);
+    CGContextFillRect(context, rect);
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [[UITabBar appearance] setShadowImage:img];
 }
 
 - (void)updateTabBarCustomizationWhenTabBarItemWidthDidUpdate {

@@ -62,7 +62,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="HPd-zi-RbK"/>
-            <point key="canvasLocation" x="-104" y="37"/>
+            <point key="canvasLocation" x="-88" y="17"/>
         </tableViewCell>
     </objects>
 </document>

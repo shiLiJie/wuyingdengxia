@@ -49,7 +49,7 @@
             <connections>
                 <outlet property="discussLab" destination="CZt-3R-J1x" id="vyP-R8-Ksu"/>
             </connections>
-            <point key="canvasLocation" x="-443" y="37.5"/>
+            <point key="canvasLocation" x="-76" y="7"/>
         </collectionViewCell>
     </objects>
     <resources>

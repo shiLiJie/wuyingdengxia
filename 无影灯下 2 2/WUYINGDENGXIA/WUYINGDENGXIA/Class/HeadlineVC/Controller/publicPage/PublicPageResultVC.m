@@ -24,14 +24,14 @@
     self.quedingBtn.layer.masksToBounds = YES;//是否切割
     
     if (!self.isSucess) {
-        self.bgImage.image = GetImage(@"tijiaoshibai");
+        self.bgImage.image = GetImage(@"tougaoshibai");
         self.mesLab.text = @"提交失败,请从新提交......";
         self.mesLab.textColor = RGB(232, 79, 79);
         [self.quedingBtn setTitle:@"取消" forState:UIControlStateNormal];
     }else{
-        self.bgImage.image = GetImage(@"tijiaochengg");
+        self.bgImage.image = GetImage(@"tougaochenggong");
         self.mesLab.text = @"提交成功,请等待审核......";
-        self.mesLab.textColor = RGB(0, 183, 105);
+        self.mesLab.textColor = RGB(45, 163, 255);
         [self.quedingBtn setTitle:@"确定" forState:UIControlStateNormal];
     }
 }

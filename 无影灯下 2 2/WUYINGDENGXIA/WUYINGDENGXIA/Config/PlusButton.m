@@ -73,6 +73,7 @@
     PlusButton *button = [[PlusButton alloc] init];
     UIImage *buttonImage = GetImage(@"wenda");
     [button setImage:buttonImage forState:UIControlStateNormal];
+    
 //    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
 //    [button setTitle:@"发布" forState:UIControlStateNormal];
 //    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -86,9 +87,10 @@
 //        button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 83);
         button.frame = CGRectMake(0.0, 0.0, 49, 49);
     }else{
-        button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 49);
+        button.frame = CGRectMake(0.0, 0.0, kScreen_Width/5, 49);
+        [button setImageEdgeInsets:UIEdgeInsetsMake(15, 0, 15, 0)];
     }
-    
+
 //    button.backgroundColor = [UIColor redColor];
     
     // if you use `+plusChildViewController` , do not addTarget to plusButton.

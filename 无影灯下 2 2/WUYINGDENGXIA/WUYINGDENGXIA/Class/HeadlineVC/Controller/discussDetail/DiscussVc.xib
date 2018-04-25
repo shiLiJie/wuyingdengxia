@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiscussVc">
+            <connections>
+                <outlet property="pinglunBtn" destination="BCa-Fs-eEI" id="XZA-MH-gwH"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XUP-ZF-Sbv">
+                    <rect key="frame" x="0.0" y="619" width="375" height="48"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCa-Fs-eEI">
+                            <rect key="frame" x="38" y="8" width="306" height="33"/>
+                            <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="   参与评论" image="taolun">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="pinglunBtnClick:" destination="-1" eventType="touchUpInside" id="fQj-DY-McL"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uq4-RL-tyG">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                            <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="Nb5-m6-oXR"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="BCa-Fs-eEI" firstAttribute="top" secondItem="XUP-ZF-Sbv" secondAttribute="top" constant="8" id="6MJ-WG-sRg"/>
+                        <constraint firstAttribute="trailing" secondItem="Uq4-RL-tyG" secondAttribute="trailing" id="98I-uV-l7J"/>
+                        <constraint firstItem="BCa-Fs-eEI" firstAttribute="centerY" secondItem="XUP-ZF-Sbv" secondAttribute="centerY" id="Bqz-d4-G2g"/>
+                        <constraint firstAttribute="bottom" secondItem="BCa-Fs-eEI" secondAttribute="bottom" constant="7" id="PFw-Kc-HQU"/>
+                        <constraint firstItem="BCa-Fs-eEI" firstAttribute="leading" secondItem="XUP-ZF-Sbv" secondAttribute="leading" constant="38" id="Rlq-YV-Yft"/>
+                        <constraint firstItem="Uq4-RL-tyG" firstAttribute="top" secondItem="XUP-ZF-Sbv" secondAttribute="top" id="ULL-MV-xI2"/>
+                        <constraint firstAttribute="height" constant="48" id="dtE-cW-Ais"/>
+                        <constraint firstAttribute="trailing" secondItem="BCa-Fs-eEI" secondAttribute="trailing" constant="31" id="gpM-Mn-XXu"/>
+                        <constraint firstItem="Uq4-RL-tyG" firstAttribute="leading" secondItem="XUP-ZF-Sbv" secondAttribute="leading" id="rRD-Sr-wW5"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="XUP-ZF-Sbv" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="Bbb-Uz-xwv"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="XUP-ZF-Sbv" secondAttribute="bottom" id="XzI-bY-cDE"/>
+                <constraint firstItem="XUP-ZF-Sbv" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="dHU-4m-IKr"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="-306" y="44"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="taolun" width="14" height="14"/>
+    </resources>
+</document>

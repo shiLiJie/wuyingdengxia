@@ -22,11 +22,23 @@
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 #pragma mark - UI -
 -(NSMutableAttributedString *)setTitle{
     return [self changeTitle:@"会议名称不能也不能太长"];
+}
+//左侧按钮设置点击
+-(UIButton *)set_leftButton{
+    UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(0, 0, 44, 60);
+    [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
+    return btn;
+}
+
+-(void)left_button_event:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(UIColor*)set_colorBackground{
@@ -37,7 +49,7 @@
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSFontAttributeName value:CHINESE_SYSTEM(18) range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
 
@@ -69,7 +81,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    [self.delegate passTableviewDidSelectPageWithIndex:indexPath];
+    if ([self.delegate respondsToSelector:@selector(tableviewDidSelectPageWithIndex2:)]) {
+        [self.delegate tableviewDidSelectPageWithIndex2:indexPath];
+    }
     
     PlayDetailViewController *vc = [[PlayDetailViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];

@@ -12,4 +12,6 @@
 
 @property(strong,nonatomic)UIScreenEdgePanGestureRecognizer *panGestureRec;
 
+@property (nonatomic, assign) BOOL isFanhui;
+
 @end

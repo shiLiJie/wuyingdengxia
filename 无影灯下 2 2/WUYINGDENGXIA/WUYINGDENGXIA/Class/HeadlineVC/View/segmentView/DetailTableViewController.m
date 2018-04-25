@@ -26,7 +26,7 @@
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
     self.dataArr = @[@"1",@"1",@"1",@"1",@"1"];
@@ -77,7 +77,10 @@
 
 #pragma mark - cell点击头像和用户名代理方法 -
 -(void)pushPublishPersonVc{
-    [self.delegate clickUserNamePushPublishVc];
+    if ([self.delegate respondsToSelector:@selector(clickUserNamePushPublishVc)]) {
+        [self.delegate clickUserNamePushPublishVc];
+    }
+    
 }
 
 @end

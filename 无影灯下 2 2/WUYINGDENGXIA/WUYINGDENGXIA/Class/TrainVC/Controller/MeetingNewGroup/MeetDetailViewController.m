@@ -42,13 +42,27 @@
     self.isJieshao = NO;
     self.isRicheng = NO;
     
+    //设置阴影
+    CALayer *layer = [CALayer layer];
+    layer.frame = self.baomingBtn.frame;
+    layer.backgroundColor = RGB(45, 163, 255).CGColor;
+    layer.shadowColor = RGB(45, 163, 255).CGColor;
+    layer.shadowOffset = CGSizeMake(0, 2);
+    layer.shadowOpacity = 0.5;
+    layer.cornerRadius = 42/2;
+    [self.view.layer addSublayer:layer];
     //报名按钮切圆角
     self.baomingBtn.layer.cornerRadius = 42/2;//半径大小
     self.baomingBtn.layer.masksToBounds = YES;//是否切割
+    //一到最上层
+    [self.view bringSubviewToFront:self.baomingBtn];
     
+    self.richengTableView.rowHeight = UITableViewAutomaticDimension;
+    self.richengTableView.estimatedRowHeight = 120;
     //tableview设置代理
     self.richengTableView.delegate = self;
     self.richengTableView.dataSource = self;
+    self.richengTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //设置Scroller的代理
     self.scroller.delegate = self;
@@ -61,7 +75,9 @@
     //设置会议详情内容
     self.meetDetailText.text = @"        移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限";
     
-    
+    //设置lab行间距
+    [self setLabelHangjianj:self.meetDetailText];
+    [self setLabelHangjianj:self.meetAddress];
 
 }
 
@@ -117,6 +133,14 @@
 }
 
 #pragma mark - 私有方法 -
+-(void)setLabelHangjianj:(UILabel *)lab{
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:lab.text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:4];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [lab.text length])];
+    lab.attributedText = attributedString;
+}
+
 //参会按钮点击
 - (IBAction)joinMeetBtnClick:(UIButton *)sender {
     SignUpViewController *vc = [[SignUpViewController alloc] init];
@@ -130,25 +154,38 @@
         //收起,展示两行
         self.isJieshao = NO;
         self.meetDetailText.numberOfLines = 2;
+        [self.huiyijieshaoBtn setTitle:@"展开全部" forState:UIControlStateNormal];
         
     }else{
         //展开,展示全部
         self.isJieshao = YES;
         self.meetDetailText.numberOfLines = 0;
+        [self.huiyijieshaoBtn setTitle:@"点击收起" forState:UIControlStateNormal];
     }
     
-    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2/*延迟执行时间*/ * NSEC_PER_SEC));
-    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-        
-        self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
-    });
+    [self.scroller layoutIfNeeded];
+    [self.view layoutIfNeeded];
+    self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
+   
 }
 
 // 根据字符串计算label高度
 -(float)getContactHeight:(NSString*)contact
 {
-    NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0]};
-    CGSize maxSize = CGSizeMake(kScreen_Width-40-90.5-30-10, MAXFLOAT);
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:contact];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+    [paragraphStyle setLineSpacing:4];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [contact length])];
+    
+    NSDictionary *attrs = @{
+                            NSFontAttributeName : [UIFont systemFontOfSize:14.0],
+                            NSParagraphStyleAttributeName : paragraphStyle
+                            
+                            };
+    CGSize maxSize = CGSizeMake(kScreen_Width-20-90.5-30-10, MAXFLOAT);
     
     // 计算文字占据的高度
     CGSize size = [contact boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
@@ -162,22 +199,29 @@
     if (self.isRicheng) {
         self.viewheight = 100;
         //收起,展示两行
+        [self.huiyiRichengBtn setTitle:@"展开全部" forState:UIControlStateNormal];
         self.isRicheng = NO;
         self.arrCount = self.timeaArr.count>2 ? 2 : self.timeaArr.count;
         [self.richengTableView reloadData];
         
     }else{
+        [self.huiyiRichengBtn setTitle:@"点击收起" forState:UIControlStateNormal];
         self.viewheight = 100;
         //展开,展示全部
         self.isRicheng = YES;
         self.arrCount = self.timeaArr.count;
         [self.richengTableView reloadData];
     }
-    
+    [self.view layoutIfNeeded];
+    [self.scroller layoutIfNeeded];
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2/*延迟执行时间*/ * NSEC_PER_SEC));
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-        
-        self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
+        [self.scroller layoutIfNeeded];
+        [self.view layoutIfNeeded];
+        [UIView animateWithDuration:0.5 animations:^{
+            self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
+            
+        }];
     });
 }
 
@@ -192,9 +236,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     NSString *str = self.detailaArr[indexPath.row];
-    
+
     CGFloat height = [self getContactHeight:str] +5;
-    
+
     self.viewheight+= height;
     self.viewHeight.constant = self.viewheight;
     
@@ -208,9 +252,13 @@
     
 //    if (!self.cell) {
     
-        self.cell = [[[NSBundle mainBundle] loadNibNamed:@"MeetRichengCell" owner:nil options:nil] firstObject];
-        self.cell.timeLab.text = self.timeaArr[indexPath.row];
-        self.cell.detailLab.text = self.detailaArr[indexPath.row];
+    self.cell = [[[NSBundle mainBundle] loadNibNamed:@"MeetRichengCell" owner:nil options:nil] firstObject];
+    self.cell.timeLab.text = self.timeaArr[indexPath.row];
+    self.cell.detailLab.text = self.detailaArr[indexPath.row];
+    [self.cell.detailLab alignTop];
+//    [self.cell.detailLab sizeToFit];
+//    [self setLabelHangjianj:self.cell.detailLab];
+    
 //    }
     
     self.cell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -34,7 +34,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRy-Xg-OzS">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="158.33333333333334"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wode_beijing" translatesAutoresizingMaskIntoConstraints="NO" id="B4c-Ig-sk1">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="B4c-Ig-sk1">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="158.33333333333334"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wenda" translatesAutoresizingMaskIntoConstraints="NO" id="2cu-Tf-VVU">
@@ -132,13 +132,13 @@
                 <constraint firstItem="LRy-Xg-OzS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KHX-BV-YX7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-471" y="-41"/>
+            <point key="canvasLocation" x="-191" y="94"/>
         </view>
     </objects>
     <resources>
+        <image name="bg" width="375" height="144"/>
         <image name="fanhui" width="21" height="17"/>
         <image name="v" width="19" height="16"/>
         <image name="wenda" width="43" height="43"/>
-        <image name="wode_beijing" width="375" height="144"/>
     </resources>
 </document>

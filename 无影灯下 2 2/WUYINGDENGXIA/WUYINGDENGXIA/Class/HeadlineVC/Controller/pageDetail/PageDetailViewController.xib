@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageDetailViewController">
             <connections>
+                <outlet property="pinglunBtn" destination="ixu-CO-hjU" id="Yty-ZI-f0v"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,10 +24,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZmD-un-sQ8">
                     <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixu-CO-hjU">
-                            <rect key="frame" x="20" y="10" width="200" height="28"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixu-CO-hjU">
+                            <rect key="frame" x="20" y="8" width="200" height="33"/>
+                            <color key="backgroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <state key="normal" title="参与评论">
+                            <state key="normal" title="   参与评论" image="taolun">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -40,20 +42,40 @@
                                 <constraint firstAttribute="height" constant="25" id="sVr-0R-iyX"/>
                             </constraints>
                             <state key="normal" image="fenxiang"/>
+                            <connections>
+                                <action selector="zhuanfa:" destination="-1" eventType="touchUpInside" id="X6r-zP-qrZ"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eV3-Ux-A0q">
                             <rect key="frame" x="285" y="12" width="25" height="25"/>
                             <state key="normal" image="yishoucang"/>
+                            <connections>
+                                <action selector="shoucang:" destination="-1" eventType="touchUpInside" id="GdM-fm-Mk2"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLl-Ux-MiG">
                             <rect key="frame" x="240" y="12.5" width="25" height="25"/>
                             <state key="normal" image="dadianzan"/>
+                            <connections>
+                                <action selector="dianzan:" destination="-1" eventType="touchUpInside" id="AIh-2b-5BX"/>
+                            </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhc-3W-b1J">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                            <color key="backgroundColor" red="0.90980392156862744" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="WAv-5E-iQJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
-                    <color key="backgroundColor" white="0.89582403273809508" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="aLl-Ux-MiG" firstAttribute="centerY" secondItem="eV3-Ux-A0q" secondAttribute="centerY" id="0Rg-lx-GPk"/>
                         <constraint firstItem="aLl-Ux-MiG" firstAttribute="height" secondItem="eV3-Ux-A0q" secondAttribute="height" id="4bU-vV-0oP"/>
+                        <constraint firstItem="nhc-3W-b1J" firstAttribute="leading" secondItem="ZmD-un-sQ8" secondAttribute="leading" id="4mL-eP-bpj"/>
                         <constraint firstItem="aLl-Ux-MiG" firstAttribute="leading" secondItem="ixu-CO-hjU" secondAttribute="trailing" constant="20" id="5KI-3Z-pjC"/>
                         <constraint firstItem="ixu-CO-hjU" firstAttribute="centerY" secondItem="ZmD-un-sQ8" secondAttribute="centerY" id="Fjz-hI-x3e"/>
                         <constraint firstAttribute="trailing" secondItem="jKf-4D-G6v" secondAttribute="trailing" constant="20" id="Goa-jm-Vzf"/>
@@ -61,11 +83,15 @@
                         <constraint firstItem="eV3-Ux-A0q" firstAttribute="width" secondItem="jKf-4D-G6v" secondAttribute="width" id="MBe-P4-JwP"/>
                         <constraint firstItem="ixu-CO-hjU" firstAttribute="leading" secondItem="ZmD-un-sQ8" secondAttribute="leading" constant="20" id="QuS-Zg-UQw"/>
                         <constraint firstAttribute="height" constant="48" id="WXv-QU-2Ly"/>
+                        <constraint firstAttribute="trailing" secondItem="nhc-3W-b1J" secondAttribute="trailing" id="ds5-w2-dtg"/>
                         <constraint firstItem="eV3-Ux-A0q" firstAttribute="centerY" secondItem="jKf-4D-G6v" secondAttribute="centerY" id="fiU-gb-6FM"/>
                         <constraint firstItem="jKf-4D-G6v" firstAttribute="centerY" secondItem="ZmD-un-sQ8" secondAttribute="centerY" id="jDT-mq-HXD"/>
                         <constraint firstItem="jKf-4D-G6v" firstAttribute="leading" secondItem="eV3-Ux-A0q" secondAttribute="trailing" constant="20" id="jR1-u1-ROq"/>
                         <constraint firstItem="aLl-Ux-MiG" firstAttribute="width" secondItem="eV3-Ux-A0q" secondAttribute="width" id="lvI-Pm-qgt"/>
                         <constraint firstItem="eV3-Ux-A0q" firstAttribute="height" secondItem="jKf-4D-G6v" secondAttribute="height" id="meh-pl-Bnf"/>
+                        <constraint firstAttribute="bottom" secondItem="ixu-CO-hjU" secondAttribute="bottom" constant="7" id="wUK-7S-m7b"/>
+                        <constraint firstItem="ixu-CO-hjU" firstAttribute="top" secondItem="ZmD-un-sQ8" secondAttribute="top" constant="8" id="xBi-kn-Fal"/>
+                        <constraint firstItem="nhc-3W-b1J" firstAttribute="top" secondItem="ZmD-un-sQ8" secondAttribute="top" id="yaW-nl-tOj"/>
                     </constraints>
                 </view>
             </subviews>
@@ -76,12 +102,13 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="ZmD-un-sQ8" secondAttribute="bottom" id="Ubg-5K-yen"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="26.5" y="52.5"/>
+            <point key="canvasLocation" x="-372.5" y="-163.5"/>
         </view>
     </objects>
     <resources>
         <image name="dadianzan" width="22" height="22"/>
         <image name="fenxiang" width="21" height="21"/>
+        <image name="taolun" width="14" height="14"/>
         <image name="yishoucang" width="24" height="23"/>
     </resources>
 </document>

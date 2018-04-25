@@ -78,7 +78,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
             
             self.backgroundColor = RGB(255, 255, 255);
             self.itemTitleLab.textColor = RGB(1, 1, 1);
-            self.layer.borderWidth = 1;
+            self.layer.borderWidth = 0.5;
             self.layer.borderColor = [RGB(221, 221, 221) CGColor];
             
 //            NSString * title = self.cornerFlagDictionary[[NSString stringWithFormat:@"%d",(int)flagType]];

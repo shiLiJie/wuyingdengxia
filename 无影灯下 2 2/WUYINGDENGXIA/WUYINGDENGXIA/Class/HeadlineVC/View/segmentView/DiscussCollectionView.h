@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DiscussCollectionView;
+
+@protocol DiscussCollectionDelegate <NSObject,UICollectionViewDelegate>
+
+//点击对应讨论模块
+- (void)clickDiscussToIndex:(NSInteger)index;
+
+@end
 
 @interface DiscussCollectionView : UICollectionView
+
+@property (nonatomic, weak) id<DiscussCollectionDelegate> delegate1;
 
 @end

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="PingFang.ttc">
+            <string>PingFangSC-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RenzhengResultVc">
+            <connections>
+                <outlet property="quedingBtn" destination="UNu-1N-e6C" id="pom-Pa-MFm"/>
+                <outlet property="view" destination="Dcj-8w-yDi" id="bFU-8k-3BI"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Dcj-8w-yDi">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shH-Nr-g48">
+                    <rect key="frame" x="109.66666666666667" y="242" width="35.000000000000014" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="3ca-1r-qKe"/>
+                        <constraint firstAttribute="width" constant="35" id="u7f-9b-EyJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <state key="normal" image="cgicon">
+                        <color key="titleColor" red="0.25098039220000001" green="0.80784313730000001" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们会在最快的时间内确认您的身份信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6H-cb-8bS">
+                    <rect key="frame" x="96.666666666666686" y="291" width="221" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.7725490196" green="0.7725490196" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNu-1N-e6C">
+                    <rect key="frame" x="62" y="456" width="290" height="44"/>
+                    <color key="backgroundColor" red="0.1764705882" green="0.63921568630000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="UNu-1N-e6C" secondAttribute="height" multiplier="526:80" id="dhQ-TA-BnG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
+                    <state key="normal" title="确 定">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="sureBtnClick:" destination="-1" eventType="touchUpInside" id="PgO-dC-DeE"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="材料提交成功" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Srf-0p-0CX">
+                    <rect key="frame" x="160.66666666666666" y="245" width="133.99999999999997" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" red="0.25098039220000001" green="0.80784313730000001" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="UNu-1N-e6C" firstAttribute="centerX" secondItem="ZJr-c4-HHj" secondAttribute="centerX" id="37I-0k-Bdx"/>
+                <constraint firstItem="shH-Nr-g48" firstAttribute="centerY" secondItem="ZJr-c4-HHj" secondAttribute="centerY" constant="-120" id="Eg8-dp-dLq"/>
+                <constraint firstItem="Srf-0p-0CX" firstAttribute="leading" secondItem="shH-Nr-g48" secondAttribute="trailing" constant="16" id="GKW-8Y-Dsd"/>
+                <constraint firstItem="S6H-cb-8bS" firstAttribute="centerX" secondItem="UNu-1N-e6C" secondAttribute="centerX" id="MXG-tI-oeV"/>
+                <constraint firstItem="Srf-0p-0CX" firstAttribute="centerY" secondItem="shH-Nr-g48" secondAttribute="centerY" id="dD4-4M-4FO"/>
+                <constraint firstItem="UNu-1N-e6C" firstAttribute="centerY" secondItem="ZJr-c4-HHj" secondAttribute="centerY" constant="100" id="dFj-sO-iFg"/>
+                <constraint firstItem="S6H-cb-8bS" firstAttribute="top" secondItem="shH-Nr-g48" secondAttribute="bottom" constant="17" id="j6i-Ya-BrX"/>
+                <constraint firstItem="shH-Nr-g48" firstAttribute="centerX" secondItem="ZJr-c4-HHj" secondAttribute="centerX" constant="-80" id="nSJ-KG-Jeh"/>
+                <constraint firstItem="UNu-1N-e6C" firstAttribute="width" secondItem="Dcj-8w-yDi" secondAttribute="width" multiplier="0.7" id="yIq-0c-2vG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZJr-c4-HHj"/>
+            <point key="canvasLocation" x="-481" y="68"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cgicon" width="35" height="33"/>
+    </resources>
+</document>

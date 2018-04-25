@@ -38,7 +38,7 @@
     self.goBackBtn.layer.masksToBounds = YES;
     self.goBackBtn.layer.cornerRadius = CGRectGetHeight(self.goBackBtn.frame);//2.0是圆角的弧度，根据需求自己更改
     self.goBackBtn.layer.borderColor = RGB(243, 243, 243).CGColor;//设置边框颜色
-    self.goBackBtn.layer.borderWidth = 1.0f;//设置边框颜色
+    self.goBackBtn.layer.borderWidth = 0.5f;//设置边框颜色
     self.goBackBtn.layer.cornerRadius = CGRectGetHeight(self.goBackBtn.frame)/2;
     //关键语句
     self.lookProBtn.layer.masksToBounds = YES;

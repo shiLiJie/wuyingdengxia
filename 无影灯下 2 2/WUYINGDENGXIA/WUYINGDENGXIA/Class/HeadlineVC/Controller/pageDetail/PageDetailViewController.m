@@ -7,10 +7,16 @@
 //
 
 #import "PageDetailViewController.h"
-#import "CommentViewController.h"
 #import "PersonViewController.h"
+#import "inputView.h"
+#import "IQKeyboardManager.h"
 
-@interface PageDetailViewController ()
+
+@interface PageDetailViewController ()<inputViewDelegate>
+//输入框
+@property (nonatomic, strong) inputView *input;
+//评论按钮
+@property (weak, nonatomic) IBOutlet UIButton *pinglunBtn;
 
 @end
 
@@ -18,8 +24,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setHidden:NO];
+    self.pinglunBtn.layer.cornerRadius = CGRectGetHeight(self.pinglunBtn.frame)/2;//半径大小
+    self.pinglunBtn.layer.masksToBounds = YES;//是否切割
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
+}
+
 
 //左侧按钮设置点击
 -(UIButton *)set_leftButton{
@@ -46,15 +65,32 @@
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSFontAttributeName value:CHINESE_SYSTEM(18) range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
 //参与评论按钮点击事件
 - (IBAction)clickToComment:(UIButton *)sender {
-    CommentViewController *comment = [[CommentViewController alloc] init];
-    [self.navigationController pushViewController:comment animated:YES];
-//    PersonViewController *comment = [[PersonViewController alloc] init];
-//    [self.navigationController pushViewController:comment animated:YES];
+    
+    self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.view addSubview:self.input];
+    self.input.delegate = self;
+    [self.input inputViewShow];
+
+}
+//点赞
+- (IBAction)dianzan:(UIButton *)sender {
+}
+//收藏
+- (IBAction)shoucang:(UIButton *)sender {
+}
+//转发
+- (IBAction)zhuanfa:(UIButton *)sender {
+}
+
+#pragma mark - textinput代理 -
+- (void)sendText:(NSString *)text{
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

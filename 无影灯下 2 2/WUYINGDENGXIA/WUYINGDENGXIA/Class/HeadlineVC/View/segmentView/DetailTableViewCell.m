@@ -21,6 +21,16 @@
     [self.userName addGestureRecognizer:tapRecognizerWeibo];
     
     [self.headImage addTarget:self action:@selector(pushPublish) forControlEvents:UIControlEventTouchUpInside];
+    //4行间距
+    [self setLabelHangjianj:self.pageDetail];
+}
+
+-(void)setLabelHangjianj:(UILabel *)lab{
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:lab.text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:4];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [lab.text length])];
+    lab.attributedText = attributedString;
 }
 
 //点击头像和用户名,弹出发表人页

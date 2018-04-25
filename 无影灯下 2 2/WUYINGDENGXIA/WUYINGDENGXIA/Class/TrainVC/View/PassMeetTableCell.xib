@@ -6,8 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,61 +21,86 @@
                 <rect key="frame" x="0.0" y="0.0" width="542" height="144.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tZK-wR-2Gh">
-                        <rect key="frame" x="10" y="15" width="189.5" height="119.5"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="tZK-wR-2Gh">
+                        <rect key="frame" x="10" y="15" width="153.5" height="119.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="tZK-wR-2Gh" secondAttribute="height" multiplier="198:154" id="Trh-sK-vWO"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手术器械在手术中的使用教程" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWi-hO-uRO">
-                        <rect key="frame" x="204.5" y="15" width="317.5" height="18"/>
+                        <rect key="frame" x="168.5" y="15" width="353.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主讲:主讲人名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GU4-tw-0d1">
-                        <rect key="frame" x="204.5" y="38" width="97" height="16"/>
+                        <rect key="frame" x="168.5" y="38" width="97" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点赞数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEF-on-QGP">
-                        <rect key="frame" x="446.5" y="130.5" width="81" height="13.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点赞数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEF-on-QGP">
+                        <rect key="frame" x="493" y="130.5" width="34" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="播放数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPv-zT-alB">
-                        <rect key="frame" x="284.5" y="131" width="81" height="13.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="播放数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPv-zT-alB">
+                        <rect key="frame" x="358" y="130.5" width="34" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MwU-PA-dEl">
-                        <rect key="frame" x="365.5" y="131" width="81" height="13.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MwU-PA-dEl">
+                        <rect key="frame" x="426" y="131" width="34" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dianzai" translatesAutoresizingMaskIntoConstraints="NO" id="lmX-Hr-N8B">
+                        <rect key="frame" x="475" y="130" width="13" height="13"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guankan" translatesAutoresizingMaskIntoConstraints="NO" id="a4J-gE-db1">
+                        <rect key="frame" x="339" y="130.5" width="14" height="12"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="huifu" translatesAutoresizingMaskIntoConstraints="NO" id="n6F-Ek-3aY">
+                        <rect key="frame" x="407" y="130.5" width="14" height="13"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWO-vf-jTR">
+                        <rect key="frame" x="10" y="142.5" width="532" height="0.5"/>
+                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="OJl-rO-1Fq"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="GU4-tw-0d1" firstAttribute="top" secondItem="JWi-hO-uRO" secondAttribute="bottom" constant="5" id="1sW-fD-opy"/>
-                    <constraint firstItem="tZK-wR-2Gh" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.35" id="3Hl-Kc-KdJ"/>
-                    <constraint firstAttribute="bottom" secondItem="sPv-zT-alB" secondAttribute="bottom" id="6d4-kA-4Rv"/>
-                    <constraint firstItem="MwU-PA-dEl" firstAttribute="height" secondItem="sPv-zT-alB" secondAttribute="height" id="9LT-jP-QHO"/>
-                    <constraint firstItem="GEF-on-QGP" firstAttribute="centerY" secondItem="MwU-PA-dEl" secondAttribute="centerY" id="I3M-1S-o1J"/>
+                    <constraint firstItem="GEF-on-QGP" firstAttribute="leading" secondItem="lmX-Hr-N8B" secondAttribute="trailing" constant="5" id="D4u-7g-l6p"/>
                     <constraint firstAttribute="bottom" secondItem="tZK-wR-2Gh" secondAttribute="bottom" constant="10" id="Ir3-Al-Ohg"/>
-                    <constraint firstItem="MwU-PA-dEl" firstAttribute="width" secondItem="sPv-zT-alB" secondAttribute="width" id="JAe-hR-t5i"/>
-                    <constraint firstItem="sPv-zT-alB" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="1.2" id="Lro-Rx-dpT"/>
+                    <constraint firstItem="jWO-vf-jTR" firstAttribute="leading" secondItem="tZK-wR-2Gh" secondAttribute="leading" id="Kfb-ok-He4"/>
+                    <constraint firstItem="MwU-PA-dEl" firstAttribute="centerY" secondItem="GEF-on-QGP" secondAttribute="centerY" id="MHQ-3Z-6nc"/>
                     <constraint firstAttribute="trailingMargin" secondItem="JWi-hO-uRO" secondAttribute="trailing" id="MJY-0Y-xCB"/>
+                    <constraint firstItem="lmX-Hr-N8B" firstAttribute="centerY" secondItem="GEF-on-QGP" secondAttribute="centerY" constant="-1" id="QM4-mv-Wyk"/>
                     <constraint firstItem="tZK-wR-2Gh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="RIH-9z-tdF"/>
+                    <constraint firstAttribute="bottom" secondItem="GEF-on-QGP" secondAttribute="bottom" constant="0.5" id="Sgt-pT-UBH"/>
+                    <constraint firstItem="lmX-Hr-N8B" firstAttribute="leading" secondItem="MwU-PA-dEl" secondAttribute="trailing" constant="15" id="TSx-bW-ALF"/>
+                    <constraint firstItem="MwU-PA-dEl" firstAttribute="leading" secondItem="n6F-Ek-3aY" secondAttribute="trailing" constant="5" id="V6B-bN-FLp"/>
                     <constraint firstItem="GU4-tw-0d1" firstAttribute="leading" secondItem="JWi-hO-uRO" secondAttribute="leading" id="V9Z-MO-RfW"/>
-                    <constraint firstItem="MwU-PA-dEl" firstAttribute="centerY" secondItem="sPv-zT-alB" secondAttribute="centerY" id="Ypa-0x-R4w"/>
+                    <constraint firstItem="n6F-Ek-3aY" firstAttribute="leading" secondItem="sPv-zT-alB" secondAttribute="trailing" constant="15" id="clt-kF-Z6v"/>
                     <constraint firstItem="JWi-hO-uRO" firstAttribute="leading" secondItem="tZK-wR-2Gh" secondAttribute="trailing" constant="5" id="dpr-Us-sGN"/>
                     <constraint firstItem="tZK-wR-2Gh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="h2c-Ao-67x"/>
                     <constraint firstItem="JWi-hO-uRO" firstAttribute="top" secondItem="tZK-wR-2Gh" secondAttribute="top" id="hWl-a2-r8G"/>
-                    <constraint firstItem="GEF-on-QGP" firstAttribute="width" secondItem="MwU-PA-dEl" secondAttribute="width" id="jma-vm-yT1"/>
-                    <constraint firstItem="MwU-PA-dEl" firstAttribute="leading" secondItem="sPv-zT-alB" secondAttribute="trailing" id="lGE-T5-f9L"/>
-                    <constraint firstItem="GEF-on-QGP" firstAttribute="leading" secondItem="MwU-PA-dEl" secondAttribute="trailing" id="nKN-4f-FWW"/>
-                    <constraint firstItem="GEF-on-QGP" firstAttribute="height" secondItem="MwU-PA-dEl" secondAttribute="height" id="t6D-06-lNR"/>
-                    <constraint firstItem="sPv-zT-alB" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.15" id="uT6-d6-wck"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="jWO-vf-jTR" secondAttribute="trailing" constant="-20" id="kxj-XX-4jw"/>
+                    <constraint firstItem="sPv-zT-alB" firstAttribute="leading" secondItem="a4J-gE-db1" secondAttribute="trailing" constant="5" id="mSd-Cm-8aa"/>
+                    <constraint firstItem="n6F-Ek-3aY" firstAttribute="centerY" secondItem="MwU-PA-dEl" secondAttribute="centerY" constant="-1" id="p5N-Wg-A9v"/>
+                    <constraint firstItem="a4J-gE-db1" firstAttribute="centerY" secondItem="sPv-zT-alB" secondAttribute="centerY" constant="-1" id="pOi-Fq-hW6"/>
+                    <constraint firstItem="jWO-vf-jTR" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" constant="9" id="ptg-89-NQT"/>
+                    <constraint firstItem="sPv-zT-alB" firstAttribute="centerY" secondItem="GEF-on-QGP" secondAttribute="centerY" id="vez-I9-5qU"/>
+                    <constraint firstAttribute="trailing" secondItem="GEF-on-QGP" secondAttribute="trailing" constant="15" id="zjG-Ue-vsx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
@@ -87,7 +112,13 @@
                 <outlet property="videoName" destination="JWi-hO-uRO" id="cmL-ue-4b1"/>
                 <outlet property="videoPerson" destination="GU4-tw-0d1" id="sj4-xN-yqU"/>
             </connections>
-            <point key="canvasLocation" x="-339" y="38"/>
+            <point key="canvasLocation" x="-153" y="140.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="dianzai" width="13" height="13"/>
+        <image name="guankan" width="14" height="12"/>
+        <image name="huifu" width="14" height="13"/>
+        <image name="tupian" width="20" height="17"/>
+    </resources>
 </document>

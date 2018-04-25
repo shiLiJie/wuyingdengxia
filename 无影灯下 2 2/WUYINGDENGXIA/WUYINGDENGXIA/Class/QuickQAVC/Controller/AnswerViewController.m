@@ -7,17 +7,47 @@
 //
 
 #import "AnswerViewController.h"
-#import "JoinAnswerViewController.h"
+#import "inputView.h"
+#import "IQKeyboardManager.h"
 
-@interface AnswerViewController ()
+@interface AnswerViewController ()<inputViewDelegate>
+//输入框
+@property (nonatomic, strong) inputView *input;
+//圆角view
+@property (weak, nonatomic) IBOutlet UIView *yuanjiaoview;
 
 @end
 
 @implementation AnswerViewController
 
+#pragma mark - UI -
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    //view切圆角
+    self.yuanjiaoview.layer.cornerRadius = 17;
+    self.yuanjiaoview.layer.masksToBounds = YES;//是否切割
+}
+
+//左侧按钮设置点击
+-(UIButton *)set_leftButton{
+    UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(0, 0, 44, 60);
+    [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
+    return btn;
+}
+
+-(void)left_button_event:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(NSMutableAttributedString *)setTitle{
@@ -32,13 +62,24 @@
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSFontAttributeName value:CHINESE_SYSTEM(18) range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
+
+#pragma mark - 私有方法 -
 //弹出问答评论导航控制器
 - (IBAction)AnswerQuestionClick:(UIButton *)sender {
-    JoinAnswerViewController *comment = [[JoinAnswerViewController alloc] init];
-    [self.navigationController pushViewController:comment animated:YES];
+    
+    self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.view addSubview:self.input];
+    self.input.delegate = self;
+    [self.input inputViewShow];
+}
+
+#pragma mark - textinput代理 -
+- (void)sendText:(NSString *)text{
+
+    
 }
 
 - (void)didReceiveMemoryWarning {

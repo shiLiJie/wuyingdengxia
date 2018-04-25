@@ -25,11 +25,20 @@
 @end
 
 @implementation LJNavigationController
+-(void)jinzhifanhui{
+    self.isFanhui = NO;
+}
+-(void)huifufanhui{
+    self.isFanhui = YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.isFanhui = YES;
     self.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jinzhifanhui) name:@"JINZHIFANHUI" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(huifufanhui) name:@"HUIFUFANHUI" object:nil];
     
     
     self.navigationBar.tintColor = ColorFromRGB(0x6F7179);
@@ -37,6 +46,18 @@
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(-0.8, 0);
     self.view.layer.shadowOpacity = 0.6;
+    
+    //改变tabbar 线条颜色
+    CGRect rect = CGRectMake(0, 0, kScreen_Width, 0.5);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context,
+                                   RGB(235, 235, 235).CGColor);
+    CGContextFillRect(context, rect);
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self.navigationBar setShadowImage:img];
     
     
     // Do any additional setup after loading the view.
@@ -190,9 +211,14 @@
 }
 
 
+
+
 // 监听手势的方法,只要是有手势就会执行
 - (void)panGestureRec:(UIScreenEdgePanGestureRecognizer *)panGestureRec
 {
+    if (!self.isFanhui) {
+        return;
+    }
     
     // 如果当前显示的控制器已经是根控制器了，不需要做任何切换动画,直接返回
     if(self.visibleViewController == self.viewControllers[0]) return;

@@ -12,7 +12,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.meetImage.layer.cornerRadius = 5;//半径大小
+    self.meetImage.layer.masksToBounds = YES;//是否切割
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

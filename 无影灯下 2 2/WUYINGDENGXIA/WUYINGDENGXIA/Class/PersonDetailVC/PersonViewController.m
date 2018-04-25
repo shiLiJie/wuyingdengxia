@@ -11,11 +11,18 @@
 #import "MDMultipleSegmentView.h"
 #import "MDFlipCollectionView.h"
 #import "AnswerTableVC.h"
+#import "DetailTableViewController.h"
+#import "PageDetailViewController.h"
+
+#import "WXApi.h"
+#import "WechatAuthSDK.h"
+#import "WXApiObject.h"
 
 #define segViewHigh     44
 
 @interface PersonViewController ()<MDMultipleSegmentViewDeletegate,
-                                    MDFlipCollectionViewDelegate>
+                                    MDFlipCollectionViewDelegate,
+                                    JohnScrollViewDelegate>
 {
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
@@ -43,7 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
     [self.navigationController.navigationBar setHidden:YES];
     
@@ -63,6 +69,15 @@
             blackLineImageView.hidden = YES;
         }
     }
+    
+//    // 接收分享回调通知
+//    //监听通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"WXShare" object:nil];
+//    // 检查是否装了微信
+//    if ([WXApi isWXAppInstalled])
+//    {
+//
+//    }
     
 //    [super viewWillAppear:nil];
     //添加segeview
@@ -94,9 +109,14 @@
     
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
-    _segView.frame = CGRectMake(0,CGRectGetMaxY(self.backView.frame), Main_Screen_Width, segViewHigh);
-    _segView.items = @[@"发表"];
+    _segView.frame = CGRectMake(0,CGRectGetMaxY(self.backView.frame), 90, segViewHigh);
+    _segView.items = @[@"文章"];
+    _segView.titleFont = BOLDSYSTEMFONT(17);
     [self.view addSubview:_segView];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame)-1, kScreen_Width, 1);
+    lab.backgroundColor = RGBline;
+    [self.view addSubview:lab];
     
     NSArray *arr = @[
                      [self tablecontroller]
@@ -104,7 +124,7 @@
                      ];
     
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                          CGRectGetMaxY(_segView.frame),
+                                                                          CGRectGetMaxY(_segView.frame)-0.5,
                                                                           Main_Screen_Width,
                                                                           Main_Screen_Height - Main_Screen_Height*0.168)
                                                      withArray:arr];
@@ -119,12 +139,38 @@
 }
 //关注
 - (IBAction)guanzhu:(UIButton *)sender {
+
+//    WXMediaMessage * message = [WXMediaMessage message];
+//    message.title = @"无影灯下";
+//    message.description = @"测试";
+//    [message setThumbImage:[UIImage imageNamed:@"Icon-Small@2x"]];
+//
+//    WXWebpageObject * webpageObject = [WXWebpageObject object];
+//    webpageObject.webpageUrl = @"http://www.yszg.org";
+//    message.mediaObject = webpageObject;
+//
+//    SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];
+//    req.bText = NO;
+//
+//    req.message = message;
+//    req.scene = WXSceneSession;
+//
+//    [WXApi sendReq:req];
 }
 
 #pragma mark - 私有action -
--(PersonDetailVC *)tablecontroller{
-    PersonDetailVC *vc = [[PersonDetailVC alloc] init];
-//    vc.delegate = self;
+- (void)getOrderPayResult:(NSNotification *)notification
+{
+    // 注意通知内容类型的匹配
+    if (notification.object == 0)
+    {
+        NSLog(@"分享成功");
+    }
+}
+
+-(DetailTableViewController *)tablecontroller{
+    DetailTableViewController *vc = [[DetailTableViewController alloc] init];
+    vc.delegate = self;
 
     return vc;
 }
@@ -136,10 +182,18 @@
     return vc;
 }
 
+#pragma mark - DetailTableViewController代理方法 -
 //监听点击table点击的索引
 -(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
     
+    PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
+    [self.navigationController pushViewController:pageDetail animated:YES];
 }
+////点击用户名和头像跳入个人发表的文章页
+//-(void)clickUserNamePushPublishVc{
+//    PersonViewController *publishPerson = [[PersonViewController alloc] init];
+//    [self.navigationController pushViewController:publishPerson animated:YES];
+//}
 
 #pragma mark - segement代理方法 -
 - (void)changeSegmentAtIndex:(NSInteger)index

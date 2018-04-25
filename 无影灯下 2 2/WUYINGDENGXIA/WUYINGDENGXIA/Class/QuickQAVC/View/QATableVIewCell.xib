@@ -20,32 +20,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="606" height="144.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcz-J0-JBI">
-                        <rect key="frame" x="20" y="11" width="40" height="40"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcz-J0-JBI">
+                        <rect key="frame" x="20" y="11" width="26" height="26"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="VrT-WR-hb8"/>
-                            <constraint firstAttribute="height" constant="40" id="lEM-Zv-9NU"/>
+                            <constraint firstAttribute="width" constant="26" id="VrT-WR-hb8"/>
+                            <constraint firstAttribute="height" constant="26" id="lEM-Zv-9NU"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="头像"/>
+                        <state key="normal" image="tx"/>
                         <connections>
                             <action selector="headImageToUserDetail:" destination="QPx-on-9Wb" eventType="touchUpInside" id="Dub-qE-7Fo"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBw-tx-ynC">
-                        <rect key="frame" x="70" y="23.5" width="40" height="16"/>
+                        <rect key="frame" x="56" y="16" width="40" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ff-tp-7mX">
-                        <rect key="frame" x="20" y="50" width="52" height="21"/>
+                        <rect key="frame" x="20" y="42.5" width="52" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01Q-JF-Puq">
-                        <rect key="frame" x="20" y="72" width="566" height="40"/>
+                        <rect key="frame" x="20" y="64.5" width="566" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="fho-2V-wEp"/>
                         </constraints>
@@ -55,25 +54,25 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月亮币" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCO-Gd-cCg">
-                        <rect key="frame" x="540" y="23" width="46" height="18"/>
+                        <rect key="frame" x="540" y="15.5" width="46" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.98823529409999999" green="0.72941176470000002" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30分钟前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcW-cq-OiW">
-                        <rect key="frame" x="20" y="122" width="48" height="13.5"/>
+                        <rect key="frame" x="20" y="114.5" width="48" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已回答 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rv4-T9-58Y">
-                        <rect key="frame" x="88" y="122" width="44.5" height="14"/>
+                        <rect key="frame" x="88" y="114.5" width="44.5" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MpU-aI-pNW">
-                        <rect key="frame" x="555" y="114" width="31" height="30"/>
+                        <rect key="frame" x="555" y="106.5" width="31" height="30"/>
                         <state key="normal" title="回答">
                             <color key="titleColor" red="0.9882352941176471" green="0.72941176470588232" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
@@ -82,15 +81,26 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIs-jG-Nce">
-                        <rect key="frame" x="536" y="118" width="14" height="22"/>
+                        <rect key="frame" x="536" y="110.5" width="14" height="22"/>
                         <state key="normal" image="huida"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yW-5H-j0L">
-                        <rect key="frame" x="520" y="21" width="15" height="22"/>
-                        <state key="normal" image="yueliangbi"/>
+                        <rect key="frame" x="518" y="13.5" width="17" height="22"/>
+                        <state key="normal" image="yueliangbi-1"/>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="je7-op-oNC">
+                        <rect key="frame" x="20" y="142.5" width="566" height="0.5"/>
+                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="MPO-ix-xYt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="je7-op-oNC" secondAttribute="bottom" constant="-9" id="92S-Bm-mgc"/>
                     <constraint firstItem="bCO-Gd-cCg" firstAttribute="trailing" secondItem="01Q-JF-Puq" secondAttribute="trailing" id="9L2-Ff-znv"/>
                     <constraint firstItem="MpU-aI-pNW" firstAttribute="leading" secondItem="BIs-jG-Nce" secondAttribute="trailing" constant="5" id="9eW-Af-GyW"/>
                     <constraint firstItem="MBw-tx-ynC" firstAttribute="leading" secondItem="rcz-J0-JBI" secondAttribute="trailing" constant="10" id="Bau-wf-KlL"/>
@@ -108,9 +118,11 @@
                     <constraint firstItem="Rv4-T9-58Y" firstAttribute="leading" secondItem="YcW-cq-OiW" secondAttribute="trailing" constant="20" id="ezj-6x-njS"/>
                     <constraint firstItem="01Q-JF-Puq" firstAttribute="leading" secondItem="3Ff-tp-7mX" secondAttribute="leading" id="fLd-Tb-are"/>
                     <constraint firstItem="01Q-JF-Puq" firstAttribute="centerX" secondItem="bxu-J2-tJK" secondAttribute="centerX" id="i4w-QV-1wD"/>
+                    <constraint firstItem="je7-op-oNC" firstAttribute="trailing" secondItem="01Q-JF-Puq" secondAttribute="trailing" id="ieW-aQ-1LI"/>
                     <constraint firstItem="bCO-Gd-cCg" firstAttribute="centerY" secondItem="MBw-tx-ynC" secondAttribute="centerY" id="kZY-rp-Be1"/>
                     <constraint firstItem="YcW-cq-OiW" firstAttribute="leading" secondItem="01Q-JF-Puq" secondAttribute="leading" id="pFq-uy-O80"/>
                     <constraint firstItem="MpU-aI-pNW" firstAttribute="trailing" secondItem="01Q-JF-Puq" secondAttribute="trailing" id="pPW-li-gpG"/>
+                    <constraint firstItem="je7-op-oNC" firstAttribute="leading" secondItem="01Q-JF-Puq" secondAttribute="leading" id="u4T-sy-tyn"/>
                     <constraint firstItem="YcW-cq-OiW" firstAttribute="top" secondItem="01Q-JF-Puq" secondAttribute="bottom" constant="10" id="whq-mT-uqb"/>
                 </constraints>
             </tableViewCellContentView>
@@ -124,11 +136,12 @@
                 <outlet property="mainTitle" destination="3Ff-tp-7mX" id="CmZ-wl-J5I"/>
                 <outlet property="userName" destination="MBw-tx-ynC" id="giL-07-ui4"/>
             </connections>
-            <point key="canvasLocation" x="-200" y="20"/>
+            <point key="canvasLocation" x="-332" y="-65"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="huida" width="14" height="15"/>
-        <image name="yueliangbi" width="15" height="14"/>
+        <image name="tx" width="63" height="63"/>
+        <image name="yueliangbi-1" width="17" height="17"/>
     </resources>
 </document>

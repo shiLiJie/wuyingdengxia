@@ -25,13 +25,12 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
+ 身份认证接口:添加接口参数
+ 获取文章信息接口:返回数据添加 回复数
+ 往期回顾接口:返回数据添加 回复数,点赞数
+ 获取用户信息接口:返回数据添加 标签集合
+ 2.1.17对文章/视频/问答取消点赞接口: 传入参数应该加一个文章或视频的具体id,不然好像不能定位到是哪篇文章或视频
+ 2.1.18提问接口:提问也可以传入图片,类似发布文章
 */
 
 @end

@@ -65,7 +65,7 @@
     //初始化
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu1];
     self.newsMenu = sheetMenu;
-    sheetMenu.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
+    sheetMenu.mySubjectArray = @[@"科技科技科技科",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
     sheetMenu.recommendSubjectArray = @[@"体育",@"军事",@"音乐",@"电影",@"中国风",@"摇滚",@"小说",@"梦想",@"机器",@"电脑"].mutableCopy;
     
     //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
@@ -92,7 +92,7 @@
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSFontAttributeName value:CHINESE_SYSTEM(18) range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
 - (IBAction)sureBtnClick:(UIButton *)sender {

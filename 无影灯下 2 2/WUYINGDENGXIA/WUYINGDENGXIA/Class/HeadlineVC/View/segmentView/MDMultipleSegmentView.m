@@ -86,7 +86,6 @@
 
 #pragma mark - Engine
 -(void)updateView{
-    
     [self.collectionView reloadData];
 }
 
@@ -160,15 +159,23 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    
+    
     return _items.count;
+    
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MDMultipleSegmentViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MDMultipleSegmentViewCell class]) forIndexPath:indexPath];
-    cell.titleLabel.font = self.titleFont;
+    
     cell.isSeleted = (indexPath.row == _selectedSegmentIndex ? YES : NO);
+    cell.titleLabel.font = cell.isSeleted ? self.titleFont : [UIFont systemFontOfSize:15];
     cell.titleLabel.textColor = cell.isSeleted ? self.titleSelectColor : self.titleNormalColor;
+    
+    if (cell.isSeleted) {
+    }
 
     NSString *str = [_items objectAtIndex:indexPath.row];
     if (str) {

@@ -210,6 +210,11 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     lab.font = [UIFont boldSystemFontOfSize:15];
     [recommendSubjectView addSubview:lab];
     self.recommentTitleLab = lab;
+//    UIButton *btn = [[UIButton alloc] init];
+//    [btn setImage:GetImage(@"huanyipi") forState:UIControlStateNormal];
+//    btn.frame = CGRectMake(kScreen_Width-15-62, 7, 62, 15);
+//    [btn addTarget:self action:@selector(updateNewSheetConfig:) forControlEvents:UIControlEventTouchUpInside];
+//    [recommendSubjectView addSubview:btn];
     
     [self.recommendSubjectItemArray removeAllObjects];
     for (int i = 0; i<self.recommendSubjectArray.count; i++) {
@@ -527,6 +532,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
         _currentItem = nil;
         _lastPoint = CGPointZero;
     }];
+    
 }
 
 

@@ -11,14 +11,19 @@
 #import "QuickQAViewController.h"
 #import "MDMultipleSegmentView.h"
 #import "MDFlipCollectionView.h"
-#import "SearchBarEffectController.h"
 #import "ZZNewsSheetMenu.h"
 #import "QATableVIewController.h"
 #import "PersonViewController.h"
 #import "AnswerViewController.h"
 #import "QuestionsViewController.h"
+#import "PYSearch.h"
+#import "SearchResultVcViewController.h"
+#import "MyTiwenVc.h"
 
-@interface QuickQAViewController ()<SearchBarDelegate,MDMultipleSegmentViewDeletegate,MDFlipCollectionViewDelegate,QATableVIewDelegate>
+@interface QuickQAViewController ()<MDMultipleSegmentViewDeletegate,
+                                    MDFlipCollectionViewDelegate,
+                                    QATableVIewDelegate,
+                                    PYSearchViewControllerDelegate>
 {
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
@@ -26,6 +31,8 @@
 
 //搜索上边隐藏的btn,其实点击的是他
 @property(nonatomic, strong) UIButton *searchBtn;
+//提问按钮
+@property(nonatomic, strong) UIButton *tiwenBtn;
 //兴趣标签编辑界面
 @property(nonatomic, strong) ZZNewsSheetMenu *newsMenu;
 
@@ -54,8 +61,10 @@
         }
     }
     self.searchBtn.hidden = NO;
+    self.tiwenBtn.hidden = NO;
 
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,6 +78,7 @@
 //添加各种试图
 -(void)addUI{
     
+    [self.navigationController.view addSubview:self.tiwenBtn];
     [self.navigationController.view addSubview:self.searchBtn];
 
     //添加标签控制器
@@ -80,19 +90,41 @@
 -(UIButton *)searchBtn{
     if (_searchBtn == nil) {
         _searchBtn = [[UIButton alloc] init];
-        _searchBtn.frame = CGRectMake(20, 20, Main_Screen_Width-120, 44);
+        if (kDevice_Is_iPhoneX) {
+            _searchBtn.frame = CGRectMake(-20, 50, Main_Screen_Width-95, 33);
+        }else{
+            _searchBtn.frame = CGRectMake(-40, 25, Main_Screen_Width-95, 33);
+        }
+//        _searchBtn.frame = CGRectMake(25, 20, Main_Screen_Width-180, 50);
         [_searchBtn addTarget:self action:@selector(setUpSearch) forControlEvents:UIControlEventTouchUpInside];
-        [_searchBtn setTitle:@"输入想要搜索的关键词" forState:UIControlStateNormal];
+        [_searchBtn setImage:GetImage(@"wendasousuo") forState:UIControlStateNormal];
         [_searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     return _searchBtn;
 }
+//提问按钮
+-(UIButton *)tiwenBtn{
+    if (_tiwenBtn == nil) {
+        _tiwenBtn = [[UIButton alloc] init];
+        if (kDevice_Is_iPhoneX) {
+            _tiwenBtn.frame = CGRectMake(kScreen_Width-140, 44, 44, 44);
+        }else{
+            _tiwenBtn.frame = CGRectMake(kScreen_Width-140, 20, 44, 44);
+        }
+        
+        [_tiwenBtn addTarget:self action:@selector(tiwenBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_tiwenBtn setTitle:@"提问" forState:UIControlStateNormal];
+        [_tiwenBtn setTitleColor:RGB(19, 151, 255) forState:UIControlStateNormal];
+        [_tiwenBtn setFont: [UIFont systemFontOfSize:17]];
+    }
+    return _tiwenBtn;
+}
 
 -(UIButton *)set_rightButton{
     UIButton *right = [[UIButton alloc] init];
-    [right setTitle:@"提问" forState:UIControlStateNormal];
-    [right setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [right setFont: [UIFont systemFontOfSize:14]];
+    [right setTitle:@"我的提问" forState:UIControlStateNormal];
+    [right setTitleColor:RGB(19, 151, 255) forState:UIControlStateNormal];
+    [right setFont: [UIFont systemFontOfSize:17]];
     return right;
 }
 
@@ -101,16 +133,25 @@
     
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
-    _segView.frame = CGRectMake(0,66, Main_Screen_Width, segViewHigh);
+    if (kDevice_Is_iPhoneX) {
+        _segView.frame = CGRectMake(0,90, Main_Screen_Width-44, segViewHigh);
+    }else{
+        _segView.frame = CGRectMake(0,66, Main_Screen_Width-44, segViewHigh);
+    }
+    
     _segView.items = @[@"问题1",@"问题2",@"问题3",@"问题4",@"问题5"];
     [self.view addSubview:_segView];
+    //标签下边的灰色横线
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame)+1, Main_Screen_Width, 1)];
+    lab.backgroundColor = RGB(232, 232, 232);
+    [self.view addSubview: lab];
     
     //添加加号➕按钮
-    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, 0, segViewHigh, segViewHigh)];
-    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
+    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(_segView.frame)-44, segViewHigh, segViewHigh)];
+    [addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
     [addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [_segView addSubview:addMenuBtn];
+    [self.view addSubview:addMenuBtn];
     
     NSArray *arr = @[
                      [self tablecontroller],
@@ -119,12 +160,20 @@
                      [self tablecontroller],
                      [self tablecontroller],
                      ];
+    if (kDevice_Is_iPhoneX) {
+        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                              CGRectGetMaxY(_segView.frame)+2,
+                                                                              Main_Screen_Width,
+                                                                              Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame)-34)
+                                                         withArray:arr];
+    }else{
+        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                              CGRectGetMaxY(_segView.frame)+2,
+                                                                              Main_Screen_Width,
+                                                                              Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame))
+                                                         withArray:arr];
+    }
     
-    _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                          CGRectGetMaxY(_segView.frame),
-                                                                          Main_Screen_Width,
-                                                                          Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame))
-                                                     withArray:arr];
     _collectView.delegate = self;
     [self.view addSubview:_collectView];
 }
@@ -141,15 +190,27 @@
     return YES;
 }
 
-#pragma mark - 按钮action -
-//提问按钮点击
+
+#pragma mark - 私有方法 -
+//我的提问按钮点击
 -(void)right_button_event:(UIButton*)sender{
+    MyTiwenVc *vc = [[MyTiwenVc alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    self.searchBtn.hidden = YES;
+    self.tiwenBtn.hidden = YES;
+    //先隐藏标签视图
+    [self.newsMenu dismissNewsMenu];
+}
+
+//点击提问按钮
+-(void)tiwenBtnClick{
     QuestionsViewController *publicPage = [[QuestionsViewController alloc] init];
     [self.navigationController pushViewController:publicPage animated:YES];
     self.searchBtn.hidden = YES;
+    self.tiwenBtn.hidden = YES;
+    //先隐藏标签视图
+    [self.newsMenu dismissNewsMenu];
 }
-
-#pragma mark - 私有方法 -
 
 -(QATableVIewController *)tablecontroller{
     QATableVIewController *vc = [[QATableVIewController alloc] init];
@@ -160,11 +221,26 @@
 //弹出搜索视图
 - (void)setUpSearch
 {
-    SearchBarEffectController * searchView = [[SearchBarEffectController alloc]init];
-    searchView.delegate = self;
+    //先隐藏标签视图
+    [self.newsMenu dismissNewsMenu];
+    //数据数组
+    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+    //创建搜索控制器
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        //创建搜索后的控制器
+        [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
+    }];
+
+    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
+    searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
+
+    searchViewController.delegate = self;
+    // 5. Present a navigation controller
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:nav animated:NO completion:nil];
     
-    [searchView show];
 }
+
 
 //弹出标签管理视图
 -(void)addMenuBtnClick{
@@ -198,18 +274,33 @@
     [_segView selectIndex:index];
 }
 
-#pragma mark - 搜索页代理方法 -
-- (void)didSelectKey:(NSString *)key{
-    
+#pragma mark - 搜索控制器Delegate -
+- (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
+{
+    if (searchText.length) {
+        // Simulate a send request to get a search suggestions
+        //发起网络请求,请求联想的内容
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
+            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
+                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
+                
+                [searchSuggestionsM addObject:searchSuggestion];
+            }
+            //联想数组复制
+            searchViewController.searchSuggestions = searchSuggestionsM;
+        });
+    }
 }
 
 #pragma mark - DetailTableViewController代理方法 -
 //监听table点击方法传来索引
--(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+-(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
     
     AnswerViewController *pageDetail = [[AnswerViewController alloc] init];
     [self.navigationController pushViewController:pageDetail animated:YES];
     self.searchBtn.hidden = YES;
+    self.tiwenBtn.hidden = YES;
     
 }
 
@@ -219,6 +310,7 @@
     [self.navigationController pushViewController:vc animated:YES];
     
     self.searchBtn.hidden = YES;
+    self.tiwenBtn.hidden = YES;
 }
 
 

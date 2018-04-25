@@ -62,7 +62,7 @@
                                         <action selector="addCarBtnClick:" destination="-1" eventType="touchUpInside" id="CBo-MD-zEg"/>
                                     </connections>
                                 </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jRe-AW-JbN">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhusu" translatesAutoresizingMaskIntoConstraints="NO" id="jRe-AW-JbN">
                                     <rect key="frame" x="12" y="41" width="18" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="jor-bb-gUP"/>
@@ -235,7 +235,10 @@
                 <constraint firstItem="Ggk-g1-hPp" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="on8-QR-eLd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-372.5" y="46.5"/>
+            <point key="canvasLocation" x="-184" y="60"/>
         </view>
     </objects>
+    <resources>
+        <image name="zhusu" width="18" height="18"/>
+    </resources>
 </document>

@@ -20,12 +20,18 @@
 #import "PublicPageViewController.h"
 #import "DiscussCollectionView.h"
 #import "PersonViewController.h"
+#import "PYSearch.h"
+#import "SearchResultVcViewController.h"
+#import "MMScanViewController.h"
+#import "DiscussVc.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
                                     MDMultipleSegmentViewDeletegate,
                                     MDFlipCollectionViewDelegate,
-                                    JohnScrollViewDelegate
+                                    JohnScrollViewDelegate,
+                                    PYSearchViewControllerDelegate,
+                                    DiscussCollectionDelegate
                                     >
 
 {
@@ -122,15 +128,16 @@
 }
 
 -(UIButton *)set_leftButton{
-    UIButton *right = [[UIButton alloc] init];
-    right.frame = CGRectMake(0, 0, 44, 60);
-    [right setImage:GetImage(@"saoma") forState:UIControlStateNormal];
-    [right setFont: [UIFont systemFontOfSize:14]];
-    return right;
+    UIButton *left = [[UIButton alloc] init];
+    left.frame = CGRectMake(0, 0, 44, 60);
+    [left setImage:GetImage(@"saoma") forState:UIControlStateNormal];
+    [left setFont: [UIFont systemFontOfSize:14]];
+    return left;
 }
 
 -(UIButton *)set_rightButton{
     UIButton *right = [[UIButton alloc] init];
+    right.frame = CGRectMake(kScreen_Width-44, 0, 44, 60);
     [right setTitle:@"投稿" forState:UIControlStateNormal];
     [right setTitleColor:RGB(30, 150, 255) forState:UIControlStateNormal];
     [right setFont: [UIFont systemFontOfSize:17]];
@@ -183,9 +190,9 @@
         _searchBtn = [[UIButton alloc] init];
 //        _searchBtn.frame = _searchBar.frame;
         if (kDevice_Is_iPhoneX) {
-            _searchBtn.frame = CGRectMake(45, 40, Main_Screen_Width-110, 33);
+            _searchBtn.frame = CGRectMake(45, 50, Main_Screen_Width-90, 33);
         }else{
-            _searchBtn.frame = CGRectMake(45, 25, Main_Screen_Width-110, 33);
+            _searchBtn.frame = CGRectMake(45, 25, Main_Screen_Width-90, 33);
         }
         [_searchBtn addTarget:self action:@selector(setUpSearch) forControlEvents:UIControlEventTouchUpInside];
         [_searchBtn setImage:GetImage(@"shouye") forState:UIControlStateNormal];
@@ -203,7 +210,7 @@
     }
     
     _scrollView.initAlpha = 0.5; // 设置两边卡片的透明度
-    _scrollView.imageRadius = 10; // 设置卡片圆角
+    _scrollView.imageRadius = 4; // 设置卡片圆角
     _scrollView.imageHeightPoor = 10; // 设置中间卡片与两边卡片的高度差
     // 设置要加载的图片
     self.scrollView.data = @[@"http://d.hiphotos.baidu.com/image/pic/item/b7fd5266d016092408d4a5d1dd0735fae7cd3402.jpg",
@@ -242,12 +249,20 @@
                      [self tablecontroller],
                      [self tablecontroller],
                      ];
+    if (kDevice_Is_iPhoneX) {
+        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                              CGRectGetMaxY(_segView.frame)+78,
+                                                                              Main_Screen_Width,
+                                                                              Main_Screen_Height - 75-34)
+                                                         withArray:arr];
+    }else{
+        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                              CGRectGetMaxY(_segView.frame)+78,
+                                                                              Main_Screen_Width,
+                                                                              Main_Screen_Height - 75)
+                                                         withArray:arr];
+    }
     
-    _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                          CGRectGetMaxY(_segView.frame)+78,
-                                                                          Main_Screen_Width,
-                                                                          Main_Screen_Height - 75)
-                                                     withArray:arr];
     _collectView.delegate = self;
     [self.view addSubview:_collectView];
 }
@@ -258,9 +273,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
     layout.sectionInset = UIEdgeInsetsMake(0 , 0, 0, 0 );
-    
     layout.itemSize = CGSizeMake(kScreen_Width/5*3, 68);
     
     // 设置最小行间距
@@ -268,8 +281,10 @@
     // 设置最小列间距
     self.discuss = [[DiscussCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame), kScreen_Width, 78) collectionViewLayout:layout];
     self.discuss.backgroundColor = RGB(248, 248, 248);
+    self.discuss.delegate1 = self;
     [self.view addSubview:self.discuss];
 }
+
 
 #pragma mark - 按钮action -
 //发表文章
@@ -278,20 +293,65 @@
     [self.navigationController pushViewController:publicPage animated:YES];
     self.searchBar.hidden = YES;
     self.searchBtn.hidden = YES;
+    //先隐藏标签视图
+    [self.newsMenu dismissNewsMenu];
 }
 //二维码扫一扫
 -(void)left_button_event:(UIButton *)sender{
-    
+    MMScanViewController *scanVc = [[MMScanViewController alloc] initWithQrType:MMScanTypeQrCode onFinish:^(NSString *result, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@",error);
+        } else {
+            NSLog(@"扫描结果：%@",result);
+            [self showInfo:result];
+        }
+    }];
+    [self.navigationController pushViewController:scanVc animated:YES];
+    self.searchBar.hidden = YES;
+    self.searchBtn.hidden = YES;
+    //先隐藏标签视图
+    [self.newsMenu dismissNewsMenu];
 }
 
 #pragma mark - 私有方法 -
+//扫一扫方法
+- (void)showInfo:(NSString*)str {
+    [self showInfo:str andTitle:@"提示"];
+}
+//弹框提示二维码
+- (void)showInfo:(NSString*)str andTitle:(NSString *)title
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:str preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction *action1 = ({
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:NULL];
+        action;
+    });
+    [alert addAction:action1];
+    [self presentViewController:alert animated:YES completion:NULL];
+}
 //弹出搜索视图
 - (void)setUpSearch
 {
-    SearchBarEffectController * searchView = [[SearchBarEffectController alloc]init];
-    searchView.delegate = self;
+    //先隐藏标签视图
+//    [self.newsMenu dismissNewsMenu];
+    [self.newsMenu setRecommentSubject];
+    //数据数组
+    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+    //创建搜索控制器
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        //创建搜索后的控制器
+        [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
+    }];
     
-    [searchView show];
+    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
+    searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
+    
+    searchViewController.delegate = self;
+    // 5. Present a navigation controller
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:nav animated:NO completion:nil];
 }
 
 
@@ -301,11 +361,11 @@
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu];
     self.newsMenu = sheetMenu;
     sheetMenu.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
-    sheetMenu.recommendSubjectArray = @[@"体育",@"军事",@"音乐",@"电影",@"中国风",@"摇滚",@"小说",@"梦想",@"机器",@"电脑"].mutableCopy;
-    
+    sheetMenu.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
+    [sheetMenu setRecommentSubject];
     //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
     [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
-        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
+//        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
     }];
     
     [self.newsMenu showNewsMenu];
@@ -314,11 +374,40 @@
         //给segeview标签数组赋值
         _segView.items = itemArray;
     }];
+    
+    
+//    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0/*延迟执行时间*/ * NSEC_PER_SEC));
+//    
+//    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+//        sheetMenu.recommendSubjectArray = @[@"666",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
+//        [sheetMenu setRecommentSubject];
+//    });
+    
+}
+
+#pragma mark - 讨论视图代理方法 -
+-(void)clickDiscussToIndex:(NSInteger)index{
+    DiscussVc *vc = [[DiscussVc alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    self.searchBar.hidden = YES;
+    self.searchBtn.hidden = YES;
 }
 
 #pragma mark - 搜索页代理方法 -
-- (void)didSelectKey:(NSString *)key{
-    
+- (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
+{
+    if (searchText.length) {
+        // Simulate a send request to get a search suggestions
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
+            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
+                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
+                [searchSuggestionsM addObject:searchSuggestion];
+            }
+            // Refresh and display the search suggustions
+            searchViewController.searchSuggestions = searchSuggestionsM;
+        });
+    }
 }
 
 #pragma mark - segement代理方法 -

@@ -133,7 +133,7 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             UIView *view = [[UIView alloc] init];
             
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"qrcode_ar_failed@2x.png"]];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
             [view addSubview:imageView];
             
             view.frame = CGRectMake(0, 0, imageView.image.size.width, imageView.image.size.height + 10);

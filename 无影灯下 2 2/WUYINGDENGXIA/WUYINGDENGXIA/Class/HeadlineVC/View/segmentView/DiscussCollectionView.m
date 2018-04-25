@@ -16,6 +16,7 @@ static NSString *ID = @"DiscussCell";
 @end
 
 @implementation DiscussCollectionView
+@dynamic delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout{
     
@@ -25,6 +26,7 @@ static NSString *ID = @"DiscussCell";
         
         self.dataSource = self;
         self.delegate = self;
+        
         self.showsHorizontalScrollIndicator = NO;
         
         [self registerNib:[UINib nibWithNibName:[[DiscussCell class] description] bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:ID];
@@ -81,16 +83,17 @@ static NSString *ID = @"DiscussCell";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    
     return UIEdgeInsetsMake(5, 20, 5,6);
-    
 }
 
 //点击每个item实现的方法：
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if ([self.delegate1 respondsToSelector:@selector(clickDiscussToIndex:)]) {
+        [self.delegate1 clickDiscussToIndex:indexPath.row];
+    }
+    NSLog(@"%ld",indexPath.row);
 }
 
 

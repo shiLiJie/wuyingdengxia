@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *meetName;
 //会议时间
 @property (weak, nonatomic) IBOutlet UILabel *meetTime;
+//会议地点
+@property (weak, nonatomic) IBOutlet UILabel *meetAddress;
 //会议详情
 @property (weak, nonatomic) IBOutlet UILabel *meetDetailText;
 //报名参会

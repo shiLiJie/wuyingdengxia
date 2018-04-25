@@ -7,7 +7,17 @@
 //
 
 #import "BaseViewController.h"
+@protocol PassMeetDelegate<NSObject>
+
+@optional
+
+//监听点击table点击的索引
+-(void)tableviewDidSelectPageWithIndex2:(NSIndexPath *)indexPath;
+
+@end
 
 @interface PassMeetViewController : BaseViewController
+
+@property (nonatomic,weak)id <PassMeetDelegate> delegate;
 
 @end

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MyLiwuCell">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="187"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="187"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="Ks5-k2-JhW">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="131"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星巴克 拿铁1杯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEP-7Q-SPk">
+                        <rect key="frame" x="6" y="139" width="89.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="兑换价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CvH-Rp-kCp">
+                        <rect key="frame" x="6" y="160" width="34" height="13.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0z7-FK-gAO">
+                        <rect key="frame" x="47" y="155.5" width="22.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="1" green="0.73725490199999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yueliangbi-1" translatesAutoresizingMaskIntoConstraints="NO" id="DUA-OD-o5q">
+                        <rect key="frame" x="73.5" y="160.5" width="11" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="11" id="NDh-i2-Qge"/>
+                            <constraint firstAttribute="height" constant="11" id="VCh-Z8-83y"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="CEP-7Q-SPk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="6" id="6KV-hJ-JdW"/>
+                <constraint firstItem="0z7-FK-gAO" firstAttribute="leading" secondItem="CvH-Rp-kCp" secondAttribute="trailing" constant="7" id="Ase-la-Qn8"/>
+                <constraint firstItem="Ks5-k2-JhW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BRr-is-qgJ"/>
+                <constraint firstAttribute="trailing" secondItem="Ks5-k2-JhW" secondAttribute="trailing" id="I4X-nt-X3Y"/>
+                <constraint firstItem="DUA-OD-o5q" firstAttribute="centerY" secondItem="0z7-FK-gAO" secondAttribute="centerY" id="Igm-T7-9Pb"/>
+                <constraint firstItem="0z7-FK-gAO" firstAttribute="centerY" secondItem="CvH-Rp-kCp" secondAttribute="centerY" constant="-1" id="IuA-bg-szf"/>
+                <constraint firstItem="DUA-OD-o5q" firstAttribute="leading" secondItem="0z7-FK-gAO" secondAttribute="trailing" constant="4" id="Qh2-cQ-QiG"/>
+                <constraint firstItem="CvH-Rp-kCp" firstAttribute="top" secondItem="CEP-7Q-SPk" secondAttribute="bottom" constant="5" id="Uam-yB-dcw"/>
+                <constraint firstItem="Ks5-k2-JhW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bsE-oK-DI1"/>
+                <constraint firstItem="CEP-7Q-SPk" firstAttribute="top" secondItem="Ks5-k2-JhW" secondAttribute="bottom" constant="8" id="nLc-5u-MAY"/>
+                <constraint firstItem="CvH-Rp-kCp" firstAttribute="leading" secondItem="CEP-7Q-SPk" secondAttribute="leading" id="swB-B2-3eS"/>
+                <constraint firstItem="Ks5-k2-JhW" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.7" id="xFm-8O-SQx"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="200" height="187"/>
+            <connections>
+                <outlet property="liwuImage" destination="Ks5-k2-JhW" id="ihU-bz-8da"/>
+                <outlet property="liwuJiage" destination="0z7-FK-gAO" id="24F-zv-aSv"/>
+                <outlet property="liwuName" destination="CEP-7Q-SPk" id="hzY-UC-e8g"/>
+            </connections>
+            <point key="canvasLocation" x="-289" y="9"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="tupian" width="20" height="17"/>
+        <image name="yueliangbi-1" width="17" height="17"/>
+    </resources>
+</document>

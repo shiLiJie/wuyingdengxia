@@ -20,6 +20,7 @@
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -45,7 +46,7 @@
         cell.baomingBtn.layer.masksToBounds = YES;
         cell.baomingBtn.layer.borderColor = RGB(245, 166, 35).CGColor;//设置边框颜色
         [cell.baomingBtn setTitleColor:RGB(245, 166, 35) forState:UIControlStateNormal];
-        cell.baomingBtn.layer.borderWidth = 1.0f;//设置边框颜色
+        cell.baomingBtn.layer.borderWidth = 0.5f;//设置边框颜色
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

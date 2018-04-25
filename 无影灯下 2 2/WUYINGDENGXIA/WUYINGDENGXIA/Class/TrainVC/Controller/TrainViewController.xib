@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TrainViewController">
             <connections>
-                <outlet property="searchBtn" destination="534-jE-yUm" id="jcT-ub-ldT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,41 +19,9 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nEz-ub-VSU">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="ze9-bF-CCn"/>
-                    </constraints>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="534-jE-yUm">
-                    <rect key="frame" x="30" y="64" width="315" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="QLK-ey-KR7"/>
-                    </constraints>
-                    <state key="normal" image="zixun"/>
-                    <state key="selected" image="zixun"/>
-                    <state key="highlighted" image="zixun"/>
-                    <connections>
-                        <action selector="gotoSearchKey:" destination="-1" eventType="touchUpInside" id="YVx-1g-y6y"/>
-                    </connections>
-                </button>
-            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="nEz-ub-VSU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DlM-Xc-1w1"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="nEz-ub-VSU" secondAttribute="trailing" id="GsT-qM-2BH"/>
-                <constraint firstItem="534-jE-yUm" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="30" id="XV4-t1-pYy"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="534-jE-yUm" secondAttribute="trailing" constant="30" id="bLM-nq-Jm7"/>
-                <constraint firstItem="nEz-ub-VSU" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="u3i-Mh-5au"/>
-                <constraint firstItem="534-jE-yUm" firstAttribute="top" secondItem="nEz-ub-VSU" secondAttribute="bottom" id="yyf-5o-8JS"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="-181" y="55"/>
         </view>
     </objects>
-    <resources>
-        <image name="zixun" width="336" height="33"/>
-    </resources>
 </document>

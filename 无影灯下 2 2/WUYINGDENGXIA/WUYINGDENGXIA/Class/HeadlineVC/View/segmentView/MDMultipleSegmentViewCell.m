@@ -21,7 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        _bottomLineWidth = 1.0f;
+        _bottomLineWidth = 2.0f;
         _tintColor = RGB(10, 147, 255);
         [self addSubview:self.titleLabel];
         self.titleLabel.frame = CGRectMake(0,
@@ -50,7 +50,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = _tintColor;
-        _titleLabel.font = [UIFont systemFontOfSize:16];
+        _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLabel;
@@ -63,9 +63,13 @@
         
         UIBezierPath* linePath = [UIBezierPath bezierPath];
         CGFloat y = CGRectGetHeight(rect) - _bottomLineWidth;
-        [linePath moveToPoint:CGPointMake(CGRectGetMaxX(_titleLabel.frame)/3, y)];
-        [linePath addLineToPoint:CGPointMake(CGRectGetMaxX(_titleLabel.frame)/3*2, y)];
+//        [linePath moveToPoint:CGPointMake(CGRectGetMaxX(_titleLabel.frame)/3, y)];
+//        [linePath addLineToPoint:CGPointMake(CGRectGetMaxX(_titleLabel.frame)/3*2, y)];
+        [linePath moveToPoint:CGPointMake(_titleLabel.center.x-12, y)];
+        [linePath addLineToPoint:CGPointMake(_titleLabel.center.x+12, y)];
         linePath.lineWidth = _bottomLineWidth;
+        linePath.lineCapStyle = kCGLineCapRound; //线条拐角
+        linePath.lineJoinStyle = kCGLineJoinRound; //终点处理
         [circleColor setStroke];
         [linePath stroke];
     }

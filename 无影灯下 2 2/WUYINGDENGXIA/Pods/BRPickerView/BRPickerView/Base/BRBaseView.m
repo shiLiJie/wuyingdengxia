@@ -129,7 +129,7 @@
 - (void)setupThemeColor:(UIColor *)themeColor {
     self.leftBtn.layer.cornerRadius = 6.0f;
     self.leftBtn.layer.borderColor = themeColor.CGColor;
-    self.leftBtn.layer.borderWidth = 1.0f;
+    self.leftBtn.layer.borderWidth = 0.5f;
     self.leftBtn.layer.masksToBounds = YES;
     [self.leftBtn setTitleColor:themeColor forState:UIControlStateNormal];
     

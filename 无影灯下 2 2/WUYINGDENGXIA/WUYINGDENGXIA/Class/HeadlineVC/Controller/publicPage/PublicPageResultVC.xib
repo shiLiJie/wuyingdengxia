@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,20 +25,20 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tijiaochengg" translatesAutoresizingMaskIntoConstraints="NO" id="Tz8-Du-V7O">
-                    <rect key="frame" x="41" y="102" width="293" height="210"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tougaochenggong" translatesAutoresizingMaskIntoConstraints="NO" id="Tz8-Du-V7O">
+                    <rect key="frame" x="88.5" y="102" width="198" height="181"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="Tz8-Du-V7O" secondAttribute="height" multiplier="586:420" id="jk3-3a-1om"/>
+                        <constraint firstAttribute="width" secondItem="Tz8-Du-V7O" secondAttribute="height" multiplier="396:362" id="jk3-3a-1om"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提交成功,请等待审核......" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFD-8d-exC">
-                    <rect key="frame" x="87.5" y="336" width="199.5" height="21"/>
+                    <rect key="frame" x="87.5" y="307" width="199.5" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" red="0.0" green="0.71764705882352942" blue="0.41176470588235292" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9S-tv-Iee">
-                    <rect key="frame" x="60" y="433" width="255" height="40.5"/>
+                    <rect key="frame" x="56.5" y="404" width="262.5" height="42"/>
                     <color key="backgroundColor" red="0.1764705882352941" green="0.63921568627450975" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="C9S-tv-Iee" secondAttribute="height" multiplier="526:84" id="nNy-2q-YVe"/>
@@ -55,18 +56,17 @@
             <constraints>
                 <constraint firstItem="kFD-8d-exC" firstAttribute="top" secondItem="Tz8-Du-V7O" secondAttribute="bottom" constant="24" id="3HI-i2-Bev"/>
                 <constraint firstItem="Tz8-Du-V7O" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="82" id="3J9-LU-jT7"/>
-                <constraint firstItem="Tz8-Du-V7O" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="41" id="4sQ-Nf-mvR"/>
+                <constraint firstItem="C9S-tv-Iee" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="DvN-xH-DCo"/>
                 <constraint firstItem="C9S-tv-Iee" firstAttribute="top" secondItem="kFD-8d-exC" secondAttribute="bottom" constant="76" id="Pim-e2-Ca9"/>
                 <constraint firstItem="kFD-8d-exC" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="Q5f-AN-kGF"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="C9S-tv-Iee" secondAttribute="trailing" constant="60" id="Wpq-lm-7C3"/>
-                <constraint firstItem="C9S-tv-Iee" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="60" id="XPY-ud-zaO"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Tz8-Du-V7O" secondAttribute="trailing" constant="41" id="cGQ-86-ruM"/>
+                <constraint firstItem="Tz8-Du-V7O" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="W1Z-Xs-sdU"/>
+                <constraint firstItem="C9S-tv-Iee" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="qLR-ZL-NBC"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-281" y="-16"/>
+            <point key="canvasLocation" x="-48" y="-101"/>
         </view>
     </objects>
     <resources>
-        <image name="tijiaochengg" width="301" height="216"/>
+        <image name="tougaochenggong" width="198" height="181"/>
     </resources>
 </document>

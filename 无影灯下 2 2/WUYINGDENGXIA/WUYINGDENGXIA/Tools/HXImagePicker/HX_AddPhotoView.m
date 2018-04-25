@@ -685,9 +685,9 @@ static NSString *addPhotoCellId = @"cellId";
                 [hud hide:YES afterDelay:1.f];
             }];
         } WithError:^{
-            hud.labelFont = [UIFont systemFontOfSize:15];
-            hud.labelText = @"保存失败";
-            [hud hide:YES afterDelay:3.f];
+//            hud.labelFont = [UIFont systemFontOfSize:15];
+//            hud.labelText = @"保存失败";
+//            [hud hide:YES afterDelay:3.f];
         }];
         
     }else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie] ) {
