@@ -61,7 +61,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
             self.closeButton.hidden = NO;
             
 //            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
-            [self.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
+//            [self.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
             self.layer.borderWidth = 0;
             self.layer.borderColor = [RGB(221, 221, 221) CGColor];
             self.backgroundColor = RGB(45, 163, 255);
@@ -193,7 +193,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 - (void)addCloseButton{
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [closeButton setTitle:@"X" forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
+//    [closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
     closeButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [closeButton addTarget:self action:@selector(zz_close) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeButton];

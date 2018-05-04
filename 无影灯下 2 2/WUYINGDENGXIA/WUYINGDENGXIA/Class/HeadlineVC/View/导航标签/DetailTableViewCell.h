@@ -24,5 +24,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 //文章详情
 @property (weak, nonatomic) IBOutlet UILabel *pageDetail;
+//浏览数
+@property (weak, nonatomic) IBOutlet UILabel *liulanLab;
+//评论数
+@property (weak, nonatomic) IBOutlet UILabel *pinglunLab;
+//点赞数
+@property (weak, nonatomic) IBOutlet UILabel *dianzanLab;
 
 @end

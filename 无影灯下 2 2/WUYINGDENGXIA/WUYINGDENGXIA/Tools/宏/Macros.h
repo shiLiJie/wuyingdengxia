@@ -9,7 +9,7 @@
 #ifndef Macros_h
 #define Macros_h
 
-#define BaseUrl @"http://159.203.214.27/index.php/API/"
+#define BaseUrl @"http://39.106.2.216/index.php/API/"
 
 //中文字体
 #define CHINESE_FONT_NAME  @"Heiti SC"

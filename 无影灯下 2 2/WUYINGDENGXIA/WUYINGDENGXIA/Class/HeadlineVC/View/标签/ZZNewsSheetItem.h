@@ -20,6 +20,8 @@ typedef enum : NSUInteger {
 typedef void(^ZZLongItemPressBlock)(UILongPressGestureRecognizer *ges);
 typedef void(^ZZItemCloseBlock)(ZZNewsSheetItem *item);
 
+typedef void(^ZZItemhuanyipi)(BOOL ishuanyipi);
+
 @interface ZZNewsSheetItem : UIView
 
 @property(nonatomic,assign,getter=isGestureEnable)BOOL longGestureEnable;
@@ -28,4 +30,5 @@ typedef void(^ZZItemCloseBlock)(ZZNewsSheetItem *item);
 @property(nonatomic,copy)NSString *itemTitle;
 @property(nonatomic,assign)BOOL cornerFlagHidden;
 @property(nonatomic,assign)ZZCornerFlagType flagType;
+@property(nonatomic,assign)ZZItemhuanyipi huanyipi;
 @end

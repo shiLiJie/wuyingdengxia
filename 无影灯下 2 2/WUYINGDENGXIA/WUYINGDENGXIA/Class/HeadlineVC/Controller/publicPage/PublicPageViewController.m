@@ -21,6 +21,7 @@ typedef enum _chooseType{
 #import "PublicPageResultVC.h"
 #import "AddSheetViewController.h"
 
+
 #define VERSION [[UIDevice currentDevice].systemVersion doubleValue]
 
 @interface PublicPageViewController ()<UITextViewDelegate,HX_AddPhotoViewDelegate>
@@ -92,10 +93,15 @@ typedef enum _chooseType{
     self.titieTextLab.delegate = self;
     self.detailTextView.delegate = self;
     //设置标题框和内容框中间的分割线
-    UILabel *lab = [[UILabel alloc] init];
-    lab.frame = CGRectMake(22, 113, kScreen_Width-17, 0.3);
-    lab.backgroundColor = RGB(235, 235, 235);
-    [self.view addSubview:lab];
+    
+    UIView *view = [[UIView alloc] init];
+    if (kDevice_Is_iPhoneX) {
+        view.frame = CGRectMake(22, 137, kScreen_Width-17, 0.5);
+    }else{
+        view.frame = CGRectMake(22, 113, kScreen_Width-17, 0.5);
+    }
+    view.backgroundColor = RGB(232, 232, 232);
+    [self.view addSubview:view];
     
     //添加图片选择器视图
     if (self.addPhotoView != nil) {
@@ -132,6 +138,7 @@ typedef enum _chooseType{
 //右侧按钮设置点击
 -(UIButton *)set_rightButton{
     UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(kScreen_Width-44, 0, 44, 60);
     [btn setTitle:@"投稿" forState:UIControlStateNormal];
     [btn setTitleColor:RGB(191, 191, 191) forState:UIControlStateNormal];
     
@@ -141,11 +148,54 @@ typedef enum _chooseType{
 //投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
     if (self.isEditor) {
-        //跳转到提交结果界面
-        PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
-        [self.navigationController pushViewController:publicPageRusult animated:YES];
-        //假的占位,模拟提交成功
-        publicPageRusult.isSucess = YES;
+        
+        UserInfoModel *user = [UserInfoModel shareUserModel];
+        [user loadUserInfoFromSanbox];
+        
+        NSArray *arr = @[@"http:\/\/yszg.oss-cn-beijing.aliyuncs.com\/user_1_dir\/98ad9161be2e1683a8cbd8fd4b47e291.jpg",
+                                    @"http://h.hiphotos.baidu.com/image/h%3D300/sign=2b3e022b262eb938f36d7cf2e56085fe/d0c8a786c9177f3e18d0fdc779cf3bc79e3d5617.jpg",
+                                    @"http://a.hiphotos.baidu.com/image/pic/item/b7fd5266d01609240bcda2d1dd0735fae7cd340b.jpg",
+                                    @"http://h.hiphotos.baidu.com/image/pic/item/728da9773912b31b57a6e01f8c18367adab4e13a.jpg",
+                                    @"http://h.hiphotos.baidu.com/image/pic/item/0d338744ebf81a4c5e4fed03de2a6059242da6fe.jpg"];
+        
+        NSDictionary *dic = @{
+                              @"userid":user.userid,
+                              @"articleTitle":self.titieTextLab.text,
+                              @"articleContent":self.detailTextView.text,
+                              @"articleType":@"文章",
+                              @"articleClass":@"非专业",
+                              @"articleImg":arr,
+                              };
+        
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_article"] parameters:dic success:^(id obj) {
+            
+            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                
+                //跳转到提交结果界面
+                PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
+                [self.navigationController pushViewController:publicPageRusult animated:YES];
+                //假的占位,模拟提交成功
+                publicPageRusult.isSucess = YES;
+                
+            }else{
+
+                //跳转到提交结果界面
+                PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
+                [self.navigationController pushViewController:publicPageRusult animated:YES];
+                //假的占位,模拟提交成功
+                publicPageRusult.isSucess = NO;
+            }
+            
+        } fail:^(NSError *error) {
+            
+            //跳转到提交结果界面
+            PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
+            [self.navigationController pushViewController:publicPageRusult animated:YES];
+            //假的占位,模拟提交成功
+            publicPageRusult.isSucess = NO;
+        }];
+        
+        
     }else{
         
     }
@@ -182,10 +232,11 @@ typedef enum _chooseType{
     AddSheetViewController *vc = [[AddSheetViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     
+    __weak typeof(self) weakSelf = self;
     vc.clossviewblock = ^(NSMutableArray *itemArray) {
         //回调返回的标签数组
         UIButton *btn = [[UIButton alloc] init];
-        btn.frame = CGRectMake(CGRectGetWidth(self.chooseMenuBtn.frame)/2, -5, CGRectGetWidth(self.chooseMenuBtn.frame)/2, CGRectGetWidth(self.chooseMenuBtn.frame)/2);
+        btn.frame = CGRectMake(CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2, -5, CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2, CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2);
         [btn setBackgroundColor:RGB(255, 81, 81)];
         [btn setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)itemArray.count] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -193,7 +244,7 @@ typedef enum _chooseType{
         btn.layer.cornerRadius = btn.frame.size.width / 2;
         //将多余的部分切掉
         btn.layer.masksToBounds = YES;
-        [self.chooseMenuBtn addSubview:btn];
+        [weakSelf.chooseMenuBtn addSubview:btn];
     };
 }
 

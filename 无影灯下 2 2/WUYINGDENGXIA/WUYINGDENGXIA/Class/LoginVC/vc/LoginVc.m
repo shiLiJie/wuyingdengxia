@@ -85,6 +85,58 @@
 }
 //登录
 - (IBAction)loginClick:(UIButton *)sender {
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"login_by_phone?phone_num=%@&password=%@",self.phoneField.text,self.pwdField.text]] parameters:nil success:^(id obj) {
+        
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+            //登录成功
+            NSDictionary *dic = obj[@"data"];
+            UserInfoModel *user = [UserInfoModel shareUserModel];
+            user.userName = dic[@"username"];
+            user.passWord = self.pwdField.text;
+            user.loginStatus = YES;
+            user.certid = dic[@"certid"];
+            user.ctime = dic[@"ctime"];
+            user.fansnum = dic[@"fansnum"];
+            user.headimg = dic[@"headimg"];
+            user.isV = dic[@"isV"];
+            user.isadmin = dic[@"isadmin"];
+            user.isfinishCer = dic[@"isfinishCer"];
+            user.ishead = dic[@"ishead"];
+            user.isphoneverify = dic[@"isphoneverify"];
+            user.last_login_time = dic[@"last_login_time"];
+            user.phoneNum = dic[@"phoneNum"];
+            user.supportnum = dic[@"supportnum"];
+            user.userDegree = dic[@"userDegree"];
+            user.userEmail = dic[@"userEmail"];
+            user.userHospital = dic[@"userHospital"];
+            user.userIdcard = dic[@"userIdcard"];
+            user.userLoginway = dic[@"userLoginway"];
+            user.userMajor = dic[@"userMajor"];
+            user.userOffice = dic[@"userOffice"];
+            user.userPosition = dic[@"userPosition"];
+            user.userReal_name = dic[@"userReal_name"];
+            user.userSchool = dic[@"userSchool"];
+            user.userStschool = dic[@"userStschool"];
+            user.userTitle = dic[@"userTitle"];
+            user.userUnit = dic[@"userUnit"];
+            user.user_token = dic[@"user_token"];
+            user.useravatar_id = dic[@"useravatar_id"];
+            user.usercity = dic[@"usercity"];
+            user.userid = dic[@"userid"];
+            user.usersex = dic[@"usersex"];
+            user.usertoken = dic[@"usertoken"];
+            
+            [user saveUserInfoToSanbox];
+            
+            self.loginBlock(YES, nil);
+        }else{
+            [MBProgressHUD showError:obj[@"msg"]];
+        }
+        
+        
+    } fail:^(NSError *error) {
+        //登录失败
+    }];
 }
 //短信快捷登录
 - (IBAction)duanxinLogin:(UIButton *)sender {

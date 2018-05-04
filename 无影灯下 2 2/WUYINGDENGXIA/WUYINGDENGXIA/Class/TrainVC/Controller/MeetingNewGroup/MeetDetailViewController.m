@@ -42,20 +42,11 @@
     self.isJieshao = NO;
     self.isRicheng = NO;
     
-    //设置阴影
-    CALayer *layer = [CALayer layer];
-    layer.frame = self.baomingBtn.frame;
-    layer.backgroundColor = RGB(45, 163, 255).CGColor;
-    layer.shadowColor = RGB(45, 163, 255).CGColor;
-    layer.shadowOffset = CGSizeMake(0, 2);
-    layer.shadowOpacity = 0.5;
-    layer.cornerRadius = 42/2;
-    [self.view.layer addSublayer:layer];
+
     //报名按钮切圆角
     self.baomingBtn.layer.cornerRadius = 42/2;//半径大小
     self.baomingBtn.layer.masksToBounds = YES;//是否切割
-    //一到最上层
-    [self.view bringSubviewToFront:self.baomingBtn];
+    
     
     self.richengTableView.rowHeight = UITableViewAutomaticDimension;
     self.richengTableView.estimatedRowHeight = 120;
@@ -86,6 +77,18 @@
 {
     [super viewDidAppear:animated];
     self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
+    
+    //设置阴影
+    CALayer *layer = [CALayer layer];
+    layer.frame = self.baomingBtn.frame;
+    layer.backgroundColor = RGB(45, 163, 255).CGColor;
+    layer.shadowColor = RGB(45, 163, 255).CGColor;
+    layer.shadowOffset = CGSizeMake(0, 2);
+    layer.shadowOpacity = 0.5;
+    layer.cornerRadius = 42/2;
+    [self.view.layer addSublayer:layer];
+    //一到最上层
+    [self.view bringSubviewToFront:self.baomingBtn];
 }
 
 #pragma mark - UI -
@@ -98,7 +101,7 @@
 }
 
 -(BOOL)hideNavigationBottomLine{
-    return YES;
+    return NO;
 }
 
 //左侧按钮设置点击
@@ -112,6 +115,7 @@
 //右上角分享
 -(UIButton *)set_rightButton{
     UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(kScreen_Width-44, 0, 44, 60);
     [btn setImage:GetImage(@"fenxiang") forState:UIControlStateNormal];
     return btn;
 }

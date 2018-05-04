@@ -33,7 +33,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="veA-R4-sNs">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="349"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="mBH-eE-zyL">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatIMG2375" translatesAutoresizingMaskIntoConstraints="NO" id="mBH-eE-zyL">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="349"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHt-Ew-3E2">
@@ -158,8 +158,8 @@
         </view>
     </objects>
     <resources>
+        <image name="WechatIMG2375" width="332" height="272"/>
         <image name="fanhui" width="21" height="17"/>
-        <image name="tupian" width="20" height="17"/>
         <image name="yueliangbi-1" width="17" height="17"/>
     </resources>
 </document>

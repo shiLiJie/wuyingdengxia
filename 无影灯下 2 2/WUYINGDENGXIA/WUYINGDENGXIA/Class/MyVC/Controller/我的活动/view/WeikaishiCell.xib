@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苏州医疗器械装备交流会" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHc-Hi-Bx7">
-                        <rect key="frame" x="144" y="31" width="165" height="21"/>
+                        <rect key="frame" x="144" y="26" width="165" height="21"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                     <constraint firstAttribute="trailing" secondItem="BiA-co-aP9" secondAttribute="trailing" id="5HE-iQ-WMO"/>
                     <constraint firstItem="h2j-EO-NT4" firstAttribute="centerY" secondItem="B35-Ob-ijw" secondAttribute="centerY" id="ANT-Js-Yho"/>
                     <constraint firstItem="B35-Ob-ijw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="DL6-AH-Ama"/>
-                    <constraint firstItem="h2j-EO-NT4" firstAttribute="top" secondItem="XHc-Hi-Bx7" secondAttribute="bottom" id="LLD-cq-f26"/>
+                    <constraint firstItem="h2j-EO-NT4" firstAttribute="top" secondItem="XHc-Hi-Bx7" secondAttribute="bottom" constant="5" id="LLD-cq-f26"/>
                     <constraint firstAttribute="bottomMargin" secondItem="BiA-co-aP9" secondAttribute="bottom" constant="-9" id="NcH-gD-rni"/>
                     <constraint firstItem="B35-Ob-ijw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZBk-69-4OX"/>
                     <constraint firstItem="jxj-RO-dBy" firstAttribute="bottom" secondItem="B35-Ob-ijw" secondAttribute="bottom" id="axK-Fb-iSF"/>
@@ -82,7 +82,7 @@
                 <outlet property="timeLab" destination="h2j-EO-NT4" id="F9f-Ao-6on"/>
                 <outlet property="titleLab" destination="XHc-Hi-Bx7" id="hJq-ux-hwc"/>
             </connections>
-            <point key="canvasLocation" x="-481" y="73"/>
+            <point key="canvasLocation" x="-196" y="80"/>
         </tableViewCell>
     </objects>
     <resources>

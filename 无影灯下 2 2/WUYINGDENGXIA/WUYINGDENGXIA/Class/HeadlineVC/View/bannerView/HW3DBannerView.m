@@ -7,7 +7,6 @@
 //
 
 #import "HW3DBannerView.h"
-#import "UIImageView+WebCache.h"
 #import "UIView+Banner.h"
 #define ZXMainScrollViewWidth self.mainScrollView.frame.size.width
 #define ZXMainScrollViewHeight self.mainScrollView.frame.size.height
@@ -212,9 +211,9 @@
     [self reloadImage];
     [self.mainScrollView setContentOffset:CGPointMake(ZXMainScrollViewWidth, 0) animated:NO] ;
     self.pageControl.currentPage = self.currentImageIndex;
-    if (self.clickImageBlock) {
-        self.clickImageBlock(self.currentImageIndex);
-    }
+//    if (self.clickImageBlock) {
+//        self.clickImageBlock(self.currentImageIndex);
+//    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -239,7 +238,9 @@
 }
 
 -(void)centerTapGes{
-    
+    if (self.clickImageBlock) {
+        self.clickImageBlock(self.currentImageIndex);
+    }
 }
 
 -(void)createTimer {

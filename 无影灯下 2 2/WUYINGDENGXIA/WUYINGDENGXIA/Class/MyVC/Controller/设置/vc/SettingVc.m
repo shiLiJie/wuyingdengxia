@@ -189,6 +189,29 @@
     }
     if (indexPath.section == 3) {
         //退出登录
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"退出登录"
+                                                                       message:@""
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  //响应事件
+                                                                  UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                                  [user loadUserInfoFromSanbox];
+                                                                  user.userid = @"0";
+                                                                  user.loginStatus = NO;
+                                                                  [user saveUserInfoToSanbox];
+                                                                  [self.navigationController popViewControllerAnimated:YES];
+                                                              }];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                                 //响应事件
+                                                                 
+                                                             }];
+        
+        [alert addAction:defaultAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

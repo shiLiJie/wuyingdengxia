@@ -33,6 +33,8 @@
 @property(nonatomic, strong) UIButton *searchBtn;
 //提问按钮
 @property(nonatomic, strong) UIButton *tiwenBtn;
+//提问按钮边上竖线
+@property(nonatomic, strong) UIView *shuView;
 //兴趣标签编辑界面
 @property(nonatomic, strong) ZZNewsSheetMenu *newsMenu;
 
@@ -62,7 +64,9 @@
     }
     self.searchBtn.hidden = NO;
     self.tiwenBtn.hidden = NO;
+    self.shuView.hidden = NO;
 
+    self.right_button.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
 }
 
 
@@ -80,6 +84,7 @@
     
     [self.navigationController.view addSubview:self.tiwenBtn];
     [self.navigationController.view addSubview:self.searchBtn];
+    [self.navigationController.view addSubview:self.shuView];
 
     //添加标签控制器
     [self addSegView];
@@ -91,14 +96,22 @@
     if (_searchBtn == nil) {
         _searchBtn = [[UIButton alloc] init];
         if (kDevice_Is_iPhoneX) {
-            _searchBtn.frame = CGRectMake(-20, 50, Main_Screen_Width-95, 33);
+            _searchBtn.frame = CGRectMake(10, 50, Main_Screen_Width-160, 33);
         }else{
-            _searchBtn.frame = CGRectMake(-40, 25, Main_Screen_Width-95, 33);
+            _searchBtn.frame = CGRectMake(10, 25, Main_Screen_Width-160, 33);
         }
-//        _searchBtn.frame = CGRectMake(25, 20, Main_Screen_Width-180, 50);
+
         [_searchBtn addTarget:self action:@selector(setUpSearch) forControlEvents:UIControlEventTouchUpInside];
-        [_searchBtn setImage:GetImage(@"wendasousuo") forState:UIControlStateNormal];
-        [_searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_searchBtn setBackgroundColor:RGB(245, 245, 245)];
+        [_searchBtn setImage:GetImage(@"Fill 1") forState:UIControlStateNormal];
+        [_searchBtn setTitle:@"输入想要搜索的关键词" forState:UIControlStateNormal];
+        _searchBtn.titleLabel.font = SYSTEMFONT(12);
+        [_searchBtn setTitleColor:RGB(181, 181, 181) forState:UIControlStateNormal];
+        _searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+        _searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _searchBtn.layer.cornerRadius = 16.5;//半径大小
+        _searchBtn.layer.masksToBounds = YES;//是否切割
     }
     return _searchBtn;
 }
@@ -120,10 +133,25 @@
     return _tiwenBtn;
 }
 
+-(UIView *)shuView{
+    if (_shuView == nil) {
+        _shuView = [[UIView alloc] init];
+        _shuView.backgroundColor = RGB(235, 235, 235);
+        if (kDevice_Is_iPhoneX) {
+            _shuView.frame = CGRectMake(CGRectGetMaxX(self.tiwenBtn.frame)+7, 44+11, 0.5, 44/2);
+        }else{
+            _shuView.frame = CGRectMake(CGRectGetMaxX(self.tiwenBtn.frame)+7, 20+11, 0.5, 44/2);
+            
+        }
+    }
+        return _shuView;
+}
+
 -(UIButton *)set_rightButton{
     UIButton *right = [[UIButton alloc] init];
     [right setTitle:@"我的提问" forState:UIControlStateNormal];
     [right setTitleColor:RGB(19, 151, 255) forState:UIControlStateNormal];
+    right.frame = CGRectMake(kScreen_Width-60, 0, 44, 60);
     [right setFont: [UIFont systemFontOfSize:17]];
     return right;
 }
@@ -142,9 +170,9 @@
     _segView.items = @[@"问题1",@"问题2",@"问题3",@"问题4",@"问题5"];
     [self.view addSubview:_segView];
     //标签下边的灰色横线
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame)+1, Main_Screen_Width, 1)];
-    lab.backgroundColor = RGB(232, 232, 232);
-    [self.view addSubview: lab];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame)+1, Main_Screen_Width, 0.5)];
+    view.backgroundColor = RGB(232, 232, 232);
+    [self.view addSubview: view];
     
     //添加加号➕按钮
     UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(_segView.frame)-44, segViewHigh, segViewHigh)];
@@ -198,6 +226,7 @@
     [self.navigationController pushViewController:vc animated:YES];
     self.searchBtn.hidden = YES;
     self.tiwenBtn.hidden = YES;
+    self.shuView.hidden = YES;
     //先隐藏标签视图
     [self.newsMenu dismissNewsMenu];
 }
@@ -208,6 +237,7 @@
     [self.navigationController pushViewController:publicPage animated:YES];
     self.searchBtn.hidden = YES;
     self.tiwenBtn.hidden = YES;
+    self.shuView.hidden = YES;
     //先隐藏标签视图
     [self.newsMenu dismissNewsMenu];
 }
@@ -301,6 +331,7 @@
     [self.navigationController pushViewController:pageDetail animated:YES];
     self.searchBtn.hidden = YES;
     self.tiwenBtn.hidden = YES;
+    self.shuView.hidden = YES;
     
 }
 
@@ -311,6 +342,7 @@
     
     self.searchBtn.hidden = YES;
     self.tiwenBtn.hidden = YES;
+    self.shuView.hidden = YES;
 }
 
 

@@ -49,7 +49,7 @@
                         <constraint firstAttribute="height" constant="104" id="mtB-s3-Bax"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="2vb-3C-0gt">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatIMG2375" translatesAutoresizingMaskIntoConstraints="NO" id="2vb-3C-0gt">
                     <rect key="frame" x="17" y="36" width="88" height="72"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="72" id="YdZ-bh-gPm"/>
@@ -224,10 +224,10 @@
                 <constraint firstItem="byk-aL-5bX" firstAttribute="centerY" secondItem="2vb-3C-0gt" secondAttribute="centerY" constant="-25" id="wKM-Us-Xbf"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-572" y="145"/>
+            <point key="canvasLocation" x="-198" y="145"/>
         </view>
     </objects>
     <resources>
-        <image name="tupian" width="20" height="17"/>
+        <image name="WechatIMG2375" width="332" height="272"/>
     </resources>
 </document>

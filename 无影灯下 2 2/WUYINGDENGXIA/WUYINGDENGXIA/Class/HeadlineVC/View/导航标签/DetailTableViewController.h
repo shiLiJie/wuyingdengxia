@@ -31,4 +31,8 @@
 
 @property (nonatomic,weak) id<JohnScrollViewDelegate>delegate;
 
+//对应的标签
+@property (nonatomic,copy) NSString *lable;
+
+
 @end

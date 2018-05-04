@@ -28,7 +28,7 @@
                             <rect key="frame" x="38" y="8" width="306" height="33"/>
                             <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <state key="normal" title="   参与评论" image="taolun">
+                            <state key="normal" title="   参与讨论" image="taolun">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -67,7 +67,7 @@
                 <constraint firstItem="XUP-ZF-Sbv" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="dHU-4m-IKr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-306" y="44"/>
+            <point key="canvasLocation" x="-151" y="13"/>
         </view>
     </objects>
     <resources>

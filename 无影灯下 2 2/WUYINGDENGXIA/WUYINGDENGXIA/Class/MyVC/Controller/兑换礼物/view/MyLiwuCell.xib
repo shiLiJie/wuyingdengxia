@@ -20,7 +20,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="200" height="187"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="Ks5-k2-JhW">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatIMG2375" translatesAutoresizingMaskIntoConstraints="NO" id="Ks5-k2-JhW">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="131"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星巴克 拿铁1杯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEP-7Q-SPk">
@@ -72,11 +72,11 @@
                 <outlet property="liwuJiage" destination="0z7-FK-gAO" id="24F-zv-aSv"/>
                 <outlet property="liwuName" destination="CEP-7Q-SPk" id="hzY-UC-e8g"/>
             </connections>
-            <point key="canvasLocation" x="-289" y="9"/>
+            <point key="canvasLocation" x="-170" y="41"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="tupian" width="20" height="17"/>
+        <image name="WechatIMG2375" width="332" height="272"/>
         <image name="yueliangbi-1" width="17" height="17"/>
     </resources>
 </document>

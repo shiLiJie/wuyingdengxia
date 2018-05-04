@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "meetingModel.h"
 
 @protocol MeetNewDelegate<NSObject>
 
 @optional
 
 //监听点击table点击的索引
--(void)meetTbleviewDidSelectPageWithIndex:(NSIndexPath *)indexPath;
+-(void)meetTbleviewDidSelectPageWithIndex:(NSIndexPath *)indexPath meetingModel:(meetingModel *)meetmodel;
 
 @end
 

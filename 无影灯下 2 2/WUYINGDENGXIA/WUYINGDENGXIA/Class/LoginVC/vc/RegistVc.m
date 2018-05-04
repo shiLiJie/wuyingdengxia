@@ -71,10 +71,45 @@
 #pragma mark - 私有方法 -
 //注册
 - (IBAction)registClick:(UIButton *)sender {
+    NSDictionary *dic = @{
+                          @"userphone" : self.phoneField.text,
+                          @"password" : self.pwdField.text,
+                          @"verifynum" : self.VerifField.text
+                          
+                          };
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_register"]
+                                                 parameters:dic
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+                                                    }
+                                                       fail:^(NSError *error) {
+        
+                                                       }];
 }
+
 //获取验证码
 - (IBAction)getVerif:(UIButton *)sender {
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_verifyPhone?userphone=%@",self.phoneField.text]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                       }else{
+                                                           [MBProgressHUD showError:obj[@"msg"]];
+                                                       }
+        
+                                                   } fail:^(NSError *error) {
+        
+                                                   }];
 }
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.phoneField resignFirstResponder];
     [self.VerifField resignFirstResponder];

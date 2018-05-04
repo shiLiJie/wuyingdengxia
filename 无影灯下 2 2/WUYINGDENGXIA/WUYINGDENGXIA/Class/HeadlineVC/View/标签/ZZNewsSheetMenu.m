@@ -44,7 +44,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
     CGRect rect;
     if (kDevice_Is_iPhoneX) {
-        rect = CGRectMake(0, 80, KScreenWidth, KScreenHeight - statuHeight);
+        rect = CGRectMake(0, 88, KScreenWidth, KScreenHeight - statuHeight);
     }else{
         rect = CGRectMake(0, 64, KScreenWidth, KScreenHeight - statuHeight);
     }
@@ -61,7 +61,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
     CGRect rect;
     if (kDevice_Is_iPhoneX) {
-        rect = CGRectMake(0, 80, KScreenWidth, KScreenHeight - statuHeight-100);
+        rect = CGRectMake(0, 88, KScreenWidth, KScreenHeight - statuHeight-100);
     }else{
         rect = CGRectMake(0, 64, KScreenWidth, KScreenHeight - statuHeight-100);
     }
@@ -106,6 +106,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         _placeHolderItem = [ZZNewsSheetItem new];
+        
+        self.ishuanyipi = NO;
         [self commit];
     }
     return self;
@@ -119,8 +121,15 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 
 +(instancetype)newsSheetMenu1{
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGRect rect = CGRectMake(0, 75, KScreenWidth, KScreenHeight - statuHeight-120);
-    return [[self alloc]initWithFrame:rect];
+    if (kDevice_Is_iPhoneX) {
+        CGRect rect = CGRectMake(0, 105, KScreenWidth, KScreenHeight - statuHeight-145);
+        return [[self alloc]initWithFrame:rect];
+    }else{
+        CGRect rect = CGRectMake(0, 75, KScreenWidth, KScreenHeight - statuHeight-120);
+        return [[self alloc]initWithFrame:rect];
+    }
+    
+    
 }
 - (void)commit{
     [self newsSheetScrollView];
@@ -150,7 +159,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 //    [closeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [closeButton setImage:GetImage(@"cha1") forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(dismissNewsMenu) forControlEvents:UIControlEventTouchUpInside];
-    closeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    closeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [closeButton setFont:[UIFont boldSystemFontOfSize:15]];
     [closeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [menuNav addSubview:closeButton];
@@ -185,7 +194,12 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     for (int i = 0; i<self.mySubjectArray.count; i++) {
         ZZNewsSheetItem *item = [[ZZNewsSheetItem alloc]init];
         item.itemTitle = self.mySubjectArray[i];
-        item.flagType = ZZCornerFlagTypeDelete;
+//        if (self.ishuanyipi) {
+//            item.flagType = ZZCornerFlagTypeNone;
+//        }else{
+            item.flagType = ZZCornerFlagTypeDelete;
+//        }
+    
         [mySubjectView addSubview:item];
         [self.mySubjectItemArray addObject:item];
         [item setLongPressBlock:^(UILongPressGestureRecognizer *ges) {
@@ -210,18 +224,23 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     lab.font = [UIFont boldSystemFontOfSize:15];
     [recommendSubjectView addSubview:lab];
     self.recommentTitleLab = lab;
-//    UIButton *btn = [[UIButton alloc] init];
-//    [btn setImage:GetImage(@"huanyipi") forState:UIControlStateNormal];
-//    btn.frame = CGRectMake(kScreen_Width-15-62, 7, 62, 15);
-//    [btn addTarget:self action:@selector(updateNewSheetConfig:) forControlEvents:UIControlEventTouchUpInside];
-//    [recommendSubjectView addSubview:btn];
+    UIButton *btn = [[UIButton alloc] init];
+    [btn setImage:GetImage(@"huanyipi") forState:UIControlStateNormal];
+    btn.frame = CGRectMake(kScreen_Width-15-62, 7, 62, 15);
+    [btn addTarget:self action:@selector(huanyipi) forControlEvents:UIControlEventTouchUpInside];
+    [recommendSubjectView addSubview:btn];
+
     
     [self.recommendSubjectItemArray removeAllObjects];
     for (int i = 0; i<self.recommendSubjectArray.count; i++) {
         ZZNewsSheetItem *item = [[ZZNewsSheetItem alloc]init];
         item.itemTitle = self.recommendSubjectArray[i];
         item.longGestureEnable = NO;
-        item.flagType = ZZCornerFlagTypeAddition;
+//        if (self.ishuanyipi) {
+//            item.flagType = ZZCornerFlagTypeAddition;
+//        }else{
+            item.flagType = ZZCornerFlagTypeAddition;
+//        }
         [recommendSubjectView addSubview:item];
         [self.recommendSubjectItemArray addObject:item];
         [item setLongPressBlock:^(UILongPressGestureRecognizer *ges) {
@@ -233,14 +252,27 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     }
 }
 
+//换一批
+-(void)huanyipi{
+    self.ishuanyipi = YES;
+    self.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5",@"科技6"].mutableCopy;
+    self.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技"].mutableCopy;
+    
+    [self setRecommentSubject];
+
+//    self.hiddenAllCornerFlag = YES;
+//    [self layoutSubviews];
+
+}
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     
     self.newsSheetScrollView.frame = self.bounds;
     CGFloat navitemHeight = 30.0f;
     self.menuNavitem.frame = CGRectMake(0, 0, self.bounds.size.width, navitemHeight);
-    self.closeMenuButton.frame = CGRectMake(self.bounds.size.width - 60, 0,60, self.menuNavitem.bounds.size.height);
-    self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60 - 100, 0,100, self.menuNavitem.bounds.size.height);
+    self.closeMenuButton.frame = CGRectMake(self.bounds.size.width - 60, 0,50, self.menuNavitem.bounds.size.height);
+    self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60 - 50, 0,50, self.menuNavitem.bounds.size.height);
     
     UILabel *lab = [[UILabel alloc] init];
     lab.text = @"我的导航";
@@ -348,6 +380,11 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     mySubRow = MAX(mySubRow, 0);
     for (NSInteger i = 0;i<self.mySubjectItemArray.count;i++) {
         ZZNewsSheetItem *item = self.mySubjectItemArray[i];
+//        if (self.ishuanyipi) {
+//            item.flagType = ZZCornerFlagTypeNone;
+//        }else{
+//            item.flagType = ZZCornerFlagTypeDelete;
+//        }
         NSInteger currentRow = i / column ;
         NSInteger currentColumn = i % column;
         CGFloat orx = margin + currentColumn *margin + currentColumn*itemWidth;
@@ -385,12 +422,20 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     
     CGFloat scHeight = CGRectGetMaxY(self.recommendSubjectView.frame);
     self.newsSheetScrollView.contentSize = CGSizeMake(0, scHeight + kNewsBottomSpace);
+    
 }
 - (void)hiddenAllFlag:(BOOL)hidden{
     for (UIView * mv in self.mySubjectView.subviews) {
         if ([mv isKindOfClass:[ZZNewsSheetItem class]]) {
             ZZNewsSheetItem * item = (ZZNewsSheetItem *)mv;
             item.cornerFlagHidden = hidden;
+//            if (self.ishuanyipi) {
+//                item.flagType = ZZCornerFlagTypeNone;
+//            }else{
+//                item.flagType = ZZCornerFlagTypeDelete;
+//            }
+            
+            
         }
     }
     
@@ -453,11 +498,13 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 
 #pragma mark - 事件
 - (void)editMenu:(UIButton*)sender{
+    self.ishuanyipi = NO;
     sender.selected = !sender.selected;
     self.hiddenAllCornerFlag = !sender.selected;
     NSString * title = sender.selected ? @"完成":@"编辑";
     [sender setTitle:title forState:UIControlStateNormal];
 }
+
 - (void)itemLongPress:(UILongPressGestureRecognizer *)gesture{
     ZZNewsSheetItem *item = (ZZNewsSheetItem *)gesture.view;
     CGPoint point = [gesture locationInView:self.mySubjectView];

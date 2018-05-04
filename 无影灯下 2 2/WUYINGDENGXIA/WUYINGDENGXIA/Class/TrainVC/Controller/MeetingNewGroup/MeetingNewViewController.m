@@ -9,7 +9,11 @@
 #import "MeetingNewViewController.h"
 #import "MeetingNewCell.h"
 
+
 @interface MeetingNewViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) NSArray *meetingArr;
+
 
 @end
 
@@ -17,21 +21,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.meetingArr = [[NSArray alloc] init];
+    //获取会议
+    [self getMeetInfo];
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
+//获取会议
+-(void)getMeetInfo{
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allmeeting"] parameters:nil success:^(id obj) {
+        
+        NSArray *arr = obj[@"data"];
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (int i = 0; i < arr.count; i ++) {
+            NSDictionary *dict = arr[i];
+            [arrayM addObject:[meetingModel meetWithDict:dict]];
+            
+        }
+        self.meetingArr= arrayM;
+        
+        [self.tableview reloadData];
+        
+    } fail:^(NSError *error) {
+        
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //    return self.dataArr.count;
-    return 7;
+    return self.meetingArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return kScreen_Height * 0.29;
+    return kScreen_Height * 0.3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -47,6 +73,12 @@
         cell.baomingBtn.layer.borderColor = RGB(245, 166, 35).CGColor;//设置边框颜色
         [cell.baomingBtn setTitleColor:RGB(245, 166, 35) forState:UIControlStateNormal];
         cell.baomingBtn.layer.borderWidth = 0.5f;//设置边框颜色
+        
+        meetingModel *model = [[meetingModel alloc] init];
+        model = self.meetingArr[indexPath.row];
+        cell.meetImage.image = GetImage(model.meeting_image);
+        cell.meetName.text = model.meet_title;
+        cell.meetTime.text = model.begin_time;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -56,7 +88,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self.delegate meetTbleviewDidSelectPageWithIndex:indexPath];
+    meetingModel *model = [[meetingModel alloc] init];
+    model = self.meetingArr[indexPath.row];
+    [self.delegate meetTbleviewDidSelectPageWithIndex:indexPath meetingModel:model];
 }
 
 - (void)didReceiveMemoryWarning {

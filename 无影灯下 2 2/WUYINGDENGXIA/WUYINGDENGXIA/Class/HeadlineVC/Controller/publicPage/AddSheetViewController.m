@@ -7,6 +7,7 @@
 //
 
 #import "AddSheetViewController.h"
+#import "IQKeyboardManager.h"
 
 @interface AddSheetViewController ()<UITextFieldDelegate>
 //确定按钮
@@ -34,11 +35,18 @@
     
     //添加标签视图
     [self addSheetUi];
+    //监听自定义标签文本输入
+    [self addTargetMethod];
 }
 
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    [IQKeyboardManager sharedManager].enable = NO;
+//}
 -(void)viewWillDisappear:(BOOL)animated{
     //取消标签选择
     [self.newsMenu dismissNewsMenu];
+//    [IQKeyboardManager sharedManager].enable = YES;
 }
 
 #pragma mark - UI -
@@ -76,6 +84,7 @@
     [self.view addSubview:self.newsMenu];
     //配置界面内容
     self.newsMenu.closeMenuButton.hidden = YES;
+    self.newsMenu.editMenuButton.frame = CGRectMake(kScreen_Width - 70, 0,50, 30);
     self.newsMenu.myTitleLab1.text = @"已选标签";
     self.newsMenu.recommentTitleLab.text = @"推荐标签";
     
@@ -85,9 +94,19 @@
             self.clossviewblock(itemArray);
         }
     }];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    //将触摸事件添加到当前view
+    [sheetMenu addGestureRecognizer:tapGestureRecognizer];
 }
 
 #pragma mark - 私有方法 -
+-(void)keyboardHide:(UITapGestureRecognizer*)tap{
+    [self.addSheetTextfield resignFirstResponder];
+}
+
 -(NSMutableAttributedString *)changeTitle:(NSString *)curTitle
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
@@ -100,6 +119,19 @@
 }
 
 #pragma mark - 输入框代理方法 -
+-(void)addTargetMethod{
+    [self.addSheetTextfield addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
+}
+-(void)textField1TextChange:(UITextField *)textField{
+    NSLog(@"textField1 - 输入框内容改变,当前内容为: %@",textField.text);
+    if (textField.text.length) {
+        self.sueBtn.userInteractionEnabled = YES;
+        [self.sueBtn setTitleColor:RGB(19, 151, 255) forState:UIControlStateNormal];
+    }else{
+        self.sueBtn.userInteractionEnabled = NO;
+        [self.sueBtn setTitleColor:RGB(185, 185, 185) forState:UIControlStateNormal];
+    }
+}
 //根据输入内容变换确认按钮颜色和可用性
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
 //    if ([textField.text isEqualToString:@""]) {
@@ -112,6 +144,9 @@
     return YES;
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.addSheetTextfield resignFirstResponder];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -53,6 +53,18 @@
 {
     [super viewDidAppear:animated];
     self.acrollerView.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhusuView.frame));
+    
+    //设置阴影
+    CALayer *layer = [CALayer layer];
+    layer.frame = self.pushBtn.frame;
+    layer.backgroundColor = RGB(45, 163, 255).CGColor;
+    layer.shadowColor = RGB(45, 163, 255).CGColor;
+    layer.shadowOffset = CGSizeMake(0, 2);
+    layer.shadowOpacity = 0.5;
+    layer.cornerRadius = 42/2;
+    [self.view.layer addSublayer:layer];
+    //一到最上层
+    [self.view bringSubviewToFront:self.pushBtn];
 }
 
 #pragma mark - UI -

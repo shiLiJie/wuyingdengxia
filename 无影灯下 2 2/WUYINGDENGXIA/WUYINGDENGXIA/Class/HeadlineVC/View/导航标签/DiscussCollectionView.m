@@ -8,10 +8,13 @@
 
 #import "DiscussCollectionView.h"
 #import "DiscussCell.h"
+#import "discussModel.h"
 
 static NSString *ID = @"DiscussCell";
 
 @interface DiscussCollectionView ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong) NSArray *modelArr;
 
 @end
 
@@ -30,6 +33,26 @@ static NSString *ID = @"DiscussCell";
         self.showsHorizontalScrollIndicator = NO;
         
         [self registerNib:[UINib nibWithNibName:[[DiscussCell class] description] bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:ID];
+        
+        self.modelArr = [[NSArray alloc] init];
+        
+        //请求后台热门讨论
+        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_hot_labelList?key_id=6"]]
+                                                    parameters:nil
+                                                       success:^(id obj) {
+                                                           NSArray *arr = obj[@"data"];
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < arr.count; i ++) {
+                                                               NSDictionary *dict = arr[i];
+                                                               [arrayM addObject:[discussModel discussWithDict:dict]];
+                                                               
+                                                           }
+                                                           self.modelArr= arrayM;
+                                                           [self reloadData];
+        }
+                                                          fail:^(NSError *error) {
+            
+        }];
         
     }
     
@@ -51,7 +74,7 @@ static NSString *ID = @"DiscussCell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return  3;
+    return  self.modelArr.count;
     
 }
 
@@ -61,6 +84,11 @@ static NSString *ID = @"DiscussCell";
 {
     
     DiscussCell *cell =  [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    
+    discussModel *model = [[discussModel alloc] init];
+    model = self.modelArr[indexPath.row];
+    
+    cell.discussLab.text = model.key_dis_title;
     
     cell.layer.cornerRadius = 3;
     cell.contentView.layer.cornerRadius = 3.0f;

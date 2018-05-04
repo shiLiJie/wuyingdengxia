@@ -15,6 +15,7 @@
 #import "PassMeetViewController.h"
 #import "PYSearch.h"
 #import "SearchResultVcViewController.h"
+#import "meetingModel.h"
 
 #define segViewHigh     44
 
@@ -62,8 +63,15 @@
     [self.view addSubview:_segView];
     
     self.searchBtn = [[UIButton alloc] init];
-    [self.searchBtn setImage:GetImage(@"zixun") forState:UIControlStateNormal];
+
     self.searchBtn.frame = CGRectMake(30, CGRectGetMaxY(_segView.frame)+6, kScreen_Width-60, 33);
+    [_searchBtn setBackgroundColor:RGB(245, 245, 245)];
+    [_searchBtn setImage:GetImage(@"Fill 1") forState:UIControlStateNormal];
+    [_searchBtn setTitle:@" 输入想要搜索的关键词" forState:UIControlStateNormal];
+    _searchBtn.titleLabel.font = SYSTEMFONT(12);
+    [_searchBtn setTitleColor:RGB(181, 181, 181) forState:UIControlStateNormal];
+    _searchBtn.layer.cornerRadius = 16.5;//半径大小
+    _searchBtn.layer.masksToBounds = YES;//是否切割
     [self.searchBtn addTarget:self action:@selector(gotoSearchKey) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.searchBtn];
     
@@ -153,9 +161,16 @@
 }
 
 #pragma mark - 会议资讯和往期回顾点击代理方法 -
--(void)meetTbleviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+-(void)meetTbleviewDidSelectPageWithIndex:(NSIndexPath *)indexPath meetingModel:(meetingModel *)meetmodel{
     
     MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
+    vc.meetName.text = meetmodel.meet_title;
+    vc.meetTime.text = meetmodel.begin_time;
+    NSLog(@"%@",meetmodel.begin_time);
+    NSLog(@"%@",meetmodel.meet_title);
+    vc.meetImage.image = GetImage(meetmodel.meeting_image);
+
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 

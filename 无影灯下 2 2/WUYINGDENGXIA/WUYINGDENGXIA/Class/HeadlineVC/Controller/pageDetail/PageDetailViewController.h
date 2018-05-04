@@ -10,4 +10,6 @@
 
 @interface PageDetailViewController : BaseViewController
 
+@property (nonatomic,copy) NSString *url;
+
 @end

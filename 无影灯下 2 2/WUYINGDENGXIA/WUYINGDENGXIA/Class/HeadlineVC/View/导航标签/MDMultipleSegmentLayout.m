@@ -56,7 +56,7 @@ NSInteger const MDItemsPerPage = 5;//一页最多4个
 // 设置内容区域大小
 -(CGSize)collectionViewContentSize{
     
-    NSLog(@"%lu",(unsigned long)_attributeAtts.count);
+//    NSLog(@"%lu",(unsigned long)_attributeAtts.count);
     
     return (_attributeAtts.count < MDItemsPerPage) ? self.collectionView.frame.size : CGSizeMake((SCREEN_WIDTH-44)/MDItemsPerPage * _attributeAtts.count,
                                                                                                   CGRectGetHeight(self.collectionView.frame));

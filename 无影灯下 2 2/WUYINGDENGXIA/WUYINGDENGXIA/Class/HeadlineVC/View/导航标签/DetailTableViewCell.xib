@@ -45,25 +45,25 @@
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WP-sL-hAu">
-                        <rect key="frame" x="20" y="43" width="566" height="24"/>
+                        <rect key="frame" x="20" y="47.5" width="566" height="24"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="17"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点赞数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qnk-YM-4eh">
-                        <rect key="frame" x="552" y="118" width="34" height="13.5"/>
+                        <rect key="frame" x="552" y="125.5" width="34" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浏览次数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hh0-0s-2e1">
-                        <rect key="frame" x="391.5" y="117.5" width="49.5" height="14.5"/>
+                        <rect key="frame" x="391.5" y="125" width="49.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbF-Nt-DaG">
-                        <rect key="frame" x="20" y="68" width="566" height="40"/>
+                        <rect key="frame" x="20" y="75.5" width="566" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="sot-tU-mvq"/>
                         </constraints>
@@ -73,7 +73,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zta-jh-trM">
-                        <rect key="frame" x="536" y="118.5" width="11" height="11"/>
+                        <rect key="frame" x="536" y="126" width="11" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="8md-Ro-S7g"/>
                             <constraint firstAttribute="width" constant="11" id="JzW-sP-mZF"/>
@@ -82,7 +82,7 @@
                         <state key="normal" image="dianzai"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKg-WJ-28S">
-                        <rect key="frame" x="461" y="119.5" width="13" height="12"/>
+                        <rect key="frame" x="461" y="127" width="13" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="QKq-UK-pWU"/>
                             <constraint firstAttribute="width" constant="13" id="lnx-wO-MLB"/>
@@ -90,7 +90,7 @@
                         <state key="normal" image="huifu"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzK-PS-VQb">
-                        <rect key="frame" x="373.5" y="120" width="13" height="11"/>
+                        <rect key="frame" x="373.5" y="127.5" width="13" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="TXr-On-TDq"/>
                             <constraint firstAttribute="width" constant="13" id="Yxf-wn-xhe"/>
@@ -98,7 +98,7 @@
                         <state key="normal" backgroundImage="guankan"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQU-oH-Ilk">
-                        <rect key="frame" x="479" y="117.5" width="37" height="14.5"/>
+                        <rect key="frame" x="479" y="125" width="37" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.74117647060000003" green="0.74117647060000003" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -136,29 +136,32 @@
                     <constraint firstItem="zta-jh-trM" firstAttribute="centerY" secondItem="Qnk-YM-4eh" secondAttribute="centerY" constant="-1" id="a2i-rZ-yrC"/>
                     <constraint firstItem="65p-Gq-g3P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="c4r-Aw-x6O"/>
                     <constraint firstItem="CKg-WJ-28S" firstAttribute="centerY" secondItem="AQU-oH-Ilk" secondAttribute="centerY" id="eK7-9s-cvr"/>
-                    <constraint firstItem="wbF-Nt-DaG" firstAttribute="top" secondItem="1WP-sL-hAu" secondAttribute="bottom" constant="1" id="hJq-LL-Ahc"/>
+                    <constraint firstItem="wbF-Nt-DaG" firstAttribute="top" secondItem="1WP-sL-hAu" secondAttribute="bottom" constant="4" id="hJq-LL-Ahc"/>
                     <constraint firstItem="wbF-Nt-DaG" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ii6-hd-SeY"/>
                     <constraint firstItem="wbF-Nt-DaG" firstAttribute="leading" secondItem="1WP-sL-hAu" secondAttribute="leading" id="lBk-JK-YhD"/>
                     <constraint firstItem="1WP-sL-hAu" firstAttribute="trailing" secondItem="Ihu-mz-oC1" secondAttribute="trailing" id="pbk-Y3-9OV"/>
                     <constraint firstItem="OXE-R5-uC4" firstAttribute="centerY" secondItem="65p-Gq-g3P" secondAttribute="centerY" id="pfN-Oe-X5b"/>
                     <constraint firstItem="Ihu-mz-oC1" firstAttribute="centerY" secondItem="OXE-R5-uC4" secondAttribute="centerY" id="rkk-qx-59c"/>
-                    <constraint firstItem="1WP-sL-hAu" firstAttribute="top" secondItem="OXE-R5-uC4" secondAttribute="bottom" constant="10" id="sqh-1c-dGG"/>
+                    <constraint firstItem="1WP-sL-hAu" firstAttribute="top" secondItem="OXE-R5-uC4" secondAttribute="bottom" constant="15" id="sqh-1c-dGG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="dianzanLab" destination="Qnk-YM-4eh" id="TKI-71-FMf"/>
                 <outlet property="headImage" destination="65p-Gq-g3P" id="5w3-WE-N3K"/>
+                <outlet property="liulanLab" destination="hh0-0s-2e1" id="Tn7-0S-1iq"/>
                 <outlet property="mainTitle" destination="1WP-sL-hAu" id="HOB-LW-na6"/>
                 <outlet property="pageDetail" destination="wbF-Nt-DaG" id="05L-oA-azq"/>
+                <outlet property="pinglunLab" destination="AQU-oH-Ilk" id="NMk-hU-rrp"/>
                 <outlet property="userName" destination="OXE-R5-uC4" id="d1Q-Iv-hgM"/>
             </connections>
-            <point key="canvasLocation" x="-20" y="60"/>
+            <point key="canvasLocation" x="-366" y="1"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="dianzai" width="13" height="13"/>
         <image name="guankan" width="14" height="12"/>
         <image name="huifu" width="14" height="13"/>
-        <image name="wenda" width="43" height="43"/>
+        <image name="wenda" width="49" height="49"/>
     </resources>
 </document>

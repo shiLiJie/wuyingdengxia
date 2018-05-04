@@ -31,6 +31,8 @@ typedef void(^clossViewBlock)(NSMutableArray *itemArray);
 //添加标签页我的导航标题配置属性
 @property(nonatomic,weak)UILabel *myTitleLab1;
 
+@property(nonatomic,assign) BOOL ishuanyipi;
+
 @property(nonatomic,copy)  clossViewBlock clossviewblock;
 
 //显示

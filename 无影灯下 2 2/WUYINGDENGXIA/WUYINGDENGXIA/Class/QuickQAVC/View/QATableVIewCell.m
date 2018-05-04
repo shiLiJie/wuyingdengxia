@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    [self setLabelHangjianj:self.detailPage];
 }
 
 #pragma mark - 按钮点击方法 -
@@ -25,6 +25,15 @@
 //点击回答按钮点击到回答页面
 - (IBAction)answerToAnswerPage:(UIButton *)sender {
     
+}
+
+
+-(void)setLabelHangjianj:(UILabel *)lab{
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:lab.text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:4];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [lab.text length])];
+    lab.attributedText = attributedString;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

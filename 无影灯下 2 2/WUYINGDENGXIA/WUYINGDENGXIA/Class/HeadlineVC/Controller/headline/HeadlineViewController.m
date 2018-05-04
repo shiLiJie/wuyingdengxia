@@ -24,6 +24,10 @@
 #import "SearchResultVcViewController.h"
 #import "MMScanViewController.h"
 #import "DiscussVc.h"
+#import "bannermodel.h"
+#import "lableModel.h"
+#import "bannerResultvc.h"
+#import "hotKeyModel.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
@@ -51,6 +55,8 @@
 @property (nonatomic, strong) DiscussCollectionView *discuss;
 //添加加号➕按钮
 @property (nonatomic, strong) UIButton *addMenuBtn;
+//获取标签数组
+@property (nonatomic, strong) NSArray *labelArr;
 
 
 
@@ -87,11 +93,18 @@
     [super viewDidLoad];
     //添加UI控件
     [self addUI];
-    
+    //加载数组
+    [self addArr];
 }
 
--(DetailTableViewController *)tablecontroller{
+//初始化数组
+-(void)addArr{
+    self.labelArr = [[NSArray alloc] init];
+}
+
+-(DetailTableViewController *)tablecontroller:(NSString *)lable{
     DetailTableViewController *vc = [[DetailTableViewController alloc] init];
+    vc.lable = lable;
     vc.delegate = self;
     __weak typeof(self) weakSelf = self;
     vc.DidScrollBlock = ^(CGFloat scrollY) {
@@ -132,6 +145,7 @@
     left.frame = CGRectMake(0, 0, 44, 60);
     [left setImage:GetImage(@"saoma") forState:UIControlStateNormal];
     [left setFont: [UIFont systemFontOfSize:14]];
+    left.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     return left;
 }
 
@@ -141,48 +155,9 @@
     [right setTitle:@"投稿" forState:UIControlStateNormal];
     [right setTitleColor:RGB(30, 150, 255) forState:UIControlStateNormal];
     [right setFont: [UIFont systemFontOfSize:17]];
+    right.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
     return right;
 }
-//搜索searchbar 禁用
-//- (UISearchBar *)searchBar
-//{
-//    if (_searchBar == nil) {
-//        _searchBar = [[UISearchBar alloc]init];
-//        if (kDevice_Is_iPhoneX) {
-//            _searchBar.frame = CGRectMake(45, 40, Main_Screen_Width-100, 44);
-//        }else{
-//            _searchBar.frame = CGRectMake(45, 15, Main_Screen_Width-100, 44);
-//        }
-//        _searchBar.userInteractionEnabled = NO;
-//        // 去除searchbar上下两条黑线及设置背景
-//        _searchBar.barTintColor = [UIColor whiteColor];
-//        _searchBar.layer.borderColor = [UIColor whiteColor].CGColor;
-//        _searchBar.layer.borderWidth = 1;
-//        [_searchBar sizeToFit];
-//        [_searchBar setPlaceholder:@"输入想要搜索的关键词"];
-//        [_searchBar setDelegate:self];
-//        [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-//        [_searchBar setTranslucent:NO];//设置是否透明
-//        [_searchBar setSearchBarStyle:UISearchBarStyleProminent];
-//        _searchBar.tintColor = [UIColor blackColor];
-//        //设置searchbar背景颜色
-//        for (UIView *subView in _searchBar.subviews) {
-//            if ([subView isKindOfClass:[UIView  class]]) {
-//                [[subView.subviews objectAtIndex:0] removeFromSuperview];
-//                if ([[subView.subviews objectAtIndex:0] isKindOfClass:[UITextField class]]) {
-//                    UITextField *textField = [subView.subviews objectAtIndex:0];
-//                    textField.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
-//                    if (kDevice_Is_iPhone5) {
-//                        textField.font = [UIFont systemFontOfSize:11];
-//                    }else{
-//                        textField.font = [UIFont systemFontOfSize:12];
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    return _searchBar;
-//}
 
 //搜索bar上边的按钮,实际点击的是他
 -(UIButton *)searchBtn{
@@ -190,13 +165,22 @@
         _searchBtn = [[UIButton alloc] init];
 //        _searchBtn.frame = _searchBar.frame;
         if (kDevice_Is_iPhoneX) {
-            _searchBtn.frame = CGRectMake(45, 50, Main_Screen_Width-90, 33);
+            _searchBtn.frame = CGRectMake(50, 48, Main_Screen_Width-105, 36);
         }else{
-            _searchBtn.frame = CGRectMake(45, 25, Main_Screen_Width-90, 33);
+            _searchBtn.frame = CGRectMake(50, 25, Main_Screen_Width-105, 36);
         }
         [_searchBtn addTarget:self action:@selector(setUpSearch) forControlEvents:UIControlEventTouchUpInside];
-        [_searchBtn setImage:GetImage(@"shouye") forState:UIControlStateNormal];
-        [_searchBtn setImage:GetImage(@"shouye") forState:UIControlStateHighlighted];
+        [_searchBtn setBackgroundColor:RGB(245, 245, 245)];
+        [_searchBtn setImage:GetImage(@"Fill 1") forState:UIControlStateNormal];
+        [_searchBtn setTitle:@"输入想要搜索的关键词" forState:UIControlStateNormal];
+        _searchBtn.titleLabel.font = SYSTEMFONT(12);
+        [_searchBtn setTitleColor:RGB(181, 181, 181) forState:UIControlStateNormal];
+        _searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+        _searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _searchBtn.layer.cornerRadius = 18;//半径大小
+        _searchBtn.layer.masksToBounds = YES;//是否切割
+
     }
     return _searchBtn;
 }
@@ -213,16 +197,45 @@
     _scrollView.imageRadius = 4; // 设置卡片圆角
     _scrollView.imageHeightPoor = 10; // 设置中间卡片与两边卡片的高度差
     // 设置要加载的图片
-    self.scrollView.data = @[@"http://d.hiphotos.baidu.com/image/pic/item/b7fd5266d016092408d4a5d1dd0735fae7cd3402.jpg",
-                             @"http://h.hiphotos.baidu.com/image/h%3D300/sign=2b3e022b262eb938f36d7cf2e56085fe/d0c8a786c9177f3e18d0fdc779cf3bc79e3d5617.jpg",
-                             @"http://a.hiphotos.baidu.com/image/pic/item/b7fd5266d01609240bcda2d1dd0735fae7cd340b.jpg",
-                             @"http://h.hiphotos.baidu.com/image/pic/item/728da9773912b31b57a6e01f8c18367adab4e13a.jpg",
-                             @"http://h.hiphotos.baidu.com/image/pic/item/0d338744ebf81a4c5e4fed03de2a6059242da6fe.jpg"];
-    _scrollView.placeHolderImage = [UIImage imageNamed:@""]; // 设置占位图片
-    [self.view addSubview:self.scrollView];
-    _scrollView.clickImageBlock = ^(NSInteger currentIndex) { // 点击中间图片的回调
+    
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allbanner"] parameters:nil success:^(id obj) {
+        NSMutableArray *bannermodelarr = [[NSMutableArray alloc] init];
+        NSArray *arr = obj[@"data"];
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (int i = 0; i < arr.count; i ++) {
+            NSDictionary *dict = arr[i];
+            [arrayM addObject:[bannermodel bannerWithDict:dict]];
+            
+        }
+        bannermodel *model = [[bannermodel alloc] init];
+        for (model in arrayM) {
+            [ bannermodelarr addObject:model.banner_imgpath];
+        }
+        weakSelf.scrollView.data = bannermodelarr;
+        _scrollView.placeHolderImage = [UIImage imageNamed:@""]; // 设置占位图片
+        [weakSelf.view addSubview:weakSelf.scrollView];
+        _scrollView.clickImageBlock = ^(NSInteger currentIndex) { // 点击中间图片的回调
+            bannermodel *model1 = [[bannermodel alloc] init];
+            model1 = arrayM[currentIndex];
+            //当前banner的链接,点的时候直接加载就ok
+            NSLog(@"%@",model1.banner_link);
+            bannerResultvc *vc = [[bannerResultvc alloc] init];
+            vc.url = model1.banner_link;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+            weakSelf.searchBar.hidden = YES;
+            weakSelf.searchBtn.hidden = YES;
+        };
+    } fail:^(NSError *error) {
+        
+    }];
+    //离线问题
+//    self.scrollView.data = @[@"http:\/\/yszg.oss-cn-beijing.aliyuncs.com\/user_1_dir\/98ad9161be2e1683a8cbd8fd4b47e291.jpg",
+//                             @"http://h.hiphotos.baidu.com/image/h%3D300/sign=2b3e022b262eb938f36d7cf2e56085fe/d0c8a786c9177f3e18d0fdc779cf3bc79e3d5617.jpg",
+//                             @"http://a.hiphotos.baidu.com/image/pic/item/b7fd5266d01609240bcda2d1dd0735fae7cd340b.jpg",
+//                             @"http://h.hiphotos.baidu.com/image/pic/item/728da9773912b31b57a6e01f8c18367adab4e13a.jpg",
+//                             @"http://h.hiphotos.baidu.com/image/pic/item/0d338744ebf81a4c5e4fed03de2a6059242da6fe.jpg"];
 
-    };
 }
 
 //添加segview标签控制器
@@ -231,7 +244,57 @@
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
     _segView.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width-segViewHigh, segViewHigh);
-    _segView.items = @[@"头条",@"热门", @"制标", @"动态", @"课题"];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labelList?user_id=%@&type=1",[UserInfoModel shareUserModel].userid]]
+                                                parameters:nil 
+                                                   success:^(id obj) {
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+
+            NSArray *arr = obj[@"data"];
+            NSMutableArray *arrayM = [NSMutableArray array];
+            for (int i = 0; i < arr.count; i ++) {
+                NSDictionary *dict = arr[i];
+                [arrayM addObject:[lableModel lableWithDict:dict]];
+                
+            }
+            self.labelArr= arrayM;
+            lableModel *model = [[lableModel alloc] init];
+            NSMutableArray *muArr = [[NSMutableArray alloc] init];
+            for (model in self.labelArr) {
+                [muArr addObject:model.key_name];
+            }
+            _segView.items = muArr;
+
+            //创建标签下table控制器
+            NSMutableArray *tableArr = [[NSMutableArray alloc] init];
+            for (int i = 0; i < muArr.count; i++) {
+                [tableArr addObject:[self tablecontroller:muArr[i]]];
+                
+            }
+            NSArray *tablearr = tableArr;
+            if (kDevice_Is_iPhoneX) {
+                _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                                      CGRectGetMaxY(_segView.frame)+78,
+                                                                                      Main_Screen_Width,
+                                                                                      Main_Screen_Height - 75-34)
+                                                                 withArray:tablearr];
+            }else{
+                _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                                      CGRectGetMaxY(_segView.frame)+78,
+                                                                                      Main_Screen_Width,
+                                                                                      Main_Screen_Height - 75)
+                                                                 withArray:tablearr];
+            }
+            
+            _collectView.delegate = self;
+            [self.view addSubview:_collectView];
+            
+        }else{
+            [MBProgressHUD showSuccess:obj[@"msg"]];
+        }
+    } fail:^(NSError *error) {
+        
+    }];
     [self.view addSubview:_segView];
     
     //添加加号➕按钮
@@ -242,29 +305,6 @@
     [self.addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.addMenuBtn];
     
-    NSArray *arr = @[
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     ];
-    if (kDevice_Is_iPhoneX) {
-        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                              CGRectGetMaxY(_segView.frame)+78,
-                                                                              Main_Screen_Width,
-                                                                              Main_Screen_Height - 75-34)
-                                                         withArray:arr];
-    }else{
-        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                              CGRectGetMaxY(_segView.frame)+78,
-                                                                              Main_Screen_Width,
-                                                                              Main_Screen_Height - 75)
-                                                         withArray:arr];
-    }
-    
-    _collectView.delegate = self;
-    [self.view addSubview:_collectView];
 }
 
 //添加讨论collection
@@ -289,8 +329,26 @@
 #pragma mark - 按钮action -
 //发表文章
 -(void)right_button_event:(UIButton*)sender{
-    PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
-    [self.navigationController pushViewController:publicPage animated:YES];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    //判断用户登录状态
+    if (user.loginStatus) {
+        //登录过了已经
+        PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
+        [self.navigationController pushViewController:publicPage animated:YES];
+    }else{
+        __weak typeof(self) weakSelf = self;
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            if (result) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+                PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
+                [weakSelf.navigationController pushViewController:publicPage animated:YES];
+            }
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
+
     self.searchBar.hidden = YES;
     self.searchBtn.hidden = YES;
     //先隐藏标签视图
@@ -300,10 +358,30 @@
 -(void)left_button_event:(UIButton *)sender{
     MMScanViewController *scanVc = [[MMScanViewController alloc] initWithQrType:MMScanTypeQrCode onFinish:^(NSString *result, NSError *error) {
         if (error) {
-            NSLog(@"error: %@",error);
+
         } else {
-            NSLog(@"扫描结果：%@",result);
-            [self showInfo:result];
+            UserInfoModel *user = [UserInfoModel shareUserModel];
+            [user loadUserInfoFromSanbox];
+            result = [result stringByAppendingString:[NSString stringWithFormat:@"&user_token=%@&user_id=%@",user.user_token,user.userid]];
+            
+            NSURL *url;
+            if ([result hasPrefix:@"http://"] || [result hasPrefix:@"https://"]) {
+                url = [NSURL URLWithString:result];
+            } else {
+                url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", result]];
+            }
+            
+            NSLog(@"%@",result);
+            
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            [manager GET:[url absoluteString] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if (responseObject)
+                {
+
+                }
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+            }];
         }
     }];
     [self.navigationController pushViewController:scanVc animated:YES];
@@ -322,8 +400,6 @@
 - (void)showInfo:(NSString*)str andTitle:(NSString *)title
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:str preferredStyle:UIAlertControllerStyleAlert];
-    
-    
     UIAlertAction *action1 = ({
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:NULL];
         action;
@@ -335,23 +411,43 @@
 - (void)setUpSearch
 {
     //先隐藏标签视图
-//    [self.newsMenu dismissNewsMenu];
+    [self.newsMenu dismissNewsMenu];
     [self.newsMenu setRecommentSubject];
-    //数据数组
-    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-    //创建搜索控制器
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        //创建搜索后的控制器
-        [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
+    
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_hotWords"]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                
+                                                       NSMutableArray *arrayy = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           hotKeyModel *model = [hotKeyModel hotKeyWithDict:dict];
+                                                           [arrayy addObject:model.search_content];
+                                                       }
+                                                       
+//                                                       self.modelArr= arrayM;
+                                                       //数据数组
+                                                       NSArray *hotSeaches = arrayy;
+                                                       //创建搜索控制器
+                                                       PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+                                                           //创建搜索后的控制器
+                                                           [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
+                                                       }];
+                                                       
+                                                       searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
+                                                       searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
+                                                       
+                                                       searchViewController.delegate = self;
+                                                       // 5. Present a navigation controller
+                                                       UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+                                                       [self presentViewController:nav animated:NO completion:nil];
+    }
+                                                      fail:^(NSError *error) {
+        
     }];
-    
-    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
-    searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
-    
-    searchViewController.delegate = self;
-    // 5. Present a navigation controller
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    [self presentViewController:nav animated:NO completion:nil];
+
 }
 
 
@@ -362,7 +458,7 @@
     self.newsMenu = sheetMenu;
     sheetMenu.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
     sheetMenu.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
-    [sheetMenu setRecommentSubject];
+//    [sheetMenu setRecommentSubject];
     //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
     [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
 //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);

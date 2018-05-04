@@ -12,7 +12,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    [self setLabelHangjianj:self.detailLab];
+}
+
+-(void)setLabelHangjianj:(UILabel *)lab{
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:lab.text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:4];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [lab.text length])];
+    lab.attributedText = attributedString;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
