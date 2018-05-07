@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) inputView *input;//输入框
 
+@property (nonatomic,copy) NSString *inputStr;
+
 @end
 
 @implementation DiscussVc
@@ -70,13 +72,40 @@
     
     self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     [self.view addSubview:self.input];
+    if (self.inputStr.length > 0) {
+        self.input.inputTextView.text = self.inputStr;
+    }
     self.input.delegate = self;
     [self.input inputViewShow];
 }
 
 #pragma mark - textinput代理 -
+-(void)giveText:(NSString *)text{
+    self.inputStr = text;
+}
+
 - (void)sendText:(NSString *)text{
     
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    NSDictionary *dict = @{
+                           @"key_dis_id":self.model.key_id,
+                           @"user_id":user.userid,
+                           @"key_dis_content":text
+                           };
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_key_dis"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+    } fail:^(NSError *error) {
+        
+    }];
     
 }
 

@@ -62,7 +62,7 @@
 - (void)initialProperty
 {
 //    _titleFont = [UIFont systemFontOfSize:16];
-    _titleFont = BOLDSYSTEMFONT(17);
+    _titleFont = BOLDSYSTEMFONT(14);
     _titleNormalColor = RGB(51, 51, 51);
     _titleSelectColor = RGB(10, 147, 255);
     _selectedSegmentIndex = 0;

@@ -38,6 +38,8 @@
         self.recom_num = dict[@"recom_num"];
         self.support_num = dict[@"support_num"];
         self.user_id = dict[@"user_id"];
+        self.headimg = dict[@"headimg"];
+        self.user_name = dict[@"user_name"];
         
     }
     return self;

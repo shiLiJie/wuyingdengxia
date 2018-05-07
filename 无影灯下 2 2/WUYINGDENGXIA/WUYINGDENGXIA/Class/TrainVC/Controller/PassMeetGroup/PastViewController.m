@@ -9,7 +9,11 @@
 #import "PastViewController.h"
 #import "MeetingNewCell.h"
 
+
 @interface PastViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) NSArray *huiguArr;
+
 
 @end
 
@@ -18,14 +22,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //获取往期回顾
+    [self getHuiguInfo];
+    
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+        self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+//获取往期回顾
+-(void)getHuiguInfo{
+    
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allreplay"] parameters:nil success:^(id obj) {
+        
+        NSArray *arr = obj[@"data"];
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (int i = 0; i < arr.count; i ++) {
+            NSDictionary *dict = arr[i];
+            [arrayM addObject:[huiguModel huiguWithDict:dict]];
+
+        }
+        weakSelf.huiguArr = arrayM;
+
+        [weakSelf.tableview reloadData];
+        
+    } fail:^(NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //    return self.dataArr.count;
-    return 7;
+    return self.huiguArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -47,6 +76,13 @@
         cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
         [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
         cell.baomingBtn.layer.borderWidth = 0.5f;//设置边框颜色
+        
+        huiguModel *model = [[huiguModel alloc] init];
+        model = self.huiguArr[indexPath.row];
+
+        cell.meetName.text = model.replay_title;
+        cell.meetTime.text = model.begin_time;
+
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -56,7 +92,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-        [self.delegate passTableviewDidSelectPageWithIndex:indexPath];
+    huiguModel *model = [[huiguModel alloc] init];
+    model = self.huiguArr[indexPath.row];
+    [self.delegate passTableviewDidSelectPageWithIndex:indexPath huiguModel:model];
 }
 
 - (void)didReceiveMemoryWarning {

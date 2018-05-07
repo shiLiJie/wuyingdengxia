@@ -8,7 +8,7 @@
 
 #import "DiscussCollectionView.h"
 #import "DiscussCell.h"
-#import "discussModel.h"
+
 
 static NSString *ID = @"DiscussCell";
 
@@ -118,10 +118,14 @@ static NSString *ID = @"DiscussCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.delegate1 respondsToSelector:@selector(clickDiscussToIndex:)]) {
-        [self.delegate1 clickDiscussToIndex:indexPath.row];
+    discussModel *model = [[discussModel alloc] init];
+    model = self.modelArr[indexPath.row];
+    
+
+    if ([self.delegate1 respondsToSelector:@selector(clickDiscussToIndex:discussModel:)]) {
+        [self.delegate1 clickDiscussToIndex:indexPath.row discussModel:model];
     }
-    NSLog(@"%ld",indexPath.row);
+    
 }
 
 

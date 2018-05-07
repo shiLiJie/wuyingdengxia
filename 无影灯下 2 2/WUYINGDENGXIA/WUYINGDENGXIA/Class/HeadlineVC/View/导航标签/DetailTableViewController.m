@@ -9,7 +9,7 @@
 #import "DetailTableViewController.h"
 #import "UIColor+Tools.h"
 #import "DetailTableViewCell.h"
-#import "pageModel.h"
+
 #import "UserInfoModel.h"
 
 @interface DetailTableViewController ()<UITableViewDataSource,UITableViewDelegate,DetailTableViewCellDelegate>
@@ -54,28 +54,7 @@
                                                        NSMutableArray *arrayM = [NSMutableArray array];
                                                        for (int i = 0; i < arr.count; i ++) {
                                                            NSDictionary *dict = arr[i];
-                                                           [arrayM addObject:[pageModel pageWithDict:dict]];
-                                                           
-                                                           
-//                                                           pageModel *page = [pageModel pageWithDict:dict];
-//                                                           [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myinfo?userid=%@",page.user_id]]
-//                                                                                                       parameters:nil
-//                                                                                                          success:^(id obj) {
-//
-//                                                                                                              NSArray *arr = obj[@"data"];
-//                                                                                                              NSMutableArray *arrayM1 = [NSMutableArray array];
-//                                                                                                              for (int i = 0; i < arr.count; i ++) {
-//                                                                                                                  NSDictionary *dict = arr[i];
-//                                                                                                                  [arrayM1 addObject:[userModel userWithDict:dict]];
-//
-//                                                                                                              }
-//                                                                                                              self.userArr = arrayM1;
-//
-//                                                                                                          }
-//                                                                                                             fail:^(NSError *error) {
-//
-//                                                                                                             }];
-                                                           
+                                                           [arrayM addObject:[pageModel pageWithDict:dict]];                                                           
                                                        }
                                                        
                                                        weakSelf.pageArr= arrayM;
@@ -120,6 +99,19 @@
     self.cell.pinglunLab.text = page.recom_num;
     self.cell.liulanLab.text = page.overlook_num;
     self.cell.dianzanLab.text = page.support_num;
+    if (kStringIsEmpty(page.user_name)) {
+        self.cell.userName.text = @"";
+    }else{
+        self.cell.userName.text = page.user_name;
+    }
+    if (kStringIsEmpty(page.headimg)) {
+        [self.cell.headImage setBackgroundImage:GetImage(@"tx") forState:UIControlStateNormal];
+    }else{
+        [self.cell.headImage setImage:GetImage(page.headimg) forState:UIControlStateNormal];
+    }
+    
+//    [self.cell.headImage.imageView sd_setImageWithURL:[NSURL URLWithString:page.headimg] placeholderImage:GetImage(@"tx")];
+//    [self.cell.headImage setImage:GetImage(@"tx") forState:UIControlStateNormal];
     
 //    userModel *user = self.userArr[indexPath.row];
 //    if (![user.userReal_name  isKindOfClass:[NSNull class]]) {
@@ -139,8 +131,12 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([self.delegate respondsToSelector:@selector(tableviewDidSelectPageWithIndex:)]) {
-        [self.delegate tableviewDidSelectPageWithIndex:indexPath];
+    
+    pageModel *page = [[pageModel alloc] init];
+    page = self.pageArr[indexPath.row];
+    
+    if ([self.delegate respondsToSelector:@selector(tableviewDidSelectPageWithIndex:article_id:user_id:pageModle:)]) {
+        [self.delegate tableviewDidSelectPageWithIndex:indexPath article_id:page.article_id user_id:page.user_id pageModle:page];
         
     }
 }

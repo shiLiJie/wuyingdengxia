@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "meetingDetailModel.h"
 
 @interface SignUpViewController : BaseViewController
+
+@property (nonatomic, strong) meetingDetailModel *meetdetailModel;
 
 @end

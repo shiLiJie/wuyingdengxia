@@ -57,6 +57,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="meetName" destination="YVE-t4-xsu" id="EfU-47-ixL"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="-346"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KaG-qK-8DB" customClass="SignUpTableViewCell">
@@ -103,6 +106,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="czs-km-iWP"/>
+            <connections>
+                <outlet property="meetTime" destination="tum-Ak-PVJ" id="dp0-fE-8Jk"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="-258"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="HQS-67-edR" customClass="SignUpTableViewCell">
@@ -149,6 +155,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="mTV-Qo-B34"/>
+            <connections>
+                <outlet property="userName" destination="rAH-iF-hsN" id="CMy-i7-NuX"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="-177"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="oed-lz-n3X" customClass="SignUpTableViewCell">
@@ -195,6 +204,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="qrL-jK-fcQ"/>
+            <connections>
+                <outlet property="userPhone" destination="nrd-cB-EeD" id="XSW-dG-dr4"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="-95"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KK2-33-3Cn" customClass="SignUpTableViewCell">
@@ -241,6 +253,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="g1N-GI-zvj"/>
+            <connections>
+                <outlet property="userShenfenid" destination="Xo9-0F-EVG" id="aFD-o3-e80"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="-13"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="TYF-kw-LTd" customClass="SignUpTableViewCell">
@@ -287,6 +302,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="cIn-5X-JLl"/>
+            <connections>
+                <outlet property="userSex" destination="OAy-ac-0hD" id="T5t-Ro-vtF"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="69"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="iQ8-d6-ze0" customClass="SignUpTableViewCell">
@@ -333,6 +351,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="3bT-YI-hTm"/>
+            <connections>
+                <outlet property="danwei" destination="vE5-HZ-nRh" id="P8D-zr-wmD"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="159"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hWP-fd-QGD" customClass="SignUpTableViewCell">
@@ -379,6 +400,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="Y8N-dt-lLt"/>
+            <connections>
+                <outlet property="bumen" destination="mFn-jg-acj" id="Lyh-OW-jcO"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="246"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nUU-nI-OKK" customClass="SignUpTableViewCell">
@@ -425,6 +449,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="bTm-HI-p0v"/>
+            <connections>
+                <outlet property="zhiwu" destination="pba-a7-fei" id="z3n-tJ-CMy"/>
+            </connections>
             <point key="canvasLocation" x="-190" y="327"/>
         </tableViewCell>
     </objects>

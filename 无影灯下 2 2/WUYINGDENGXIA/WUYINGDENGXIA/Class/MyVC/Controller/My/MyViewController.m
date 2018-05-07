@@ -47,6 +47,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    //个人信息设置
+    [self userInfo];
+    
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     [super viewWillAppear:nil];
 }
@@ -75,6 +78,8 @@
     // 可以理解为设置label可被点击
     self.fensiLab .userInteractionEnabled = YES;
     self.fensiNum .userInteractionEnabled = YES;
+    
+
 }
 
 
@@ -83,6 +88,29 @@
 {
     return YES;
 }
+//个人信息设置
+-(void)userInfo{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+        self.userName.text = user.userName !=nil ? user.userName : @"您的昵称";
+        self.fensiNum.text = user.fansnum !=nil ? user.userName : @"0";
+        self.zanNum.text = user.supportnum !=nil ? user.userName : @"0";
+        [self.yueliangbiNum setTitle:user.moon_cash !=nil ? user.moon_cash : @" 0" forState:UIControlStateNormal];
+        if ([user.isV isEqualToString:0]) {
+            self.vipImage.image = GetImage(@"v");
+        }
+    }else{
+        self.headImage.image = GetImage(@"tx");
+        self.userName.text = @"您的昵称";
+        self.fensiNum.text = @"0";
+        self.zanNum.text = @"0";
+        [self.yueliangbiNum setTitle:@" 0" forState:UIControlStateNormal];
+        self.vipImage.image = GetImage(@"v1");
+    }
+}
+
 //四个大按钮
 -(void)addBtn{
     

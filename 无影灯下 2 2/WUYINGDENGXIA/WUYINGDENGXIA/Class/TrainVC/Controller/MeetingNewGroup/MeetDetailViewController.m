@@ -9,6 +9,7 @@
 #import "MeetDetailViewController.h"
 #import "MeetRichengCell.h"
 #import "SignUpViewController.h"
+#import "meetingDetailModel.h"
 
 @interface MeetDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 //会议介绍按钮是否展开
@@ -18,13 +19,17 @@
 //自定义cell
 @property (nonatomic, strong) MeetRichengCell * cell;
 //时间段模拟数据
-@property (nonatomic, strong) NSArray *timeaArr;
+@property (nonatomic, strong) NSMutableArray *timeaArr;
 //具体内容模拟数据
-@property (nonatomic, strong) NSArray *detailaArr;
+@property (nonatomic, strong) NSMutableArray *detailaArr;
 //加载数据的条数
 @property (nonatomic, assign) NSInteger arrCount;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
 @property (nonatomic, assign) CGFloat viewheight;
+
+@property (nonatomic, strong) meetingDetailModel *meetdetailModel;
+
+
 
 @end
 
@@ -32,8 +37,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.timeaArr = @[@"09.00--09.10",@"09.00--09.10",@"09.00--09.10",@"09.00--09.10",@"09.00--09.10",@"09.00--09.10"];
-    self.detailaArr = @[@"此文是对数组",@"a:Foundation中数组(NSArray)是有序的对象集合",@"b:NSArray只能存储",@"Objective-C的对象，而不能存储像int、float这些基本数据类型，但是Objective-C对C兼容",@"所以在Objective-C程序中，仍然可以使用C的数组来存储基本数据类型",@"c:NSArray一旦创建便不可以再对它就进行更改，如果要进行对数组的增、删、改等操作的话，需要使用NSArray的子类NSMutableArray来创建对象"];
+    
+    //获取会议详情信息
+    [self getMeetDetailInfo];
+    
+    self.timeaArr = [[NSMutableArray alloc] init];
+    self.detailaArr = [[NSMutableArray alloc] init];
     
     //给会议日程加载多少条赋值
     self.arrCount = self.timeaArr.count>2 ? 2 : self.timeaArr.count;
@@ -69,7 +78,14 @@
     //设置lab行间距
     [self setLabelHangjianj:self.meetDetailText];
     [self setLabelHangjianj:self.meetAddress];
-
+    
+    // 接收分享回调通知
+    //监听通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"WXShare" object:nil];
+    // 检查是否装了微信
+    if ([WXApi isWXAppInstalled]) {
+        
+    }
 }
 
 //由于Scroller不滚动,没办法才在didappear里设置滚动范围
@@ -92,6 +108,48 @@
 }
 
 #pragma mark - UI -
+-(void)getMeetDetailInfo{
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_meeting_byid?meet_id=%@",self.meetId]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+//                                                       NSLog(@"%@",obj);
+                                                       NSDictionary *dict = obj[@"data"];
+                                                       self.meetdetailModel = [meetingDetailModel meedetailtWithDict:dict];
+                                                       //设置视图内容
+                                                       self.meetName.text = self.meetdetailModel.meet_title;
+                                                       self.meetTime.text = self.meetdetailModel.begin_time;
+                                                       self.meetAddress.text = self.meetdetailModel.meet_address;
+                                                       self.meetDetailText.text = self.meetdetailModel.meet_content;
+                                                       
+                                                       self.meetdetailModel.meet_date = dict[@"meet_date"];
+                                                       NSArray *arr = dict[@"meet_date"];
+                                                       if (kArrayIsEmpty(arr)) {
+                                                           return;
+                                                       }
+                                                       NSDictionary *dic = arr[0];
+                                                       NSArray *arry = [dic objectForKey:@"meet_class"];
+                                                       NSDictionary *dicy = [[NSDictionary alloc] init];
+                                                       for (dicy in arry) {
+//                                                           [self.timeaArr addObject:dicy[@"meet_class_begin"]];
+//                                                           [self.timeaArr addObject:dicy[@"meet_class_end"]];
+                                                           NSString *timeStr = [NSString stringWithFormat:@"%@-%@",dicy[@"meet_class_begin"],dicy[@"meet_class_end"]];
+                                                           [self.timeaArr addObject:timeStr];
+                                                           [self.detailaArr addObject:dicy[@"main_content"]];
+                                                           
+                                                       }
+                                                       
+                                                       //给会议日程加载多少条赋值
+                                                       self.arrCount = self.timeaArr.count>2 ? 2 : self.timeaArr.count;
+                                                       [self.meetImage sd_setImageWithURL:[NSURL URLWithString:self.meetdetailModel.meeting_image] placeholderImage:GetImage(@"")];
+                                                       [self.richengTableView reloadData];
+
+
+    }
+                                                      fail:^(NSError *error) {
+        
+    }];
+}
+
 -(NSMutableAttributedString *)setTitle{
     return [self changeTitle:@"会议名称不能也不能太长"];
 }
@@ -104,6 +162,16 @@
     return NO;
 }
 
+#pragma mark - 私有action -
+- (void)getOrderPayResult:(NSNotification *)notification
+{
+    // 注意通知内容类型的匹配
+    if (notification.object == 0)
+    {
+        NSLog(@"分享成功");
+    }
+}
+
 //左侧按钮设置点击
 -(UIButton *)set_leftButton{
     UIButton *btn = [[UIButton alloc] init];
@@ -112,21 +180,38 @@
     return btn;
 }
 
-//右上角分享
--(UIButton *)set_rightButton{
-    UIButton *btn = [[UIButton alloc] init];
-    btn.frame = CGRectMake(kScreen_Width-44, 0, 44, 60);
-    [btn setImage:GetImage(@"fenxiang") forState:UIControlStateNormal];
-    return btn;
-}
 
 -(void)left_button_event:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)right_button_event:(UIButton *)sender{
-    
-}
+////右上角分享
+//-(UIButton *)set_rightButton{
+//    UIButton *btn = [[UIButton alloc] init];
+//    btn.frame = CGRectMake(kScreen_Width-44, 0, 44, 60);
+//    [btn setImage:GetImage(@"fenxiang") forState:UIControlStateNormal];
+//    return btn;
+//}
+//
+//-(void)right_button_event:(UIButton *)sender{
+//    WXMediaMessage * message = [WXMediaMessage message];
+//    message.title = @"会议名称";
+//    message.description = @"会议摘要";
+//    [message setThumbImage:[UIImage imageNamed:@"tx"]];
+//    
+//    WXWebpageObject * webpageObject = [WXWebpageObject object];
+//    webpageObject.webpageUrl = @"http://www.yszg.org";
+//    message.mediaObject = webpageObject;
+//    
+//    SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];
+//    req.bText = NO;
+//    
+//    req.message = message;
+//    req.scene = WXSceneSession;
+//    
+//    [WXApi sendReq:req];
+//    
+//}
 
 -(NSMutableAttributedString *)changeTitle:(NSString *)curTitle
 {
@@ -148,6 +233,8 @@
 //参会按钮点击
 - (IBAction)joinMeetBtnClick:(UIButton *)sender {
     SignUpViewController *vc = [[SignUpViewController alloc] init];
+    vc.meetdetailModel = [[meetingDetailModel alloc] init];
+    vc.meetdetailModel = self.meetdetailModel;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

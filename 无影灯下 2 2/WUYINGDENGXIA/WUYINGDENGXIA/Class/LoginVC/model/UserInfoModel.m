@@ -42,42 +42,116 @@ static UserInfoModel * _userInfoModel;
     
     
     NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.userName forKey:@"username"];
-    [defaults setBool:self.loginStatus forKey:LoginStatusKey];
-    [defaults setObject:self.passWord forKey:PwdKey];
     
-    [defaults setObject:self.phoneNum forKey:@"phoneNum"];
-    [defaults setObject:self.userReal_name forKey:@"userReal_name;"];
-    [defaults setObject:self.userEmail forKey:@"userEmail"];
-    [defaults setObject:self.usercity forKey:@"usercity"];
-    [defaults setObject:self.userLoginway forKey:@"userLoginway"];
-    [defaults setObject:self.userIdcard forKey:@"userIdcard"];
-    [defaults setObject:self.usersex forKey:@"usersex"];
-    [defaults setObject:self.userHospital forKey:@"userHospital"];
-    [defaults setObject:self.userOffice forKey:@"userOffice"];
-    [defaults setObject:self.userTitle forKey:@"userTitle"];
-    [defaults setObject:self.userPost forKey:@"userPost"];
-    [defaults setObject:self.userUnit forKey:@"userUnit"];
-    [defaults setObject:self.userPosition forKey:@"userPosition"];
-    [defaults setObject:self.userSchool forKey:@"userSchool"];
-    [defaults setObject:self.userMajor forKey:@"userMajor"];
-    [defaults setObject:self.userDegree forKey:@"userDegree"];
-    [defaults setObject:self.userStschool forKey:@"userStschool"];
-    [defaults setObject:self.userid forKey:@"userid"];
-    [defaults setObject:self.ishead forKey:@"ishead"];
-    [defaults setObject:self.useravatar_id forKey:@"useravatar_id"];
-    [defaults setObject:self.usertoken forKey:@"usertoken"];
-    [defaults setObject:self.certid forKey:@"certid"];
-    [defaults setObject:self.isV forKey:@"isV"];
-    [defaults setObject:self.isfinishCer forKey:@"isfinishCer"];
-    [defaults setObject:self.isphoneverify forKey:@"isphoneverify"];
-    [defaults setObject:self.last_login_time forKey:@"last_login_time"];
-    [defaults setObject:self.ctime forKey:@"ctime"];
-    [defaults setObject:self.isadmin forKey:@"isadmin"];
-    [defaults setObject:self.headimg forKey:@"headimg"];
-    [defaults setObject:self.fansnum forKey:@"fansnum"];
-    [defaults setObject:self.supportnum forKey:@"supportnum"];
-    [defaults setObject:self.user_token forKey:@"user_token"];
+    if (!kObjectIsEmpty(self.userName)) {
+        [defaults setObject:self.userName forKey:@"username"];
+    }
+    
+//    if (!kObjectIsEmpty(self.loginStatus)) {
+        [defaults setBool:self.loginStatus forKey:LoginStatusKey];
+//    }
+    if (!kObjectIsEmpty(self.passWord)) {
+        [defaults setObject:self.passWord forKey:PwdKey];
+    }
+    if (!kObjectIsEmpty(self.phoneNum)) {
+        [defaults setObject:self.phoneNum forKey:@"phoneNum"];
+    }
+    if (!kObjectIsEmpty(self.userReal_name)) {
+        [defaults setObject:self.userReal_name forKey:@"userReal_name;"];
+    }
+    if (!kObjectIsEmpty(self.userEmail)) {
+        [defaults setObject:self.userEmail forKey:@"userEmail"];
+    }
+    if (!kObjectIsEmpty(self.usercity)) {
+        [defaults setObject:self.usercity forKey:@"usercity"];
+    }
+    if (!kObjectIsEmpty(self.userLoginway)) {
+        [defaults setObject:self.userLoginway forKey:@"userLoginway"];
+    }
+    if (!kObjectIsEmpty(self.userIdcard)) {
+        [defaults setObject:self.userIdcard forKey:@"userIdcard"];
+    }
+    if (!kObjectIsEmpty(self.usersex)) {
+        [defaults setObject:self.usersex forKey:@"usersex"];
+    }
+    if (!kObjectIsEmpty(self.userHospital)) {
+        [defaults setObject:self.userHospital forKey:@"userHospital"];
+    }
+    if (!kObjectIsEmpty(self.userOffice)) {
+        [defaults setObject:self.userOffice forKey:@"userOffice"];
+    }
+    if (!kObjectIsEmpty(self.userTitle)) {
+        [defaults setObject:self.userTitle forKey:@"userTitle"];
+    }
+    if (!kObjectIsEmpty(self.userPost)) {
+        [defaults setObject:self.userPost forKey:@"userPost"];
+    }
+    if (!kObjectIsEmpty(self.userUnit)) {
+        [defaults setObject:self.userUnit forKey:@"userUnit"];
+    }
+    if (!kObjectIsEmpty(self.userPosition)) {
+        [defaults setObject:self.userPosition forKey:@"userPosition"];
+    }
+    if (!kObjectIsEmpty(self.userSchool)) {
+        [defaults setObject:self.userSchool forKey:@"userSchool"];
+    }
+    if (!kObjectIsEmpty(self.userMajor)) {
+        [defaults setObject:self.userMajor forKey:@"userMajor"];
+    }
+    if (!kObjectIsEmpty(self.userDegree)) {
+        [defaults setObject:self.userDegree forKey:@"userDegree"];
+    }
+    if (!kObjectIsEmpty(self.userStschool)) {
+        [defaults setObject:self.userStschool forKey:@"userStschool"];
+    }
+    if (!kObjectIsEmpty(self.userid)) {
+        [defaults setObject:self.userid forKey:@"userid"];
+    }
+    if (!kObjectIsEmpty(self.ishead)) {
+        [defaults setObject:self.ishead forKey:@"ishead"];
+    }
+    if (!kObjectIsEmpty(self.useravatar_id)) {
+        [defaults setObject:self.useravatar_id forKey:@"useravatar_id"];
+    }
+    if (!kObjectIsEmpty(self.usertoken)) {
+        [defaults setObject:self.usertoken forKey:@"usertoken"];
+    }
+    if (!kObjectIsEmpty(self.certid)) {
+        [defaults setObject:self.certid forKey:@"certid"];
+    }
+    if (!kObjectIsEmpty(self.isV)) {
+        [defaults setObject:self.isV forKey:@"isV"];
+    }
+    if (!kObjectIsEmpty(self.isfinishCer)) {
+        [defaults setObject:self.isfinishCer forKey:@"isfinishCer"];
+    }
+    if (!kObjectIsEmpty(self.isphoneverify)) {
+        [defaults setObject:self.isphoneverify forKey:@"isphoneverify"];
+    }
+    if (!kObjectIsEmpty(self.last_login_time)) {
+        [defaults setObject:self.last_login_time forKey:@"last_login_time"];
+    }
+    if (!kObjectIsEmpty(self.ctime)) {
+        [defaults setObject:self.ctime forKey:@"ctime"];
+    }
+    if (!kObjectIsEmpty(self.isadmin)) {
+        [defaults setObject:self.isadmin forKey:@"isadmin"];
+    }
+    if (!kObjectIsEmpty(self.headimg)) {
+        [defaults setObject:self.headimg forKey:@"headimg"];
+    }
+    if (!kObjectIsEmpty(self.fansnum)) {
+        [defaults setObject:self.fansnum forKey:@"fansnum"];
+    }
+    if (!kObjectIsEmpty(self.supportnum)) {
+        [defaults setObject:self.supportnum forKey:@"supportnum"];
+    }
+    if (!kObjectIsEmpty(self.user_token)) {
+        [defaults setObject:self.user_token forKey:@"user_token"];
+    }
+    if (!kObjectIsEmpty(self.moon_cash)) {
+        [defaults setObject:self.moon_cash forKey:@"moon_cash"];
+    }
 
     [defaults synchronize];
 }
@@ -125,6 +199,7 @@ static UserInfoModel * _userInfoModel;
     self.fansnum = [defaults objectForKey:@"fansnum"];
     self.supportnum = [defaults objectForKey:@"supportnum"];
     self.user_token = [defaults objectForKey:@"user_token"];
+    self.moon_cash = [defaults objectForKey:@"moon_cash"];
     
 }
 

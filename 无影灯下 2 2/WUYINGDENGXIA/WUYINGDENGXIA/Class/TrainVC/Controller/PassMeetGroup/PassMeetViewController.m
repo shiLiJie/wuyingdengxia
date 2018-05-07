@@ -20,6 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_allreplay_byid?replay_id=%@",self.huiguModel.replay_id]] parameters:nil success:^(id obj) {
+        //
+        NSLog(@"%@",obj);
+    } fail:^(NSError *error) {
+        //
+    }];
+    
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -29,6 +36,7 @@
 -(NSMutableAttributedString *)setTitle{
     return [self changeTitle:@"会议名称不能也不能太长"];
 }
+
 //左侧按钮设置点击
 -(UIButton *)set_leftButton{
     UIButton *btn = [[UIButton alloc] init];

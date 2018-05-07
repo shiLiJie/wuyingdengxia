@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.meetingArr = [[NSArray alloc] init];
+
     //获取会议
     [self getMeetInfo];
     
@@ -79,6 +79,11 @@
         cell.meetImage.image = GetImage(model.meeting_image);
         cell.meetName.text = model.meet_title;
         cell.meetTime.text = model.begin_time;
+        if (![model.isfinish isEqualToString:@"0"]) {
+            cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
+            [cell.baomingBtn setTitle:@"未开始" forState:UIControlStateNormal];
+            [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
+        }
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -90,7 +95,9 @@
     
     meetingModel *model = [[meetingModel alloc] init];
     model = self.meetingArr[indexPath.row];
-    [self.delegate meetTbleviewDidSelectPageWithIndex:indexPath meetingModel:model];
+    if ([self.delegate respondsToSelector:@selector(meetTbleviewDidSelectPageWithIndex:meetingModel:)]) {
+        [self.delegate meetTbleviewDidSelectPageWithIndex:indexPath meetingModel:model];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

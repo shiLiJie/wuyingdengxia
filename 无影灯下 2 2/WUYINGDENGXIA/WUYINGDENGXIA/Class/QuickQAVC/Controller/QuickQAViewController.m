@@ -19,6 +19,7 @@
 #import "PYSearch.h"
 #import "SearchResultVcViewController.h"
 #import "MyTiwenVc.h"
+#import "lableModel.h"
 
 @interface QuickQAViewController ()<MDMultipleSegmentViewDeletegate,
                                     MDFlipCollectionViewDelegate,
@@ -37,6 +38,9 @@
 @property(nonatomic, strong) UIView *shuView;
 //兴趣标签编辑界面
 @property(nonatomic, strong) ZZNewsSheetMenu *newsMenu;
+
+//获取标签数组
+@property (nonatomic, strong) NSArray *labelArr;
 
 @end
 
@@ -161,13 +165,68 @@
     
     _segView = [[MDMultipleSegmentView alloc] init];
     _segView.delegate =  self;
+
     if (kDevice_Is_iPhoneX) {
         _segView.frame = CGRectMake(0,90, Main_Screen_Width-44, segViewHigh);
     }else{
         _segView.frame = CGRectMake(0,66, Main_Screen_Width-44, segViewHigh);
     }
     
-    _segView.items = @[@"问题1",@"问题2",@"问题3",@"问题4",@"问题5"];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labelList?user_id=%@&type=2",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSArray *arr = obj[@"data"];
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < arr.count; i ++) {
+                                                               NSDictionary *dict = arr[i];
+                                                               [arrayM addObject:[lableModel lableWithDict:dict]];
+                                                               
+                                                           }
+                                                           self.labelArr= arrayM;
+                                                           lableModel *model = [[lableModel alloc] init];
+                                                           NSMutableArray *muArr = [[NSMutableArray alloc] init];
+                                                           for (model in self.labelArr) {
+                                                               [muArr addObject:model.key_name];
+                                                           }
+                                                           _segView.items = muArr;
+                                                           
+                                                           //创建标签下table控制器
+                                                           NSMutableArray *tableArr = [[NSMutableArray alloc] init];
+                                                           for (int i = 0; i < muArr.count; i++) {
+                                                               [tableArr addObject:[self tablecontroller:self.labelArr[i]]];
+                                                               
+                                                           }
+
+                                                           if (kDevice_Is_iPhoneX) {
+                                                               _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                                                                                     CGRectGetMaxY(_segView.frame)+2,
+                                                                                                                                     Main_Screen_Width,
+                                                                                                                                     Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame)-34)
+                                                                                                                withArray:tableArr];
+                                                           }else{
+                                                               _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                                                                                     CGRectGetMaxY(_segView.frame)+2,
+                                                                                                                                     Main_Screen_Width,
+                                                                                                                                     Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame))
+                                                                                                                withArray:tableArr];
+                                                           }
+
+                                                           
+                                                           _collectView.delegate = self;
+                                                           [self.view addSubview:_collectView];
+                                                           
+                                                       }else{
+                                                           [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                       }
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
+    
     [self.view addSubview:_segView];
     //标签下边的灰色横线
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame)+1, Main_Screen_Width, 0.5)];
@@ -180,30 +239,7 @@
     [addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:addMenuBtn];
-    
-    NSArray *arr = @[
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     [self tablecontroller],
-                     ];
-    if (kDevice_Is_iPhoneX) {
-        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                              CGRectGetMaxY(_segView.frame)+2,
-                                                                              Main_Screen_Width,
-                                                                              Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame)-34)
-                                                         withArray:arr];
-    }else{
-        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                              CGRectGetMaxY(_segView.frame)+2,
-                                                                              Main_Screen_Width,
-                                                                              Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame))
-                                                         withArray:arr];
-    }
-    
-    _collectView.delegate = self;
-    [self.view addSubview:_collectView];
+
 }
 
 //设置导航栏背景色
@@ -242,9 +278,13 @@
     [self.newsMenu dismissNewsMenu];
 }
 
--(QATableVIewController *)tablecontroller{
+
+-(QATableVIewController *)tablecontroller:(lableModel *)lable{
     QATableVIewController *vc = [[QATableVIewController alloc] init];
+    vc.lablemodel = [[lableModel alloc] init];
+    vc.lablemodel = lable;
     vc.delegate = self;
+
     return vc;
 }
 

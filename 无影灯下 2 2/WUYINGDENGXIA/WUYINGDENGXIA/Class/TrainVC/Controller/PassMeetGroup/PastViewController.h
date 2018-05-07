@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "huiguModel.h"
+
 
 @protocol PassDelegate<NSObject>
 
 @optional
 
 //监听点击table点击的索引
--(void)passTableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath;
+-(void)passTableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath huiguModel:(huiguModel *)huiyiModel;
 
 @end
 

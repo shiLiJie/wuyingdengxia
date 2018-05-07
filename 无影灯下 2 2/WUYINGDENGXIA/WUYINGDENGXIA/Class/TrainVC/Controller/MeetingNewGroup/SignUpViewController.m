@@ -65,6 +65,7 @@
     [self.view.layer addSublayer:layer];
     //一到最上层
     [self.view bringSubviewToFront:self.pushBtn];
+    
 }
 
 #pragma mark - UI -
@@ -274,14 +275,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
     static NSString *cellIndentifier = @"SignUpTableViewCell";//这里的cellID就是cell的xib对应的名称
     SignUpTableViewCell *cell = (SignUpTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
     if(nil == cell) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:cellIndentifier owner:self options:nil];
         if (indexPath.section == 0) {
             cell = [nib objectAtIndex:indexPath.row];
+            cell.meetName.text = self.meetdetailModel.meet_title;
+            cell.meetTime.text = [NSString stringWithFormat:@"%@",self.meetdetailModel.begin_time];
+            
         }else{
             cell = [nib objectAtIndex:indexPath.row+2];
+            
+            cell.userName.text = user.userReal_name;
+            cell.userPhone.text = user.phoneNum;
+            cell.userShenfenid.text = user.useravatar_id;
+            cell.userSex.text = user.usersex;
+            cell.danwei.text = user.userUnit;
+            cell.bumen.text = user.userOffice;
+            cell.zhiwu.text = user.userPost;
+
         }
         
     }

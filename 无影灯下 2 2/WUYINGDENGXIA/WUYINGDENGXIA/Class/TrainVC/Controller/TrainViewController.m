@@ -16,6 +16,7 @@
 #import "PYSearch.h"
 #import "SearchResultVcViewController.h"
 #import "meetingModel.h"
+#import "huiguModel.h"
 
 #define segViewHigh     44
 
@@ -164,20 +165,16 @@
 -(void)meetTbleviewDidSelectPageWithIndex:(NSIndexPath *)indexPath meetingModel:(meetingModel *)meetmodel{
     
     MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
-    vc.meetName.text = meetmodel.meet_title;
-    vc.meetTime.text = meetmodel.begin_time;
-    NSLog(@"%@",meetmodel.begin_time);
-    NSLog(@"%@",meetmodel.meet_title);
-    vc.meetImage.image = GetImage(meetmodel.meeting_image);
-
-    
+    vc.meetId = meetmodel.meet_id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
--(void)passTableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+-(void)passTableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath huiguModel:(huiguModel *)huiyiModel{
+ 
     PassMeetViewController *vc = [[PassMeetViewController alloc] init];
+    vc.huiguModel = [[huiguModel alloc] init];
+    vc.huiguModel = huiyiModel;
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 

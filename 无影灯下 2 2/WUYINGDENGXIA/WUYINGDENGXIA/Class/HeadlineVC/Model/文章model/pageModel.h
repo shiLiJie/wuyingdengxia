@@ -34,6 +34,8 @@
 @property (nonatomic, copy) NSString *recom_num;//
 @property (nonatomic, copy) NSString *support_num;//
 @property (nonatomic, copy) NSString *user_id;//
+@property (nonatomic, copy) NSString *headimg;//
+@property (nonatomic, copy) NSString *user_name;//
 
 + (instancetype)pageWithDict:(NSDictionary *)dict;
 

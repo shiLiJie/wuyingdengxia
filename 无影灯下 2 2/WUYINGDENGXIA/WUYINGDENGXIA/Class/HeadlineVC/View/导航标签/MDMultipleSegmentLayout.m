@@ -29,6 +29,7 @@ NSInteger const MDItemsPerPage = 5;//一页最多4个
     if (_attributeAtts.count) {
         return;
     }
+    
     for (int i = 0; i < _totalItemsNum; i ++) {
         
         UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
@@ -36,11 +37,11 @@ NSInteger const MDItemsPerPage = 5;//一页最多4个
             
             attr.size = CGSizeMake(collectionViewW/MDItemsPerPage,
                                    collectionViewH);
-//            attr.size = CGSizeMake(88,
+//            attr.size = CGSizeMake(77,
 //                                   collectionViewH);
         }else
         {
-//            attr.size = CGSizeMake(88,
+//            attr.size = CGSizeMake(77,
 //                                   collectionViewH);
             attr.size = CGSizeMake(collectionViewW/_totalItemsNum,
                                    collectionViewH);
@@ -50,7 +51,6 @@ NSInteger const MDItemsPerPage = 5;//一页最多4个
         
         [_attributeAtts addObject:attr];
     }
-    
 }
 
 // 设置内容区域大小

@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol inputViewDelegate
+@protocol inputViewDelegate <NSObject>
 
 - (void)sendText:(NSString *)text;
+- (void)giveText:(NSString *)text;
 
 @end
 
 @interface inputView : UIView
+
+@property (nonatomic, strong) UITextView *inputTextView;
 
 - (void)inputViewShow;
 - (void)inputViewHiden;

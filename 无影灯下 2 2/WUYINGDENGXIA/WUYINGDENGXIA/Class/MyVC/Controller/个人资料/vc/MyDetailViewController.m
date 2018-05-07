@@ -25,6 +25,8 @@
 @property (nonatomic, copy) NSString *birthStr;//生日字符串
 @property (nonatomic, copy) NSString *sexStr;//性别字符串
 @property (nonatomic, copy) NSString *cityStr;//城市字符串
+@property (nonatomic, copy) NSString *isFinishCer;//是否认证
+@property (nonatomic, copy) NSString *headUrl;//是否认证
 
 
 
@@ -34,6 +36,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    self.phoneStr = user.phoneNum;
+    self.nichengStr = user.userName;
+//    self.birthStr = user.phoneNum;
+    self.sexStr = user.usersex;
+    self.cityStr = user.usercity;
+    self.isFinishCer = user.isfinishCer;
+    self.headUrl = user.headimg;
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
@@ -128,11 +140,17 @@
     if (indexPath.section == 0) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"ziliaoCell" owner:nil options:nil][2];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if ([self.isFinishCer isEqualToString:@"0"]) {
+            [cell.renzhengBtn setTitle:@"已认证" forState:UIControlStateNormal];
+        }
         //点击认证按钮
         cell.renzhengBlcok = ^{
+            
             RenzhengOneVc *vc = [[RenzhengOneVc alloc] init];
             [weakSelf.navigationController pushViewController:vc animated:YES];
         };
+        
+        [cell.headBtn.imageView sd_setImageWithURL:[NSURL URLWithString:self.headUrl] placeholderImage:GetImage(@"tx")];
         //点击更换头像
         cell.touxiangBlcok = ^{
             NSLog(@"头像");

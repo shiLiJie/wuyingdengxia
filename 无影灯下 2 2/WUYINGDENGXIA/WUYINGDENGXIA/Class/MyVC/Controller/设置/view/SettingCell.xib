@@ -72,6 +72,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="headImage" destination="cEM-wp-j0t" id="uU2-0Y-9rI"/>
+                <outlet property="userName" destination="TCW-m4-OJY" id="GoI-Pe-fTb"/>
+            </connections>
             <point key="canvasLocation" x="-170" y="-202"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" restorationIdentifier="1" selectionStyle="default" indentationWidth="10" rowHeight="52" id="uCc-MV-801" customClass="SettingCell">

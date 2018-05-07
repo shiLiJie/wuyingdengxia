@@ -10,4 +10,14 @@
 
 @interface SignUpTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *meetName;
+@property (weak, nonatomic) IBOutlet UILabel *meetTime;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *userPhone;
+@property (weak, nonatomic) IBOutlet UILabel *userShenfenid;
+@property (weak, nonatomic) IBOutlet UILabel *userSex;
+@property (weak, nonatomic) IBOutlet UILabel *danwei;
+@property (weak, nonatomic) IBOutlet UILabel *bumen;
+@property (weak, nonatomic) IBOutlet UILabel *zhiwu;
+
 @end

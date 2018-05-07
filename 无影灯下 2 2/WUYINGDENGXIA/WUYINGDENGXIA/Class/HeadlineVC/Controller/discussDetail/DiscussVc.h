@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "discussModel.h"
 
 @interface DiscussVc : BaseViewController
+
+@property (nonatomic, strong) discussModel *model;
+
 
 @end

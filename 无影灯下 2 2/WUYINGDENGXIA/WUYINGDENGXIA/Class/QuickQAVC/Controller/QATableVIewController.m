@@ -8,7 +8,7 @@
 
 #import "QATableVIewController.h"
 #import "QATableVIewCell.h"
-
+#import "QusetionModel.h"
 
 @interface QATableVIewController ()<UITableViewDelegate,UITableViewDataSource,QATableVIewCellDelegate>
 

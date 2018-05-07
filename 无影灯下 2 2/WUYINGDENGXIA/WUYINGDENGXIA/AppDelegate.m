@@ -36,16 +36,12 @@
     
     //键盘上弹配置
 //    [self keyboardManager];
-    
-//    NSDictionary *dic = @{
-//                          @"userid":@"1"
-//
-//                          };
-//    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=1",BaseUrl] andParas:nil andTransferGottenData:^(id obj, NSError *error) {
+
+//    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=10003",BaseUrl] andParas:nil andTransferGottenData:^(id obj, NSError *error) {
 //
 //        NSLog(@"%@",obj);
 //    }];
-//
+    
     return YES;
 }
 

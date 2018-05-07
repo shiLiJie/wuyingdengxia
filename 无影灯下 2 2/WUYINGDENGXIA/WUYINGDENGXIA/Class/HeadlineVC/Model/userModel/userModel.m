@@ -48,6 +48,7 @@
         self.username = dict[@"username"];
         self.usersex = dict[@"usersex"];
         self.usertoken = dict[@"usertoken"];
+        self.moon_cash = dict[@"moon_cash"];
         
     }
     return self;

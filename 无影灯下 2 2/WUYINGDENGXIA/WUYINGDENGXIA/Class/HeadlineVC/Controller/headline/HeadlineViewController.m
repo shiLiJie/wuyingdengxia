@@ -29,6 +29,7 @@
 #import "bannerResultvc.h"
 #import "hotKeyModel.h"
 
+
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
                                     MDMultipleSegmentViewDeletegate,
@@ -245,7 +246,9 @@
     _segView.delegate =  self;
     _segView.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width-segViewHigh, segViewHigh);
     
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labelList?user_id=%@&type=1",[UserInfoModel shareUserModel].userid]]
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labelList?user_id=%@&type=1",user.userid]]
                                                 parameters:nil 
                                                    success:^(id obj) {
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
@@ -482,12 +485,16 @@
 }
 
 #pragma mark - 讨论视图代理方法 -
--(void)clickDiscussToIndex:(NSInteger)index{
+-(void)clickDiscussToIndex:(NSInteger)index discussModel:(discussModel *)model{
     DiscussVc *vc = [[DiscussVc alloc] init];
+    vc.model = [[discussModel alloc] init];
+    vc.model = model;
+    
     [self.navigationController pushViewController:vc animated:YES];
     self.searchBar.hidden = YES;
     self.searchBtn.hidden = YES;
 }
+
 
 #pragma mark - 搜索页代理方法 -
 - (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
@@ -561,9 +568,13 @@
 }
 
 //监听table点击方法传来索引
--(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+-(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath article_id:(NSString *)articleid user_id:(NSString *)userid pageModle:(pageModel *)model{
     
     PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
+    pageDetail.articleid = articleid;
+    pageDetail.userid = userid;
+    pageDetail.model = [[pageModel alloc] init];;
+    pageDetail.model = model;
     [self.navigationController pushViewController:pageDetail animated:YES];
     self.searchBar.hidden = YES;
     self.searchBtn.hidden = YES;

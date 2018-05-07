@@ -11,5 +11,7 @@
 @interface SettingCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *huancunLab;
 @property (weak, nonatomic) IBOutlet UILabel *renzhengLab;
+@property (weak, nonatomic) IBOutlet UIImageView *headImage;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
 
 @end

@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "discussModel.h"
+
 @class DiscussCollectionView;
 
 @protocol DiscussCollectionDelegate <NSObject,UICollectionViewDelegate>
 
 //点击对应讨论模块
-- (void)clickDiscussToIndex:(NSInteger)index;
+- (void)clickDiscussToIndex:(NSInteger)index discussModel:(discussModel *)model;
 
 @end
 

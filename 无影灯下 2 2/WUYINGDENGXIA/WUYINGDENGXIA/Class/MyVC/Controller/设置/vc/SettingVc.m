@@ -122,19 +122,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
     static NSString * reuseID = @"SettingCell";
     SettingCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             if (!cell) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil] firstObject];
+                [cell.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+                cell.userName.text = user.userName;
             }
         }else{
             if (!cell) {
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][1];
             }
             //身份认证状态
-//            cell.renzhengLab.text
+            if ([user.isfinishCer isEqualToString:@"0"]) {
+                cell.renzhengLab.text = @"已认证";
+            }else{
+                cell.renzhengLab.text = @"未认证";
+            }
         }
     }
     if (indexPath.section == 1) {

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "lableModel.h"
 
 @protocol QATableVIewDelegate<NSObject>
 
@@ -24,5 +25,8 @@
 @property (nonatomic,weak) id<QATableVIewDelegate>delegate;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+
+//对应的标签
+@property (nonatomic,strong) lableModel *lablemodel;
 
 @end

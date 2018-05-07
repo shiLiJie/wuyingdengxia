@@ -14,9 +14,7 @@
 #import "DetailTableViewController.h"
 #import "PageDetailViewController.h"
 
-#import "WXApi.h"
-#import "WechatAuthSDK.h"
-#import "WXApiObject.h"
+
 
 #define segViewHigh     44
 
@@ -69,15 +67,6 @@
             blackLineImageView.hidden = YES;
         }
     }
-    
-//    // 接收分享回调通知
-//    //监听通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"WXShare" object:nil];
-//    // 检查是否装了微信
-//    if ([WXApi isWXAppInstalled])
-//    {
-//
-//    }
     
 //    [super viewWillAppear:nil];
     //添加segeview
@@ -140,32 +129,6 @@
 //关注
 - (IBAction)guanzhu:(UIButton *)sender {
 
-//    WXMediaMessage * message = [WXMediaMessage message];
-//    message.title = @"无影灯下";
-//    message.description = @"测试";
-//    [message setThumbImage:[UIImage imageNamed:@"Icon-Small@2x"]];
-//
-//    WXWebpageObject * webpageObject = [WXWebpageObject object];
-//    webpageObject.webpageUrl = @"http://www.yszg.org";
-//    message.mediaObject = webpageObject;
-//
-//    SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];
-//    req.bText = NO;
-//
-//    req.message = message;
-//    req.scene = WXSceneSession;
-//
-//    [WXApi sendReq:req];
-}
-
-#pragma mark - 私有action -
-- (void)getOrderPayResult:(NSNotification *)notification
-{
-    // 注意通知内容类型的匹配
-    if (notification.object == 0)
-    {
-        NSLog(@"分享成功");
-    }
 }
 
 -(DetailTableViewController *)tablecontroller{

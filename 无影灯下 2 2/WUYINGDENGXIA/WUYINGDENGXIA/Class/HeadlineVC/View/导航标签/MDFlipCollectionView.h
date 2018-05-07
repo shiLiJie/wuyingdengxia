@@ -19,6 +19,8 @@
 
 @interface MDFlipCollectionView : UIView
 
+@property (nonatomic, strong) UICollectionView *collectionView;
+
 /**
  存放对应的内容控制器
  */

@@ -125,6 +125,7 @@
             user.userid = dic[@"userid"];
             user.usersex = dic[@"usersex"];
             user.usertoken = dic[@"usertoken"];
+            user.moon_cash = dic[@"moon_cash"];
             
             [user saveUserInfoToSanbox];
             

@@ -7,9 +7,15 @@
 //
 
 #import "BaseViewController.h"
+#import "pageModel.h"
 
 @interface PageDetailViewController : BaseViewController
 
 @property (nonatomic,copy) NSString *url;
+@property (nonatomic,copy) NSString *articleid;
+@property (nonatomic,copy) NSString *userid;
+
+@property (nonatomic, strong) pageModel *model;
+
 
 @end

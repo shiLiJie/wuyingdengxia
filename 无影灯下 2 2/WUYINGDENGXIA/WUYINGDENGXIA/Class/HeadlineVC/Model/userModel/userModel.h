@@ -44,6 +44,7 @@
 @property (nonatomic ,copy)NSString *fansnum;
 @property (nonatomic ,copy)NSString *supportnum;
 @property (nonatomic ,copy)NSString *user_token;
+@property (nonatomic,copy) NSString *moon_cash;
 
 + (instancetype)userWithDict:(NSDictionary *)dict;
 

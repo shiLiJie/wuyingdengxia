@@ -32,4 +32,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *richengTableView;
 @property (weak, nonatomic) IBOutlet UIButton *huiyiRichengBtn;
 
+@property (nonatomic,copy) NSString *meetId;
+
 @end

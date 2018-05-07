@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "pageModel.h"
 
 @protocol JohnScrollViewDelegate<NSObject>
 
@@ -16,7 +17,7 @@
 -(void)johnScrollViewDidScroll:(CGFloat)scrollY;
 
 //监听点击table点击的索引
--(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath;
+-(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath article_id:(NSString *)articleid user_id:(NSString *)userid pageModle:(pageModel *)model;
 
 //点击cell里的头像和用户名弹出个人发表页
 -(void)clickUserNamePushPublishVc;

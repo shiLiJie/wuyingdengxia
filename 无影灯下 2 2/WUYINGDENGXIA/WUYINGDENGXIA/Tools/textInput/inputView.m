@@ -11,7 +11,7 @@
 @interface inputView()<UITextViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIView *inputView;
 @property (nonatomic, strong) UILabel *placeLabel;
-@property (nonatomic, strong) UITextView *inputTextView;
+
 @property (nonatomic, assign) CGFloat keyboldH;
 @property (nonatomic, strong) UIButton *pushBtn;
 @end
@@ -74,6 +74,16 @@
     [self.pushBtn addTarget:self action:@selector(pushPinglun) forControlEvents:UIControlEventTouchUpInside];
     [self.inputView addSubview:self.pushBtn];
 }
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        self.placeLabel.hidden = NO;
+    }else{
+        self.placeLabel.hidden = YES;
+    }
+    return YES;
+}
+
 //这个函数的最后一个参数text代表你每次输入的的那个字，所以：
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
 //    NSLog(@"-----%@",text);
@@ -98,6 +108,10 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
+    if ([self.delegate respondsToSelector:@selector(giveText:)]) {
+        [self.delegate giveText:textView.text];
+    }
+    
     if (textView.text.length == 0) {
         self.placeLabel.hidden = NO;
     }else{

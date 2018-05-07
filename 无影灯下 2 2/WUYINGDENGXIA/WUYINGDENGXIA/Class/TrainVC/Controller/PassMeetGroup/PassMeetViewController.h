@@ -7,6 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "huiguModel.h"
+
 @protocol PassMeetDelegate<NSObject>
 
 @optional
@@ -17,6 +19,9 @@
 @end
 
 @interface PassMeetViewController : BaseViewController
+
+@property (nonatomic, strong) huiguModel *huiguModel;
+
 
 @property (nonatomic,weak)id <PassMeetDelegate> delegate;
 

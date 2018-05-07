@@ -39,7 +39,7 @@
 @property (nonatomic ,copy)NSString *usertoken;
 @property (nonatomic ,copy)NSString *certid;
 @property (nonatomic ,copy)NSString *isV;
-@property (nonatomic ,copy)NSString *isfinishCer;
+@property (nonatomic ,copy)NSString *isfinishCer;//认证
 @property (nonatomic ,copy)NSString *isphoneverify;
 @property (nonatomic ,copy)NSString *last_login_time;
 @property (nonatomic ,copy)NSString *ctime;
@@ -48,6 +48,7 @@
 @property (nonatomic ,copy)NSString *fansnum;
 @property (nonatomic ,copy)NSString *supportnum;
 @property (nonatomic ,copy)NSString *user_token;
+@property (nonatomic ,copy)NSString *moon_cash;
 
 
 //单例
