@@ -10,4 +10,6 @@
 
 @interface QuestionsAslVcViewController : BaseViewController
 
+@property (nonatomic, strong) NSString *titleStr;
+
 @end

@@ -69,6 +69,7 @@
 
 -(void)right_button_event:(UIButton *)sender{
     QuestionsAslVcViewController *vc = [[QuestionsAslVcViewController alloc] init];
+    vc.titleStr = self.titleTextField.text;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

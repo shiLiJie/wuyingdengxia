@@ -20,9 +20,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //获取标签下对应问答
+    [self getQusetionWithLabel];
+    
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+//获取标签下对应问答
+-(void)getQusetionWithLabel{
+
+    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_bylabel?label=%@",self.lablemodel.key_name]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString  *url1 = [BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_bylabel?label=%@",self.lablemodel.key_id]];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:url1
+                                                parameters:nil
+                                                   success:^(id obj) {
+        NSLog(@"%@",obj);
+                                                       [self.tableview reloadData];
+    }
+                                                      fail:^(NSError *error) {
+        //
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

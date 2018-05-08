@@ -10,8 +10,12 @@
 #import "PassMeetTableCell.h"
 #import "PlayDetailViewController.h"
 
+
 @interface PassMeetViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+
+@property (nonatomic, strong) NSArray *huiguerArr;;
+
 
 @end
 
@@ -20,9 +24,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_allreplay_byid?replay_id=%@",self.huiguModel.replay_id]] parameters:nil success:^(id obj) {
-        //
-        NSLog(@"%@",obj);
+    self.huiguerArr = [[NSArray alloc] init];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_allsub_replay?replay_id=%@",self.huiguModel.replay_id]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[huiguErModel huiguErWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.huiguerArr= arrayM;
+                                                       [self.tableview reloadData];
     } fail:^(NSError *error) {
         //
     }];
@@ -34,7 +49,7 @@
 
 #pragma mark - UI -
 -(NSMutableAttributedString *)setTitle{
-    return [self changeTitle:@"会议名称不能也不能太长"];
+    return [self changeTitle:self.huiguModel.replay_title.length>0 ?self.huiguModel.replay_title : @""];
 }
 
 //左侧按钮设置点击
@@ -63,8 +78,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //    return self.dataArr.count;
-    return 7;
+    return self.huiguerArr.count;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -82,10 +97,29 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"PassMeetTableCell" owner:nil options:nil] firstObject];
     }
     
+    huiguErModel *model = self.huiguerArr[indexPath.row];
+    cell.videoName.text = model.meeting_title;
+    cell.videoPerson.text = model.meeting_specialist;
+    cell.playNum.text = model.play_num;
+    cell.talkNum.text = model.comment_num;
+    cell.goodNum.text = model.support_num;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        //耗时操作
+        //cell.videoImage.image = [UIImage thumbnailImageForVideo:[NSURL URLWithString:model.video_url] atTime:1];
+        UIImage *image = [UIImage thumbnailImageForVideo:[NSURL URLWithString:@"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"] atTime:1];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+            cell.videoImage.image = image;
+        });
+    });
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
+
+
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -94,6 +128,8 @@
     }
     
     PlayDetailViewController *vc = [[PlayDetailViewController alloc] init];
+    vc.huifuerModel = [[huiguErModel alloc] init];
+    vc.huifuerModel = self.huiguerArr[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
     
 }

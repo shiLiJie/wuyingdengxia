@@ -25,6 +25,7 @@
 @property (nonatomic, copy) NSString *suport_num;//
 
 
+
 + (instancetype)huiguWithDict:(NSDictionary *)dict;
 
 @end

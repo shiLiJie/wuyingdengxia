@@ -10,11 +10,14 @@
 #import "inputView.h"
 #import "IQKeyboardManager.h"
 
+
 @interface PlayDetailViewController ()<inputViewDelegate>
 //输入框
 @property (nonatomic, strong) inputView *input;
 
 @property (weak, nonatomic) IBOutlet UIButton *pinglunBtn;
+
+@property (nonatomic,copy) NSString *inputStr;
 
 @end
 
@@ -38,7 +41,7 @@
 
 #pragma mark - UI -
 -(NSMutableAttributedString *)setTitle{
-    return [self changeTitle:@"视频主题名称"];
+    return [self changeTitle:self.huifuerModel.meeting_title.length>0 ?self.huifuerModel.meeting_title : @""];
 }
 
 -(BOOL)hideNavigationBottomLine{
@@ -74,14 +77,36 @@
 - (IBAction)pinglunBtn:(UIButton *)sender {
     self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     [self.view addSubview:self.input];
+    if (self.inputStr.length > 0) {
+        self.input.inputTextView.text = self.inputStr;
+    }
     self.input.delegate = self;
     [self.input inputViewShow];
 }
 
+
 #pragma mark - textinput代理 -
+
+-(void)giveText:(NSString *)text{
+    self.inputStr = text;
+}
+
 - (void)sendText:(NSString *)text{
-    
-    
+
+    NSDictionary *dict = @{
+//                           @"userid":self.userid,
+//                           @"toid":self.articleid,
+//                           @"comType":@"0",
+//                           @"comContent":text,
+//                           @"comment_to_type":@"4"
+                           };
+    NSLog(@"%@",dict);
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"] parameters:dict success:^(id obj) {
+        
+        NSLog(@"%@",obj);
+    } fail:^(NSError *error) {
+        //
+    }];
 }
 
 

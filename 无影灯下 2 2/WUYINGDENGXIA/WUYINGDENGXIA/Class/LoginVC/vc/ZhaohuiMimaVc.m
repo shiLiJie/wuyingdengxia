@@ -77,9 +77,46 @@
 }
 //获取验证码
 - (IBAction)getVerif:(UIButton *)sender {
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_verifyPhone?userphone=%@",self.phoneField.text]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                       }else{
+                                                           [MBProgressHUD showError:obj[@"msg"]];
+                                                       }
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
+    
 }
 //确定
 - (IBAction)sureBtnClick:(UIButton *)sender {
+    NSDictionary *dict = @{
+                           @"userphone":self.phoneField.text,
+                           @"password":self.pwdField.text,
+                           @"verifynum":self.VerifField.text,
+                           };
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_findpwd"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                            [user loadUserInfoFromSanbox];
+                                                            user.passWord = self.pwdField.text;
+                                                            [user saveUserInfoToSanbox];
+                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                            [self.navigationController popToRootViewControllerAnimated:YES];
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+    }
+                                                       fail:^(NSError *error) {
+        
+    }];
 }
 
 

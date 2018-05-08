@@ -20,12 +20,7 @@ ZZHotKeysLayoutDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topView;
 //底部view
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
-//标题lab
-@property (weak, nonatomic) IBOutlet UILabel *titleLab;
-//内容lab
-@property (weak, nonatomic) IBOutlet UILabel *detailLab;
-//月亮币展示
-@property (weak, nonatomic) IBOutlet UIButton *yueliangbiBtn;
+
 //展开收起按钮
 @property (weak, nonatomic) IBOutlet UIButton *zhankaiBtn;
 //图片区view
@@ -39,8 +34,6 @@ ZZHotKeysLayoutDelegate>
 //标签视图
 @property (weak, nonatomic) IBOutlet UICollectionView *sheetView;
 @property(nonatomic,strong)ZZHotKeysLayout *hkLayout;
-//标签内容数组
-@property(nonatomic,strong)NSMutableArray *hotKeys;
 //标签区高度约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sheetViewHeight;
 //图片区高度约束
@@ -66,6 +59,9 @@ ZZHotKeysLayoutDelegate>
 -(void)viewWillAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
+    self.titleLab.text = self.title;
+    self.detailLab.text = self.detail;
+    [self.yueliangbiBtn setTitle:self.yueliang forState:UIControlStateNormal];
     self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.bottomView.frame));
     
 }
@@ -78,16 +74,6 @@ ZZHotKeysLayoutDelegate>
 - (NSMutableArray *)hotKeys{
     if (_hotKeys == nil) {
         _hotKeys = [NSMutableArray array];
-        [_hotKeys addObject:@"哈哈哈1"];
-        [_hotKeys addObject:@"哈哈哈哈哈 东零西碎哈"];
-        [_hotKeys addObject:@"哈哈"];
-        [_hotKeys addObject:@"哈哈哈哈"];
-        [_hotKeys addObject:@"哈哈哈123哈"];
-        [_hotKeys addObject:@"哈"];
-        [_hotKeys addObject:@"哈哈哈"];
-        [_hotKeys addObject:@"哈哈哈"];
-        [_hotKeys addObject:@"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"];
-        [_hotKeys addObject:@"哈哈哈魂牵梦萦塔顶"];
     }
     return _hotKeys;
 }

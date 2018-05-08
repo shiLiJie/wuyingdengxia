@@ -45,7 +45,7 @@
     
     __weak typeof(self) weakSelf = self;
     NSLog(@"%@",self.lable);
-    NSString  *url = [[NSString stringWithFormat:@"get_article_bylabel?label=%@&sortby=1",self.lable] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString  *url = [[NSString stringWithFormat:@"get_article_bylabel?label=%@&sortby=1",self.lable] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:url]
                                                 parameters:nil
                                                    success:^(id obj) {

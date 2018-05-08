@@ -150,6 +150,10 @@
 		04787A5E207CA94400D6DB67 /* MyLiwuResultVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04787A5C207CA94400D6DB67 /* MyLiwuResultVc.xib */; };
 		0478D34E2011890A00FB1696 /* NSDate+BRAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */; };
 		0478D3522011895500FB1696 /* BRTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478D3512011895500FB1696 /* BRTextField.m */; };
+		047960A320A144B600373D9F /* huiguErModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047960A220A144B600373D9F /* huiguErModel.m */; };
+		047960A620A14DEA00373D9F /* UIImage+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 047960A520A14DEA00373D9F /* UIImage+Video.m */; };
+		047960A920A17B3B00373D9F /* huiguDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047960A820A17B3B00373D9F /* huiguDetailModel.m */; };
+		047960AD20A1AECB00373D9F /* MytiwenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047960AC20A1AECB00373D9F /* MytiwenModel.m */; };
 		047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */; };
 		047E96181FFCBDEF0062F1E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047E96171FFCBDEF0062F1E1 /* Assets.xcassets */; };
 		047E961E1FFCBDEF0062F1E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E961D1FFCBDEF0062F1E1 /* main.m */; };
@@ -563,6 +567,14 @@
 		0478D34D2011890A00FB1696 /* NSDate+BRAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRAdd.m"; sourceTree = "<group>"; };
 		0478D3502011895500FB1696 /* BRTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTextField.h; sourceTree = "<group>"; };
 		0478D3512011895500FB1696 /* BRTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTextField.m; sourceTree = "<group>"; };
+		047960A120A144B600373D9F /* huiguErModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huiguErModel.h; sourceTree = "<group>"; };
+		047960A220A144B600373D9F /* huiguErModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = huiguErModel.m; sourceTree = "<group>"; };
+		047960A420A14DEA00373D9F /* UIImage+Video.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Video.h"; sourceTree = "<group>"; };
+		047960A520A14DEA00373D9F /* UIImage+Video.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Video.m"; sourceTree = "<group>"; };
+		047960A720A17B3B00373D9F /* huiguDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huiguDetailModel.h; sourceTree = "<group>"; };
+		047960A820A17B3B00373D9F /* huiguDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = huiguDetailModel.m; sourceTree = "<group>"; };
+		047960AB20A1AECB00373D9F /* MytiwenModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MytiwenModel.h; sourceTree = "<group>"; };
+		047960AC20A1AECB00373D9F /* MytiwenModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MytiwenModel.m; sourceTree = "<group>"; };
 		047E960B1FFCBDEF0062F1E1 /* WUYINGDENGXIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WUYINGDENGXIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		047E960E1FFCBDEF0062F1E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -965,6 +977,10 @@
 				045E5644209D4DED003D8A0D /* meetingDetailModel.m */,
 				045E5646209DA865003D8A0D /* huiguModel.h */,
 				045E5647209DA865003D8A0D /* huiguModel.m */,
+				047960A120A144B600373D9F /* huiguErModel.h */,
+				047960A220A144B600373D9F /* huiguErModel.m */,
+				047960A720A17B3B00373D9F /* huiguDetailModel.h */,
+				047960A820A17B3B00373D9F /* huiguDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1108,6 +1124,7 @@
 			children = (
 				045E7F2F2085BD0D00A11537 /* vc */,
 				045E7F302085BD1300A11537 /* view */,
+				047960AA20A1AEAC00373D9F /* model */,
 			);
 			path = "我的提问";
 			sourceTree = "<group>";
@@ -1508,6 +1525,15 @@
 			path = BRTextField;
 			sourceTree = "<group>";
 		};
+		047960AA20A1AEAC00373D9F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				047960AB20A1AECB00373D9F /* MytiwenModel.h */,
+				047960AC20A1AECB00373D9F /* MytiwenModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		047E96021FFCBDEF0062F1E1 = {
 			isa = PBXGroup;
 			children = (
@@ -1790,6 +1816,8 @@
 				047E967F1FFCC2830062F1E1 /* UIImage+RoundedCorner.m */,
 				047E96801FFCC2830062F1E1 /* UIImage+Vector.h */,
 				047E96981FFCC2870062F1E1 /* UIImage+Vector.m */,
+				047960A420A14DEA00373D9F /* UIImage+Video.h */,
+				047960A520A14DEA00373D9F /* UIImage+Video.m */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -2691,6 +2719,7 @@
 				0434F979209C603400F90FE5 /* hotKeyModel.m in Sources */,
 				047528E62045358D00A9794B /* DiscussCell.m in Sources */,
 				042F7D3A200344F9005138C0 /* DetailTableViewController.m in Sources */,
+				047960AD20A1AECB00373D9F /* MytiwenModel.m in Sources */,
 				047E96C81FFCC29D0062F1E1 /* XHLaunchAdDownloader.m in Sources */,
 				047E96A91FFCC2870062F1E1 /* UIImage+Vector.m in Sources */,
 				04D6A5D82087311100F6C6D8 /* MyHuodongVc.m in Sources */,
@@ -2759,6 +2788,7 @@
 				0466538E2005F6330051B276 /* PublicPageViewController.m in Sources */,
 				04D6A5DB2087319800F6C6D8 /* WeikaishiVc.m in Sources */,
 				047E96A71FFCC2870062F1E1 /* UIImage+Color.m in Sources */,
+				047960A320A144B600373D9F /* huiguErModel.m in Sources */,
 				047E96571FFCC1670062F1E1 /* AnimationContoller.m in Sources */,
 				045A78EC20846EE3008BB180 /* XiaoxiCell.m in Sources */,
 				0487A140206382DF00198B33 /* ExternStringDefine.m in Sources */,
@@ -2769,6 +2799,7 @@
 				047305AD208844C1008FA1C5 /* LoginVc.m in Sources */,
 				045E7F562085E5B400A11537 /* MyFensiVc.m in Sources */,
 				0477D4F6207EF4D800F0B0C4 /* MyKeshiCell.m in Sources */,
+				047960A620A14DEA00373D9F /* UIImage+Video.m in Sources */,
 				047E96CA1FFCC29D0062F1E1 /* XHLaunchAdImageManager.m in Sources */,
 				045E7F2E2085BD0800A11537 /* MyTiwenVc.m in Sources */,
 				04D6A5E22087364400F6C6D8 /* WeikaishiCell.m in Sources */,
@@ -2785,6 +2816,7 @@
 				042F7D4620036E5A005138C0 /* MDMultipleSegmentViewCell.m in Sources */,
 				04856186207B32D400D37B6B /* ZZHotKeysLayout.m in Sources */,
 				047E969D1FFCC2870062F1E1 /* UIImage+RemoteSize.m in Sources */,
+				047960A920A17B3B00373D9F /* huiguDetailModel.m in Sources */,
 				047305A820883617008FA1C5 /* UserInfoModel.m in Sources */,
 				04372A6F1FFE1E6A00D0762C /* HW3DBannerView.m in Sources */,
 				045C35232011A06000B128CD /* MyDetailViewController.m in Sources */,

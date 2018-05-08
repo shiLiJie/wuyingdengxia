@@ -29,6 +29,8 @@
 //收藏
 @property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
 
+@property (nonatomic,copy) NSString *inputStr;
+
 @end
 
 @implementation PageDetailViewController
@@ -117,6 +119,9 @@
     
     self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     [self.view addSubview:self.input];
+    if (self.inputStr.length > 0) {
+        self.input.inputTextView.text = self.inputStr;
+    }
     self.input.delegate = self;
     [self.input inputViewShow];
 
@@ -201,6 +206,10 @@
 }
 
 #pragma mark - textinput代理 -
+-(void)giveText:(NSString *)text{
+    self.inputStr = text;
+}
+
 - (void)sendText:(NSString *)text{
     
     NSDictionary *dict = @{

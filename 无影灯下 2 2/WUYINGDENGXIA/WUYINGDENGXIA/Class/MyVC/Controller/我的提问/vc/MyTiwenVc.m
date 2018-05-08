@@ -9,10 +9,13 @@
 #import "MyTiwenVc.h"
 #import "MyTiwenCell.h"
 #import "AnswerViewController.h"
+#import "MytiwenModel.h"
 
 @interface MyTiwenVc ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) NSArray *tiwenArr;;
 
 @end
 
@@ -21,9 +24,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tiwenArr = [[NSArray alloc] init];
+    //获取提问列表
+    [self getUserTiWenList];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 100;//期望高度
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
@@ -60,13 +69,36 @@
     return title;
 }
 
+//获取提问列表
+-(void)getUserTiWenList{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    __weak typeof(self) weakSelf = self;
+
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_byuserid?userid=%@",user.userid]] parameters:nil success:^(id obj) {
+        NSArray *arr = obj[@"data"];
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (int i = 0; i < arr.count; i ++) {
+            NSDictionary *dict = arr[i];
+            [arrayM addObject:[MytiwenModel MytiwenWithDict:dict]];
+            
+        }
+        weakSelf.tiwenArr= arrayM;
+        
+        [self.tableView reloadData];
+    } fail:^(NSError *error) {
+
+    }];
+}
+
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.tiwenArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     return 100;
 }
 
@@ -78,8 +110,20 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyTiwenCell" owner:nil options:nil] firstObject];
     }
-    cell.choosetype = susscessType;
-    [cell setUIWithchooseType:cell.choosetype];
+    MytiwenModel *model = [[MytiwenModel alloc] init];
+    model = self.tiwenArr[indexPath.row];
+    if ([model.is_solve isEqualToString:@"0"]) {
+        cell.choosetype = waitType;
+        [cell setUIWithchooseType:cell.choosetype];
+    }
+    if ([model.is_solve isEqualToString:@"1"]) {
+        cell.choosetype = susscessType;
+        [cell setUIWithchooseType:cell.choosetype];
+    }
+    cell.titleLab.text = model.question_title;
+    cell.detailLab.text = model.question_content;
+    
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

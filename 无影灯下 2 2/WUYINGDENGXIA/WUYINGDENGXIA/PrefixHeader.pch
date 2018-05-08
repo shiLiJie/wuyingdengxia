@@ -9,6 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#import "UIImage+Video.h"
+
 
 #import "Macros.h"
 #import "HeadlineViewController.h"

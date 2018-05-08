@@ -48,23 +48,22 @@
                     <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3zm-10-FmH">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="241"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="183.33333333333334"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手术器械的使用方法" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yd8-zo-uAF">
-                                    <rect key="frame" x="15" y="7.6666666666666679" width="153" height="24"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yd8-zo-uAF">
+                                    <rect key="frame" x="15" y="7.6666666666666679" width="0.0" height="0.0"/>
                                     <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="17"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00E-Xj-rif">
-                                    <rect key="frame" x="15" y="47.666666666666671" width="384" height="33.666666666666671"/>
-                                    <mutableString key="text">“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日“因我院儿科医生超负荷工作，目前均已病倒，自今日</mutableString>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00E-Xj-rif">
+                                    <rect key="frame" x="15" y="23.666666666666664" width="384" height="0.0"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nhi-aJ-DTU">
-                                    <rect key="frame" x="15" y="111.33333333333334" width="384" height="66"/>
+                                    <rect key="frame" x="15" y="53.666666666666671" width="384" height="66"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jNF-kp-Z2f">
                                             <rect key="frame" x="0.0" y="0.0" width="69" height="69"/>
@@ -114,14 +113,14 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXe-z1-4dM">
-                                    <rect key="frame" x="362" y="10" width="37" height="18"/>
+                                    <rect key="frame" x="368" y="-2" width="31" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title=" 15" image="yueliangbi-1">
+                                    <state key="normal" title=" 0" image="yueliangbi-1">
                                         <color key="titleColor" red="0.9882352941176471" green="0.72941176470588232" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ya-yr-W82">
-                                    <rect key="frame" x="340" y="86.333333333333329" width="59" height="22"/>
+                                    <rect key="frame" x="340" y="28.666666666666664" width="59" height="22"/>
                                     <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="59" id="E3O-7o-ArP"/>
@@ -136,7 +135,7 @@
                                     </connections>
                                 </button>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3M3-Sf-vlR">
-                                    <rect key="frame" x="15" y="177.33333333333334" width="384" height="60"/>
+                                    <rect key="frame" x="15" y="119.66666666666666" width="384" height="60"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="60" id="tmx-e2-MeG"/>
@@ -170,23 +169,23 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6o-od-iWK">
-                            <rect key="frame" x="-2" y="241" width="418" height="20"/>
+                            <rect key="frame" x="-2" y="183.33333333333334" width="418" height="20"/>
                             <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="AdG-lc-VcY"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Vl-48-t8c">
-                            <rect key="frame" x="-10" y="261" width="434" height="200"/>
+                            <rect key="frame" x="-10" y="203.33333333333337" width="434" height="200"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的问题已提交，正在为您解答" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGy-WP-Z8A">
-                                    <rect key="frame" x="88.666666666666686" y="50" width="257" height="21"/>
+                                    <rect key="frame" x="88.666666666666686" y="49.999999999999972" width="257" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <color key="textColor" red="0.074509803921568626" green="0.59215686274509804" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这个过程可能需要一些时间，您可以在我的提问中查看进度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSM-2o-vLJ">
-                                    <rect key="frame" x="58" y="85" width="319" height="14.666666666666671"/>
+                                    <rect key="frame" x="58" y="84.999999999999972" width="319" height="14.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>

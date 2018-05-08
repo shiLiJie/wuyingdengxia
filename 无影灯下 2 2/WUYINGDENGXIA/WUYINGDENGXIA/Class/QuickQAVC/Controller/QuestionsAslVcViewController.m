@@ -56,6 +56,7 @@
 
 //图片数组
 @property (nonatomic, strong) NSMutableArray *imageArr;
+@property (nonatomic, strong) NSMutableArray *labelArr;
 
 @end
 
@@ -126,6 +127,10 @@
     [self initYueliangbiBtn:self.yueliangbi4];
     [self initYueliangbiBtn:self.yueliangbi5];
     
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    self.menoyLab.text = user.moon_cash;
+    
     //为监听键盘高度添加两个观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillDisappear:) name:UIKeyboardWillHideNotification object:nil];
@@ -166,10 +171,56 @@
 //投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
     if (self.isEditor) {
+        
+        self.labelArr = @[@"手术器械",@"手术"].mutableCopy;
+        
         //跳转到提交结果界面
         QuestionResultVC *QuestionResult = [[QuestionResultVC alloc] init];
         QuestionResult.imageArr = self.imageArr;
-        [self.navigationController pushViewController:QuestionResult animated:YES];
+        QuestionResult.hotKeys = self.labelArr;
+        
+        QuestionResult.title = self.titleStr;
+        QuestionResult.detail = self.detailTextView.text;
+        QuestionResult.yueliang = [self.yueliangbibtn.titleLabel.text intValue] > 0 ? self.yueliangbibtn.titleLabel.text : @"0";
+        
+        UserInfoModel *user = [UserInfoModel shareUserModel];
+        [user loadUserInfoFromSanbox];
+        
+        
+        NSString *questags = @"";
+        for (int i = 0; i < self.labelArr.count; i ++) {
+            if (i == 0) {
+                questags = [NSString stringWithFormat:@"%@",self.labelArr[i]];
+            }else{
+                questags = [NSString stringWithFormat:@"%@,%@",questags,self.labelArr[i]];
+            }
+        }
+        NSDictionary *dict = @{
+                               @"userid":user.userid,
+                               @"quesTitle":self.titleStr,
+                               @"moonCash":[self.yueliangbibtn.titleLabel.text intValue] > 0 ? self.yueliangbibtn.titleLabel.text : @"0",
+                               @"quesContent":self.detailTextView.text,
+                               @"quesType":user.userid,
+                               @"img_path":@"http://yszg.oss-cn-beijing.aliyuncs.com/user_1_dir/98ad9161be2e1683a8cbd8fd4b47e291.jpg",
+                               @"questags":questags
+                               };
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_question"]
+                                                     parameters:dict
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                [weakSelf.navigationController pushViewController:QuestionResult animated:YES];
+                                                            }else{
+                                                                [MBProgressHUD showError:@"提问失败"];
+                                                            }
+        }
+                                                           fail:^(NSError *error) {
+                                                               [MBProgressHUD showError:@"提问失败"];
+        }];
+        
     }else{
         
     }
@@ -493,7 +544,7 @@
                 // 根据输入的大小来控制返回的图片质量
                 CGSize size = CGSizeMake(300 * scale, 300 * scale);
                 [[HX_AssetManager sharedManager] accessToImageAccordingToTheAsset:twoAsset size:size resizeMode:PHImageRequestOptionsResizeModeFast completion:^(UIImage *image, NSDictionary *info) {
-                    [self.imageArr addObject:image];
+                    [weakSelf.imageArr addObject:image];
                     //NSLog(@"----------%@",[info objectForKey:@"PHImageFileURLKey"]);
                     // image为高清图时
                     if (![info objectForKey:PHImageResultIsDegradedKey]) {

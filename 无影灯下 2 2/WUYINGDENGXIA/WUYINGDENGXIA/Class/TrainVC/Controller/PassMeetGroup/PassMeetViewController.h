@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 #import "huiguModel.h"
+#import "huiguErModel.h"
 
 @protocol PassMeetDelegate<NSObject>
 

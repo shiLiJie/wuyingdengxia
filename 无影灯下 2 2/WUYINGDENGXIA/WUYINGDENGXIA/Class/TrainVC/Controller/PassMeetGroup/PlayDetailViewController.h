@@ -7,7 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "huiguDetailModel.h"
+#import "huiguErModel.h"
 
 @interface PlayDetailViewController : BaseViewController
+
+@property (nonatomic, strong) huiguErModel *huifuerModel;
+
 
 @end
