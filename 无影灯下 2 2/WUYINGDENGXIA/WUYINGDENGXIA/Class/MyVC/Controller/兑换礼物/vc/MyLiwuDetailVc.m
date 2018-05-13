@@ -11,6 +11,7 @@
 
 @interface MyLiwuDetailVc ()
 
+@property (weak, nonatomic) IBOutlet UILabel *LiwuName;//礼物名称
 @property (weak, nonatomic) IBOutlet UIImageView *LiwuImage;//礼物图片
 @property (weak, nonatomic) IBOutlet UILabel *liwuJiage;//礼物价格lab
 @property (weak, nonatomic) IBOutlet UIButton *sureDuihuanBtn;//确认兑换按钮
@@ -38,19 +39,26 @@
     
     self.sureDuihuanBtn.layer.cornerRadius = CGRectGetHeight(self.sureDuihuanBtn.frame)/2;//半径大小
     self.sureDuihuanBtn.layer.masksToBounds = YES;//是否切割
+    
+    [self.LiwuImage sd_setImageWithURL:[NSURL URLWithString:self.liwumodel.goods_img] placeholderImage:GetImage(@"")];
+    self.liwuJiage.text = self.liwumodel.moon_cash;
+    self.LiwuName.text = self.liwumodel.goods_name;
+    self.detailLab.text = self.liwumodel.goods_tips;
 }
 
 //确认兑换点击
 - (IBAction)duihuanClick:(UIButton *)sender {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"确定使用40月亮币兑换？"
+    __weak typeof(self) weakSelf = self;
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定使用%@月亮币兑换？",self.liwumodel.moon_cash]
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
-                                                              //响应事件
-                                                              MyLiwuResultVc *pageDetail = [[MyLiwuResultVc alloc] init];
-                                                              [self.navigationController pushViewController:pageDetail animated:YES];
+                                                              
+                                                              //确定兑换
+                                                              [weakSelf duihuanGoods];
+                                                              
                                                           }];
     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {
@@ -61,6 +69,39 @@
     [alert addAction:defaultAction];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+//兑换礼物
+-(void)duihuanGoods{
+    __weak typeof(self) weakSelf = self;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    NSDictionary *dict = @{
+                           @"user_id":user.userid,
+                           @"goods_id":weakSelf.liwumodel.goods_id
+                           };
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_exchange_goods"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                            //响应事件
+                                                            MyLiwuResultVc *vc = [[MyLiwuResultVc alloc] init];
+                                                            vc.liwumodel = [[LiwuModel alloc] init];
+                                                            vc.liwumodel = self.liwumodel;
+                                                            vc.courtesy_code = obj[@"data"][@"courtesy_code"];
+                                                            vc.exchange_code = obj[@"data"][@"exchange_code"];
+                                                            vc.order_num = obj[@"data"][@"order_num"];
+                                                            [weakSelf.navigationController pushViewController:vc animated:YES];
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+                                                    }
+                                                       fail:^(NSError *error) {
+                                                           
+                                                       }];
 }
 //返回
 - (IBAction)goBack:(UIButton *)sender {

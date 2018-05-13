@@ -8,6 +8,8 @@
 
 #import "ziliaoCell.h"
 
+
+
 @implementation ziliaoCell
 
 - (void)awakeFromNib {
@@ -17,6 +19,10 @@
     
     self.renzhengBtn.layer.cornerRadius = CGRectGetHeight(self.renzhengBtn.frame)/2;//半径大小
     self.renzhengBtn.layer.masksToBounds = YES;//是否切割
+    
+    self.headBtn.layer.cornerRadius = CGRectGetHeight(self.headBtn.frame)/2;//半径大小
+    self.headBtn.layer.masksToBounds = YES;//是否切割
+    
 }
 
 -(void)addTargetMethod{
@@ -33,10 +39,12 @@
 }
 //认证按钮点击
 - (IBAction)renzhengClick:(UIButton *)sender {
+
     self.renzhengBlcok();
 }
 //点击头像
 - (IBAction)headImageClick:(UIButton *)sender {
+
     self.touxiangBlcok();
 }
 

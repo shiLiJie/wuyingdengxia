@@ -20,8 +20,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="200" height="187"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatIMG2375" translatesAutoresizingMaskIntoConstraints="NO" id="Ks5-k2-JhW">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatIMG2375" translatesAutoresizingMaskIntoConstraints="NO" id="Ks5-k2-JhW">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="131"/>
+                        <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星巴克 拿铁1杯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEP-7Q-SPk">
                         <rect key="frame" x="6" y="139" width="89.5" height="16"/>

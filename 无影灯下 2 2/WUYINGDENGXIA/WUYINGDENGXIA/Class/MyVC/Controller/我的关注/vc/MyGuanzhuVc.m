@@ -9,8 +9,12 @@
 #import "MyGuanzhuVc.h"
 #import "MyGuanzhuCell.h"
 #import "PersonViewController.h"
+#import "MyGuanzhuModel.h"
 
 @interface MyGuanzhuVc ()
+
+@property (nonatomic, strong) NSArray *guanzhuArr;
+
 
 @end
 
@@ -18,11 +22,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.guanzhuArr = [[NSArray alloc] init];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //获取我的关注列表
+    [self getGuanzhuList];
 }
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -44,6 +53,28 @@
             blackLineImageView.hidden = YES;
         }
     }
+}
+
+//获取我的关注列表
+-(void)getGuanzhuList{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myfollow?userid=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[MyGuanzhuModel guanzhuWithDict:dict]];
+                                                           
+                                                       }
+                                                       weakSelf.guanzhuArr= arrayM;
+                                                       [weakSelf.tableView reloadData];
+    } fail:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - UI -
@@ -81,7 +112,7 @@
 
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.guanzhuArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,11 +131,33 @@
     cell.choosetype = guanzhuType;
     [cell setUIWithchooseType:cell.choosetype];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    MyGuanzhuModel *model = [[MyGuanzhuModel alloc] init];
+    model = self.guanzhuArr[indexPath.row];
+    if (!kStringIsEmpty(model.followname)) {
+        cell.userName.text = model.followname;
+    }
+    if (!kStringIsEmpty(model.user_post)) {
+        cell.zhiwuLab.text = model.user_post;
+    }
+    if (!kStringIsEmpty(model.fans_num)) {
+        cell.fensiLab.text = [NSString stringWithFormat:@"粉丝  %@",model.fans_num];
+    }
+    if (!kStringIsEmpty(model.followhead)) {
+        [cell.headImage sd_setImageWithURL:[NSURL URLWithString:model.followhead] placeholderImage:GetImage(@"tx")];
+        
+    }
+    
+    
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //点击跳转到个人信息页,传入个人信息id
     PersonViewController *vc = [[PersonViewController alloc] init];
+    MyGuanzhuModel *model = [[MyGuanzhuModel alloc] init];
+    model = self.guanzhuArr[indexPath.row];
+    vc.userid = model.followid;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

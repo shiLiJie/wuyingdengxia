@@ -10,15 +10,24 @@
 
 @interface QusetionModel : NSObject
 
-@property (nonatomic, copy) NSString *banner_id;//id
-@property (nonatomic, copy) NSString *banner_imgpath;//
-@property (nonatomic, copy) NSString *banner_link;//
-@property (nonatomic, copy) NSString *banner_title;//
-@property (nonatomic, copy) NSString *banner_type;//
+@property (nonatomic, copy) NSString *answer_num;//id
 @property (nonatomic, copy) NSString *ctime;//
-@property (nonatomic, copy) NSString *have_ballot;//
-@property (nonatomic, copy) NSString *img_id;//
-@property (nonatomic, copy) NSString *news_ballot_id;
+@property (nonatomic, copy) NSString *failreason;//
+@property (nonatomic, copy) NSString *headimg;//
+@property (nonatomic, copy) NSString *is_con_check;//
+@property (nonatomic, copy) NSString *is_pro_check;//
+@property (nonatomic, copy) NSString *is_solve;//
+@property (nonatomic, copy) NSString *moon_cash;//
+@property (nonatomic, copy) NSString *nowlevel;
+@property (nonatomic, copy) NSString *ques_answer;//
+@property (nonatomic, copy) NSString *question_content;//
+@property (nonatomic, copy) NSString *question_id;//
+@property (nonatomic, copy) NSString *question_image;
+@property (nonatomic, copy) NSString *question_tags;
+@property (nonatomic, copy) NSString *question_title;//
+@property (nonatomic, copy) NSString *question_type_id;//
+@property (nonatomic, copy) NSString *user_id;//
+@property (nonatomic, copy) NSString *username;
 
 
 + (instancetype)QusetionWithDict:(NSDictionary *)dict;

@@ -36,7 +36,13 @@
     }
     self.loginBtn.layer.cornerRadius = CGRectGetHeight(self.loginBtn.frame)/2;//半径大小
     self.loginBtn.layer.masksToBounds = YES;//是否切割
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXLoginSucess) name:@"WXLogin" object:nil];
 }
+-(void)WXLogin:(NSNotification *)notification{
+    
+}
+
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{
     return YES;
@@ -130,6 +136,8 @@
             [user saveUserInfoToSanbox];
             
             self.loginBlock(YES, nil);
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             [MBProgressHUD showError:obj[@"msg"]];
         }
@@ -151,6 +159,96 @@
 }
 //微信登录
 - (IBAction)weixin:(UIButton *)sender {
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:WX_ACCESS_TOKEN];
+    NSString *openID = [[NSUserDefaults standardUserDefaults] objectForKey:WX_OPEN_ID];
+    // 如果已经请求过微信授权登录，那么考虑用已经得到的access_token
+    if (accessToken && openID) {
+        
+        NSString *refreshToken = [[NSUserDefaults standardUserDefaults] objectForKey:WX_REFRESH_TOKEN];
+        
+        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@", WX_BASE_URL, AppID, refreshToken] parameters:nil success:^(id obj) {
+            //
+            NSDictionary *refreshDict = [NSDictionary dictionaryWithDictionary:obj];
+            NSString *reAccessToken = [refreshDict objectForKey:WX_ACCESS_TOKEN];
+            // 如果reAccessToken为空,说明reAccessToken也过期了,反之则没有过期
+            if (reAccessToken) {
+                // 更新access_token、refresh_token、open_id
+                [[NSUserDefaults standardUserDefaults] setObject:reAccessToken forKey:WX_ACCESS_TOKEN];
+                [[NSUserDefaults standardUserDefaults] setObject:[refreshDict objectForKey:WX_OPEN_ID] forKey:WX_OPEN_ID];
+                [[NSUserDefaults standardUserDefaults] setObject:[refreshDict objectForKey:WX_REFRESH_TOKEN] forKey:WX_REFRESH_TOKEN];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                // 当存在reAccessToken不为空时直接执行AppDelegate中的wechatLoginByRequestForUserInfo方法
+//                !self.requestForUserInfoBlock ? : self.requestForUserInfoBlock();
+                [self wechatLoginByRequestForUserInfo];
+            }
+            else {
+                [self wechatLogin];
+            }
+        } fail:^(NSError *error) {
+            NSLog(@"用refresh_token来更新accessToken时出错 = %@", error);
+        }];
+    }
+    else {
+        [self wechatLogin];
+    }
+    
+}
+
+//授权成功,获取用户信息
+- (void)wechatLoginByRequestForUserInfo {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:WX_ACCESS_TOKEN];
+    NSString *openID = [[NSUserDefaults standardUserDefaults] objectForKey:WX_OPEN_ID];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, accessToken, openID] parameters:nil success:^(id obj) {
+//        NSLog(@"请求用户信息的response = %@", obj);
+    
+        UserInfoModel *user = [UserInfoModel shareUserModel];
+        user.userName = obj[@"nickname"];
+        user.headimg = obj[@"headimgurl"];
+        user.usercity = obj[@"city"];
+        
+        NSString *sex = [NSString stringWithFormat:@"%@",obj[@"sex"]];
+        if ([sex isEqualToString:@"1"]) {
+            user.usersex = @"男";
+        }else{
+            user.usersex = @"女";
+        }
+        
+        user.loginStatus = YES;
+        
+        [user saveUserInfoToSanbox];
+        [MBProgressHUD showSuccess:@"登录成功"];
+        self.loginBlock(YES, nil);
+        
+    } fail:^(NSError *error) {
+        NSLog(@"获取用户信息时出错 = %@", error);
+    }];
+}
+
+-(void)wechatLogin{
+    if ([WXApi isWXAppInstalled]) {
+        SendAuthReq *req = [[SendAuthReq alloc] init];
+        req.scope = @"snsapi_userinfo";
+        req.state = @"App";
+        [WXApi sendReq:req];
+    }
+    else {
+        [self setupAlertController];
+    }
+}
+
+//第一次微信登录成功发送过来的通知,发送网络请求看是否存在手机号,如果存在直接返回手机号登录,如果不存在,弹出绑定手机界面
+-(void)WXLoginSucess{
+    
+}
+
+- (void)setupAlertController {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请先安装微信客户端" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionConfirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:actionConfirm];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -161,6 +259,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

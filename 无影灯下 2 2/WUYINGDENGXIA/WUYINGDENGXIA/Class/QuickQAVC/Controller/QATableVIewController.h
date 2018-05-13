@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "lableModel.h"
+#import "QusetionModel.h"
 
 @protocol QATableVIewDelegate<NSObject>
 
 @optional
 //监听点击table点击的索引
--(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath;
+-(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath QusetionModel:(QusetionModel *)Qusetionmodel;
 
 //点击头像推出个人展示页
 -(void)clickHeadImageJumpToPersonDetailPage:(NSInteger)indexPath;

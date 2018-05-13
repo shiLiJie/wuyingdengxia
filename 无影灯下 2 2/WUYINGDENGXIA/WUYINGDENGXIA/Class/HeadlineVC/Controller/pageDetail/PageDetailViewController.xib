@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageDetailViewController">
             <connections>
                 <outlet property="pinglunBtn" destination="ixu-CO-hjU" id="Yty-ZI-f0v"/>
+                <outlet property="pinglunView" destination="ZmD-un-sQ8" id="qds-7Q-2Jf"/>
                 <outlet property="shoucangBtn" destination="eV3-Ux-A0q" id="LHV-Wj-DCZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zanBtn" destination="aLl-Ux-MiG" id="AKO-m0-hp8"/>

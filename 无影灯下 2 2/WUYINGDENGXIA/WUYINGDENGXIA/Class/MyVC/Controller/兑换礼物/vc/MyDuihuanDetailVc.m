@@ -25,6 +25,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.imageName.text = self.duihuanmodel.goods_name;
+    self.jiage.text = self.duihuanmodel.moon_cash;
+    self.duihuanma.text = self.duihuanmodel.exchange_code;
+    self.dingdanhao.text = self.duihuanmodel.order_num;
+    self.riqi.text = self.duihuanmodel.exchange_time;
+    
+    NSString *string =self.duihuanmodel.begin_time;
+    NSString *string1 =self.duihuanmodel.end_time;
+    
+    NSArray *array = [string componentsSeparatedByString:@" "]; //从字符A中分隔成2个元素的数组
+    NSArray *array1 = [string1 componentsSeparatedByString:@" "]; //从字符A中分隔成2个元素的数组
+    if (array.count>0 && array1.count>0) {
+        self.youxiaoqi.text = [NSString stringWithFormat:@"%@ - %@",array[0],array1[0]];
+    }
+    
+    if (!kStringIsEmpty(self.duihuanmodel.exchange_time)) {
+        self.riqi.text = self.duihuanmodel.exchange_time;
+    }
+    
+    [self.image sd_setImageWithURL:[NSURL URLWithString:self.duihuanmodel.goods_img] placeholderImage:GetImage(@"")];
+    
 }
 
 #pragma mark - UI -

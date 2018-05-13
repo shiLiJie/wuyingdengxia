@@ -33,6 +33,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" backgroundImage="wenda"/>
+                        <connections>
+                            <action selector="pushPublishWithTag:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Y9M-Mn-pZM"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXE-R5-uC4">
                         <rect key="frame" x="56" y="16.5" width="40" height="16"/>
@@ -155,7 +158,7 @@
                 <outlet property="pinglunLab" destination="AQU-oH-Ilk" id="NMk-hU-rrp"/>
                 <outlet property="userName" destination="OXE-R5-uC4" id="d1Q-Iv-hgM"/>
             </connections>
-            <point key="canvasLocation" x="-366" y="1"/>
+            <point key="canvasLocation" x="-481" y="-1"/>
         </tableViewCell>
     </objects>
     <resources>

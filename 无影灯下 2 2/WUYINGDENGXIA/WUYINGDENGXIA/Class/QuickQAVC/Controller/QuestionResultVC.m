@@ -45,6 +45,9 @@ ZZHotKeysLayoutDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.zhankaiBtn.layer.cornerRadius = CGRectGetHeight(self.zhankaiBtn.frame)/2;//半径大小
+    self.zhankaiBtn.layer.masksToBounds = YES;//是否切割
+    
     self.sheetView.scrollEnabled = NO;
     [self.sheetView setCollectionViewLayout:self.hkLayout];
     self.sheetView.delegate=self;

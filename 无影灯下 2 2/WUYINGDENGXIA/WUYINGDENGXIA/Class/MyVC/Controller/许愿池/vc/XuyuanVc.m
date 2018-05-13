@@ -142,9 +142,37 @@
 //投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
     if (self.isEditor) {
-        //跳转到提交结果界面
-        XuyuanResultVc *QuestionResult = [[XuyuanResultVc alloc] init];
-        [self.navigationController pushViewController:QuestionResult animated:YES];
+        UserInfoModel *user = [UserInfoModel shareUserModel];
+        [user loadUserInfoFromSanbox];
+        NSString *mooncash = @"";
+        if ([self.yueliangbibtn.titleLabel.text integerValue]>0) {
+            mooncash = self.yueliangbibtn.titleLabel.text;
+        }else{
+            mooncash = @"0";
+        }
+        NSDictionary *dict = @{
+                               @"userid":user.userid,
+                               @"content":self.detailTextView.text,
+                               @"cash":mooncash
+                                };
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_desire"]
+                                                     parameters:dict
+                                                        success:^(id obj) {
+            
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                //跳转到提交结果界面
+                                                                XuyuanResultVc *QuestionResult = [[XuyuanResultVc alloc] init];
+                                                                [self.navigationController pushViewController:QuestionResult animated:YES];
+                                                            }else{
+                                                                
+                                                            }
+        }
+                                                           fail:^(NSError *error) {
+            
+        }];
+        
+
     }else{
 
     }

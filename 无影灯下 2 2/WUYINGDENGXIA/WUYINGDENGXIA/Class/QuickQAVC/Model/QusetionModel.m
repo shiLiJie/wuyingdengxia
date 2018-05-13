@@ -14,15 +14,24 @@
 {
     self = [super init];
     if (self) {
-        self.banner_id = dict[@"banner_id"];
-        self.banner_imgpath = dict[@"banner_imgpath"];
-        self.banner_link = dict[@"banner_link"];
-        self.banner_title = dict[@"banner_title"];
-        self.banner_type = dict[@"banner_type"];
+        self.answer_num = dict[@"answer_num"];
         self.ctime = dict[@"ctime"];
-        self.have_ballot = dict[@"have_ballot"];
-        self.img_id = dict[@"img_id"];
-        self.news_ballot_id = dict[@"news_ballot_id"];
+        self.failreason = dict[@"failreason"];
+        self.headimg = dict[@"headimg"];
+        self.is_con_check = dict[@"is_con_check"];
+        self.is_pro_check = dict[@"is_pro_check"];
+        self.is_solve = dict[@"is_solve"];
+        self.moon_cash = dict[@"moon_cash"];
+        self.nowlevel = dict[@"nowlevel"];
+        self.ques_answer = dict[@"ques_answer"];
+        self.question_content = dict[@"question_content"];
+        self.question_id = dict[@"question_id"];
+        self.question_image = dict[@"question_image"];
+        self.question_tags = dict[@"question_tags"];
+        self.question_title = dict[@"question_title"];
+        self.question_type_id = dict[@"question_type_id"];
+        self.user_id = dict[@"user_id"];
+        self.username = dict[@"username"];
     }
     return self;
 }

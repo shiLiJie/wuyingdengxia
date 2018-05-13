@@ -9,9 +9,11 @@
 #import "MyTougaoVc.h"
 #import "MyTougaoCell.h"
 #import "PageDetailViewController.h"
+#import "MyTougaoModel.h"
 
 @interface MyTougaoVc ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSArray *dataArr;
 
 @end
 
@@ -20,6 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //获取我的投稿信息
+    [self getMytougaoInfo];
+    
+    self.dataArr = [[NSArray alloc] init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -58,9 +64,31 @@
     return title;
 }
 
+//获取我的投稿信息
+-(void)getMytougaoInfo{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myarticle?userid=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[MyTougaoModel MytougaoWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.dataArr= arrayM;
+                                                       [self.tableView reloadData];
+    }
+                                                      fail:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.dataArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -76,14 +104,35 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyTougaoCell" owner:nil options:nil] firstObject];
     }
-    cell.choosetype = susscessType;
+    
     [cell setUIWithchooseType:cell.choosetype];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    MyTougaoModel *model = [[MyTougaoModel alloc] init];
+    model = self.dataArr[indexPath.row];
+    cell.tougaoTitle.text = model.article_title;
+    cell.tougaoDetail.text = model.article_content;
+    NSArray *array = [model.ctime componentsSeparatedByString:@" "];
+    if (array.count>0) {
+        cell.time.text = array[0];
+    }
+    if ([model.is_check isEqualToString:@"0"]) {
+        cell.choosetype = waitType;
+    }
+    if ([model.is_check isEqualToString:@"1"]) {
+        cell.choosetype = susscessType;
+    }
+    
+    
+    
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MyTougaoModel *model = [[MyTougaoModel alloc] init];
+    model = self.dataArr[indexPath.row];
     PageDetailViewController *vc = [[PageDetailViewController alloc] init];
+    vc.articleid = model.article_id;
+    vc.userid = model.user_id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

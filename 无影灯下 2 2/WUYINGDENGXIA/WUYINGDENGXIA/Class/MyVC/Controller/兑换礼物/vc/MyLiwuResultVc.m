@@ -32,6 +32,13 @@
     self.duihuanjiluBtn.layer.cornerRadius = CGRectGetHeight(self.duihuanjiluBtn.frame)/2;//半径大小
     self.duihuanjiluBtn.layer.masksToBounds = YES;//是否切割
     
+    self.liwuName.text = self.liwumodel.goods_name;
+    self.liwuJiage.text = self.liwumodel.moon_cash;
+    
+    self.liwuJuanma.text = self.courtesy_code;
+    self.liwuDingdanhao.text = self.order_num;
+    
+    
 }
 
 #pragma mark - UI -

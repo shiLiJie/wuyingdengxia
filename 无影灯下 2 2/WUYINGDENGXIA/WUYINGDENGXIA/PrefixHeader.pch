@@ -10,6 +10,7 @@
 #define PrefixHeader_pch
 
 #import "UIImage+Video.h"
+#import "UIButton+WebCache.h"
 
 
 #import "Macros.h"
@@ -27,6 +28,7 @@
 #import "userModel.h"
 #import "UIImageView+WebCache.h"
 #import "WKWebViewDelegate.h"
+#import "PersonViewController.h"
 
 
 #import "WXApi.h"

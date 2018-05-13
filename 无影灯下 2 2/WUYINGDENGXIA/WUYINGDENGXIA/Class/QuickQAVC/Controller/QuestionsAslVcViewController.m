@@ -278,7 +278,11 @@
         self.bottomViewConstraint.constant = 0;
         [self.bottomView layoutIfNeeded];
         [self.view layoutIfNeeded];
-        self.chooseView.transform = CGAffineTransformMakeTranslation(0, -self.bottomView.frame.size.height);
+        if (kDevice_Is_iPhoneX) {
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -self.bottomView.frame.size.height+34);
+        }else{
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -self.bottomView.frame.size.height);
+        }
     }];
 }
 
@@ -368,7 +372,9 @@
                 [self.yueliangbibtn setTitleColor:RGB(252, 186, 42) forState:UIControlStateNormal];
                 self.yueliangbibtn.layer.borderColor  = RGB(252, 188, 41).CGColor;
                 self.yueliangbibtn.layer.borderWidth = 0.5f;
-                [self.yueliangbibtn setTitle:userNameTextField.text forState:UIControlStateNormal];
+                if (!kStringIsEmpty(userNameTextField.text)) {
+                    [self.yueliangbibtn setTitle:userNameTextField.text forState:UIControlStateNormal];
+                }
             }
         });
     }]];
@@ -475,7 +481,11 @@
 //        if (self.choosetype == titleType) {
 //            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
 //        }else{
+        if (kDevice_Is_iPhoneX) {
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+        }else{
             self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+        }
 //
 //        }
         

@@ -20,6 +20,7 @@
 #import "SearchResultVcViewController.h"
 #import "MyTiwenVc.h"
 #import "lableModel.h"
+#import "QusetionModel.h"
 
 @interface QuickQAViewController ()<MDMultipleSegmentViewDeletegate,
                                     MDFlipCollectionViewDelegate,
@@ -365,9 +366,11 @@
 
 #pragma mark - DetailTableViewController代理方法 -
 //监听table点击方法传来索引
--(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+-(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath QusetionModel:(QusetionModel *)Qusetionmodel{
     
     AnswerViewController *pageDetail = [[AnswerViewController alloc] init];
+    pageDetail.questionModel = [[QusetionModel alloc] init];
+    pageDetail.questionModel = Qusetionmodel;
     [self.navigationController pushViewController:pageDetail animated:YES];
     self.searchBtn.hidden = YES;
     self.tiwenBtn.hidden = YES;

@@ -343,11 +343,11 @@
     }else{
         __weak typeof(self) weakSelf = self;
         LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
-            if (result) {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-                PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
-                [weakSelf.navigationController pushViewController:publicPage animated:YES];
-            }
+//            if (result) {
+//                [weakSelf.navigationController popViewControllerAnimated:YES];
+//                PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
+//                [weakSelf.navigationController pushViewController:publicPage animated:YES];
+//            }
         }];
         [self.navigationController pushViewController:loginVc animated:YES];
     }
@@ -581,13 +581,13 @@
 }
 
 //点击用户名和头像跳入个人发表的文章页
--(void)clickUserNamePushPublishVc{
+-(void)clickUserNamePushPublishVcWithUserid:(NSString *)userid{
     PersonViewController *publishPerson = [[PersonViewController alloc] init];
+    publishPerson.userid = userid;
     [self.navigationController pushViewController:publishPerson animated:YES];
     self.searchBar.hidden = YES;
     self.searchBtn.hidden = YES;
 }
-
 
 
 - (void)didReceiveMemoryWarning {

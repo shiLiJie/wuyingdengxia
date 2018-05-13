@@ -7,7 +7,14 @@
 //
 
 #import "BaseViewController.h"
+#import "LiwuModel.h"
 
 @interface MyLiwuResultVc : BaseViewController
+
+@property (nonatomic, strong) LiwuModel *liwumodel;
+
+@property (nonatomic,copy) NSString *courtesy_code;
+@property (nonatomic,copy) NSString *exchange_code;
+@property (nonatomic,copy) NSString *order_num;
 
 @end

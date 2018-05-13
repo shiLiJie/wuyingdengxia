@@ -8,19 +8,23 @@
 
 #import "DetailTableViewCell.h"
 
+
+
 @implementation DetailTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    self.headImage = 0;
+    
     self.mainTitle.font = BOLDSYSTEMFONT(16);
     
-    UITapGestureRecognizer *tapRecognizerWeibo=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushPublish)];
+    UITapGestureRecognizer *tapRecognizerWeibo=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushPublishWithTag:)];
     
     self.userName.userInteractionEnabled=YES;
     [self.userName addGestureRecognizer:tapRecognizerWeibo];
     
-    [self.headImage addTarget:self action:@selector(pushPublish) forControlEvents:UIControlEventTouchUpInside];
+    [self.headImage addTarget:self action:@selector(pushPublishWithTag:) forControlEvents:UIControlEventTouchUpInside];
     //4行间距
     [self setLabelHangjianj:self.pageDetail];
 }
@@ -32,10 +36,12 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [lab.text length])];
     lab.attributedText = attributedString;
 }
+//- (IBAction)pushPublishWithTag:(NSInteger *)sender {
+//}
 
 //点击头像和用户名,弹出发表人页
--(void)pushPublish{
-    [self.delegate pushPublishPersonVc];
+-(void)pushPublishWithTag:(NSInteger)tag{
+    [self.delegate pushPublishPersonVc:self.headTag];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

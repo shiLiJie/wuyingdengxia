@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.headImage.layer.cornerRadius = CGRectGetHeight(self.headImage.frame)/2;//半径大小
+    self.headImage.layer.masksToBounds = YES;//是否切割
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

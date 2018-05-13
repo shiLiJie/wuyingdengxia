@@ -12,8 +12,13 @@
 #import "NSDate+BRAdd.h"
 #import "ziliaoCell.h"
 #import "RenzhengOneVc.h"
+#import "ImagePicker.h"
 
 @interface MyDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+{
+    
+    ImagePicker *imagePicker;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic, strong) NSArray *titleArr1;//标题数组
@@ -39,13 +44,16 @@
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    self.phoneStr = user.phoneNum;
-    self.nichengStr = user.userName;
-//    self.birthStr = user.phoneNum;
-    self.sexStr = user.usersex;
-    self.cityStr = user.usercity;
-    self.isFinishCer = user.isfinishCer;
-    self.headUrl = user.headimg;
+    if (user.loginStatus) {
+        self.phoneStr = user.phoneNum;
+        self.nichengStr = user.userName;
+        //    self.birthStr = user.phoneNum;
+        self.sexStr = user.usersex;
+        self.cityStr = user.usercity;
+        self.isFinishCer = user.isfinishCer;
+        self.headUrl = user.headimg;
+    }
+
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
@@ -58,6 +66,9 @@
     self.titleArr1 = @[@"手机号",@"昵称"];
     self.titleArr2 = @[@"性别",@"出生年月",@"城市"];
     self.titleArr3= @[@"医院",@"科室",@"身份",@"职位"];
+    
+    //初始化
+    imagePicker = [ImagePicker sharedManager];
 }
 
 #pragma mark - UI -
@@ -133,7 +144,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString * pageID = @"ziliaoCell";
-    ziliaoCell *cell=[tableView dequeueReusableCellWithIdentifier:pageID];
+    
+    __weak ziliaoCell *cell=[tableView dequeueReusableCellWithIdentifier:pageID];
     
     __weak typeof(self) weakSelf = self;
     
@@ -150,10 +162,20 @@
             [weakSelf.navigationController pushViewController:vc animated:YES];
         };
         
-        [cell.headBtn.imageView sd_setImageWithURL:[NSURL URLWithString:self.headUrl] placeholderImage:GetImage(@"tx")];
+        [cell.headBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:self.headUrl] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
         //点击更换头像
         cell.touxiangBlcok = ^{
-            NSLog(@"头像");
+            
+            //设置主要参数
+            [imagePicker dwSetPresentDelegateVC:weakSelf SheetShowInView:weakSelf.view InfoDictionaryKeys:(long)nil];
+            //回调
+            [imagePicker dwGetpickerTypeStr:^(NSString *pickerTypeStr) {
+                
+            } pickerImagePic:^(UIImage *pickerImagePic) {
+                
+                [cell.headBtn setImage:pickerImagePic forState:UIControlStateNormal];
+ 
+            }];
         };
     }
     

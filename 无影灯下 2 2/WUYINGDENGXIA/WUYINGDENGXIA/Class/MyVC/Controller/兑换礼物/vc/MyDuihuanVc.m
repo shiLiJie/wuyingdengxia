@@ -9,10 +9,14 @@
 #import "MyDuihuanVc.h"
 #import "MyDuihuanCell.h"
 #import "MyDuihuanDetailVc.h"
+#import "DuihuanModel.h"
 
 @interface MyDuihuanVc ()<UITableViewDelegate,UITableViewDataSource>
 //兑换列表
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+//兑换礼物数组
+@property (nonatomic, strong) NSArray *duihuanArr;
+
 
 @end
 
@@ -20,10 +24,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.duihuanArr = [[NSArray alloc] init];
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    //获取兑换记录
+    [self getDuihuanList];
 }
 
 #pragma mark - UI -
@@ -37,6 +45,31 @@
 
 -(NSMutableAttributedString *)setTitle{
     return [self changeTitle:@"我的兑换"];
+}
+
+//获取兑换记录
+-(void)getDuihuanList{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_goods_by_userid?user_id=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       
+                                                       NSLog(@"%@",arr);
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[DuihuanModel DuihuanModelWithDict:dict]];
+  
+                                                       }
+                                                       self.duihuanArr= arrayM;
+                                                       [self.tableview reloadData];
+        
+    } fail:^(NSError *error) {
+        
+    }];
 }
 
 //左侧按钮设置点击
@@ -64,7 +97,7 @@
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 6;
+    return self.duihuanArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -87,11 +120,22 @@
     cell.cellView.layer.cornerRadius = 10;//半径大小
     cell.cellView.layer.masksToBounds = YES;//是否切割
     
+    DuihuanModel *model = self.duihuanArr[indexPath.row];
+    cell.nameLab.text = model.goods_name;
+    cell.jiageLab.text = model.moon_cash;
+    cell.dingdanhaoLab.text = [NSString stringWithFormat:@"订单号 %@",model.order_num];
+    
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:model.goods_img] placeholderImage:GetImage(@"")];
+    
+    
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MyDuihuanDetailVc *vc = [[MyDuihuanDetailVc alloc] init];
+    DuihuanModel *model = self.duihuanArr[indexPath.row];
+    vc.duihuanmodel = [[DuihuanModel alloc] init];
+    vc.duihuanmodel = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

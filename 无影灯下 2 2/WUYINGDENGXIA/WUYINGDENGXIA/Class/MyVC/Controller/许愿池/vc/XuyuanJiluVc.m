@@ -9,16 +9,28 @@
 #import "XuyuanJiluVc.h"
 #import "XuyuanJiluCell.h"
 #import "XuyuanDetailVc.h"
+#import "xuyuanModel.h"
 
 @interface XuyuanJiluVc ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;//许愿记录列表
+
+@property (nonatomic, strong) NSArray *xuyuanArr;
+
 
 @end
 
 @implementation XuyuanJiluVc
 
+-(void)viewWillAppear:(BOOL)animated{
+    //获取许愿记录
+    [self getxuyuanInfo];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.xuyuanArr = [[NSArray alloc] init];
+    
+
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
@@ -58,10 +70,32 @@
     return title;
 }
 
+//获取许愿记录
+-(void)getxuyuanInfo{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myalldesire?user_id=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[xuyuanModel xuyuanWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.xuyuanArr= arrayM;
+                                                       [self.tableview reloadData];
+    }
+                                                      fail:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 6;
+    return self.xuyuanArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -79,12 +113,41 @@
     }
     //设置背景色,切圆角,点击不变色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    xuyuanModel *model = [[xuyuanModel alloc] init];
+    model = self.xuyuanArr[indexPath.row];
+    cell.titleLab.text = model.wish_content;
+    cell.timeLab.text = model.ctime;
+    if (!kStringIsEmpty(model.moon_cash)) {
+        cell.jiageLab.text = model.moon_cash;
+    }
+    if ([model.status isEqualToString:@"1"]) {
+        cell.choosetype = susscessType;
+        [cell setUIWithchooseType:susscessType];
+    }else{
+        cell.choosetype = waitType;
+        [cell setUIWithchooseType:waitType];
+    }
+    
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
     XuyuanDetailVc *vc = [[XuyuanDetailVc alloc] init];
+    xuyuanModel *model = [[xuyuanModel alloc] init];
+    model = self.xuyuanArr[indexPath.row];
+//    vc.xuyuan = [[xuyuanModel alloc] init];
+//    vc.xuyuan = model;
+    
+    vc.wishid = model.wish_id;
+    vc.detail = model.wish_content;
+    vc.mooncash = model.moon_cash;
+    vc.ctime = model.ctime;
+    
+    
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 

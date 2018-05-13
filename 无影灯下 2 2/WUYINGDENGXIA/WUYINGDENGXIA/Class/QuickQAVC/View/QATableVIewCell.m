@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self setLabelHangjianj:self.detailPage];
+    
+    self.headImage.layer.cornerRadius = CGRectGetHeight(self.headImage.frame)/2;;//半径大小
+    self.headImage.layer.masksToBounds = YES;//是否切割
 }
 
 #pragma mark - 按钮点击方法 -

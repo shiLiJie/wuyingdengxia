@@ -9,6 +9,7 @@
 #import "MyTiwenVc.h"
 #import "MyTiwenCell.h"
 #import "AnswerViewController.h"
+#import "QusetionModel.h"
 #import "MytiwenModel.h"
 
 @interface MyTiwenVc ()<UITableViewDelegate,UITableViewDataSource>
@@ -78,10 +79,11 @@
 
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_byuserid?userid=%@",user.userid]] parameters:nil success:^(id obj) {
         NSArray *arr = obj[@"data"];
+        
         NSMutableArray *arrayM = [NSMutableArray array];
         for (int i = 0; i < arr.count; i ++) {
             NSDictionary *dict = arr[i];
-            [arrayM addObject:[MytiwenModel MytiwenWithDict:dict]];
+            [arrayM addObject:[QusetionModel QusetionWithDict:dict]];
             
         }
         weakSelf.tiwenArr= arrayM;
@@ -110,7 +112,8 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyTiwenCell" owner:nil options:nil] firstObject];
     }
-    MytiwenModel *model = [[MytiwenModel alloc] init];
+
+    QusetionModel *model = [[QusetionModel alloc] init];
     model = self.tiwenArr[indexPath.row];
     if ([model.is_solve isEqualToString:@"0"]) {
         cell.choosetype = waitType;
@@ -122,6 +125,7 @@
     }
     cell.titleLab.text = model.question_title;
     cell.detailLab.text = model.question_content;
+    cell.huidaLab.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
     
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -130,6 +134,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     AnswerViewController *vc = [[AnswerViewController alloc] init];
+    vc.questionModel = [[QusetionModel alloc] init];
+    vc.questionModel = self.tiwenArr[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

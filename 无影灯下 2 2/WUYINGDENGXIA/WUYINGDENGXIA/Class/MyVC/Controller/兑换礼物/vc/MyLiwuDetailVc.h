@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "LiwuModel.h"
 
 @interface MyLiwuDetailVc : BaseViewController
+
+@property (nonatomic, strong) LiwuModel *liwumodel;
+
 
 @end

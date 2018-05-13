@@ -9,6 +9,19 @@
 #ifndef Macros_h
 #define Macros_h
 
+#define AppSecret @"1016c9384874287ac02b51008c3fe7ef"
+#define AppID @"wx7e96a7078376a079"
+
+#define WXDoctor_App_ID @"wx7e96a7078376a079" // 注册微信时的AppID
+#define WXDoctor_App_Secret @"1016c9384874287ac02b51008c3fe7ef" // 注册时得到的AppSecret
+//#define WXPatient_App_ID @"wxbd02bfeea4292***"
+//#define WXPatient_App_Secret @"4a788217f363358276309ab655707***"
+#define WX_ACCESS_TOKEN @"access_token"
+#define WX_OPEN_ID @"openid"
+#define WX_REFRESH_TOKEN @"refresh_token"
+#define WX_UNION_ID @"unionid"
+#define WX_BASE_URL @"https://api.weixin.qq.com/sns"
+
 #define BaseUrl @"http://39.106.2.216/index.php/API/"
 
 //中文字体
@@ -51,6 +64,7 @@
 
 //导航栏高度
 #define TopBarHeight 64.5
+#define TopBarHeightIPhoneX 88.5
 
 // 字体大小(常规/粗体)
 #define BOLDSYSTEMFONT(FONTSIZE)[UIFont boldSystemFontOfSize:FONTSIZE]

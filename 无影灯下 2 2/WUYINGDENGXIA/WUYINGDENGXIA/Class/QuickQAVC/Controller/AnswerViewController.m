@@ -16,6 +16,8 @@
 //圆角view
 @property (weak, nonatomic) IBOutlet UIView *yuanjiaoview;
 
+@property (nonatomic,copy) NSString *inputStr;
+
 @end
 
 @implementation AnswerViewController
@@ -51,7 +53,8 @@
 }
 
 -(NSMutableAttributedString *)setTitle{
-    return [self changeTitle:@"问题详情"];
+    return [self changeTitle:self.questionModel.question_title.length >0 ? self.questionModel.question_title : @"问题详情"];
+//    return [self changeTitle:@"问题详情"];
 }
 
 -(UIColor*)set_colorBackground{
@@ -72,13 +75,63 @@
     
     self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     [self.view addSubview:self.input];
+    if (self.inputStr.length > 0) {
+        self.input.inputTextView.text = self.inputStr;
+    }
     self.input.delegate = self;
     [self.input inputViewShow];
 }
+- (IBAction)shoucang:(UIButton *)sender {
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    NSLog(@"%@",self.questionModel);
+    NSDictionary *dic = @{
+                          @"userid":user.userid,
+                          @"toid":self.questionModel.question_id,
+                          @"type":@"4"
+                          };
+    
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_collection"]
+                                                 parameters:dic
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [sender setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
+                                                        }else{
+                                                            
+                                                        }
+                                                    }
+                                                       fail:^(NSError *error) {
+                                                           
+                                                       }];
+}
+- (IBAction)zhuanfa:(UIButton *)sender {
+}
 
 #pragma mark - textinput代理 -
-- (void)sendText:(NSString *)text{
+-(void)giveText:(NSString *)text{
+    self.inputStr = text;
+}
 
+- (void)sendText:(NSString *)text{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    NSDictionary *dict = @{
+                           @"quesid":self.questionModel.question_id,
+                           @"userid":user.userid,
+                           @"anwContent":text
+                           };
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_anwser"] parameters:dict success:^(id obj) {
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+            
+            [MBProgressHUD showSuccess:obj[@"msg"]];
+        }else{
+            [MBProgressHUD showError:obj[@"msg"]];
+        }
+    } fail:^(NSError *error) {
+        [MBProgressHUD showError:@"评论失败"];
+    }];
     
 }
 

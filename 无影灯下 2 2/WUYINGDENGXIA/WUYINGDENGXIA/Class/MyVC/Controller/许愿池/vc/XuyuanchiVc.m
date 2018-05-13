@@ -33,6 +33,19 @@
     
     self.xuyuanBtn.layer.cornerRadius = CGRectGetHeight(self.xuyuanBtn.frame)/2;//半径大小
     self.xuyuanBtn.layer.masksToBounds = YES;//是否切割
+    
+    self.headImage.layer.cornerRadius = CGRectGetHeight(self.headImage.frame)/2;//半径大小
+    self.headImage.layer.masksToBounds = YES;//是否切割
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (!kStringIsEmpty(user.userName)) {
+        self.userName.text = user.userName;
+    }
+    if (!kStringIsEmpty(user.moon_cash)) {
+        [self.yueliangbi setTitle:user.moon_cash forState:UIControlStateNormal];
+    }
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
 }
 
 #pragma mark - 私有方法 -

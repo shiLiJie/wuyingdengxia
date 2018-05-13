@@ -10,6 +10,7 @@
 
 @interface MytiwenModel : NSObject
 
+@property (nonatomic, copy) NSString *answer_num;//id
 @property (nonatomic, copy) NSString *ctime;//id
 @property (nonatomic, copy) NSString *failreason;//
 @property (nonatomic, copy) NSString *is_con_check;//
@@ -28,6 +29,6 @@
 @property (nonatomic, copy) NSString *username;//
 
 
-+ (instancetype)MytiwenWithDict:(NSDictionary *)dict;
++ (instancetype)QusetionwenWithDict:(NSDictionary *)dict;
 
 @end

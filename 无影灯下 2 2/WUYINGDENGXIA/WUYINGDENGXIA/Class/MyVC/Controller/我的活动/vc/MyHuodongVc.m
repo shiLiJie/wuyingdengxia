@@ -54,6 +54,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self addSegView];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mymetting?userid=1"]] parameters:nil success:^(id obj) {
+        NSLog(@"%@",obj);
+    } fail:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - UI -
 //添加segview标签控制器
@@ -67,7 +73,7 @@
         _segView.frame = CGRectMake(50,64, kScreen_Width-100, 44);
     }
     
-    _segView.items = @[@"文章",@"回答"];
+    _segView.items = @[@"未开始",@"已结束"];
     _segView.titleFont = BOLDSYSTEMFONT(17);
     [self.view addSubview:_segView];
     //    UILabel *lab = [[UILabel alloc] init];

@@ -47,11 +47,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    //个人信息设置
-    [self userInfo];
-    
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     [super viewWillAppear:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    //个人信息设置
+    [self userInfo];
 }
 
 - (void)viewDidLoad {
@@ -79,8 +81,8 @@
     self.fensiLab .userInteractionEnabled = YES;
     self.fensiNum .userInteractionEnabled = YES;
     
-
 }
+
 
 
 #pragma mark - UI -
@@ -90,15 +92,20 @@
 }
 //个人信息设置
 -(void)userInfo{
+    
+    self.headImage.layer.cornerRadius = CGRectGetHeight(self.headImage.frame)/2;//半径大小
+    self.headImage.layer.masksToBounds = YES;//是否切割
+    
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     if (user.loginStatus) {
+        
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
         self.userName.text = user.userName !=nil ? user.userName : @"您的昵称";
         self.fensiNum.text = user.fansnum !=nil ? user.userName : @"0";
         self.zanNum.text = user.supportnum !=nil ? user.userName : @"0";
         [self.yueliangbiNum setTitle:user.moon_cash !=nil ? user.moon_cash : @" 0" forState:UIControlStateNormal];
-        if ([user.isV isEqualToString:0]) {
+        if ([user.isV isEqualToString:@"1"]) {
             self.vipImage.image = GetImage(@"v");
         }
     }else{
@@ -178,6 +185,11 @@
 }
 //资料设置按钮点击
 - (IBAction)ziliaoBtnClick:(UIButton *)sender {
+    MyDetailViewController *pageDetail = [[MyDetailViewController alloc] init];
+    [self.navigationController pushViewController:pageDetail animated:YES];
+}
+//点击透明头像,效果和上边一样
+- (IBAction)headImageClick:(UIButton *)sender {
     MyDetailViewController *pageDetail = [[MyDetailViewController alloc] init];
     [self.navigationController pushViewController:pageDetail animated:YES];
 }

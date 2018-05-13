@@ -8,11 +8,14 @@
 
 #import "QATableVIewController.h"
 #import "QATableVIewCell.h"
-#import "QusetionModel.h"
+
 
 @interface QATableVIewController ()<UITableViewDelegate,UITableViewDataSource,QATableVIewCellDelegate>
 
 @property (nonatomic, strong) QATableVIewCell * cell;
+
+@property (nonatomic, strong) NSArray *qusetionArr;
+
 @end
 
 @implementation QATableVIewController
@@ -20,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.qusetionArr = [[NSArray alloc] init];
     //获取标签下对应问答
     [self getQusetionWithLabel];
     
@@ -32,22 +36,29 @@
 -(void)getQusetionWithLabel{
 
     NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_bylabel?label=%@",self.lablemodel.key_name]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString  *url1 = [BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_bylabel?label=%@",self.lablemodel.key_id]];
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:url1
+
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
                                                 parameters:nil
                                                    success:^(id obj) {
-        NSLog(@"%@",obj);
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[QusetionModel QusetionWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.qusetionArr= arrayM;
                                                        [self.tableview reloadData];
     }
                                                       fail:^(NSError *error) {
-        //
+        
     }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //    return self.dataArr.count;
-    return 7;
+    
+    return self.qusetionArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -66,6 +77,13 @@
         self.cell = [[[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil] firstObject];
         self.cell.headImage.tag = indexPath.row;
         self.cell.delegate = self;
+        QusetionModel *model = self.qusetionArr[indexPath.row];
+        self.cell.userName.text = model.username;
+        [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:model.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+        self.cell.mainTitle.text = model.question_title;
+        self.cell.detailPage.text = model.question_content;
+        self.cell.answerNum.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
+        self.cell.mooncash.text = model.moon_cash;
         
     }
     
@@ -77,7 +95,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self.delegate QAtableviewDidSelectPageWithIndex:indexPath];
+    if ([self.delegate respondsToSelector:@selector(QAtableviewDidSelectPageWithIndex:QusetionModel:)]) {
+        QusetionModel *model = [[QusetionModel alloc] init];
+        model = self.qusetionArr[indexPath.row];
+        
+        [self.delegate QAtableviewDidSelectPageWithIndex:indexPath QusetionModel:model];
+    }
+    
 }
 
 #pragma mark - cell代理方法 -

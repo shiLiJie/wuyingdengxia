@@ -25,6 +25,7 @@
                 <outlet property="qiandaoBtn" destination="kwO-2A-bZZ" id="kC4-6L-Pbg"/>
                 <outlet property="qiandaoView" destination="dQ1-yM-vKl" id="vhD-2A-0gy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yueliangbiLab" destination="aOv-J7-huw" id="d3J-er-TKa"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -187,7 +188,7 @@
                 <constraint firstItem="4nY-So-n2t" firstAttribute="top" secondItem="dQ1-yM-vKl" secondAttribute="bottom" id="y6P-9E-dIO"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-1403" y="67"/>
+            <point key="canvasLocation" x="-1581" y="70"/>
         </view>
     </objects>
     <resources>

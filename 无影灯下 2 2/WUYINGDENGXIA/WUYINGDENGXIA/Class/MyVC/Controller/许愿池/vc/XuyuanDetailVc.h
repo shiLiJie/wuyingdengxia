@@ -7,7 +7,16 @@
 //
 
 #import "BaseViewController.h"
+#import "xuyuanModel.h"
 
 @interface XuyuanDetailVc : BaseViewController
+
+@property (nonatomic, strong) xuyuanModel *xuyuan;
+
+@property (nonatomic,copy) NSString *wishid;
+@property (nonatomic,copy) NSString *detail;
+@property (nonatomic,copy) NSString *mooncash;
+@property (nonatomic,copy) NSString *ctime;
+
 
 @end

@@ -93,7 +93,7 @@
     
     if ([text isEqualToString:@"\n"]){
         if (self.inputTextView.text.length>0) {
-            [self.delegate sendText:self.inputTextView.text];
+//            [self.delegate sendText:self.inputTextView.text];
         }
         return NO;
     }else{

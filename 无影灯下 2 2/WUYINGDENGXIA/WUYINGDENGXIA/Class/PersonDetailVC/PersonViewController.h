@@ -10,4 +10,10 @@
 
 @interface PersonViewController : BaseViewController
 
+//传过来的userid
+@property (nonatomic,copy) NSString *userid;
+
+//头像
+@property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+
 @end

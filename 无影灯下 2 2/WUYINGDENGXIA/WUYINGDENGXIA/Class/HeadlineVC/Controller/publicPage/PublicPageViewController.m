@@ -363,9 +363,9 @@ typedef enum _chooseType{
     [UIView animateKeyframesWithDuration:animationDuration delay:0 options:options animations:^{
         //根据选择的编辑框来决定键盘上的view上移距离
         if (self.choosetype == titleType) {
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
         }else{
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
 
         }
         

@@ -24,10 +24,26 @@
     self.shixianBtn.layer.cornerRadius = CGRectGetHeight(self.shixianBtn.frame)/2;//半径大小
     self.shixianBtn.layer.masksToBounds = YES;//是否切割
     
+    
+    self.xuyuanDetailLab.text = self.detail;
+    self.xuyuanTime.text = self.ctime;
+    self.xuyuanJiage.text = self.mooncash;
+        
 }
+//确认实现按钮
 - (IBAction)btnClick:(UIButton *)sender {
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"confirm_wish?wishid=%@",self.wishid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSLog(@"%@",obj);
+    } fail:^(NSError *error) {
+        
+    }];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{

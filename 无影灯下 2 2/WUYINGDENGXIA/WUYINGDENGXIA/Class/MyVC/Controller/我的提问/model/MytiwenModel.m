@@ -14,6 +14,7 @@
 {
     self = [super init];
     if (self) {
+        self.answer_num = dict[@"answer_num"];
         self.ctime = dict[@"ctime"];
         self.failreason = dict[@"failreason"];
         self.is_con_check = dict[@"is_con_check"];

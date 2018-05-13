@@ -19,6 +19,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyLiwuDetailVc">
             <connections>
                 <outlet property="LiwuImage" destination="mBH-eE-zyL" id="xGx-gR-9FQ"/>
+                <outlet property="LiwuName" destination="7Xv-bj-SDU" id="y6M-Fj-RQQ"/>
                 <outlet property="detailLab" destination="SDN-RF-ZY2" id="w7X-o1-nwN"/>
                 <outlet property="liwuJiage" destination="xi2-uW-RaW" id="Ho3-Bl-gxl"/>
                 <outlet property="sureDuihuanBtn" destination="gCI-7L-awN" id="2cY-PK-5Af"/>
@@ -35,6 +36,7 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatIMG2375" translatesAutoresizingMaskIntoConstraints="NO" id="mBH-eE-zyL">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="349"/>
+                            <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHt-Ew-3E2">
                             <rect key="frame" x="17" y="35" width="21" height="22"/>

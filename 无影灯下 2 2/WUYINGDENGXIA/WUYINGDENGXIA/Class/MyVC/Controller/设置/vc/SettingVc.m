@@ -131,19 +131,26 @@
         if (indexPath.row == 0) {
             if (!cell) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil] firstObject];
-                [cell.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
-                cell.userName.text = user.userName;
+                if (user.loginStatus) {
+                    [cell.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+                    cell.userName.text = user.userName;
+                }
+                
+                
             }
         }else{
             if (!cell) {
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][1];
             }
-            //身份认证状态
-            if ([user.isfinishCer isEqualToString:@"0"]) {
-                cell.renzhengLab.text = @"已认证";
-            }else{
-                cell.renzhengLab.text = @"未认证";
+            if (user.loginStatus) {
+                //身份认证状态
+                if ([user.isfinishCer isEqualToString:@"0"]) {
+                    cell.renzhengLab.text = @"已认证";
+                }else{
+                    cell.renzhengLab.text = @"未认证";
+                }
             }
+            
         }
     }
     if (indexPath.section == 1) {
@@ -209,6 +216,42 @@
                                                                   [user loadUserInfoFromSanbox];
                                                                   user.userid = @"0";
                                                                   user.loginStatus = NO;
+                                                                  
+                                                                  
+                                                                  user.userName = @"";
+                                                                  user.passWord = @"";
+                                                                  user.certid = @"";
+                                                                  user.ctime = @"";
+                                                                  user.fansnum = @"";
+                                                                  user.headimg = @"";
+                                                                  user.isV = @"";
+                                                                  user.isadmin = @"";
+                                                                  user.isfinishCer = @"";
+                                                                  user.ishead = @"";
+                                                                  user.isphoneverify = @"";
+                                                                  user.last_login_time = @"";
+                                                                  user.phoneNum = @"";
+                                                                  user.supportnum = @"";
+                                                                  user.userDegree = @"";
+                                                                  user.userEmail = @"";
+                                                                  user.userHospital = @"";
+                                                                  user.userIdcard = @"";
+                                                                  user.userLoginway = @"";
+                                                                  user.userMajor = @"";
+                                                                  user.userOffice = @"";
+                                                                  user.userPosition = @"";
+                                                                  user.userReal_name = @"";
+                                                                  user.userSchool = @"";
+                                                                  user.userStschool = @"";
+                                                                  user.userTitle = @"";
+                                                                  user.userUnit = @"";
+                                                                  user.user_token = @"";
+                                                                  user.useravatar_id = @"";
+                                                                  user.usercity = @"";
+                                                                  user.usersex = @"";
+                                                                  user.usertoken = @"";
+                                                                  user.moon_cash = @"";
+                                                                  
                                                                   [user saveUserInfoToSanbox];
                                                                   [self.navigationController popViewControllerAnimated:YES];
                                                               }];

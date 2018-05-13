@@ -24,8 +24,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOf-kp-nQd">
+                    <rect key="frame" x="0.0" y="650" width="375" height="66"/>
+                    <color key="backgroundColor" white="0.80208333333333337" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="66" id="C9Y-Gy-hWd"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ywu-sZ-XwD">
-                    <rect key="frame" x="0.0" y="762" width="375" height="50"/>
+                    <rect key="frame" x="0.0" y="728" width="375" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCg-3l-aaJ">
                             <rect key="frame" x="21.000000000000004" y="10" width="35.333333333333343" height="30"/>
@@ -61,13 +68,6 @@
                         <constraint firstItem="es6-Vl-XHN" firstAttribute="leading" secondItem="hCg-3l-aaJ" secondAttribute="trailing" constant="10" id="zgs-Bj-hQi"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOf-kp-nQd">
-                    <rect key="frame" x="0.0" y="684" width="375" height="66"/>
-                    <color key="backgroundColor" white="0.80208333333333337" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="66" id="C9Y-Gy-hWd"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -75,7 +75,7 @@
                 <constraint firstItem="rOf-kp-nQd" firstAttribute="leading" secondItem="yge-tD-3ZE" secondAttribute="leading" id="Odx-yw-Pgs"/>
                 <constraint firstItem="yge-tD-3ZE" firstAttribute="trailing" secondItem="ywu-sZ-XwD" secondAttribute="trailing" id="Z2B-dt-yDN"/>
                 <constraint firstItem="ywu-sZ-XwD" firstAttribute="leading" secondItem="yge-tD-3ZE" secondAttribute="leading" id="oWv-05-pVO"/>
-                <constraint firstAttribute="bottom" secondItem="ywu-sZ-XwD" secondAttribute="bottom" id="t5x-yO-TiW"/>
+                <constraint firstItem="yge-tD-3ZE" firstAttribute="bottom" secondItem="ywu-sZ-XwD" secondAttribute="bottom" id="tjm-6N-tBG"/>
                 <constraint firstItem="ywu-sZ-XwD" firstAttribute="top" secondItem="rOf-kp-nQd" secondAttribute="bottom" constant="12" id="xX5-6E-xdi"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="yge-tD-3ZE"/>

@@ -13,7 +13,7 @@
 #import "AnswerTableVC.h"
 #import "DetailTableViewController.h"
 #import "PageDetailViewController.h"
-
+#import "userModel.h"
 
 
 #define segViewHigh     44
@@ -27,8 +27,6 @@
 }
 //背景
 @property (weak, nonatomic) IBOutlet UIView *backView;
-//头像
-@property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 //用户名
 @property (weak, nonatomic) IBOutlet UILabel *userNameLab;
 //用户等级
@@ -46,10 +44,17 @@
 
 @implementation PersonViewController
 
+-(void)viewDidAppear:(BOOL)animated{
+    self.headImageView.layer.cornerRadius = CGRectGetHeight(self.headImageView.frame)/2;//半径大小
+    self.headImageView.layer.masksToBounds = YES;//是否切割
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.navigationController.navigationBar setHidden:YES];
+    
+
     
     if ([self respondsToSelector:@selector(set_colorBackground)]) {
         UIColor *backgroundColor =  [self set_colorBackground];
@@ -68,14 +73,37 @@
         }
     }
     
-//    [super viewWillAppear:nil];
+    self.headImageView.layer.cornerRadius = CGRectGetHeight(self.headImageView.frame)/2;//半径大小
+    self.headImageView.layer.masksToBounds = YES;//是否切割
+    
     //添加segeview
     [self addSegView];
     
-//    self.guanzhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    //切圆角和设置弧度
-//    self.guanzhuBtn.layer.cornerRadius = 5.0;//半径大小
-//    self.guanzhuBtn.layer.masksToBounds = YES;//是否切割
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=10003",BaseUrl]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSDictionary *ditc = obj[@"data"];
+                                                       userModel *user = [userModel userWithDict:ditc];
+                                                       [self.headImageView sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+                                                       if (!kStringIsEmpty(user.username)) {
+                                                            self.userNameLab.text = user.username !=nil ? user.username : @"";
+                                                       }
+                                                       if (!kStringIsEmpty(user.fansnum)) {
+                                                            self.funsLab.text = user.fansnum !=nil ? [NSString stringWithFormat:@"粉丝数  %@",user.fansnum] : @"粉丝数  0";
+                                                       }
+                                                       if (!kStringIsEmpty(user.supportnum)) {
+                                                            self.zanLab.text = user.supportnum !=nil ? [NSString stringWithFormat:@"点赞数  %@",user.fansnum] : @"点赞数  0";
+                                                       }
+                                                       if (!kStringIsEmpty(user.isV)) {
+                                                           if ([user.isV isEqualToString:@"1"]) {
+                                                               self.vipImageView.image = GetImage(@"v");
+                                                           }
+                                                       }
+
+    } fail:^(NSError *error) {
+        //
+    }];
 }
 
 #pragma mark - UI -
@@ -115,7 +143,8 @@
     _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
                                                                           CGRectGetMaxY(_segView.frame)-0.5,
                                                                           Main_Screen_Width,
-                                                                          Main_Screen_Height - Main_Screen_Height*0.168)
+                                                                          Main_Screen_Height - Main_Screen_Height*0.215-segViewHigh-20)
+                    
                                                      withArray:arr];
     _collectView.delegate = self;
     [self.view addSubview:_collectView];
@@ -128,11 +157,34 @@
 }
 //关注
 - (IBAction)guanzhu:(UIButton *)sender {
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    NSDictionary *dict = @{
+                           @"userid":user.userid,
+                           @"befollid":@"10003"
+                           };
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_follow"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [self.guanzhuBtn setBackgroundColor:[UIColor grayColor]];
+                                                            [self.guanzhuBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+                                                            [self.guanzhuBtn setTitle:@"已关注" forState:UIControlStateNormal];
+                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                        }else{
+                                                            
+                                                        }
+    } fail:^(NSError *error) {
+        
+    }];
 
 }
 
 -(DetailTableViewController *)tablecontroller{
     DetailTableViewController *vc = [[DetailTableViewController alloc] init];
+    [vc getPersonVcPageWithPersonId:@"10003"];
     vc.delegate = self;
 
     return vc;
@@ -152,6 +204,19 @@
     PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
     [self.navigationController pushViewController:pageDetail animated:YES];
 }
+
+//监听table点击方法传来索引
+-(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath article_id:(NSString *)articleid user_id:(NSString *)userid pageModle:(pageModel *)model{
+    
+    PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
+    pageDetail.articleid = articleid;
+    pageDetail.userid = userid;
+    pageDetail.model = [[pageModel alloc] init];;
+    pageDetail.model = model;
+    [self.navigationController pushViewController:pageDetail animated:YES];
+
+}
+
 ////点击用户名和头像跳入个人发表的文章页
 //-(void)clickUserNamePushPublishVc{
 //    PersonViewController *publishPerson = [[PersonViewController alloc] init];

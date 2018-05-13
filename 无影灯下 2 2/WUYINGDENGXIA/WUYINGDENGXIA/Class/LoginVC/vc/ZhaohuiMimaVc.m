@@ -81,7 +81,8 @@
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                           
+                                                           //改变验证码按钮样式
+                                                           [self openCountdown];
                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
                                                        }else{
                                                            [MBProgressHUD showError:obj[@"msg"]];
@@ -92,6 +93,46 @@
                                                    }];
     
 }
+
+// 开启倒计时效果
+-(void)openCountdown{
+    
+    __block NSInteger time = 59; //倒计时时间
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    
+    dispatch_source_set_event_handler(_timer, ^{
+        
+        if(time <= 0){ //倒计时结束，关闭
+            
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                //设置按钮的样式
+                [self.verifBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+                [self.verifBtn setFont:[UIFont systemFontOfSize:12]];
+                self.verifBtn.userInteractionEnabled = YES;
+            });
+            
+        }else{
+            
+            int seconds = time % 60;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                //设置按钮显示读秒效果
+                [self.verifBtn setTitle:[NSString stringWithFormat:@"重新发送(%.2d)", seconds] forState:UIControlStateNormal];
+                [self.verifBtn setFont:[UIFont systemFontOfSize:12]];
+                self.verifBtn.userInteractionEnabled = NO;
+            });
+            time--;
+        }
+    });
+    dispatch_resume(_timer);
+}
+
 //确定
 - (IBAction)sureBtnClick:(UIButton *)sender {
     NSDictionary *dict = @{
@@ -104,14 +145,65 @@
                                                     success:^(id obj) {
                                                         
                                                         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                            UserInfoModel *user = [UserInfoModel shareUserModel];
-                                                            [user loadUserInfoFromSanbox];
-                                                            user.passWord = self.pwdField.text;
-                                                            [user saveUserInfoToSanbox];
+//                                                            UserInfoModel *user = [UserInfoModel shareUserModel];
+//                                                            [user loadUserInfoFromSanbox];
+//                                                            user.passWord = self.pwdField.text;
+//                                                            [user saveUserInfoToSanbox];
                                                             [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                            
+                                                            
+                                                            [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myinfo?userid=%@",obj[@"data"][@"user_id"]]]
+                                                                                                        parameters:nil
+                                                                                                           success:^(id obj) {
+                                                                                                               //登录成功
+                                                                                                               NSDictionary *dic = obj[@"data"];
+                                                                                                               UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                                                                               user.userName = dic[@"username"];
+                                                                                                               user.passWord = self.pwdField.text;
+                                                                                                               user.loginStatus = YES;
+                                                                                                               user.certid = dic[@"certid"];
+                                                                                                               user.ctime = dic[@"ctime"];
+                                                                                                               user.fansnum = dic[@"fansnum"];
+                                                                                                               user.headimg = dic[@"headimg"];
+                                                                                                               user.isV = dic[@"isV"];
+                                                                                                               user.isadmin = dic[@"isadmin"];
+                                                                                                               user.isfinishCer = dic[@"isfinishCer"];
+                                                                                                               user.ishead = dic[@"ishead"];
+                                                                                                               user.isphoneverify = dic[@"isphoneverify"];
+                                                                                                               user.last_login_time = dic[@"last_login_time"];
+                                                                                                               user.phoneNum = dic[@"phoneNum"];
+                                                                                                               user.supportnum = dic[@"supportnum"];
+                                                                                                               user.userDegree = dic[@"userDegree"];
+                                                                                                               user.userEmail = dic[@"userEmail"];
+                                                                                                               user.userHospital = dic[@"userHospital"];
+                                                                                                               user.userIdcard = dic[@"userIdcard"];
+                                                                                                               user.userLoginway = dic[@"userLoginway"];
+                                                                                                               user.userMajor = dic[@"userMajor"];
+                                                                                                               user.userOffice = dic[@"userOffice"];
+                                                                                                               user.userPosition = dic[@"userPosition"];
+                                                                                                               user.userReal_name = dic[@"userReal_name"];
+                                                                                                               user.userSchool = dic[@"userSchool"];
+                                                                                                               user.userStschool = dic[@"userStschool"];
+                                                                                                               user.userTitle = dic[@"userTitle"];
+                                                                                                               user.userUnit = dic[@"userUnit"];
+                                                                                                               user.user_token = dic[@"user_token"];
+                                                                                                               user.useravatar_id = dic[@"useravatar_id"];
+                                                                                                               user.usercity = dic[@"usercity"];
+                                                                                                               user.userid = dic[@"userid"];
+                                                                                                               user.usersex = dic[@"usersex"];
+                                                                                                               user.usertoken = dic[@"usertoken"];
+                                                                                                               user.moon_cash = dic[@"moon_cash"];
+                                                                                                               
+                                                                                                               [user saveUserInfoToSanbox];
+                                                            }
+                                                                                                              fail:^(NSError *error) {
+                                                                
+                                                            }];
+                                                            
                                                             [self.navigationController popToRootViewControllerAnimated:YES];
                                                         }else{
                                                             [MBProgressHUD showError:obj[@"msg"]];
+                                                            [self.navigationController popToRootViewControllerAnimated:YES];
                                                         }
     }
                                                        fail:^(NSError *error) {

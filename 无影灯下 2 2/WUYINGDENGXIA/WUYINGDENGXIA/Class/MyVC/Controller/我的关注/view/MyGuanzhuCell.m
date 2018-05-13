@@ -15,6 +15,9 @@
     
     self.guanzhuBtn.layer.cornerRadius = CGRectGetHeight(self.guanzhuBtn.frame)/2;//半径大小
     self.guanzhuBtn.layer.masksToBounds = YES;//是否切割
+    
+    self.headImage.layer.cornerRadius = CGRectGetHeight(self.headImage.frame)/2;//半径大小
+    self.headImage.layer.masksToBounds = YES;//是否切割
 }
 
 -(void)setUIWithchooseType:(chooseType)chooseType{
@@ -25,7 +28,7 @@
             
             break;
         case guanzhuType:
-            [self.guanzhuBtn setTitle:@"未关注" forState:UIControlStateNormal];
+            [self.guanzhuBtn setTitle:@"已关注" forState:UIControlStateNormal];
             [self.guanzhuBtn setBackgroundColor:RGB(233, 233, 233)];
             
             break;

@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "QusetionModel.h"
 
 @interface AnswerViewController : BaseViewController
+
+@property (nonatomic, strong) QusetionModel *questionModel;
+
 
 @end

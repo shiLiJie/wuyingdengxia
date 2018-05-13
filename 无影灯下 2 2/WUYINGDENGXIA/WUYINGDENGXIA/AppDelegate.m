@@ -13,6 +13,7 @@
 #import "IQKeyboardManager.h"
 #import "WXApi.h"
 
+
 @interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic, strong) TabBarControllerConfig *tabBarControllerConfig;
@@ -31,16 +32,13 @@
     //添加跟控制器
     [self addTabbarVc];
     
-    [WXApi registerApp:@"wx7e96a7078376a079" enableMTA:false];
+    [WXApi registerApp:AppID enableMTA:false];
 
     
     //键盘上弹配置
 //    [self keyboardManager];
 
-//    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=10003",BaseUrl] andParas:nil andTransferGottenData:^(id obj, NSError *error) {
-//
-//        NSLog(@"%@",obj);
-//    }];
+
     
     return YES;
 }
@@ -59,7 +57,6 @@
 }
 
 #pragma mark 微信回调方法
-
 - (void)onResp:(BaseResp *)resp
 {
     
@@ -77,7 +74,6 @@
     NSString * errStr       = [NSString stringWithFormat:@"errStr: %@",resp.errStr];
     NSLog(@"errStr: %@",errStr);
     
-    
     NSString * strTitle;
     //判断是微信消息的回调 --> 是支付回调回来的还是消息回调回来的.
     if ([resp isKindOfClass:[SendMessageToWXResp class]])
@@ -87,12 +83,67 @@
         if (resp.errCode == 0)
         {
             strTitle = [NSString stringWithFormat:@"分享成功"];
+            
+            //发出通知 从微信回调回来之后,发一个通知,让请求支付的页面接收消息,并且展示出来,或者进行一些自定义的展示或者跳转
+            NSNotification * notification = [NSNotification notificationWithName:@"WXShare" object:resp.errStr];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
         }
     }
+    //判断微信登录回调
+    if ([resp isKindOfClass:[SendAuthResp class]]) {
+        //判断errCode 进行回调处理
+        if (resp.errCode == 0) {
+            //成功
+            SendAuthResp *temp = (SendAuthResp *)resp;
+            
+            [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, AppID, AppSecret, temp.code] parameters:nil success:^(id obj) {
+                NSLog(@"请求access的response = %@", obj);
+                NSDictionary *accessDict = [NSDictionary dictionaryWithDictionary:obj];
+                NSString *accessToken = [accessDict objectForKey:WX_ACCESS_TOKEN];
+                NSString *openID = [accessDict objectForKey:WX_OPEN_ID];
+                NSString *refreshToken = [accessDict objectForKey:WX_REFRESH_TOKEN];
+                // 本地持久化，以便access_token的使用、刷新或者持续
+                if (accessToken && ![accessToken isEqualToString:@""] && openID && ![openID isEqualToString:@""]) {
+                    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:WX_ACCESS_TOKEN];
+                    [[NSUserDefaults standardUserDefaults] setObject:openID forKey:WX_OPEN_ID];
+                    [[NSUserDefaults standardUserDefaults] setObject:refreshToken forKey:WX_REFRESH_TOKEN];
+                    [[NSUserDefaults standardUserDefaults] synchronize]; // 命令直接同步到文件里，来避免数据的丢失
+                }
+                [self wechatLoginByRequestForUserInfo];
+            } fail:^(NSError *error) {
+                NSLog(@"获取access_token时出错 = %@", error);
+            }];
+            
+        }
+    }
+}
+
+//授权成功,获取用户信息
+- (void)wechatLoginByRequestForUserInfo {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:WX_ACCESS_TOKEN];
+    NSString *openID = [[NSUserDefaults standardUserDefaults] objectForKey:WX_OPEN_ID];
     
-    //发出通知 从微信回调回来之后,发一个通知,让请求支付的页面接收消息,并且展示出来,或者进行一些自定义的展示或者跳转
-    NSNotification * notification = [NSNotification notificationWithName:@"WXShare" object:resp.errStr];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, accessToken, openID] parameters:nil success:^(id obj) {
+//        NSLog(@"请求用户信息的response = %@", obj);
+        UserInfoModel *user = [UserInfoModel shareUserModel];
+        user.userName = obj[@"nickname"];
+        user.headimg = obj[@"headimgurl"];
+        user.usercity = obj[@"city"];
+        NSString *sex = [NSString stringWithFormat:@"%@",obj[@"sex"]];
+        if ([sex isEqualToString:@"1"]) {
+            user.usersex = @"男";
+        }else{
+            user.usersex = @"女";
+        }
+        user.loginStatus = YES;
+        [MBProgressHUD showSuccess:@"登录成功"];
+        [user saveUserInfoToSanbox];
+        //发出通知 从微信回调回来之后,发一个通知,让请求支付的页面接收消息,并且展示出来,或者进行一些自定义的展示或者跳转
+        NSNotification * notification = [NSNotification notificationWithName:@"WXLogin" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    } fail:^(NSError *error) {
+        NSLog(@"获取用户信息时出错 = %@", error);
+    }];
 }
 
 //添加跟控制器

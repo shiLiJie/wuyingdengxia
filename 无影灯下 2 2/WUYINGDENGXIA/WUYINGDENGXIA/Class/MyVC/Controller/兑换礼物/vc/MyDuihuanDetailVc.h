@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "DuihuanModel.h"
 
 @interface MyDuihuanDetailVc : BaseViewController
+
+@property (nonatomic, strong) DuihuanModel *duihuanmodel;
 
 @end

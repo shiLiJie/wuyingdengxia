@@ -142,11 +142,11 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqM-j7-eY4">
                         <rect key="frame" x="21" y="-2.5" width="48" height="48"/>
+                        <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="47T-tS-g7S"/>
                             <constraint firstAttribute="width" constant="48" id="pyk-aD-Gn5"/>
                         </constraints>
-                        <state key="normal" image="tx"/>
                         <connections>
                             <action selector="headImageClick:" destination="rXL-1f-iqb" eventType="touchUpInside" id="kJ0-w0-tDh"/>
                         </connections>
@@ -187,6 +187,5 @@
     </objects>
     <resources>
         <image name="jiantouhui" width="7" height="12"/>
-        <image name="tx" width="63" height="63"/>
     </resources>
 </document>

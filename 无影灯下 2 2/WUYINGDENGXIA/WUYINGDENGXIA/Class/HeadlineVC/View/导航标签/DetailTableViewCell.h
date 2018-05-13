@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @protocol DetailTableViewCellDelegate <NSObject>
 //弹出发表人页面
-- (void)pushPublishPersonVc;
+- (void)pushPublishPersonVc:(NSInteger)tag;
 @end
 
 @interface DetailTableViewCell : UITableViewCell
@@ -30,5 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *pinglunLab;
 //点赞数
 @property (weak, nonatomic) IBOutlet UILabel *dianzanLab;
+//点击头像的所以
+@property (nonatomic, assign) NSInteger headTag;
 
 @end

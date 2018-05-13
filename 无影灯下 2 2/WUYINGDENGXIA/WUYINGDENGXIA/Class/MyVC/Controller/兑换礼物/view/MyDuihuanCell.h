@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface MyDuihuanCell : UITableViewCell
+
+
+
 @property (weak, nonatomic) IBOutlet UIView *cellView;//需要切圆角view
 
 @property (weak, nonatomic) IBOutlet UILabel *dingdanhaoLab;//兑换码

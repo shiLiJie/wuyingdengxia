@@ -20,7 +20,7 @@
 -(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath article_id:(NSString *)articleid user_id:(NSString *)userid pageModle:(pageModel *)model;
 
 //点击cell里的头像和用户名弹出个人发表页
--(void)clickUserNamePushPublishVc;
+-(void)clickUserNamePushPublishVcWithUserid:(NSString *)userid;
 
 @end
 
@@ -32,8 +32,14 @@
 
 @property (nonatomic,weak) id<JohnScrollViewDelegate>delegate;
 
-//对应的标签
+//对应的标签(主页用)
 @property (nonatomic,copy) NSString *lable;
+
+//我的收藏文章列表
+-(void)getMyshoucangPage;
+
+//查看别人主页时吊用此方法,获取文章列表
+-(void)getPersonVcPageWithPersonId:(NSString *)userid;
 
 
 @end

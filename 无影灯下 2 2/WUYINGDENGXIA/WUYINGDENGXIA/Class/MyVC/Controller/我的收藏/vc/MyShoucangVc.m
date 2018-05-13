@@ -95,6 +95,7 @@
 
 -(DetailTableViewController *)tablecontroller{
     DetailTableViewController *vc = [[DetailTableViewController alloc] init];
+    [vc getMyshoucangPage];
     vc.delegate = self;
     
     return vc;

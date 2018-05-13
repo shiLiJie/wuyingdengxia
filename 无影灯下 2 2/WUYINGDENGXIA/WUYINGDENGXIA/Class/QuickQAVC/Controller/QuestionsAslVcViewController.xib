@@ -38,10 +38,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bim-mG-DWc">
-                    <rect key="frame" x="0.0" y="728" width="375" height="84"/>
-                    <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thm-1g-WPf">
                     <rect key="frame" x="0.0" y="650" width="375" height="66"/>
                     <color key="backgroundColor" white="0.80208333330000003" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -230,19 +226,15 @@
                 <constraint firstItem="Dyq-E9-xEm" firstAttribute="bottom" secondItem="QEr-dy-sN4" secondAttribute="bottom" id="1bs-4D-T83"/>
                 <constraint firstItem="Dyq-E9-xEm" firstAttribute="trailing" secondItem="XtT-f1-EJd" secondAttribute="trailing" id="AiN-eS-qdd"/>
                 <constraint firstItem="Dyq-E9-xEm" firstAttribute="trailing" secondItem="QEr-dy-sN4" secondAttribute="trailing" id="D2o-S4-gAi"/>
-                <constraint firstItem="bim-mG-DWc" firstAttribute="leading" secondItem="Dyq-E9-xEm" secondAttribute="leading" id="DWr-Jz-rvh"/>
                 <constraint firstItem="QEr-dy-sN4" firstAttribute="leading" secondItem="Dyq-E9-xEm" secondAttribute="leading" id="DrS-5g-Ris"/>
-                <constraint firstItem="bim-mG-DWc" firstAttribute="top" secondItem="QEr-dy-sN4" secondAttribute="top" id="EoU-wM-FAV"/>
                 <constraint firstItem="QEr-dy-sN4" firstAttribute="top" secondItem="thm-1g-WPf" secondAttribute="bottom" constant="12" id="TdA-1p-aDn"/>
                 <constraint firstItem="Dyq-E9-xEm" firstAttribute="trailing" secondItem="thm-1g-WPf" secondAttribute="trailing" id="cnA-VI-wUX"/>
                 <constraint firstItem="thm-1g-WPf" firstAttribute="leading" secondItem="Dyq-E9-xEm" secondAttribute="leading" id="f1l-Xh-knn"/>
                 <constraint firstAttribute="bottom" secondItem="XtT-f1-EJd" secondAttribute="bottom" constant="-140" id="hwN-cF-EOg"/>
-                <constraint firstAttribute="bottom" secondItem="bim-mG-DWc" secondAttribute="bottom" id="n9t-0a-Z9S"/>
-                <constraint firstItem="Dyq-E9-xEm" firstAttribute="trailing" secondItem="bim-mG-DWc" secondAttribute="trailing" id="oG9-Xn-qJT"/>
                 <constraint firstItem="XtT-f1-EJd" firstAttribute="leading" secondItem="Dyq-E9-xEm" secondAttribute="leading" id="vPO-mo-YQn"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Dyq-E9-xEm"/>
-            <point key="canvasLocation" x="-92.5" y="-57"/>
+            <point key="canvasLocation" x="-192" y="35"/>
         </view>
     </objects>
     <resources>

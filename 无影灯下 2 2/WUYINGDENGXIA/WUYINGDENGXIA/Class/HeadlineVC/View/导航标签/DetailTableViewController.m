@@ -29,24 +29,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.pageArr = [[NSArray alloc] init];
-    self.userArr = [[NSArray alloc] init];
     
-    //获取标签下的文章列表
-    [self getLablePage];
+    self.userArr = [[NSArray alloc] init];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-//获取标签下的文章列表
--(void)getLablePage{
-    
+//查看别人主页时吊用此方法,获取文章列表
+-(void)getPersonVcPageWithPersonId:(NSString *)userid{
     __weak typeof(self) weakSelf = self;
-    NSLog(@"%@",self.lable);
-    NSString  *url = [[NSString stringWithFormat:@"get_article_bylabel?label=%@&sortby=1",self.lable] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:url]
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myarticle?userid=%@",userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        
@@ -54,7 +49,7 @@
                                                        NSMutableArray *arrayM = [NSMutableArray array];
                                                        for (int i = 0; i < arr.count; i ++) {
                                                            NSDictionary *dict = arr[i];
-                                                           [arrayM addObject:[pageModel pageWithDict:dict]];                                                           
+                                                           [arrayM addObject:[pageModel pageWithDict:dict]];
                                                        }
                                                        
                                                        weakSelf.pageArr= arrayM;
@@ -63,10 +58,64 @@
                                                        
                                                        
                                                        
-    } fail:^(NSError *error) {
-        
-    }];
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
 }
+
+//我的收藏文章列表
+-(void)getMyshoucangPage{
+    __weak typeof(self) weakSelf = self;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mycollection?userid=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSLog(@"%@",obj);
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[pageModel pageWithDict:dict]];
+                                                       }
+                                                       
+                                                       weakSelf.pageArr= arrayM;
+                                                       [weakSelf.tableView reloadData];
+
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
+}
+
+//获取标签下的文章列表
+-(void)setLable:(NSString *)lable{
+    self.pageArr = [[NSArray alloc] init];
+    __weak typeof(self) weakSelf = self;
+    
+    NSString  *url = [[NSString stringWithFormat:@"get_article_bylabel?label=%@&sortby=1",lable] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:url]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[pageModel pageWithDict:dict]];
+                                                       }
+                                                       
+                                                       weakSelf.pageArr= arrayM;
+                                                       [weakSelf.tableView reloadData];
+                                                       
+                                                       
+                                                       
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -107,8 +156,10 @@
     if (kStringIsEmpty(page.headimg)) {
         [self.cell.headImage setBackgroundImage:GetImage(@"tx") forState:UIControlStateNormal];
     }else{
-        [self.cell.headImage setImage:GetImage(page.headimg) forState:UIControlStateNormal];
+        [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:page.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
     }
+    //设置按钮索引找到对应的数据
+    self.cell.headTag = indexPath.row;
     
 //    [self.cell.headImage.imageView sd_setImageWithURL:[NSURL URLWithString:page.headimg] placeholderImage:GetImage(@"tx")];
 //    [self.cell.headImage setImage:GetImage(@"tx") forState:UIControlStateNormal];
@@ -125,7 +176,8 @@
     
     
     self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 160, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 160, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     return self.cell;
 }
@@ -149,11 +201,14 @@
 }
 
 #pragma mark - cell点击头像和用户名代理方法 -
--(void)pushPublishPersonVc{
-    if ([self.delegate respondsToSelector:@selector(clickUserNamePushPublishVc)]) {
-        [self.delegate clickUserNamePushPublishVc];
+-(void)pushPublishPersonVc:(NSInteger)tag{
+    if ([self.delegate respondsToSelector:@selector(clickUserNamePushPublishVcWithUserid:)]) {
+        
+        pageModel *page = [[pageModel alloc] init];
+        page = self.pageArr[tag];
+        
+        [self.delegate clickUserNamePushPublishVcWithUserid:page.user_id];
     }
-    
 }
 
 @end

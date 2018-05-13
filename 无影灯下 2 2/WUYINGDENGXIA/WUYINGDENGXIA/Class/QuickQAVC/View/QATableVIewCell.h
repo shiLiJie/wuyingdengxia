@@ -31,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *answerNum;
 //回答按钮
 @property (weak, nonatomic) IBOutlet UIButton *answer;
+//月亮币
+@property (weak, nonatomic) IBOutlet UILabel *mooncash;
 
 @property (nonatomic,weak) id<QATableVIewCellDelegate>delegate;
 

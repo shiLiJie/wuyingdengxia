@@ -28,8 +28,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *zanBtn;
 //收藏
 @property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
-
+//底部评论view
+@property (weak, nonatomic) IBOutlet UIView *pinglunView;
+//评论内容
 @property (nonatomic,copy) NSString *inputStr;
+
+
 
 @end
 
@@ -37,12 +41,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setHidden:NO];
+    
     self.pinglunBtn.layer.cornerRadius = CGRectGetHeight(self.pinglunBtn.frame)/2;//半径大小
     self.pinglunBtn.layer.masksToBounds = YES;//是否切割
     //设置网页
     [self setWeb];
-    
+    //把评论放在最上层
+//    [self.view bringSubviewToFront:self.pinglunView];
     // 接收分享回调通知
     //监听通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"WXShare" object:nil];
@@ -56,6 +61,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -75,7 +81,8 @@
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
 
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://10.0.0.43/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
+//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://39.106.2.216/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://39.106.2.216/Wuyingdengxia/article_details.html?articleid=1&userid=1"]]];
 
     [self.view addSubview:_webView];
     
@@ -83,13 +90,13 @@
     WKWebViewDelegate * delegateController = [[WKWebViewDelegate alloc]init];
     delegateController.delegate = self;
     
-    [userContentController addScriptMessageHandler:delegateController  name:@"helloWorld"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"asd"];
 }
 
 //左侧按钮设置点击
 -(UIButton *)set_leftButton{
     UIButton *btn = [[UIButton alloc] init];
-    btn.frame = CGRectMake(0, 0, 44, 60);
+    btn.frame = CGRectMake(0, 0, 44, 60); 
     [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
     return btn;
 }
@@ -133,14 +140,17 @@
  
     __weak typeof(self) weakSelf = self;
     
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_support?userid=%@&toid=%@&supType=1",user.userid,self.articleid]] parameters:nil success:^(id obj) {
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_support?userid=%@&toid=%@&supType=1",user.userid,self.articleid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
             
             [weakSelf.zanBtn setImage:GetImage(@"xiaodianzan2") forState:UIControlStateNormal];
         }else{
             
         }
-    } fail:^(NSError *error) {
+    }
+                                                       fail:^(NSError *error) {
         //
     }];
     
@@ -231,13 +241,18 @@
 #pragma mark - WKScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
         NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
+    if ([message.name isEqualToString:@"asd"]) {
+        //做处理
+        [self pushToPersonViewWithUserid:message.body];
+    }
 }
 // oc调用JS方法   页面加载完成之后调用
 - (void)webView:(WKWebView *)tmpWebView didFinishNavigation:(WKNavigation *)navigation{
     
     //say()是JS方法名，completionHandler是异步回调block
-    [_webView evaluateJavaScript:@"h5()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+    [_webView evaluateJavaScript:@"asd()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         //        NSLog(@"%@",result);
+        
     }];
     
     if (_webView.title.length > 0) {
@@ -245,6 +260,13 @@
     }
     
 }
+//跳转到个人页
+-(void)pushToPersonViewWithUserid:(NSString *)userid{
+    PersonViewController *publishPerson = [[PersonViewController alloc] init];
+    publishPerson.userid = userid;
+    [self.navigationController pushViewController:publishPerson animated:YES];
+}
+
 #pragma mark - WKNavigationDelegate
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
@@ -312,7 +334,7 @@
 
 - (void)dealloc{
     //这里需要注意，前面增加过的方法一定要remove掉。
-    [userContentController removeScriptMessageHandlerForName:@"helloWorld"];
+    [userContentController removeScriptMessageHandlerForName:@"asd"];
 }
 
 - (void)didReceiveMemoryWarning {
