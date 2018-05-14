@@ -111,6 +111,7 @@
 - (IBAction)comeback:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 //签到
 - (IBAction)qiandaoClick:(UIButton *)sender {
     
@@ -122,7 +123,9 @@
                            @"type":@"2"
                            };
     
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_my_sign"] parameters:dict success:^(id obj) {
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_my_sign?userid=%@&type=2",user.userid]]
+                                                 parameters:nil
+                                                    success:^(id obj) {
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
             
             [MBProgressHUD showSuccess:obj[@"msg"]];

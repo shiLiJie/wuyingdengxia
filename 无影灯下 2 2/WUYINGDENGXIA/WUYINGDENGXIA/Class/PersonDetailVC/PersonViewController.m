@@ -80,12 +80,14 @@
     [self addSegView];
     
     
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=10003",BaseUrl]
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@",BaseUrl,self.userid]
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        NSDictionary *ditc = obj[@"data"];
                                                        userModel *user = [userModel userWithDict:ditc];
-                                                       [self.headImageView sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+                                                       if (!kStringIsEmpty(user.headimg)) {
+                                                           [self.headImageView sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+                                                       }
                                                        if (!kStringIsEmpty(user.username)) {
                                                             self.userNameLab.text = user.username !=nil ? user.username : @"";
                                                        }
@@ -162,7 +164,7 @@
     [user loadUserInfoFromSanbox];
     NSDictionary *dict = @{
                            @"userid":user.userid,
-                           @"befollid":@"10003"
+                           @"befollid":self.userid
                            };
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_follow"]
                                                  parameters:dict
@@ -184,7 +186,7 @@
 
 -(DetailTableViewController *)tablecontroller{
     DetailTableViewController *vc = [[DetailTableViewController alloc] init];
-    [vc getPersonVcPageWithPersonId:@"10003"];
+    [vc getPersonVcPageWithPersonId:self.userid];
     vc.delegate = self;
 
     return vc;

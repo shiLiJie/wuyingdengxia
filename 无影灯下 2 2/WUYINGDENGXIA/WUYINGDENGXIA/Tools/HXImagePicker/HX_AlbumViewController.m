@@ -178,17 +178,41 @@ static NSString *albumCellId = @"cellId";
                     
                 }
             }else {
-                HX_PhotoModel *model = assetManager.selectedPhotos.lastObject;
-                HX_AlbumModel *albumModel = weakSelf.allAlbumArray[model.tableViewIndex];
-                HX_PhotosViewController *vc = [[HX_PhotosViewController alloc] init];
-                vc.photosNum = albumModel.imageNum;
-                vc.videosNum = albumModel.videoNum;
-                vc.ifVideo = weakSelf.ifVideo;
-                vc.title = albumModel.albumName;
-                vc.allPhotosArray = weakSelf.allImagesAy[model.tableViewIndex];
-                vc.maxNum = weakSelf.maxNum;
-                vc.cellIndex = model.tableViewIndex;
-                [weakSelf.navigationController pushViewController:vc animated:NO];
+                
+                
+                for (int i = 0; i < weakSelf.allAlbumArray.count; i++) {
+                    HX_AlbumModel *model = weakSelf.allAlbumArray[i];
+                    if ([model.albumName isEqualToString:@"无影灯下"]) {
+                        HX_PhotosViewController *vc = [[HX_PhotosViewController alloc] init];
+                        vc.photosNum = model.imageNum;
+                        vc.videosNum = model.videoNum;
+                        vc.ifVideo = weakSelf.ifVideo;
+                        vc.title = model.albumName;
+                        vc.allPhotosArray = weakSelf.allImagesAy[i];
+                        vc.maxNum = weakSelf.maxNum;
+//                        vc.cellIndex = i;
+                        
+                        HX_PhotoModel *model = assetManager.selectedPhotos.lastObject;
+                        vc.cellIndex = model.tableViewIndex;
+                        NSLog(@"i===%d",i);
+                        NSLog(@"model.tableViewIndex===%ld",model.tableViewIndex);
+                        [weakSelf.navigationController pushViewController:vc animated:NO];
+
+                        break;
+                    }
+                }
+                
+//                HX_PhotoModel *model = assetManager.selectedPhotos.lastObject;
+//                HX_AlbumModel *albumModel = weakSelf.allAlbumArray[model.tableViewIndex];
+//                HX_PhotosViewController *vc = [[HX_PhotosViewController alloc] init];
+//                vc.photosNum = albumModel.imageNum;
+//                vc.videosNum = albumModel.videoNum;
+//                vc.ifVideo = weakSelf.ifVideo;
+//                vc.title = albumModel.albumName;
+//                vc.allPhotosArray = weakSelf.allImagesAy[model.tableViewIndex];
+//                vc.maxNum = weakSelf.maxNum;
+//                vc.cellIndex = model.tableViewIndex;
+//                [weakSelf.navigationController pushViewController:vc animated:NO];
             }
             
         } WithFailure:^(NSError *error) {
@@ -243,6 +267,29 @@ static NSString *albumCellId = @"cellId";
                             }
                         }
                         if (!ifFilm) {
+                            
+//                            for (int i = 0; i < weakSelf.allAlbumArray.count; i++) {
+//                                HX_AlbumModel *model = weakSelf.allAlbumArray[i];
+//                                if ([model.albumName isEqualToString:@"无影灯下"]) {
+//                                    HX_PhotosViewController *vc = [[HX_PhotosViewController alloc] init];
+//                                    vc.photosNum = model.imageNum;
+//                                    vc.videosNum = model.videoNum;
+//                                    vc.ifVideo = weakSelf.ifVideo;
+//                                    vc.title = model.albumName;
+//                                    vc.allPhotosArray = weakSelf.allImagesAy[i];
+//                                    vc.maxNum = weakSelf.maxNum;
+//                                    vc.cellIndex = i;
+//
+//                                    HX_PhotoModel *model = assetManager.selectedPhotos.lastObject;
+//                                    NSLog(@"i===%d",i);
+//                                    NSLog(@"model.tableViewIndex===%ld",model.tableViewIndex);
+//                                    [weakSelf.navigationController pushViewController:vc animated:NO];
+//
+//                                    break;
+//                                }
+//                            }
+                            
+                            
                             HX_AlbumModel *model = weakSelf.allAlbumArray.lastObject;
                             HX_PhotosViewController *vc = [[HX_PhotosViewController alloc] init];
                             vc.photosNum = model.imageNum;
@@ -257,6 +304,29 @@ static NSString *albumCellId = @"cellId";
                     }
                 }
             }else {
+                
+//                for (int i = 0; i < weakSelf.allAlbumArray.count; i++) {
+//                    HX_AlbumModel *model = weakSelf.allAlbumArray[i];
+//                    if ([model.albumName isEqualToString:@"无影灯下"]) {
+//                        HX_PhotosViewController *vc = [[HX_PhotosViewController alloc] init];
+//                        vc.photosNum = model.imageNum;
+//                        vc.videosNum = model.videoNum;
+//                        vc.ifVideo = weakSelf.ifVideo;
+//                        vc.title = model.albumName;
+//                        vc.allPhotosArray = weakSelf.allImagesAy[i];
+//                        vc.maxNum = weakSelf.maxNum;
+//                        //                        vc.cellIndex = i;
+//
+//                        HX_PhotoModel *model = assetManager.selectedPhotos.lastObject;
+//                        vc.cellIndex = model.tableViewIndex;
+//                        NSLog(@"i===%d",i);
+//                        NSLog(@"model.tableViewIndex===%ld",model.tableViewIndex);
+//                        [weakSelf.navigationController pushViewController:vc animated:NO];
+//
+//                        break;
+//                    }
+//                }
+                
                 HX_PhotoModel *model = videoManager.selectedPhotos.lastObject;
                 HX_AlbumModel *albumModel = weakSelf.allAlbumArray[model.tableViewIndex];
                 HX_PhotosViewController *vc = [[HX_PhotosViewController alloc] init];

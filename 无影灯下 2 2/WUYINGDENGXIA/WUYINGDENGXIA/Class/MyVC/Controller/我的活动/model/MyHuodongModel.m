@@ -10,4 +10,25 @@
 
 @implementation MyHuodongModel
 
+- (instancetype)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self) {
+        self.begin_time = dict[@"begin_time"];
+        self.is_check = dict[@"is_check"];
+        self.is_sign = dict[@"is_sign"];
+        self.isfinish = dict[@"isfinish"];
+        self.meet_content = dict[@"meet_content"];
+        self.meet_id = dict[@"meet_id"];
+        self.meet_title = dict[@"meet_title"];
+        self.meeting_image = dict[@"meeting_image"];
+    }
+    return self;
+}
+
++ (instancetype)MyHuodongWithDict:(NSDictionary *)dict
+{
+    return [[self alloc] initWithDict:dict];
+}
+
 @end

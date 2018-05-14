@@ -20,7 +20,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = RGB(255, 255, 255);
+        self.backgroundColor = [UIColor clearColor];
         //使用NSNotificationCenter 鍵盤出現時
         [[NSNotificationCenter defaultCenter] addObserver:self
          

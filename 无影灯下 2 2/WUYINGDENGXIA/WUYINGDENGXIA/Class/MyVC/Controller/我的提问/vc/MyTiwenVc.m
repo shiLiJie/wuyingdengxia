@@ -136,6 +136,7 @@
     AnswerViewController *vc = [[AnswerViewController alloc] init];
     vc.questionModel = [[QusetionModel alloc] init];
     vc.questionModel = self.tiwenArr[indexPath.row];
+    vc.choosetype = myquestionType;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

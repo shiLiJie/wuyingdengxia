@@ -371,6 +371,7 @@
     AnswerViewController *pageDetail = [[AnswerViewController alloc] init];
     pageDetail.questionModel = [[QusetionModel alloc] init];
     pageDetail.questionModel = Qusetionmodel;
+    pageDetail.choosetype = questionType;
     [self.navigationController pushViewController:pageDetail animated:YES];
     self.searchBtn.hidden = YES;
     self.tiwenBtn.hidden = YES;
@@ -379,13 +380,14 @@
 }
 
 -(void)clickHeadImageJumpToPersonDetailPage:(NSInteger)indexPath{
-    //推出个人展示页
-    PersonViewController *vc = [[PersonViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
     
-    self.searchBtn.hidden = YES;
-    self.tiwenBtn.hidden = YES;
-    self.shuView.hidden = YES;
+//    //推出个人展示页
+//    PersonViewController *vc = [[PersonViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//    
+//    self.searchBtn.hidden = YES;
+//    self.tiwenBtn.hidden = YES;
+//    self.shuView.hidden = YES;
 }
 
 

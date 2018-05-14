@@ -28,6 +28,10 @@
     self.nextBtn.layer.masksToBounds = YES;//是否切割
     
     [self addTargetMethod];//监听文本输入
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    self.phoneField.text = user.phoneNum;
 }
 
 #pragma mark - UI -
@@ -66,7 +70,10 @@
 #pragma mark - 私有方法 -
 //选择身份
 - (IBAction)chooseShenfenClick:(UIButton *)sender {
-    NSArray *arr = @[@"委员",@"主委员"];
+    [self.nameField resignFirstResponder];
+    [self.phoneField resignFirstResponder];
+    
+    NSArray *arr = @[@"核心组",@"委员",@"主委",@"行业专家",@"普通"];
     __weak typeof(self) weakSelf = self;
     [BRStringPickerView showStringPickerWithTitle:@"请选择您的身份" dataSource:arr defaultSelValue:@"委员" resultBlock:^(id selectValue) {
         weakSelf.shenfenField.text = selectValue;
@@ -74,8 +81,29 @@
 }
 //下一步按钮
 - (IBAction)nextClick:(UIButton *)sender {
-    RenzhengTwoVc *vc = [[RenzhengTwoVc alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (!kStringIsEmpty(self.nameField.text)) {
+        if (!kStringIsEmpty(self.phoneField.text)) {
+            if (!kStringIsEmpty(self.shenfenField.text)) {
+                
+                RenzhengTwoVc *vc = [[RenzhengTwoVc alloc] init];
+                
+                vc.nameField = self.nameField.text;
+                vc.phoneField = self.phoneField.text;
+                vc.shenfenField = self.shenfenField.text;
+                
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }else{
+                [MBProgressHUD showError:@"请先完善信息"];
+            }
+        }else{
+            [MBProgressHUD showError:@"请先完善信息"];
+        }
+    }else{
+        [MBProgressHUD showError:@"请先完善信息"];
+    }
+    
 }
 
 //监听信息输入
@@ -85,9 +113,9 @@
 }
 -(void)textField1TextChange:(UITextField *)textField{
     if (textField == self.nameField) {
-        NSLog(@"textField1 - 姓名输入框内容改变,当前内容为: %@",textField.text);
+//        NSLog(@"textField1 - 姓名输入框内容改变,当前内容为: %@",textField.text);
     }else{
-        NSLog(@"textField1 - 电话输入框内容改变,当前内容为: %@",textField.text);
+//        NSLog(@"textField1 - 电话输入框内容改变,当前内容为: %@",textField.text);
     }
     if (textField.text.length) {
         

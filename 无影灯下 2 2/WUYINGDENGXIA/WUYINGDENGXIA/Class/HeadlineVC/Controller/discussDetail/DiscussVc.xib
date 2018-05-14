@@ -67,7 +67,7 @@
                 <constraint firstItem="XUP-ZF-Sbv" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="dHU-4m-IKr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-151" y="13"/>
+            <point key="canvasLocation" x="-26" y="-116"/>
         </view>
     </objects>
     <resources>

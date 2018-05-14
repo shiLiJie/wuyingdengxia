@@ -55,7 +55,6 @@
     if ([WXApi isWXAppInstalled]) {
         
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,8 +80,10 @@
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
 
-//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://39.106.2.216/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://39.106.2.216/Wuyingdengxia/article_details.html?articleid=1&userid=1"]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
+    NSLog(@"%@",self.articleid);
+    
+//        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://39.106.2.216/Wuyingdengxia/article_details.html?articleid=1&userid=1"]]];
 
     [self.view addSubview:_webView];
     
@@ -196,13 +197,16 @@
 //转发
 - (IBAction)zhuanfa:(UIButton *)sender {
     
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
     WXMediaMessage * message = [WXMediaMessage message];
     message.title = self.model.article_title;
     message.description = self.model.article_content;
-    [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
+//    [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
     
     WXWebpageObject * webpageObject = [WXWebpageObject object];
-    webpageObject.webpageUrl = @"http://www.yszg.org";
+    webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid];
     message.mediaObject = webpageObject;
     
     SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];

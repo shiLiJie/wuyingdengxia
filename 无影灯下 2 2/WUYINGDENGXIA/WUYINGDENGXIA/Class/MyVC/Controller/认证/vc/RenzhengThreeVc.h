@@ -10,4 +10,13 @@
 
 @interface RenzhengThreeVc : BaseViewController
 
+@property (nonatomic,copy) NSString *nameField;
+@property (nonatomic,copy) NSString *phoneField;
+@property (nonatomic,copy) NSString *shenfenField;
+
+@property (nonatomic,copy) NSString *yiyuanField;
+@property (nonatomic,copy) NSString *keshiField;
+@property (nonatomic,copy) NSString *zhiwuField;
+
+
 @end

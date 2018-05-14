@@ -122,6 +122,7 @@
     vc.questionModel.question_title = model.question_title;
     vc.questionModel.question_id = model.question_id;
     vc.questionModel.user_id = model.user_id;
+    vc.choosetype = questionType;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

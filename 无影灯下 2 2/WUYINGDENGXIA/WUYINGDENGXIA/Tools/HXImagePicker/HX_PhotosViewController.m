@@ -165,15 +165,17 @@ static NSString *cellFooterId = @"photoCellFooterId";
     NSInteger row = _allPhotosArray.count / 4 + 1;
 
     CGFloat maxY = (row - 1) * 5 + row * CVwidth + 40;
-    
+
     [collectionView setContentOffset:CGPointMake(0, maxY) animated:NO];
-    
+
     if (!self.ifVideo) {
         for (int i = 0; i < assetManager.selectedPhotos.count; i ++) {
             HX_PhotoModel *modelPH = assetManager.selectedPhotos[i];
             
+            NSLog(@"%ld---%ld",modelPH.tableViewIndex,_cellIndex);
+            
             if (modelPH.tableViewIndex == _cellIndex) {
-                [collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:modelPH.collectionViewIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+                [collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_cellIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
                 break;
             }
         }

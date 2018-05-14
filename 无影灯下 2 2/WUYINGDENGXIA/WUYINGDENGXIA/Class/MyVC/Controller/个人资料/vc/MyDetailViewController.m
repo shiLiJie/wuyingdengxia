@@ -33,6 +33,11 @@
 @property (nonatomic, copy) NSString *isFinishCer;//是否认证
 @property (nonatomic, copy) NSString *headUrl;//是否认证
 
+@property (nonatomic, copy) NSString *yiyuan;//医院
+@property (nonatomic, copy) NSString *keshi;//科室
+@property (nonatomic, copy) NSString *shenfen;//身份
+@property (nonatomic, copy) NSString *zhiwei;//职务
+
 
 
 @end
@@ -41,17 +46,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     if (user.loginStatus) {
         self.phoneStr = user.phoneNum;
         self.nichengStr = user.userName;
-        //    self.birthStr = user.phoneNum;
+        self.birthStr = user.userStschool;
         self.sexStr = user.usersex;
         self.cityStr = user.usercity;
         self.isFinishCer = user.isfinishCer;
         self.headUrl = user.headimg;
+        
+        self.yiyuan = user.userHospital;
+        self.keshi = user.userOffice;
+        self.shenfen = user.userPosition;
+        self.zhiwei = user.userPost;
     }
 
     
@@ -239,7 +249,34 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.titlelab.text = self.titleArr3[indexPath.row];
         cell.jiantou.hidden = YES;
-
+        if (indexPath.row == 0) {
+            
+            if (!kStringIsEmpty(self.yiyuan)) {
+                cell.jiantou.hidden = YES;
+            }
+            cell.detailLab.text = self.yiyuan;
+        }
+        if (indexPath.row == 1) {
+            //
+            if (!kStringIsEmpty(self.keshi)) {
+                cell.jiantou.hidden = YES;
+            }
+            cell.detailLab.text = self.keshi;
+        }
+        if (indexPath.row == 2) {
+            //
+            if (!kStringIsEmpty(self.shenfen)) {
+                cell.jiantou.hidden = YES;
+            }
+            cell.detailLab.text = self.shenfen;
+        }
+        if (indexPath.row == 3) {
+            //
+            if (!kStringIsEmpty(self.zhiwei)) {
+                cell.jiantou.hidden = YES;
+            }
+            cell.detailLab.text = self.zhiwei;
+        }
     }
 
     return cell;
@@ -254,23 +291,111 @@
             NSArray *arr = @[@"男",@"女"];
             [BRStringPickerView showStringPickerWithTitle:@"性别" dataSource:arr defaultSelValue:@"男" resultBlock:^(id selectValue) {
                 weakSelf.sexStr = selectValue;
+                //修改信息
+                UserInfoModel *user = [UserInfoModel shareUserModel];
+                [user loadUserInfoFromSanbox];
+                
+                NSDictionary *dict = @{
+                                       @"userid" : user.userid,
+//                                       @"realName" : self.nameField,
+                                       //                           @"useremail":user.userEmail,
+                                       //                           @"usercity":user.usercity,
+                                       //                           @"useridcard":user.userIdcard,
+                                       //                           @"username":user.userIdcard,
+                                                                  @"usersex":selectValue,
+//                                       @"userhospital":self.yiyuanField,
+//                                       @"useroffice":self.keshiField,
+                                       //                           @"usertitle":user.userTitle,
+//                                       @"userpost":self.zhiwuField,
+                                       //                           @"userunit":user.userUnit,
+//                                       @"userposition":self.shenfenField,
+                                       //                           @"userschool":user.userSchool,
+                                       //                           @"usermajor":user.userMajor,
+                                       //                           @"userdegree":user.userDegree,
+                                       //                           @"userstschool":user.userStschool,
+                                       //                           @"head_img":user.headimg,
+                                       //                           @"user_loginway":user.userLoginway
+                                       };
+                
+                [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_change_myinfo"]
+                                                             parameters:dict
+                                                                success:^(id obj) {
+                                                                    
+                                                                    if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                        user.usersex = selectValue;
+                                                                        [user saveUserInfoToSanbox];
+                                                                        [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                    }else{
+                                                                        [MBProgressHUD showError:obj[@"msg"]];
+                                                                    }
+                                                                } fail:^(NSError *error) {
+                                                                    
+                                                                }];
                 [weakSelf.tableview reloadData];
             }];
         }
         if (indexPath.row == 1) {
             //生日
-            
-            [BRDatePickerView showDatePickerWithTitle:@"出生年月" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:YES resultBlock:^(NSString *selectValue) {
+            [BRDatePickerView showDatePickerWithTitle:@"入学年份" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:NO resultBlock:^(NSString *selectValue) {
                 
                 weakSelf.birthStr = selectValue;
+                //修改信息
+                UserInfoModel *user = [UserInfoModel shareUserModel];
+                [user loadUserInfoFromSanbox];
+                
+                NSDictionary *dict = @{
+                                       @"userid" : user.userid,
+                                       @"userschool":selectValue,
+
+                                       };
+                
+                [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_change_myinfo"]
+                                                             parameters:dict
+                                                                success:^(id obj) {
+                                                                    
+                                                                    if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                        user.userStschool = selectValue;
+                                                                        [user saveUserInfoToSanbox];
+                                                                        [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                    }else{
+                                                                        [MBProgressHUD showError:obj[@"msg"]];
+                                                                    }
+                                                                } fail:^(NSError *error) {
+                                                                    
+                                                                }];
                 [weakSelf.tableview reloadData];
             }];
         }
         if (indexPath.row == 2) {
             //城市
-            [BRAddressPickerView showAddressPickerWithDefaultSelected:@[@0, @0, @0] isAutoSelect:YES resultBlock:^(NSArray *selectAddressArr) {
+            [BRAddressPickerView showAddressPickerWithDefaultSelected:@[@0, @0, @0] isAutoSelect:NO resultBlock:^(NSArray *selectAddressArr) {
 
-                weakSelf.cityStr = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1], selectAddressArr[2]];
+//                weakSelf.cityStr = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1], selectAddressArr[2]];
+                weakSelf.cityStr = selectAddressArr[1];
+                //修改信息
+                UserInfoModel *user = [UserInfoModel shareUserModel];
+                [user loadUserInfoFromSanbox];
+                
+                NSDictionary *dict = @{
+                                       @"userid" : user.userid,
+                                       @"usercity":selectAddressArr[1],
+                                       
+                                       };
+                
+                [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_change_myinfo"]
+                                                             parameters:dict
+                                                                success:^(id obj) {
+                                                                    
+                                                                    if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                        user.usercity = selectAddressArr[1];
+                                                                        [user saveUserInfoToSanbox];
+                                                                        [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                    }else{
+                                                                        [MBProgressHUD showError:obj[@"msg"]];
+                                                                    }
+                                                                } fail:^(NSError *error) {
+                                                                    
+                                                                }];
                 [weakSelf.tableview reloadData];
             }];
         }

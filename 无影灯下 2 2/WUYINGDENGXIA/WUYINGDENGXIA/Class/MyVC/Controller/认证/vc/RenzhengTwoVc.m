@@ -65,18 +65,34 @@
 }
 
 #pragma mark - 私有方法 -
-//选择职务
-- (IBAction)chooseZhiwu:(UIButton *)sender {
-    NSArray *arr = @[@"委员",@"主委员"];
-    __weak typeof(self) weakSelf = self;
-    [BRStringPickerView showStringPickerWithTitle:@"请选择您的身份" dataSource:arr defaultSelValue:@"委员" resultBlock:^(id selectValue) {
-        weakSelf.zhiwuField.text = selectValue;
-    }];
-}
 //下一步
 - (IBAction)nextStep:(UIButton *)sender {
-    RenzhengThreeVc *vc = [[RenzhengThreeVc alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (!kStringIsEmpty(self.yiyuanField.text)) {
+        if (!kStringIsEmpty(self.keshiField.text)) {
+            if (!kStringIsEmpty(self.zhiwuField.text)) {
+                
+                RenzhengThreeVc *vc = [[RenzhengThreeVc alloc] init];
+                
+                vc.yiyuanField = self.yiyuanField.text;
+                vc.keshiField = self.keshiField.text;
+                vc.zhiwuField = self.zhiwuField.text;
+                
+                vc.nameField = self.nameField;
+                vc.phoneField = self.phoneField;
+                vc.shenfenField = self.shenfenField;
+                
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }else{
+                [MBProgressHUD showError:@"请先完善信息"];
+            }
+        }else{
+            [MBProgressHUD showError:@"请先完善信息"];
+        }
+    }else{
+        [MBProgressHUD showError:@"请先完善信息"];
+    }
 }
 //上一步
 - (IBAction)upStep:(UIButton *)sender {
@@ -86,12 +102,15 @@
 -(void)addTargetMethod{
     [self.yiyuanField addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
     [self.keshiField addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.zhiwuField addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
 }
 -(void)textField1TextChange:(UITextField *)textField{
     if (textField == self.yiyuanField) {
-        NSLog(@"textField1 - 医院输入框内容改变,当前内容为: %@",textField.text);
+//        NSLog(@"textField1 - 医院输入框内容改变,当前内容为: %@",textField.text);
+    }else if (textField == self.keshiField){
+//        NSLog(@"textField1 - 科室输入框内容改变,当前内容为: %@",textField.text);
     }else{
-        NSLog(@"textField1 - 科室输入框内容改变,当前内容为: %@",textField.text);
+//        NSLog(@"textField1 - 职务输入框内容改变,当前内容为: %@",textField.text);
     }
     if (textField.text.length) {
 
@@ -103,6 +122,7 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.yiyuanField resignFirstResponder];
     [self.keshiField resignFirstResponder];
+    [self.zhiwuField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {

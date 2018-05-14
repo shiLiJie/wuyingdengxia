@@ -582,11 +582,11 @@
 
 //点击用户名和头像跳入个人发表的文章页
 -(void)clickUserNamePushPublishVcWithUserid:(NSString *)userid{
-    PersonViewController *publishPerson = [[PersonViewController alloc] init];
-    publishPerson.userid = userid;
-    [self.navigationController pushViewController:publishPerson animated:YES];
-    self.searchBar.hidden = YES;
-    self.searchBtn.hidden = YES;
+//    PersonViewController *publishPerson = [[PersonViewController alloc] init];
+//    publishPerson.userid = userid;
+//    [self.navigationController pushViewController:publishPerson animated:YES];
+//    self.searchBar.hidden = YES;
+//    self.searchBtn.hidden = YES;
 }
 
 

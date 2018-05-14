@@ -22,6 +22,8 @@
     self.quedingBtn.layer.masksToBounds = YES;//是否切割
     NSNotification *notification =[NSNotification notificationWithName:@"JINZHIFANHUI" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+
 }
 
 #pragma mark - UI -

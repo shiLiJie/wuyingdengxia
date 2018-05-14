@@ -132,6 +132,7 @@
             user.usersex = dic[@"usersex"];
             user.usertoken = dic[@"usertoken"];
             user.moon_cash = dic[@"moon_cash"];
+            user.we_chat_id = dic[@"we_chat_id"];
             
             [user saveUserInfoToSanbox];
             
@@ -192,7 +193,6 @@
     else {
         [self wechatLogin];
     }
-    
 }
 
 //授权成功,获取用户信息
@@ -220,6 +220,14 @@
         [user saveUserInfoToSanbox];
         [MBProgressHUD showSuccess:@"登录成功"];
         self.loginBlock(YES, nil);
+        
+        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"wechat_login?wechat_open_id=%@",openID]]
+                                                    parameters:nil
+                                                       success:^(id obj) {
+            
+        } fail:^(NSError *error) {
+            
+        }];
         
     } fail:^(NSError *error) {
         NSLog(@"获取用户信息时出错 = %@", error);

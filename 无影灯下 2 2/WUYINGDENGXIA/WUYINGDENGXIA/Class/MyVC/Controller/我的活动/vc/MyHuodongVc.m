@@ -13,6 +13,7 @@
 #import "YijieshuVc.h"
 #import "MeetDetailViewController.h"
 #import "PassMeetViewController.h"
+#import "MyHuodongModel.h"
 
 @interface MyHuodongVc ()<MDMultipleSegmentViewDeletegate,
                             MDFlipCollectionViewDelegate,
@@ -23,6 +24,12 @@
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
 }
+
+@property (nonatomic, strong) NSArray *dataArr;
+
+@property (nonatomic, strong) NSMutableArray *weikaishiArr;
+@property (nonatomic, strong) NSMutableArray *jieshuArr;
+
 
 @end
 
@@ -55,11 +62,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self addSegView];
     
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mymetting?userid=1"]] parameters:nil success:^(id obj) {
-        NSLog(@"%@",obj);
-    } fail:^(NSError *error) {
-        
-    }];
+    self.dataArr = [[NSArray alloc] init];
+    self.weikaishiArr = [[NSMutableArray alloc] init];
+    self.jieshuArr = [[NSMutableArray alloc] init];
+    
+    //获取活动信息
+    [self getHuodongInfo];
 }
 #pragma mark - UI -
 //添加segview标签控制器
@@ -137,6 +145,33 @@
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
+}
+
+//获取活动信息
+-(void)getHuodongInfo{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mymetting?userid=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[MyHuodongModel MyHuodongWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.dataArr= arrayM;
+                                                       
+                                                       MyHuodongModel *model = [[MyHuodongModel alloc] init];
+                                                       for (model in self.dataArr) {
+                                                           //
+                                                       }
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          
+                                                      }];
 }
 
 #pragma mark - 底部两个tableview点击代理方法 -

@@ -10,4 +10,8 @@
 
 @interface RenzhengTwoVc : BaseViewController
 
+@property (nonatomic,copy) NSString *nameField;
+@property (nonatomic,copy) NSString *phoneField;
+@property (nonatomic,copy) NSString *shenfenField;
+
 @end

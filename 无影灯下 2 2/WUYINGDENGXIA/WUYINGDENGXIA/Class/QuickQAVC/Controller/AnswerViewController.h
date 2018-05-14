@@ -9,9 +9,20 @@
 #import "BaseViewController.h"
 #import "QusetionModel.h"
 
+typedef enum _queschooseType{
+    
+    questionType = 0,//标题类型
+    myquestionType    //内容类型
+    
+} queschooseType;
+
 @interface AnswerViewController : BaseViewController
 
 @property (nonatomic, strong) QusetionModel *questionModel;
+
+@property (nonatomic, assign) queschooseType choosetype;
+
+-(void)setUpUi:(queschooseType)choosetype;
 
 
 @end

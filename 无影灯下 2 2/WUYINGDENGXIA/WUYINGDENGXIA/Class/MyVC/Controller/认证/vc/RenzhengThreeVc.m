@@ -52,6 +52,8 @@
     
     [self.picView addSubview:self.addPhotoView];
     
+    NSLog(@"%@-%@-%@-%@-%@-%@",self.nameField,self.phoneField,self.shenfenField,self.yiyuanField,self.keshiField,self.zhiwuField);
+    
 }
 
 #pragma mark - UI -
@@ -90,9 +92,80 @@
 #pragma mark - 私有方法 -
 //下一步
 - (IBAction)nextStep:(UIButton *)sender {
-    RenzhengResultVc *vc = [[RenzhengResultVc alloc]
-                            init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    //认证
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    NSDictionary *dict = @{
+                           @"userid" : user.userid,
+                           @"realName" : self.nameField,
+//                           @"useremail":user.userEmail,
+//                           @"usercity":user.usercity,
+//                           @"useridcard":user.userIdcard,
+//                           @"username":user.userIdcard,
+//                           @"usersex":user.usersex,
+                           @"userhospital":self.yiyuanField,
+                           @"useroffice":self.keshiField,
+//                           @"usertitle":user.userTitle,
+                           @"userpost":self.zhiwuField,
+//                           @"userunit":user.userUnit,
+                           @"userposition":self.shenfenField,
+//                           @"userschool":user.userSchool,
+//                           @"usermajor":user.userMajor,
+//                           @"userdegree":user.userDegree,
+//                           @"userstschool":user.userStschool,
+//                           @"head_img":user.headimg,
+//                           @"user_loginway":user.userLoginway
+                           };
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_change_myinfo"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+        
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            user.userReal_name = weakSelf.nameField;
+                                                            user.userHospital = weakSelf.yiyuanField;
+                                                            user.userOffice = weakSelf.keshiField;
+                                                            user.userPost = weakSelf.zhiwuField;
+                                                            user.userPosition = weakSelf.shenfenField;
+                                                            [user saveUserInfoToSanbox];
+                                                            
+                                                            //认证图片数组
+                                                            NSDictionary *dict = @{
+                                                                                   @"userid" : user.userid,
+                                                                                   @"certtype":@"1",
+                                                                                   @"user_token":user.usertoken,
+                                                                                   @"imgpath":@"imgpath"
+                                                                                   };
+                                                            
+                                                            [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_usercerti"]
+                                                                                                         parameters:dict
+                                                                                                            success:^(id obj) {
+                                                                                                                
+                                                                                                                if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                                                                    
+                                                                                                                    [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                                                                    RenzhengResultVc *vc = [[RenzhengResultVc alloc]
+                                                                                                                                            init];
+                                                                                                                    [weakSelf.navigationController pushViewController:vc animated:YES];
+                                                                                                                }else{
+                                                                                                                    [MBProgressHUD showError:obj[@"msg"]];
+                                                                                                                }
+                                                                                                            } fail:^(NSError *error) {
+                                                                                                                
+                                                                                                            }];
+                                                            
+                                                        }else{
+                                                            
+                                                        }
+    } fail:^(NSError *error) {
+        
+    }];
+    
+    
+
 }
 //上一步
 - (IBAction)upStep:(UIButton *)sender {
