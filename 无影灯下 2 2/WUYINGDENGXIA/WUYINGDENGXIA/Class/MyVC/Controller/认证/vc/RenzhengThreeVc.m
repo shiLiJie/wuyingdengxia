@@ -23,7 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIView *picView;
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 @property (weak, nonatomic) IBOutlet UIButton *upBtn;
-
+//图片数组
+@property (nonatomic, strong) NSMutableArray *imageArr;
 //图片选择器view
 @property (nonatomic, strong) HX_AddPhotoView *addPhotoView;
 
@@ -52,7 +53,9 @@
     
     [self.picView addSubview:self.addPhotoView];
     
-    NSLog(@"%@-%@-%@-%@-%@-%@",self.nameField,self.phoneField,self.shenfenField,self.yiyuanField,self.keshiField,self.zhiwuField);
+    NSLog(@"%@-%@-%@-%@-%@-%@-%@",self.nameField,self.phoneField,self.shenfenField,self.yiyuanField,self.keshiField,self.zhiwuField,self.useridcard);
+    
+    self.imageArr = [[NSMutableArray alloc] init];
     
 }
 
@@ -111,6 +114,7 @@
                            @"userpost":self.zhiwuField,
 //                           @"userunit":user.userUnit,
                            @"userposition":self.shenfenField,
+                           @"useridcard":self.useridcard
 //                           @"userschool":user.userSchool,
 //                           @"usermajor":user.userMajor,
 //                           @"userdegree":user.userDegree,
@@ -122,6 +126,7 @@
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_change_myinfo"]
                                                  parameters:dict
                                                     success:^(id obj) {
+                                                        
         
                                                         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                             
@@ -130,43 +135,99 @@
                                                             user.userOffice = weakSelf.keshiField;
                                                             user.userPost = weakSelf.zhiwuField;
                                                             user.userPosition = weakSelf.shenfenField;
+                                                            user.userIdcard = weakSelf.useridcard;
                                                             [user saveUserInfoToSanbox];
                                                             
-                                                            //认证图片数组
-                                                            NSDictionary *dict = @{
-                                                                                   @"userid" : user.userid,
-                                                                                   @"certtype":@"1",
-                                                                                   @"user_token":user.usertoken,
-                                                                                   @"imgpath":@"imgpath"
-                                                                                   };
                                                             
-                                                            [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_usercerti"]
-                                                                                                         parameters:dict
-                                                                                                            success:^(id obj) {
+                                                            UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                            [user loadUserInfoFromSanbox];
+                                                            
+                                                            NSMutableArray *arr = [[NSMutableArray alloc] init];
+                                                            [MBProgressHUD showMessage:@"正在上传，请稍后"];
+                                                            
+                                                            //如果有图片
+                                                            if (self.imageArr.count > 0) {
+                                                                
+                                                                for (int i = 0; i<self.imageArr.count; i++) {
+                                                                    NSData *data = UIImagePNGRepresentation(self.imageArr[i]);
+                                                                    
+                                                                    [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
+                                                                                                        WithParams:nil
+                                                                                                             image:data
+                                                                                                          filename:@"6"
+                                                                                                          mimeType:@"png"
+                                                                                                        completion:^(id dic) {
+                                                                                                            
+                                                                                                            if ([dic[@"code"] isEqualToString:SucceedCoder]) {
                                                                                                                 
-                                                                                                                if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                                                                                    
-                                                                                                                    [MBProgressHUD showSuccess:obj[@"msg"]];
-                                                                                                                    RenzhengResultVc *vc = [[RenzhengResultVc alloc]
-                                                                                                                                            init];
-                                                                                                                    [weakSelf.navigationController pushViewController:vc animated:YES];
-                                                                                                                }else{
-                                                                                                                    [MBProgressHUD showError:obj[@"msg"]];
+                                                                                                                [arr addObject:dic[@"data"][@"url"]];
+                                                                                                                
+                                                                                                                //上传完左右照片,提交投稿
+                                                                                                                if (i == weakSelf.imageArr.count-1) {
+                                                                                                                    //发送认证请求
+                                                                                                                    [weakSelf postRenzhengWithUid:user.userid userToken:user.usertoken imgPath:arr];
                                                                                                                 }
-                                                                                                            } fail:^(NSError *error) {
                                                                                                                 
-                                                                                                            }];
+                                                                                                            }else{
+                                                                                                                
+                                                                                                                [MBProgressHUD hideHUD];
+                                                                                                                [MBProgressHUD showError:dic[@"msg"]];
+                                                                                                            }
+                                                                                                            
+                                                                                                        }
+                                                                                                        errorBlock:^(NSError *error) {
+                                                                                                            [MBProgressHUD hideHUD];
+                                                                                                            
+                                                                                                        }];
+                                                                    
+                                                                }
+                                                            }else{
+                                                                //发送认证请求
+                                                                [weakSelf postRenzhengWithUid:user.userid userToken:user.usertoken imgPath:arr];
+                                                            }
                                                             
                                                         }else{
-                                                            
+                                                            [MBProgressHUD showError:obj[@"msg"]];
                                                         }
     } fail:^(NSError *error) {
         
     }];
-    
-    
-
 }
+
+//发送认证请求上传图片
+-(void)postRenzhengWithUid:(NSString *)uid
+                 userToken:(NSString *)usertoken
+                   imgPath:(NSArray *)imgpath{
+    //认证图片数组
+    NSDictionary *dict1 = @{
+                            @"userid" : uid,
+                            @"certtype":@"1",
+                            @"user_token":usertoken,
+                            @"imgpath":@"111"
+                            };
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_usercerti"]
+                                                 parameters:dict1
+                                                    success:^(id obj) {
+                                                        
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [MBProgressHUD hideHUD];
+                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                            RenzhengResultVc *vc = [[RenzhengResultVc alloc]
+                                                                                    init];
+                                                            [weakSelf.navigationController pushViewController:vc animated:YES];
+                                                        }else{
+                                                            [MBProgressHUD hideHUD];
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+                                                    } fail:^(NSError *error) {
+                                                        [MBProgressHUD hideHUD];
+
+                                                    }];
+}
+
+
 //上一步
 - (IBAction)upStep:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -214,9 +275,15 @@
         /**  当前选择的个数  */
         _addPhotoView.selectNum;
         __weak typeof(self) weakSelf = self;
-        
+        NSMutableArray *arr = [[NSMutableArray alloc] init];
         [_addPhotoView setSelectPhotos:^(NSArray *photos, NSArray *videoFileNames, BOOL iforiginal) {
             
+            [arr removeAllObjects];
+            if (photos.count == 0) {
+                [arr removeAllObjects];
+                [weakSelf.imageArr removeAllObjects];
+                NSLog(@"%ld",weakSelf.imageArr.count);
+            }
             //选择图片后展示图片视图
             weakSelf.picView.hidden = NO;
             
@@ -239,12 +306,13 @@
                     // 根据输入的大小来控制返回的图片质量
                     CGSize size = CGSizeMake(300 * scale, 300 * scale);
                     [[HX_AssetManager sharedManager] accessToImageAccordingToTheAsset:twoAsset size:size resizeMode:PHImageRequestOptionsResizeModeFast completion:^(UIImage *image, NSDictionary *info) {
+                        
+                        [arr addObject:image];
+                        weakSelf.imageArr = arr;
+                        
                         // image为高清图时
                         if (![info objectForKey:PHImageResultIsDegradedKey]) {
-                            // 高清图
-                            //                        image;
-                            //
-                            //                        NSLog(@"%@",image);
+
                         }
                     }];
                 }

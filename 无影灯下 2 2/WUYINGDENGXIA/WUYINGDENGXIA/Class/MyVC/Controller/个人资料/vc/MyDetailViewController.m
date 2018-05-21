@@ -162,7 +162,7 @@
     if (indexPath.section == 0) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"ziliaoCell" owner:nil options:nil][2];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if ([self.isFinishCer isEqualToString:@"0"]) {
+        if ([self.isFinishCer isEqualToString:@"1"]) {
             [cell.renzhengBtn setTitle:@"已认证" forState:UIControlStateNormal];
         }
         //点击认证按钮
@@ -324,7 +324,7 @@
                                                                     if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                                         user.usersex = selectValue;
                                                                         [user saveUserInfoToSanbox];
-                                                                        [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                        
                                                                     }else{
                                                                         [MBProgressHUD showError:obj[@"msg"]];
                                                                     }
@@ -356,7 +356,7 @@
                                                                     if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                                         user.userStschool = selectValue;
                                                                         [user saveUserInfoToSanbox];
-                                                                        [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                        
                                                                     }else{
                                                                         [MBProgressHUD showError:obj[@"msg"]];
                                                                     }
@@ -389,7 +389,7 @@
                                                                     if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                                         user.usercity = selectAddressArr[1];
                                                                         [user saveUserInfoToSanbox];
-                                                                        [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                        
                                                                     }else{
                                                                         [MBProgressHUD showError:obj[@"msg"]];
                                                                     }

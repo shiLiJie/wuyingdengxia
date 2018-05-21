@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         self.begin_time = dict[@"begin_time"];
+        self.end_time = dict[@"end_time"];
         self.is_check = dict[@"is_check"];
         self.is_sign = dict[@"is_sign"];
         self.isfinish = dict[@"isfinish"];

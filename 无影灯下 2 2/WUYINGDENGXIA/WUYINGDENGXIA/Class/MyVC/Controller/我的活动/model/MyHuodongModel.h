@@ -10,6 +10,7 @@
 
 @interface MyHuodongModel : NSObject
 @property (nonatomic, copy) NSString *begin_time;//id
+@property (nonatomic, copy) NSString *end_time;//id
 @property (nonatomic, copy) NSString *is_check;//id
 @property (nonatomic, copy) NSString *is_sign;//
 @property (nonatomic, copy) NSString *isfinish;//

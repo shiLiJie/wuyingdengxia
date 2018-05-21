@@ -41,6 +41,11 @@ typedef enum _chooseType{
 @property (nonatomic, strong) HX_AddPhotoView *addPhotoView;
 //是否正在编辑中
 @property (nonatomic, assign) BOOL isEditor;
+//图片数组
+@property (nonatomic, strong) NSMutableArray *imageArr;
+//标签数组
+@property (nonatomic, strong) NSMutableArray *labelArr;
+
 
 
 @end
@@ -49,6 +54,9 @@ typedef enum _chooseType{
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.imageArr = [[NSMutableArray alloc] init];
+    self.labelArr = [[NSMutableArray alloc] init];
     
    //添加ui控件
     [self addUi];
@@ -147,60 +155,107 @@ typedef enum _chooseType{
 
 //投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
+    
     if (self.isEditor) {
         
         UserInfoModel *user = [UserInfoModel shareUserModel];
         [user loadUserInfoFromSanbox];
         
-        NSArray *arr = @[@"http:\/\/yszg.oss-cn-beijing.aliyuncs.com\/user_1_dir\/98ad9161be2e1683a8cbd8fd4b47e291.jpg",
-                                    @"http://h.hiphotos.baidu.com/image/h%3D300/sign=2b3e022b262eb938f36d7cf2e56085fe/d0c8a786c9177f3e18d0fdc779cf3bc79e3d5617.jpg",
-                                    @"http://a.hiphotos.baidu.com/image/pic/item/b7fd5266d01609240bcda2d1dd0735fae7cd340b.jpg",
-                                    @"http://h.hiphotos.baidu.com/image/pic/item/728da9773912b31b57a6e01f8c18367adab4e13a.jpg",
-                                    @"http://h.hiphotos.baidu.com/image/pic/item/0d338744ebf81a4c5e4fed03de2a6059242da6fe.jpg"];
-        
-        NSDictionary *dic = @{
-                              @"userid":user.userid,
-                              @"articleTitle":self.titieTextLab.text,
-                              @"articleContent":self.detailTextView.text,
-                              @"articleType":@"文章",
-                              @"articleClass":@"非专业",
-                              @"articleImg":arr,
-                              };
-        
-        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_article"] parameters:dic success:^(id obj) {
-            
-            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                
-                //跳转到提交结果界面
-                PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
-                [self.navigationController pushViewController:publicPageRusult animated:YES];
-                //假的占位,模拟提交成功
-                publicPageRusult.isSucess = YES;
-                
-            }else{
+        NSMutableArray *arr = [[NSMutableArray alloc] init];
+        NSString *articleClass = [self.labelArr componentsJoinedByString:@","];
 
-                //跳转到提交结果界面
-                PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
-                [self.navigationController pushViewController:publicPageRusult animated:YES];
-                //假的占位,模拟提交成功
-                publicPageRusult.isSucess = NO;
+        __weak typeof(self) weakSelf = self;
+        
+        [MBProgressHUD showMessage:@"正在上传，请稍后"];
+        
+        //如果有图片
+        if (self.imageArr.count > 0) {
+            
+            for (int i = 0; i<self.imageArr.count; i++) {
+                NSData *data = UIImagePNGRepresentation(self.imageArr[i]);
+                
+                [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
+                                                    WithParams:nil
+                                                         image:data
+                                                      filename:@"6"
+                                                      mimeType:@"png"
+                                                    completion:^(id dic) {
+                                                        
+                                                        if ([dic[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [arr addObject:dic[@"data"][@"url"]];
+                                                            
+                                                            //上传完左右照片,提交投稿
+                                                            if (i == weakSelf.imageArr.count-1) {
+                                                                //发送投稿请求
+                                                                [weakSelf postPageWithUid:user.userid articleClass:articleClass articleImg:arr];
+                                                                
+                                                            }
+                                                            
+                                                        }else{
+                                                            [MBProgressHUD hideHUD];
+                                                        }
+
+                                                    }
+                                                    errorBlock:^(NSError *error) {
+                                                        [MBProgressHUD hideHUD];
+                                                        
+                                                    }];
+                
             }
+        }else{
+            //没图片
+            [weakSelf postPageWithUid:user.userid articleClass:articleClass articleImg:arr];
+        }
+
+    }else{
+        
+    }
+}
+
+//发送投稿请求
+-(void)postPageWithUid:(NSString *)uid
+          articleClass:(NSString *)articleclass
+            articleImg:(NSMutableArray *)articleimg{
+    NSDictionary *dic = @{
+                          @"userid":uid,
+                          @"articleTitle":self.titieTextLab.text,
+                          @"articleContent":self.detailTextView.text,
+                          @"articleType":@"文章",
+                          @"articleClass":articleclass,
+                          @"articleImg":articleimg,
+                          };
+    
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_article"] parameters:dic success:^(id obj) {
+        
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+            [MBProgressHUD hideHUD];
+            //跳转到提交结果界面
+            PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
+            [self.navigationController pushViewController:publicPageRusult animated:YES];
+            //假的占位,模拟提交成功
+            publicPageRusult.isSucess = YES;
             
-        } fail:^(NSError *error) {
-            
+        }else{
+            [MBProgressHUD hideHUD];
             //跳转到提交结果界面
             PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
             [self.navigationController pushViewController:publicPageRusult animated:YES];
             //假的占位,模拟提交成功
             publicPageRusult.isSucess = NO;
-        }];
+        }
         
-        
-    }else{
-        
-    }
-    
+    } fail:^(NSError *error) {
+        [MBProgressHUD hideHUD];
+        //跳转到提交结果界面
+        PublicPageResultVC *publicPageRusult = [[PublicPageResultVC alloc] init];
+        [self.navigationController pushViewController:publicPageRusult animated:YES];
+        //假的占位,模拟提交成功
+        publicPageRusult.isSucess = NO;
+    }];
 }
+
 
 -(UIColor*)set_colorBackground{
     return [UIColor whiteColor];
@@ -234,6 +289,7 @@ typedef enum _chooseType{
     
     __weak typeof(self) weakSelf = self;
     vc.clossviewblock = ^(NSMutableArray *itemArray) {
+        weakSelf.labelArr = itemArray;
         //回调返回的标签数组
         UIButton *btn = [[UIButton alloc] init];
         btn.frame = CGRectMake(CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2, -5, CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2, CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2);
@@ -257,9 +313,9 @@ typedef enum _chooseType{
     }else{
         self.choosetype = detailType;
         if (kDevice_Is_iPhoneX) {
-            self.detailTextView.frame = CGRectMake(17, 139, kScreen_Width-17, kScreen_Height-173-130-180 -39 -10 -34 );
+            self.detailTextView.frame = CGRectMake(17, 139, kScreen_Width-17, kScreen_Height-173-130-180 -39 -20 );
         }else{
-            self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130-180 -39 -10 );
+            self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130-180 -39 -20 );
         }
         
     }
@@ -363,9 +419,9 @@ typedef enum _chooseType{
     [UIView animateKeyframesWithDuration:animationDuration delay:0 options:options animations:^{
         //根据选择的编辑框来决定键盘上的view上移距离
         if (self.choosetype == titleType) {
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
         }else{
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
 
         }
         
@@ -387,9 +443,9 @@ typedef enum _chooseType{
 
         self.chooseView.transform = CGAffineTransformIdentity;
         if (kDevice_Is_iPhoneX) {
-            self.detailTextView.frame = CGRectMake(17, 139, kScreen_Width-17, kScreen_Height-173-130);
+            self.detailTextView.frame = CGRectMake(17, 139, kScreen_Width-17, kScreen_Height-173-130-34);
         }else{
-            self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130);
+            self.detailTextView.frame = CGRectMake(17, 115, kScreen_Width-17, kScreen_Height-115-130-34);
         }
         
 
@@ -429,8 +485,18 @@ typedef enum _chooseType{
         _addPhotoView.selectNum;
         __weak typeof(self) weakSelf = self;
         
+        NSMutableArray *arr = [[NSMutableArray alloc] init];
+        
         [_addPhotoView setSelectPhotos:^(NSArray *photos, NSArray *videoFileNames, BOOL iforiginal) {
 
+            [arr removeAllObjects];
+            if (photos.count == 0) {
+                [arr removeAllObjects];
+                [weakSelf.imageArr removeAllObjects];
+                NSLog(@"%ld",weakSelf.imageArr.count);
+            }
+
+            
             //选择图片后展示图片视图
             weakSelf.picView.hidden = NO;
             
@@ -453,12 +519,14 @@ typedef enum _chooseType{
                     // 根据输入的大小来控制返回的图片质量
                     CGSize size = CGSizeMake(300 * scale, 300 * scale);
                     [[HX_AssetManager sharedManager] accessToImageAccordingToTheAsset:twoAsset size:size resizeMode:PHImageRequestOptionsResizeModeFast completion:^(UIImage *image, NSDictionary *info) {
+                        
+                        [arr addObject:image];
+                        weakSelf.imageArr = arr;
+                        
                         // image为高清图时
                         if (![info objectForKey:PHImageResultIsDegradedKey]) {
-                            // 高清图
-                            //                        image;
-                            //
-                            //                        NSLog(@"%@",image);
+                            
+                            
                         }
                     }];
                 }

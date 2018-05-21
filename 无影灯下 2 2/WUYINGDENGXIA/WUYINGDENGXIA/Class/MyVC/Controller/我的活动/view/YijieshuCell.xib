@@ -25,8 +25,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="392" height="118.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="ND2-I6-ogN">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ND2-I6-ogN">
                         <rect key="frame" x="20" y="25.5" width="117" height="68"/>
+                        <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="117" id="Xsc-vf-HsO"/>
                             <constraint firstAttribute="height" constant="68" id="kbn-q6-fsL"/>
@@ -86,7 +87,4 @@
             <point key="canvasLocation" x="-138" y="52.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="tupian" width="20" height="17"/>
-    </resources>
 </document>

@@ -8,6 +8,7 @@
 
 #import "WeikaishiVc.h"
 #import "WeikaishiCell.h"
+#import "MyHuodongModel.h"
 
 @interface WeikaishiVc ()
 
@@ -27,12 +28,13 @@
     }else{
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 113, 0);
     }
-    
 }
+
 
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.weikaishiArr.count;
+//    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -48,8 +50,21 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"WeikaishiCell" owner:nil options:nil] firstObject];
     }
-    cell.choosetype = shenhezhongType;
-    [cell setUpUi:cell.choosetype];
+
+    
+    MyHuodongModel *model = [[MyHuodongModel alloc] init];
+    model = self.weikaishiArr[indexPath.row];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:model.meeting_image] placeholderImage:GetImage(@"")];
+    cell.titleLab.text = model.meet_title;
+    cell.timeLab.text = [NSString stringWithFormat:@"%@-%@",model.begin_time,model.end_time];
+    if ([model.is_check isEqualToString:@"0"]) {
+        cell.choosetype = shenhezhongType;
+        [cell setUpUi:cell.choosetype];
+    }else{
+        cell.choosetype = weiqiandaoType;//审核通过
+        [cell setUpUi:cell.choosetype];
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

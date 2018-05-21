@@ -70,7 +70,7 @@
         _segView.frame = CGRectMake(0,64, kScreen_Width, 44);
     }
     
-    _segView.items = @[@"文章",@"回答",@"视频"];
+    _segView.items = @[@"文章",@"问答",@"视频"];
     _segView.titleFont = BOLDSYSTEMFONT(17);
     [self.view addSubview:_segView];
 //    UILabel *lab = [[UILabel alloc] init];
@@ -102,11 +102,13 @@
 }
 -(QATableVIewController *)tablecontroller1{
     QATableVIewController *vc = [[QATableVIewController alloc] init];
+    [vc getMyshoucangQusetion];
     vc.delegate = self;
     return vc;
 }
 -(PassMeetViewController *)tablecontroller2{
     PassMeetViewController *vc = [[PassMeetViewController alloc] init];
+    [vc getMyshoucangQusetion];
     vc.delegate = self;
     return vc;
 }
@@ -145,10 +147,18 @@
 
 #pragma mark - DetailTableViewController代理方法 -
 //文章点击索引
+-(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath article_id:(NSString *)articleid user_id:(NSString *)userid pageModle:(pageModel *)model{
+    PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
+    pageDetail.articleid = articleid;
+    pageDetail.userid = userid;
+    pageDetail.model = [[pageModel alloc] init];;
+    pageDetail.model = model;
+    [self.navigationController pushViewController:pageDetail animated:YES];
+}
+
 -(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
     
-    PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
-    [self.navigationController pushViewController:pageDetail animated:YES];
+
     
 }
 //文章头像点击
@@ -158,9 +168,12 @@
 }
 
 //问答点击索引
--(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
+-(void)QAtableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath QusetionModel:(QusetionModel *)Qusetionmodel{
     
     AnswerViewController *pageDetail = [[AnswerViewController alloc] init];
+    pageDetail.questionModel = [[QusetionModel alloc] init];
+    pageDetail.questionModel = Qusetionmodel;
+    pageDetail.choosetype = questionType;
     [self.navigationController pushViewController:pageDetail animated:YES];
 }
 //问答头像点击

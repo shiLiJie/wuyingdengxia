@@ -174,6 +174,7 @@
     PassMeetViewController *vc = [[PassMeetViewController alloc] init];
     vc.huiguModel = [[huiguModel alloc] init];
     vc.huiguModel = huiyiModel;
+    [vc getVideoList];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

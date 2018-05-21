@@ -66,6 +66,9 @@
     [super viewDidLoad];
     //设置UI内容
     [self setUpUI];
+    
+    self.labelArr = [[NSMutableArray alloc] init];
+    self.imageArr = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - UI -
@@ -120,16 +123,16 @@
     self.yueliangbiOther.layer.borderWidth = 0.5f;//描边宽度
     self.yueliangbiOther.layer.borderColor = RGB201.CGColor;
     self.yueliangbiOther.layer.masksToBounds = YES;//是否切割
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    self.menoyLab.text = user.moon_cash;
     //选择月亮币面值按钮UI设置
     [self initYueliangbiBtn:self.yueliangbi1];
     [self initYueliangbiBtn:self.yueliangbi2];
     [self initYueliangbiBtn:self.yueliangbi3];
     [self initYueliangbiBtn:self.yueliangbi4];
     [self initYueliangbiBtn:self.yueliangbi5];
-    
-    UserInfoModel *user = [UserInfoModel shareUserModel];
-    [user loadUserInfoFromSanbox];
-    self.menoyLab.text = user.moon_cash;
     
     //为监听键盘高度添加两个观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
@@ -171,59 +174,107 @@
 //投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
     if (self.isEditor) {
-        
-        self.labelArr = @[@"手术器械",@"手术"].mutableCopy;
-        
-        //跳转到提交结果界面
-        QuestionResultVC *QuestionResult = [[QuestionResultVC alloc] init];
-        QuestionResult.imageArr = self.imageArr;
-        QuestionResult.hotKeys = self.labelArr;
-        
-        QuestionResult.title = self.titleStr;
-        QuestionResult.detail = self.detailTextView.text;
-        QuestionResult.yueliang = [self.yueliangbibtn.titleLabel.text intValue] > 0 ? self.yueliangbibtn.titleLabel.text : @"0";
-        
+
         UserInfoModel *user = [UserInfoModel shareUserModel];
         [user loadUserInfoFromSanbox];
         
+        __block NSMutableArray *arr = [[NSMutableArray alloc] init];
+        //标签转字符串
+        NSString *questags = [self.labelArr componentsJoinedByString:@","];
         
-        NSString *questags = @"";
-        for (int i = 0; i < self.labelArr.count; i ++) {
-            if (i == 0) {
-                questags = [NSString stringWithFormat:@"%@",self.labelArr[i]];
-            }else{
-                questags = [NSString stringWithFormat:@"%@,%@",questags,self.labelArr[i]];
-            }
-        }
-        NSDictionary *dict = @{
-                               @"userid":user.userid,
-                               @"quesTitle":self.titleStr,
-                               @"moonCash":[self.yueliangbibtn.titleLabel.text intValue] > 0 ? self.yueliangbibtn.titleLabel.text : @"0",
-                               @"quesContent":self.detailTextView.text,
-                               @"quesType":user.userid,
-                               @"img_path":@"http://yszg.oss-cn-beijing.aliyuncs.com/user_1_dir/98ad9161be2e1683a8cbd8fd4b47e291.jpg",
-                               @"questags":questags
-                               };
-        
+        [MBProgressHUD showMessage:@"正在上传，请稍后"];
+
         __weak typeof(self) weakSelf = self;
         
-        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_question"]
-                                                     parameters:dict
-                                                        success:^(id obj) {
-                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                                
-                                                                [weakSelf.navigationController pushViewController:QuestionResult animated:YES];
-                                                            }else{
-                                                                [MBProgressHUD showError:@"提问失败"];
+        //如果有图片
+        if (self.imageArr.count > 0) {
+            
+            for (int i = 0; i<self.imageArr.count; i++) {
+                NSData *data = UIImagePNGRepresentation(self.imageArr[i]);
+                
+                [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
+                                                    WithParams:nil
+                                                         image:data
+                                                      filename:@"6"
+                                                      mimeType:@"png"
+                                                    completion:^(id dic) {
+                                                        if ([dic[@"code"] isEqualToString:SucceedCoder]) {
+                                                            [arr addObject:dic[@"data"][@"url"]];
+                                                            
+                                                            //上传完左右照片,提交投稿
+                                                            if (i == weakSelf.imageArr.count-1) {
+                                                                //发送投稿请求
+                                                                [weakSelf postQuestionWithUid:user.userid questags:questags img_path:arr];
                                                             }
+                                                            
+                                                        }else{
+                                                            [MBProgressHUD hideHUD];
+                                                            
+                                                        }
+                                                    }
+                                                    errorBlock:^(NSError *error) {
+                                                        
+                                                        [MBProgressHUD hideHUD];
+                                                        
+                                                    }];
+                
+            }
+        }else{
+            //没图片
+            [weakSelf postQuestionWithUid:user.userid questags:questags img_path:arr];
         }
-                                                           fail:^(NSError *error) {
-                                                               [MBProgressHUD showError:@"提问失败"];
-        }];
-        
+
     }else{
         
     }
+}
+
+
+/**
+ 发送提问请求
+
+ @param uid userid
+ @param questags 标签数组
+ @param imagearr 图片数组
+ */
+-(void)postQuestionWithUid:(NSString *)uid questags:(NSString *)questags img_path:(NSArray *)imagearr{
+    
+    NSDictionary *dict = @{
+                           @"userid":uid,
+                           @"quesTitle":self.titleStr,
+                           @"moonCash":[self.yueliangbibtn.titleLabel.text intValue] > 0 ? self.yueliangbibtn.titleLabel.text : @"0",
+                           @"quesContent":self.detailTextView.text,
+                           @"quesType":@"",
+                           @"img_path":imagearr,
+                           @"questags":questags
+                           };
+    
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_question"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            [MBProgressHUD hideHUD];
+                                                            
+                                                            //跳转到提交结果界面
+                                                            QuestionResultVC *QuestionResult = [[QuestionResultVC alloc] init];
+                                                            QuestionResult.imageArr = weakSelf.imageArr;
+                                                            QuestionResult.hotKeys = weakSelf.labelArr;
+                                                            
+                                                            QuestionResult.title = weakSelf.titleStr;
+                                                            QuestionResult.detail = weakSelf.detailTextView.text;
+                                                            QuestionResult.yueliang = [weakSelf.yueliangbibtn.titleLabel.text intValue] > 0 ? weakSelf.yueliangbibtn.titleLabel.text : @"0";
+                                                            [weakSelf.navigationController pushViewController:QuestionResult animated:YES];
+                                                        }else{
+                                                            [MBProgressHUD hideHUD];
+                                                            [MBProgressHUD showError:@"提问失败"];
+                                                        }
+                                                    }
+                                                       fail:^(NSError *error) {
+                                                           [MBProgressHUD hideHUD];
+                                                           [MBProgressHUD showError:@"提问失败"];
+                                                       }];
 }
 
 -(UIColor*)set_colorBackground{
@@ -252,13 +303,16 @@
 //选择标签按钮点击
 - (IBAction)chooseSheetBtnClick:(UIButton *)sender {
     
+    __weak typeof(self) weakSelf = self;
     AddSheetViewController *vc = [[AddSheetViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     
     vc.clossviewblock = ^(NSMutableArray *itemArray) {
+        //标签数组赋值
+        weakSelf.labelArr = itemArray;
         //回调返回的标签数组
         UIButton *btn = [[UIButton alloc] init];
-        btn.frame = CGRectMake(CGRectGetWidth(self.chooseMenuBtn.frame)/2, -5, CGRectGetWidth(self.chooseMenuBtn.frame)/2, CGRectGetWidth(self.chooseMenuBtn.frame)/2);
+        btn.frame = CGRectMake(CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2, -5, CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2, CGRectGetWidth(weakSelf.chooseMenuBtn.frame)/2);
         [btn setBackgroundColor:RGB(255, 81, 81)];
         [btn setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)itemArray.count] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -266,22 +320,23 @@
         btn.layer.cornerRadius = btn.frame.size.width / 2;
         //将多余的部分切掉
         btn.layer.masksToBounds = YES;
-        [self.chooseMenuBtn addSubview:btn];
+        [weakSelf.chooseMenuBtn addSubview:btn];
     };
 }
 //选择月亮币
 - (IBAction)chooseYLB:(UIButton *)sender {
+    __weak typeof(self) weakSelf = self;
     //先退键盘
     [self.detailTextView resignFirstResponder];
     //弹出选择月亮币视图
     [UIView animateWithDuration:0.5 animations:^{
-        self.bottomViewConstraint.constant = 0;
-        [self.bottomView layoutIfNeeded];
-        [self.view layoutIfNeeded];
+        weakSelf.bottomViewConstraint.constant = 0;
+        [weakSelf.bottomView layoutIfNeeded];
+        [weakSelf.view layoutIfNeeded];
         if (kDevice_Is_iPhoneX) {
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -self.bottomView.frame.size.height+34);
+            weakSelf.chooseView.transform = CGAffineTransformMakeTranslation(0, -self.bottomView.frame.size.height+34);
         }else{
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -self.bottomView.frame.size.height);
+            weakSelf.chooseView.transform = CGAffineTransformMakeTranslation(0, -self.bottomView.frame.size.height);
         }
     }];
 }
@@ -368,12 +423,12 @@
             if ([weakSelf.menoyLab.text integerValue] < [userNameTextField.text integerValue]){
                 [MBProgressHUD showError:@"当前月亮币不足"];
             }else{
-                [self.yueliangbibtn setFont:[UIFont systemFontOfSize:11]];
-                [self.yueliangbibtn setTitleColor:RGB(252, 186, 42) forState:UIControlStateNormal];
-                self.yueliangbibtn.layer.borderColor  = RGB(252, 188, 41).CGColor;
-                self.yueliangbibtn.layer.borderWidth = 0.5f;
+                [weakSelf.yueliangbibtn setFont:[UIFont systemFontOfSize:11]];
+                [weakSelf.yueliangbibtn setTitleColor:RGB(252, 186, 42) forState:UIControlStateNormal];
+                weakSelf.yueliangbibtn.layer.borderColor  = RGB(252, 188, 41).CGColor;
+                weakSelf.yueliangbibtn.layer.borderWidth = 0.5f;
                 if (!kStringIsEmpty(userNameTextField.text)) {
-                    [self.yueliangbibtn setTitle:userNameTextField.text forState:UIControlStateNormal];
+                    [weakSelf.yueliangbibtn setTitle:userNameTextField.text forState:UIControlStateNormal];
                 }
             }
         });
@@ -396,9 +451,9 @@
 // 将要开始编辑
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     if (kDevice_Is_iPhoneX) {
-        self.detailTextView.frame = CGRectMake(17, 94, kScreen_Width-17, kScreen_Height-128-130-180 -39 -10 );
+        self.detailTextView.frame = CGRectMake(17, 94, kScreen_Width-17, kScreen_Height-128-130-180 -39 -20 );
     }else{
-        self.detailTextView.frame = CGRectMake(17, 70, kScreen_Width-17, kScreen_Height-80-130-180 -39 -10 );
+        self.detailTextView.frame = CGRectMake(17, 70, kScreen_Width-17, kScreen_Height-80-130-180 -39 -20 );
     }
     
     
@@ -482,7 +537,7 @@
 //            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
 //        }else{
         if (kDevice_Is_iPhoneX) {
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
         }else{
             self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
         }
@@ -492,6 +547,8 @@
         
     } completion:nil];
 }
+
+
 -(void)keyboardWillDisappear:(NSNotification *)notification
 {
     NSDictionary *info = [notification userInfo];
@@ -499,15 +556,15 @@
     CGFloat animationDuration = [[info valueForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     //下移动画options
     UIViewAnimationOptions options = (UIViewAnimationOptions)[[info valueForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue] << 16;
-    
+    __weak typeof(self) weakSelf = self;
     //回复动画
     [UIView animateKeyframesWithDuration:animationDuration delay:0 options:options animations:^{
         
-        self.chooseView.transform = CGAffineTransformIdentity;
+        weakSelf.chooseView.transform = CGAffineTransformIdentity;
         if (kDevice_Is_iPhoneX) {
-            self.detailTextView.frame = CGRectMake(17, 94, kScreen_Width-17, kScreen_Height-128-130);
+            weakSelf.detailTextView.frame = CGRectMake(17, 94, kScreen_Width-17, kScreen_Height-128-130);
         }else{
-            self.detailTextView.frame = CGRectMake(17, 70, kScreen_Width-17, kScreen_Height-80-130);
+            weakSelf.detailTextView.frame = CGRectMake(17, 70, kScreen_Width-17, kScreen_Height-80-130);
         }
         
         
@@ -540,10 +597,16 @@
         _addPhotoView.selectNum;
         __weak typeof(self) weakSelf = self;
         
+        NSMutableArray *arr = [[NSMutableArray alloc] init];
+        
         [_addPhotoView setSelectPhotos:^(NSArray *photos, NSArray *videoFileNames, BOOL iforiginal) {
             //图片数组赋值
-            weakSelf.imageArr = [[NSMutableArray alloc] init];
-            //选择图片后展示图片视图
+            [arr removeAllObjects];
+            if (photos.count == 0) {
+                [arr removeAllObjects];
+                [weakSelf.imageArr removeAllObjects];
+                NSLog(@"%ld",weakSelf.imageArr.count);
+            }
             weakSelf.picView.hidden = NO;
             
             [photos enumerateObjectsUsingBlock:^(id asset, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -554,10 +617,12 @@
                 // 根据输入的大小来控制返回的图片质量
                 CGSize size = CGSizeMake(300 * scale, 300 * scale);
                 [[HX_AssetManager sharedManager] accessToImageAccordingToTheAsset:twoAsset size:size resizeMode:PHImageRequestOptionsResizeModeFast completion:^(UIImage *image, NSDictionary *info) {
-                    [weakSelf.imageArr addObject:image];
-                    //NSLog(@"----------%@",[info objectForKey:@"PHImageFileURLKey"]);
-                    // image为高清图时
+                    
+                    [arr addObject:image];
+                    weakSelf.imageArr = arr;
+                    
                     if (![info objectForKey:PHImageResultIsDegradedKey]) {
+
                         }
                     }];
             }];

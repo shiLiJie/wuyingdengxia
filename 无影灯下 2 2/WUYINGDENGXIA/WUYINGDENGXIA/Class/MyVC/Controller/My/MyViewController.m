@@ -101,10 +101,10 @@
     if (user.loginStatus) {
         
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
-        self.userName.text = user.userName !=nil ? user.userName : @"您的昵称";
-        self.fensiNum.text = user.fansnum !=nil ? user.userName : @"0";
-        self.zanNum.text = user.supportnum !=nil ? user.userName : @"0";
-        [self.yueliangbiNum setTitle:user.moon_cash !=nil ? user.moon_cash : @" 0" forState:UIControlStateNormal];
+        self.userName.text = ![user.userName isEqualToString:@""] ? user.userName : @"您的昵称";
+        self.fensiNum.text = ![user.fansnum isEqualToString:@""] ? user.fansnum : @"0";
+        self.zanNum.text = ![user.supportnum isEqualToString:@""] ? user.supportnum : @"0";
+        [self.yueliangbiNum setTitle:![user.moon_cash isEqualToString:@""] ? user.moon_cash : @" 0" forState:UIControlStateNormal];
         if ([user.isV isEqualToString:@"1"]) {
             self.vipImage.image = GetImage(@"v");
         }

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;//电话field
 @property (weak, nonatomic) IBOutlet UITextField *shenfenField;//身份field
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;//下一步按钮
+@property (weak, nonatomic) IBOutlet UITextField *userCarId;//身份证号field
 
 
 @end
@@ -32,6 +33,11 @@
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     self.phoneField.text = user.phoneNum;
+    if (!kStringIsEmpty(user.userIdcard)) {
+        if (![user.userIdcard isEqualToString:@"0"]) {
+            self.userCarId.text = user.userIdcard;
+        }
+    }
 }
 
 #pragma mark - UI -
@@ -72,6 +78,7 @@
 - (IBAction)chooseShenfenClick:(UIButton *)sender {
     [self.nameField resignFirstResponder];
     [self.phoneField resignFirstResponder];
+    [self.userCarId resignFirstResponder];
     
     NSArray *arr = @[@"核心组",@"委员",@"主委",@"行业专家",@"普通"];
     __weak typeof(self) weakSelf = self;
@@ -85,15 +92,19 @@
     if (!kStringIsEmpty(self.nameField.text)) {
         if (!kStringIsEmpty(self.phoneField.text)) {
             if (!kStringIsEmpty(self.shenfenField.text)) {
-                
-                RenzhengTwoVc *vc = [[RenzhengTwoVc alloc] init];
-                
-                vc.nameField = self.nameField.text;
-                vc.phoneField = self.phoneField.text;
-                vc.shenfenField = self.shenfenField.text;
-                
-                [self.navigationController pushViewController:vc animated:YES];
-                
+                if (!kStringIsEmpty(self.userCarId.text)) {
+                    RenzhengTwoVc *vc = [[RenzhengTwoVc alloc] init];
+                    
+                    vc.nameField = self.nameField.text;
+                    vc.phoneField = self.phoneField.text;
+                    vc.shenfenField = self.shenfenField.text;
+                    vc.usercardid = self.userCarId.text;
+                    
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [MBProgressHUD showError:@"请先完善信息"];
+                }
+
             }else{
                 [MBProgressHUD showError:@"请先完善信息"];
             }
@@ -110,6 +121,7 @@
 -(void)addTargetMethod{
     [self.nameField addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
     [self.phoneField addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.userCarId addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
 }
 -(void)textField1TextChange:(UITextField *)textField{
     if (textField == self.nameField) {
@@ -127,6 +139,7 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.nameField resignFirstResponder];
     [self.phoneField resignFirstResponder];
+    [self.userCarId resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -78,9 +78,11 @@
                 vc.keshiField = self.keshiField.text;
                 vc.zhiwuField = self.zhiwuField.text;
                 
+                
                 vc.nameField = self.nameField;
                 vc.phoneField = self.phoneField;
                 vc.shenfenField = self.shenfenField;
+                vc.useridcard = self.usercardid;
                 
                 [self.navigationController pushViewController:vc animated:YES];
                 

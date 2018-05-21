@@ -13,7 +13,7 @@
 #import "SearchBarEffectController.h"
 #import "HW3DBannerView.h"
 #import "DetailTableViewController.h"
-#import "MDMultipleSegmentView.h"
+#import "MDMultipleSegmentView1.h"
 #import "MDFlipCollectionView.h"
 #import "ZZNewsSheetMenu.h"
 #import "PageDetailViewController.h"
@@ -32,7 +32,7 @@
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
-                                    MDMultipleSegmentViewDeletegate,
+                                    MDMultipleSegmentView1Deletegate,
                                     MDFlipCollectionViewDelegate,
                                     JohnScrollViewDelegate,
                                     PYSearchViewControllerDelegate,
@@ -40,7 +40,7 @@
                                     >
 
 {
-    MDMultipleSegmentView *_segView;    //标签视图
+    MDMultipleSegmentView1 *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
 }
 
@@ -58,7 +58,6 @@
 @property (nonatomic, strong) UIButton *addMenuBtn;
 //获取标签数组
 @property (nonatomic, strong) NSArray *labelArr;
-
 
 
 
@@ -200,14 +199,15 @@
     // 设置要加载的图片
     
     __weak typeof(self) weakSelf = self;
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allbanner"] parameters:nil success:^(id obj) {
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allbanner"]
+                                                parameters:nil
+                                                   success:^(id obj) {
         NSMutableArray *bannermodelarr = [[NSMutableArray alloc] init];
         NSArray *arr = obj[@"data"];
         NSMutableArray *arrayM = [NSMutableArray array];
         for (int i = 0; i < arr.count; i ++) {
             NSDictionary *dict = arr[i];
             [arrayM addObject:[bannermodel bannerWithDict:dict]];
-            
         }
         bannermodel *model = [[bannermodel alloc] init];
         for (model in arrayM) {
@@ -230,19 +230,12 @@
     } fail:^(NSError *error) {
         
     }];
-    //离线问题
-//    self.scrollView.data = @[@"http:\/\/yszg.oss-cn-beijing.aliyuncs.com\/user_1_dir\/98ad9161be2e1683a8cbd8fd4b47e291.jpg",
-//                             @"http://h.hiphotos.baidu.com/image/h%3D300/sign=2b3e022b262eb938f36d7cf2e56085fe/d0c8a786c9177f3e18d0fdc779cf3bc79e3d5617.jpg",
-//                             @"http://a.hiphotos.baidu.com/image/pic/item/b7fd5266d01609240bcda2d1dd0735fae7cd340b.jpg",
-//                             @"http://h.hiphotos.baidu.com/image/pic/item/728da9773912b31b57a6e01f8c18367adab4e13a.jpg",
-//                             @"http://h.hiphotos.baidu.com/image/pic/item/0d338744ebf81a4c5e4fed03de2a6059242da6fe.jpg"];
-
 }
 
 //添加segview标签控制器
 -(void)addSegView{
     
-    _segView = [[MDMultipleSegmentView alloc] init];
+    _segView = [[MDMultipleSegmentView1 alloc] init];
     _segView.delegate =  self;
     _segView.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width-segViewHigh, segViewHigh);
     
@@ -272,20 +265,19 @@
             NSMutableArray *tableArr = [[NSMutableArray alloc] init];
             for (int i = 0; i < muArr.count; i++) {
                 [tableArr addObject:[self tablecontroller:muArr[i]]];
-                
             }
             NSArray *tablearr = tableArr;
             if (kDevice_Is_iPhoneX) {
                 _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
                                                                                       CGRectGetMaxY(_segView.frame)+78,
                                                                                       Main_Screen_Width,
-                                                                                      Main_Screen_Height - 75-34)
+                                                                                      Main_Screen_Height - CGRectGetMaxY(_segView.frame)+33 - 34)
                                                                  withArray:tablearr];
             }else{
                 _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
                                                                                       CGRectGetMaxY(_segView.frame)+78,
                                                                                       Main_Screen_Width,
-                                                                                      Main_Screen_Height - 75)
+                                                                                      Main_Screen_Height - CGRectGetMaxY(_segView.frame)+33)
                                                                  withArray:tablearr];
             }
             
@@ -415,7 +407,7 @@
 {
     //先隐藏标签视图
     [self.newsMenu dismissNewsMenu];
-    [self.newsMenu setRecommentSubject];
+//    [self.newsMenu setRecommentSubject];
     
     __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_hotWords"]
@@ -435,8 +427,11 @@
                                                        NSArray *hotSeaches = arrayy;
                                                        //创建搜索控制器
                                                        PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+                                                           
+                                                           [weakSelf searchWithKey:searchText];
+                                                           
                                                            //创建搜索后的控制器
-                                                           [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
+//                                                           [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
                                                        }];
                                                        
                                                        searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
@@ -454,13 +449,55 @@
 }
 
 
+/**
+ 搜索请求方法
+
+ @param key 搜索关键词
+ */
+-(void)searchWithKey:(NSString *)key{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+        NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"searchall?user_id=%@&key=%@",user.userid,key]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
+                                                parameters:nil
+                                                   success:^(id obj) {
+        
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+            
+            [MBProgressHUD showSuccess:obj[@"msg"]];
+        }else{
+            [MBProgressHUD showError:obj[@"msg"]];
+        }
+        
+    }
+                                                      fail:^(NSError *error) {
+        
+    }];
+}
+
+
 //弹出标签管理视图
 -(void)addMenuBtnClick{
     
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu];
     self.newsMenu = sheetMenu;
-    sheetMenu.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
+    
+    lableModel *model = [[lableModel alloc] init];
+    NSMutableArray *muArr = [[NSMutableArray alloc] init];
+    for (model in self.labelArr) {
+        [muArr addObject:model.key_name];
+    }
+    
+    sheetMenu.mySubjectArray = muArr;
     sheetMenu.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
+    
+//    sheetMenu.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
+//    sheetMenu.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
+//    sheetMenu.recommentBlock = ^{
+//        sheetMenu.recommendSubjectArray = @[@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
+//    };
+    
 //    [sheetMenu setRecommentSubject];
     //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
     [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
@@ -514,7 +551,7 @@
 }
 
 #pragma mark - segement代理方法 -
-- (void)changeSegmentAtIndex:(NSInteger)index
+- (void)changeSegmentAtIndex1:(NSInteger)index
 {
     [_collectView selectIndex:index];
 }

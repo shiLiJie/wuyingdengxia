@@ -33,5 +33,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *huiyiRichengBtn;
 
 @property (nonatomic,copy) NSString *meetId;
+@property (nonatomic,assign) BOOL isJieshu;
 
 @end

@@ -26,7 +26,19 @@
     
     [self.headImage addTarget:self action:@selector(pushPublishWithTag:) forControlEvents:UIControlEventTouchUpInside];
     //4行间距
-    [self setLabelHangjianj:self.pageDetail];
+    if (!kStringIsEmpty(self.pageDetail.text)) {
+        [self setLabelHangjianj:self.pageDetail];
+    }
+    if (!kStringIsEmpty(self.pageDetail1.text)) {
+        [self setLabelHangjianj:self.pageDetail1];
+    }
+    if (!kStringIsEmpty(self.pageDetail2.text)) {
+        [self setLabelHangjianj:self.pageDetail2];
+    }
+    if (!kStringIsEmpty(self.pageDetail3.text)) {
+        [self setLabelHangjianj:self.pageDetail3];
+    }
+
 }
 
 -(void)setLabelHangjianj:(UILabel *)lab{

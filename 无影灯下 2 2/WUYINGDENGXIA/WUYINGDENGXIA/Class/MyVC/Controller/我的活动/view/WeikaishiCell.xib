@@ -25,8 +25,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="392" height="118.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="B35-Ob-ijw">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="B35-Ob-ijw">
                         <rect key="frame" x="20" y="25.5" width="117" height="68"/>
+                        <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="117" id="86d-2i-U46"/>
                             <constraint firstAttribute="height" constant="68" id="h3R-eG-qiM"/>
@@ -82,7 +83,7 @@
                 <outlet property="timeLab" destination="h2j-EO-NT4" id="F9f-Ao-6on"/>
                 <outlet property="titleLab" destination="XHc-Hi-Bx7" id="hJq-ux-hwc"/>
             </connections>
-            <point key="canvasLocation" x="-196" y="80"/>
+            <point key="canvasLocation" x="-139" y="-46"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -62,4 +62,7 @@
 //保存用户数据到沙盒
 -(void)saveUserInfoToSanbox;
 
+//退出登录调用,清空数据
+-(void)clearUserInfoFromSanbox;
+
 @end

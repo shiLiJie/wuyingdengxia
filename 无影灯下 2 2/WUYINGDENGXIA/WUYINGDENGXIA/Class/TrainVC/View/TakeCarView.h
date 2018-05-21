@@ -8,9 +8,42 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^TakeCarViewkBlcok) (NSArray *arr);
-//添加乘车信息的回调
+
+/**
+ 添加乘车信息回调
+
+ @param arr arr description
+ @param isZuo isZuo description
+ @param isYou isYou description
+ */
+typedef void(^TakeCarViewkBlcok) (NSArray *arr, BOOL isZuo, BOOL isYou);
+
+/**
+ 添加乘车信息的回调
+ */
 typedef void(^AddTakeCarViewkBlcok) (void);
+
+/**
+ 添加乘车日期
+
+ @param str 日期
+ */
+typedef void(^TakeCarDatekBlcok) (NSString *str);
+
+/**
+ 选择车次回调
+ */
+typedef void(^choosechecikBlcok) (void);
+
+/**
+ 备选车次回调
+ */
+typedef void(^choosebeicheciBlcok) (void);
+
+/**
+ 备注掉
+ */
+typedef void(^beizhuBlcok) (void);
 
 @interface TakeCarView : UIView
 //左侧城市按钮
@@ -25,8 +58,14 @@ typedef void(^AddTakeCarViewkBlcok) (void);
 @property (weak, nonatomic) IBOutlet UILabel *checi;
 //备选车次
 @property (weak, nonatomic) IBOutlet UILabel *beixuanCheci;
+//备注
+@property (weak, nonatomic) IBOutlet UILabel *beizhuLab;
 
 @property (nonatomic,copy)TakeCarViewkBlcok takeCarViewkBlcok;
 @property (nonatomic,copy)AddTakeCarViewkBlcok addtakeCarViewkBlcok;
+@property (nonatomic,copy)TakeCarDatekBlcok addtakeCarDatekBlcok;
+@property (nonatomic,copy)choosechecikBlcok choosechecikBlcok;
+@property (nonatomic,copy)choosebeicheciBlcok choosebeicheciBlcok;
+@property (nonatomic,copy)beizhuBlcok beizhuBlcok;
 
 @end

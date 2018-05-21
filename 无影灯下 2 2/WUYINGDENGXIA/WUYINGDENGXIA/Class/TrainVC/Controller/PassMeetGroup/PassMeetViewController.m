@@ -14,7 +14,7 @@
 @interface PassMeetViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 
-@property (nonatomic, strong) NSArray *huiguerArr;;
+
 
 
 @end
@@ -24,27 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.huiguerArr = [[NSArray alloc] init];
-    
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_allsub_replay?replay_id=%@",self.huiguModel.replay_id]]
-                                                parameters:nil
-                                                   success:^(id obj) {
-                                                       NSArray *arr = obj[@"data"];
-                                                       NSMutableArray *arrayM = [NSMutableArray array];
-                                                       for (int i = 0; i < arr.count; i ++) {
-                                                           NSDictionary *dict = arr[i];
-                                                           [arrayM addObject:[huiguErModel huiguErWithDict:dict]];
-                                                           
-                                                       }
-                                                       self.huiguerArr= arrayM;
-                                                       [self.tableview reloadData];
-    } fail:^(NSError *error) {
-        //
-    }];
-    
+//    self.huiguerArr = [[NSArray alloc] init];
+
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+
 }
 
 #pragma mark - UI -
@@ -75,6 +60,57 @@
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
+
+//获取回顾列表
+-(void)getVideoList{
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_allsub_replay?replay_id=%@",self.huiguModel.replay_id]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[huiguErModel huiguErWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.huiguerArr= arrayM;
+                                                       [self.tableview reloadData];
+                                                   } fail:^(NSError *error) {
+                                                       //
+                                                   }];
+}
+
+//我的收藏视频列表
+-(void)getMyshoucangQusetion{
+    __weak typeof(self) weakSelf = self;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mycollection?userid=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       NSDictionary *dictObj = obj[@"data"];
+                                                       NSArray *wenzhangArr = dictObj[@"video"];
+                                                       
+                                                       if (IS_NULL_CLASS(wenzhangArr)) {
+                                                           return;
+                                                       }
+                                                       
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < wenzhangArr.count; i ++) {
+                                                           NSDictionary *dict = wenzhangArr[i];
+                                                           [arrayM addObject:[huiguErModel huiguErWithDict:dict]];
+                                                       }
+                                                       
+                                                       weakSelf.huiguerArr= arrayM;
+                                                       [weakSelf.tableview reloadData];
+                                                       
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     

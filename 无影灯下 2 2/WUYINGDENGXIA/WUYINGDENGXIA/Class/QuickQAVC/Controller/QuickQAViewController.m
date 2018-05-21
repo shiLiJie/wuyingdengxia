@@ -284,6 +284,7 @@
     QATableVIewController *vc = [[QATableVIewController alloc] init];
     vc.lablemodel = [[lableModel alloc] init];
     vc.lablemodel = lable;
+    [vc getQusetionWithLabel];
     vc.delegate = self;
 
     return vc;

@@ -154,7 +154,7 @@
                 <constraint firstItem="gNf-Wt-Ta2" firstAttribute="top" secondItem="KAo-Bf-UiJ" secondAttribute="bottom" constant="2" id="zj1-rY-bxC"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="YOR-ti-6tm"/>
-            <point key="canvasLocation" x="-333" y="-1697"/>
+            <point key="canvasLocation" x="-356" y="-1752"/>
         </view>
     </objects>
 </document>

@@ -12,6 +12,9 @@
 #import "BRPickerView.h"
 #import "NSDate+BRAdd.h"
 #import "SignUpResultVC.h"
+#import "ChooseCarVc.h"
+#import "huocheModel.h"
+#import "ChooseCarGViewController.h"
 
 @interface SignUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 //scroller
@@ -38,14 +41,50 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *zhusuViewConstraint;
 //添加乘车信息的次数
 @property (nonatomic, assign) int addNum;
+//火车票数组
+@property (nonatomic, strong) NSArray *huocheArr;
+
+//提交报名需要的信息存储
+@property (nonatomic, strong) NSMutableDictionary *baomingDict;
+
+
 @end
 
 @implementation SignUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.huocheArr = [[NSArray alloc] init];
     //设置UI
     [self setupUi];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    //初始化提交字典
+    self.baomingDict = @{
+                           @"user_id":user.userid,
+                           @"meet_id":self.meetdetailModel.meet_id,
+                           @"take_type":@"火车",
+                           @"car_num1":@" ",
+                           @"from1":@" ",
+                           @"to1":@" ",
+                           @"car_num1b":@" ",
+                           @"from1b":@" ",
+                           @"to1b":@" ",
+                           @"car_num2":@" ",
+                           @"from2":@" ",
+                           @"to2":@" ",
+                           @"car_num2b":@" ",
+                           @"from2b":@" ",
+                           @"to2b":@" ",
+                           @"special1":@" ",
+                           @"special2":@" ",
+                           @"begin_time":@" ",
+                           @"end_time":@" ",
+                           @"remark":@" ",
+                           }.mutableCopy;
 }
 
 //由于Scroller不滚动,没办法才在didappear里设置滚动范围
@@ -87,8 +126,57 @@
     }];
 
     //回调回来选择好的信息
-    self.takecarView.takeCarViewkBlcok = ^(NSArray *arr) {
+    __weak typeof(self) weakSelf = self;
+    self.takecarView.takeCarViewkBlcok = ^(NSArray *arr, BOOL isZuo, BOOL isYou) {
+        ChooseCarVc *car = [[ChooseCarVc alloc] init];
+        car.zhanArr = arr;
+        car.zhanArrall = arr;
+        [weakSelf.navigationController pushViewController:car animated:YES];
+        car.choosecarViewkBlcok = ^(NSString *car) {
+            if (isZuo) {
+//                NSLog(@"%@",car);
+                [weakSelf.takecarView.zuoCity setTitle:car forState:UIControlStateNormal];
+                [weakSelf.baomingDict setValue:car forKey:@"from1"];
+            }else{
+                [weakSelf.takecarView.youCity setTitle:car forState:UIControlStateNormal];
+                [weakSelf.baomingDict setValue:car forKey:@"to1"];
+            }
+        };
+    };
+    
+    //查询火车票
+    self.takecarView.addtakeCarDatekBlcok = ^(NSString *str) {
         
+    };
+    //选车次
+    self.takecarView.choosechecikBlcok = ^{
+        [weakSelf getChepiaoInfoWithDaate:weakSelf.takecarView.chengcheDate.text start:weakSelf.takecarView.zuoCity.currentTitle end:weakSelf.takecarView.youCity.currentTitle TakeCarView:weakSelf.takecarView isCheci:YES isOne:YES];
+        
+    };
+    //备选车次
+    self.takecarView.choosebeicheciBlcok = ^{
+        [weakSelf getChepiaoInfoWithDaate:weakSelf.takecarView.chengcheDate.text start:weakSelf.takecarView.zuoCity.currentTitle end:weakSelf.takecarView.youCity.currentTitle TakeCarView:weakSelf.takecarView isCheci:NO isOne:YES];
+    };
+    //备注
+    self.takecarView.beizhuBlcok = ^{
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"备注" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        //增加确定按钮；
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //获取第1个输入框；
+            UITextField *beizhuTextfield = alertController.textFields.firstObject;
+            weakSelf.takecarView.beizhuLab.text = beizhuTextfield.text;
+            [weakSelf.baomingDict setValue:beizhuTextfield.text forKey:@"special1"];
+        }]];
+        //增加取消按钮；
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+        //定义第一个输入框；
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入备注";
+        }];
+        [weakSelf presentViewController:alertController animated:true completion:nil];
+
     };
     
     //隐藏底部线,设置代理
@@ -139,6 +227,86 @@
     return title;
 }
 
+
+/**
+ 查询车次
+
+ @param date 时间
+ @param start 始发站
+ @param end 终点站
+ */
+-(void)getChepiaoInfoWithDaate:(NSString *)date
+                         start:(NSString *)start
+                           end:(NSString *)end
+                   TakeCarView:(TakeCarView *)TakecarView
+                       isCheci:(BOOL)ischeci
+                         isOne:(BOOL)isone{
+    
+
+    start = @"北京";
+    end = @"洛阳";
+    if (![start isEqualToString:@"请选择"] && ![end isEqualToString:@"请选择"] && ![date isEqualToString:@"选择乘车日期"]) {
+        //发送查询车票请求
+        NSString  *url = [[NSString stringWithFormat:@"http://apis.juhe.cn/train/s2swithprice?start=%@&end=%@&date=%@&key=ba31b08d5a33f101ba2193f2daaf3492",start,end,date] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        __weak typeof(self) weakSelf = self;
+        [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
+                                                    parameters:nil
+                                                       success:^(id obj) {
+                                                           
+                                                           NSArray *arr = obj[@"result"][@"list"];
+                                                           
+                                                           if ([arr isKindOfClass:[NSNull class]]) {
+                                                               [MBProgressHUD showError:@"无票"];
+                                                               return;
+                                                           }
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < arr.count; i ++) {
+                                                               NSDictionary *dict = arr[i];
+                                                               [arrayM addObject:[huocheModel huochepiaoWithDict:dict]];
+                                                               
+                                                           }
+                                                           weakSelf.huocheArr= arrayM;
+                                                           ChooseCarGViewController *vc = [[ChooseCarGViewController alloc] init];
+                                                           vc.huocheArr = [[NSArray alloc] init];
+                                                           vc.huocheArr = weakSelf.huocheArr;
+                                                           vc.time = date;
+                                                           vc.title = [NSString stringWithFormat:@"%@-%@",start,end];
+                                                           vc.isCheci = ischeci;
+                                                           [weakSelf.navigationController pushViewController:vc animated:YES];
+
+                                                           vc.checikBlcok = ^(NSString *str, BOOL isCheci) {
+                                                               
+                                                               if (isone) {
+                                                                   //第一个选车模块
+                                                                   if (ischeci) {
+                                                                       TakecarView.checi.text = str;
+                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num1"];
+                                                                   }else{
+                                                                       TakecarView.beixuanCheci.text = str;
+                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num1b"];
+                                                                   }
+                                                               }else{
+                                                                   //第二个选车模块
+                                                                   if (ischeci) {
+                                                                       TakecarView.checi.text = str;
+                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num2"];
+                                                                   }else{
+                                                                       TakecarView.beixuanCheci.text = str;
+                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num2b"];
+                                                                   }
+                                                               }
+                                                               
+                                                           };
+                                                           
+                                                       } fail:^(NSError *error) {
+                                                           
+                                                       }];
+    }else
+    {
+        [MBProgressHUD showOneSecond:@"请完善乘车信息"];
+    }
+}
+
 //添加乘车信息按钮点击
 - (IBAction)addCarBtnClick:(UIButton *)sender {
     //添加乘车信息的次数 + 1
@@ -158,9 +326,56 @@
         make.height.mas_equalTo(300);
     }];
     
+    __weak typeof(self) weakSelf = self;
     //回调回来选择好的信息
-    takecarView.takeCarViewkBlcok = ^(NSArray *arr) {
+    takecarView.takeCarViewkBlcok = ^(NSArray *arr, BOOL isZuo, BOOL isYou) {
+        ChooseCarVc *car = [[ChooseCarVc alloc] init];
+        car.zhanArr = arr;
+        car.zhanArrall = arr;
+        [weakSelf.navigationController pushViewController:car animated:YES];
+        car.choosecarViewkBlcok = ^(NSString *car) {
+            if (isZuo) {
+                [takecarView.zuoCity setTitle:car forState:UIControlStateNormal];
+                [weakSelf.baomingDict setValue:car forKey:@"from2"];
+            }else{
+                [takecarView.youCity setTitle:car forState:UIControlStateNormal];
+                [weakSelf.baomingDict setValue:car forKey:@"from2"];
+            }
+            
+        };
+    };
+    
+    //查询火车票
+    takecarView.addtakeCarDatekBlcok = ^(NSString *str) {
         
+    };
+    //选车次
+    takecarView.choosechecikBlcok = ^{
+        [weakSelf getChepiaoInfoWithDaate:takecarView.chengcheDate.text start:takecarView.zuoCity.currentTitle end:takecarView.youCity.currentTitle TakeCarView:takecarView isCheci:YES isOne:NO];
+        
+    };
+    //备选车次
+    takecarView.choosebeicheciBlcok = ^{
+        [weakSelf getChepiaoInfoWithDaate:takecarView.chengcheDate.text start:takecarView.zuoCity.currentTitle end:takecarView.youCity.currentTitle TakeCarView:takecarView isCheci:NO isOne:NO];
+    };
+    //备注
+    takecarView.beizhuBlcok = ^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"备注" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        //增加确定按钮；
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //获取第1个输入框；
+            UITextField *beizhuTextfield = alertController.textFields.firstObject;
+            takecarView.beizhuLab.text = beizhuTextfield.text;
+            [weakSelf.baomingDict setValue:beizhuTextfield.text forKey:@"special2"];
+        }]];
+        //增加取消按钮；
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+        //定义第一个输入框；
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入备注";
+        }];
+        [weakSelf presentViewController:alertController animated:true completion:nil];
     };
     
     self.zhusuViewConstraint.constant = 300 * (self.addNum + 1) + 10;
@@ -225,8 +440,9 @@
     //创建日期格式化对象
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate *dateFromString = [dateFormatter dateFromString:self.ruzhuBtn.titleLabel.text];
-    NSDate *dateToString = [dateFormatter dateFromString:self.likaiBtn.titleLabel.text];
+    NSDate *dateFromString = [dateFormatter dateFromString:self.ruzhuBtn.currentTitle];
+    NSDate *dateToString = [dateFormatter dateFromString:self.likaiBtn.currentTitle];
+
     int timediff = [dateToString timeIntervalSince1970]-[dateFromString timeIntervalSince1970];
     //开始时间和结束时间的中间相差的时间
     int days;
@@ -240,8 +456,29 @@
 
 //提交按钮点击方法
 - (IBAction)pushBtnClick:(UIButton *)sender {
-    SignUpResultVC *vc = [[SignUpResultVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [self.baomingDict setValue:self.ruzhuBtn.currentTitle forKey:@"begin_time"];
+    [self.baomingDict setValue:self.likaiBtn.currentTitle forKey:@"end_time"];
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_attend"] parameters:self.baomingDict success:^(id obj) {
+        
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+            
+            SignUpResultVC *vc = [[SignUpResultVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }else{
+            [MBProgressHUD showError:obj[@"msg"]];
+        }
+        
+    } fail:^(NSError *error) {
+        
+    }];
+    
+    
+
 }
 
 #pragma mark - tableview代理 -
@@ -303,6 +540,11 @@
     }
     
     return cell;
+}
+
+-(void)dealloc{
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

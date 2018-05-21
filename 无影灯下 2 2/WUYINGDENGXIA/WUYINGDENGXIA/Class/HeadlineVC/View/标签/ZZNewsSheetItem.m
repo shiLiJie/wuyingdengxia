@@ -61,15 +61,17 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
             self.closeButton.hidden = NO;
             [self.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
 //            [self.closeButton setBackgroundColor:RGB(237, 86, 89)];
-            __weak typeof(self) weakSelf = self;
-            self.huanyipi = ^(BOOL ishuanyipi) {
-                if (ishuanyipi) {
-                    [weakSelf.closeButton setBackgroundImage:GetImage(@"") forState:UIControlStateNormal];
-                }else{
-                    [weakSelf.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
-                }
-                
-            };
+            
+//            __weak typeof(self) weakSelf = self;
+//            self.huanyipi = ^(BOOL ishuanyipi) {
+//                if (ishuanyipi) {
+//                    [weakSelf.closeButton setBackgroundImage:GetImage(@"") forState:UIControlStateNormal];
+//                }else{
+//                    [weakSelf.closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
+//                }
+//
+//            };
+            
             
             self.layer.borderWidth = 0;
             self.layer.borderColor = [RGB(221, 221, 221) CGColor];
@@ -162,7 +164,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
     shakeAnimation.timeOffset = [self.layer convertTime:CACurrentMediaTime()+timeArc 
                                                 toLayer:nil];
     
-    shakeAnimation.duration = 0.3f;
+//    shakeAnimation.duration = 0.3f;
     shakeAnimation.fillMode = kCAFillModeForwards;
     shakeAnimation.repeatCount = HUGE_VAL;
     shakeAnimation.removedOnCompletion = NO;

@@ -13,7 +13,7 @@
 
 
 
-@interface PageDetailViewController ()<inputViewDelegate,WKUIDelegate,WKNavigationDelegate,WKWebViewDelegate>
+@interface PageDetailViewController ()<inputViewDelegate,WKUIDelegate,WKNavigationDelegate,WKWebViewDelegate,UIGestureRecognizerDelegate>
 {
     WKUserContentController * userContentController;
 }
@@ -63,10 +63,12 @@
     [self.navigationController.navigationBar setHidden:NO];
 }
 
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [IQKeyboardManager sharedManager].enable = YES;
 }
+
 //设置网页
 -(void)setWeb{
     //配置环境

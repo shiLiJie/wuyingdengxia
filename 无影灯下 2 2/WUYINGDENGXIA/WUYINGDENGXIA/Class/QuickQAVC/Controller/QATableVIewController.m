@@ -23,13 +23,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.qusetionArr = [[NSArray alloc] init];
-    //获取标签下对应问答
-    [self getQusetionWithLabel];
+//    self.qusetionArr = [[NSArray alloc] init];
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
 }
 
 //获取标签下对应问答
@@ -53,6 +52,37 @@
                                                       fail:^(NSError *error) {
         
     }];
+}
+
+//我的收藏问题列表
+-(void)getMyshoucangQusetion{
+    __weak typeof(self) weakSelf = self;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mycollection?userid=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+
+                                                       NSDictionary *dictObj = obj[@"data"];
+                                                       NSArray *wenzhangArr = dictObj[@"question"];
+                                                       
+                                                       if (IS_NULL_CLASS(wenzhangArr)) {
+                                                           return;
+                                                       }
+                                                       
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < wenzhangArr.count; i ++) {
+                                                           NSDictionary *dict = wenzhangArr[i];
+                                                           [arrayM addObject:[QusetionModel QusetionWithDict:dict]];
+                                                       }
+                                                       
+                                                       weakSelf.qusetionArr= arrayM;
+                                                       [weakSelf.tableview reloadData];
+                                                       
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

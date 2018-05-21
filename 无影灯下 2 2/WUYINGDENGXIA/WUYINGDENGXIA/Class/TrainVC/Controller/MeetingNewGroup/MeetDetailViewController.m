@@ -88,6 +88,19 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    //判断会议是否已经结束
+    if (self.isJieshu) {
+        [self.baomingBtn setTitle:@"已结束" forState:UIControlStateNormal];
+        [self.baomingBtn setUserInteractionEnabled:NO];
+    }else{
+        [self.baomingBtn setTitle:@"报名" forState:UIControlStateNormal];
+        [self.baomingBtn setUserInteractionEnabled:YES];
+    }
+    self.isJieshu = NO;
+}
+
 //由于Scroller不滚动,没办法才在didappear里设置滚动范围
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -105,6 +118,7 @@
     [self.view.layer addSublayer:layer];
     //一到最上层
     [self.view bringSubviewToFront:self.baomingBtn];
+
 }
 
 #pragma mark - UI -

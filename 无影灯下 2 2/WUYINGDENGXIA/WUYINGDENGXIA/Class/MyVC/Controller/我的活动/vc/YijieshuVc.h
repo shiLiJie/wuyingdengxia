@@ -22,4 +22,6 @@
 
 @property (nonatomic,weak)id <YijieshuDelegate> delegate;
 
+@property (nonatomic, strong) NSMutableArray *yijieshuArr;
+
 @end

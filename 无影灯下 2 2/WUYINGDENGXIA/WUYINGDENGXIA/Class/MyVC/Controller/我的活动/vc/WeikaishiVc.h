@@ -22,4 +22,7 @@
 
 @property (nonatomic,weak)id <WeikaishitDelegate> delegate;
 
+@property (nonatomic, strong) NSMutableArray *weikaishiArr;
+
+
 @end

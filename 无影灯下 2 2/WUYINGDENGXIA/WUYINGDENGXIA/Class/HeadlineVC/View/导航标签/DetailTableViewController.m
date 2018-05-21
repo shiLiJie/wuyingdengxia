@@ -72,16 +72,20 @@
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        NSLog(@"%@",obj);
-                                                       NSArray *arr = obj[@"data"];
+                                                       NSDictionary *dictObj = obj[@"data"];
+                                                       NSArray *wenzhangArr = dictObj[@"article"];
+                                                       if (IS_NULL_CLASS(wenzhangArr)) {
+                                                           return;
+                                                       }
+
                                                        NSMutableArray *arrayM = [NSMutableArray array];
-                                                       for (int i = 0; i < arr.count; i ++) {
-                                                           NSDictionary *dict = arr[i];
+                                                       for (int i = 0; i < wenzhangArr.count; i ++) {
+                                                           NSDictionary *dict = wenzhangArr[i];
                                                            [arrayM addObject:[pageModel pageWithDict:dict]];
                                                        }
                                                        
                                                        weakSelf.pageArr= arrayM;
                                                        [weakSelf.tableView reloadData];
-
                                                        
                                                    } fail:^(NSError *error) {
                                                        
@@ -116,15 +120,29 @@
                                                    }];
 }
 
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+//
+//    return self.pageArr.count;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    
     return self.pageArr.count;
+//    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 140;
+    pageModel *page = [[pageModel alloc] init];
+    page = self.pageArr[indexPath.section];
+    NSArray *array = [page.article_img_path componentsSeparatedByString:@","]; //字符串按照【分隔成数组
+    if (array.count == 1) {
+        return 200;
+    }else{
+        return 300;
+    }
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -136,11 +154,12 @@
     
     if (self.cell == nil) {
     
-        self.cell = [[[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil] firstObject];
+        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
+
     }
-    
+
     self.cell.delegate = self;
-    
+
     pageModel *page = [[pageModel alloc] init];
     page = self.pageArr[indexPath.row];
     self.cell.mainTitle.text = page.article_title;
@@ -160,6 +179,9 @@
     }
     //设置按钮索引找到对应的数据
     self.cell.headTag = indexPath.row;
+    
+    
+    
     
 //    [self.cell.headImage.imageView sd_setImageWithURL:[NSURL URLWithString:page.headimg] placeholderImage:GetImage(@"tx")];
 //    [self.cell.headImage setImage:GetImage(@"tx") forState:UIControlStateNormal];

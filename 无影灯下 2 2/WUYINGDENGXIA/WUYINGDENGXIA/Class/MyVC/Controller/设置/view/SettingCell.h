@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *renzhengLab;
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
+//登录或者退出登录
+@property (weak, nonatomic) IBOutlet UILabel *dengluBtn;
 
 @end

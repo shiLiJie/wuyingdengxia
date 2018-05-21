@@ -33,6 +33,10 @@
         self.btnConstraint.constant = 10;
         self.sucessLab.font = [UIFont systemFontOfSize:9];
     }
+    if (kDevice_Is_iPhone4) {
+        self.btnConstraint.constant = 10;
+        self.sucessLab.font = [UIFont systemFontOfSize:9];
+    }
     
     //切圆角
     self.goBackBtn.layer.masksToBounds = YES;
@@ -43,6 +47,9 @@
     //关键语句
     self.lookProBtn.layer.masksToBounds = YES;
     self.lookProBtn.layer.cornerRadius = CGRectGetHeight(self.lookProBtn.frame)/2;
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"JINZHIFANHUI" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 #pragma mark - UI -
@@ -77,7 +84,11 @@
     return title;
 }
 - (IBAction)goBackBtnClick:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    // 开启返回手势
+    NSNotification *notification =[NSNotification notificationWithName:@"HUIFUFANHUI" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //返回设置页
+    [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     
 }
 - (IBAction)lookProBtnClick:(UIButton *)sender {

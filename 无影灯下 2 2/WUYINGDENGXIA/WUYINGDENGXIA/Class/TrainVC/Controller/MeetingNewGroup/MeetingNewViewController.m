@@ -30,6 +30,7 @@
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
+
 //获取会议
 -(void)getMeetInfo{
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allmeeting"] parameters:nil success:^(id obj) {
@@ -79,7 +80,7 @@
         cell.meetImage.image = GetImage(model.meeting_image);
         cell.meetName.text = model.meet_title;
         cell.meetTime.text = model.begin_time;
-        if (![model.isfinish isEqualToString:@"0"]) {
+        if ([model.isfinish isEqualToString:@"0"]) {
             cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
             [cell.baomingBtn setTitle:@"未开始" forState:UIControlStateNormal];
             [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];

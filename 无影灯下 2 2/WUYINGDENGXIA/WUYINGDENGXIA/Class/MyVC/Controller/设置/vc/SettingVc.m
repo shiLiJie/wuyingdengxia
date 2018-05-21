@@ -1,4 +1,4 @@
-//
+ //
 //  SettingVc.m
 //  WUYINGDENGXIA
 //
@@ -145,9 +145,9 @@
             if (user.loginStatus) {
                 //身份认证状态
                 if ([user.isfinishCer isEqualToString:@"0"]) {
-                    cell.renzhengLab.text = @"已认证";
-                }else{
                     cell.renzhengLab.text = @"未认证";
+                }else{
+                    cell.renzhengLab.text = @"已认证";
                 }
             }
             
@@ -175,12 +175,21 @@
         if (!cell) {
             cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][5];
         }
+        if (user.loginStatus) {
+            cell.dengluBtn.text = @"退出登录";
+        }else{
+            cell.dengluBtn.text = @"登录";
+        }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //个人信息
@@ -204,66 +213,86 @@
         }
     }
     if (indexPath.section == 3) {
-        //退出登录
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"退出登录"
-                                                                       message:@""
-                                                                preferredStyle:UIAlertControllerStyleAlert];
+        if (user.loginStatus){
+            //退出登录
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"退出登录"
+                                                                           message:@""
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      //响应事件
+                                                                      UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                                      [user loadUserInfoFromSanbox];
+                                                                      user.userid = @"0";
+                                                                      user.loginStatus = NO;
+                                                                      [user saveUserInfoToSanbox];
+                                                                      
+//                                                                      [user clearUserInfoFromSanbox];
+                                                                      
+                                                                      
+                                                                      
+//                                                                      user.userName = @"";
+//                                                                      user.passWord = @"";
+//                                                                      user.certid = @"";
+//                                                                      user.ctime = @"";
+//                                                                      user.fansnum = @"";
+//                                                                      user.headimg = @"";
+//                                                                      user.isV = @"";
+//                                                                      user.isadmin = @"";
+//                                                                      user.isfinishCer = @"";
+//                                                                      user.ishead = @"";
+//                                                                      user.isphoneverify = @"";
+//                                                                      user.last_login_time = @"";
+//                                                                      user.phoneNum = @"";
+//                                                                      user.supportnum = @"";
+//                                                                      user.userDegree = @"";
+//                                                                      user.userEmail = @"";
+//                                                                      user.userHospital = @"";
+//                                                                      user.userIdcard = @"";
+//                                                                      user.userLoginway = @"";
+//                                                                      user.userMajor = @"";
+//                                                                      user.userOffice = @"";
+//                                                                      user.userPosition = @"";
+//                                                                      user.userReal_name = @"";
+//                                                                      user.userSchool = @"";
+//                                                                      user.userStschool = @"";
+//                                                                      user.userTitle = @"";
+//                                                                      user.userUnit = @"";
+//                                                                      user.user_token = @"";
+//                                                                      user.useravatar_id = @"";
+//                                                                      user.usercity = @"";
+//                                                                      user.usersex = @"";
+//                                                                      user.usertoken = @"";
+//                                                                      user.moon_cash = @"";
+//                                                                      user.userPost = @"";
+//
+//                                                                      [user saveUserInfoToSanbox];
+                                                                      [self.navigationController popViewControllerAnimated:YES];
+                                                                  }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
+                                                                     //响应事件
+                                                                     
+                                                                 }];
+            
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }else{
+            __weak typeof(self) weakSelf = self;
+            LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+                            if (result) {
+                                [weakSelf.tableView reloadData];
+//                                [weakSelf.navigationController popViewControllerAnimated:YES];
+//                                PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
+//                                [weakSelf.navigationController pushViewController:publicPage animated:YES];
+                            }
+            }];
+            [self.navigationController pushViewController:loginVc animated:YES];
+        }
         
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  //响应事件
-                                                                  UserInfoModel *user = [UserInfoModel shareUserModel];
-                                                                  [user loadUserInfoFromSanbox];
-                                                                  user.userid = @"0";
-                                                                  user.loginStatus = NO;
-                                                                  
-                                                                  
-                                                                  user.userName = @"";
-                                                                  user.passWord = @"";
-                                                                  user.certid = @"";
-                                                                  user.ctime = @"";
-                                                                  user.fansnum = @"";
-                                                                  user.headimg = @"";
-                                                                  user.isV = @"";
-                                                                  user.isadmin = @"";
-                                                                  user.isfinishCer = @"";
-                                                                  user.ishead = @"";
-                                                                  user.isphoneverify = @"";
-                                                                  user.last_login_time = @"";
-                                                                  user.phoneNum = @"";
-                                                                  user.supportnum = @"";
-                                                                  user.userDegree = @"";
-                                                                  user.userEmail = @"";
-                                                                  user.userHospital = @"";
-                                                                  user.userIdcard = @"";
-                                                                  user.userLoginway = @"";
-                                                                  user.userMajor = @"";
-                                                                  user.userOffice = @"";
-                                                                  user.userPosition = @"";
-                                                                  user.userReal_name = @"";
-                                                                  user.userSchool = @"";
-                                                                  user.userStschool = @"";
-                                                                  user.userTitle = @"";
-                                                                  user.userUnit = @"";
-                                                                  user.user_token = @"";
-                                                                  user.useravatar_id = @"";
-                                                                  user.usercity = @"";
-                                                                  user.usersex = @"";
-                                                                  user.usertoken = @"";
-                                                                  user.moon_cash = @"";
-                                                                  
-                                                                  [user saveUserInfoToSanbox];
-                                                                  [self.navigationController popViewControllerAnimated:YES];
-                                                              }];
-        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) {
-                                                                 //响应事件
-                                                                 
-                                                             }];
-        
-        [alert addAction:defaultAction];
-        [alert addAction:cancelAction];
-        [self presentViewController:alert animated:YES completion:nil];
+
     }
 }
 

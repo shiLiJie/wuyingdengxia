@@ -62,7 +62,7 @@
 - (void)initialProperty
 {
 //    _titleFont = [UIFont systemFontOfSize:16];
-    _titleFont = BOLDSYSTEMFONT(14);
+    _titleFont = BOLDSYSTEMFONT(17);
     _titleNormalColor = RGB(51, 51, 51);
     _titleSelectColor = RGB(10, 147, 255);
     _selectedSegmentIndex = 0;
@@ -171,7 +171,7 @@
     MDMultipleSegmentViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MDMultipleSegmentViewCell class]) forIndexPath:indexPath];
     
     cell.isSeleted = (indexPath.row == _selectedSegmentIndex ? YES : NO);
-    cell.titleLabel.font = cell.isSeleted ? self.titleFont : [UIFont systemFontOfSize:15];
+    cell.titleLabel.font = cell.isSeleted ? self.titleFont : [UIFont systemFontOfSize:17];
     cell.titleLabel.textColor = cell.isSeleted ? self.titleSelectColor : self.titleNormalColor;
     
     if (cell.isSeleted) {

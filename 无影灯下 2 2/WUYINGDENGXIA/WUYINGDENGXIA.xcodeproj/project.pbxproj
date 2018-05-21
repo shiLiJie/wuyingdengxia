@@ -44,6 +44,9 @@
 		043E2D4E2073681500C68835 /* SearchResultVcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043E2D4C2073681500C68835 /* SearchResultVcViewController.xib */; };
 		043E2D532073839A00C68835 /* QuestionsAslVcViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E2D512073839A00C68835 /* QuestionsAslVcViewController.m */; };
 		043E2D542073839A00C68835 /* QuestionsAslVcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043E2D522073839A00C68835 /* QuestionsAslVcViewController.xib */; };
+		0441198620AA843000E88F13 /* takeCarCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0441198520AA843000E88F13 /* takeCarCityModel.m */; };
+		0441198A20AAC03800E88F13 /* ChooseCarVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0441198820AAC03800E88F13 /* ChooseCarVc.m */; };
+		0441198B20AAC03800E88F13 /* ChooseCarVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0441198920AAC03800E88F13 /* ChooseCarVc.xib */; };
 		0445223F200762BC006DEA70 /* PassMeetTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445223D200762BC006DEA70 /* PassMeetTableCell.m */; };
 		04452240200762BC006DEA70 /* PassMeetTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445223E200762BC006DEA70 /* PassMeetTableCell.xib */; };
 		0445224420076300006DEA70 /* PassMeetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445224220076300006DEA70 /* PassMeetViewController.m */; };
@@ -214,6 +217,9 @@
 		047E96F01FFCC4DC0062F1E1 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E96EE1FFCC4DC0062F1E1 /* MyViewController.m */; };
 		047E96F11FFCC4DC0062F1E1 /* MyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E96EF1FFCC4DC0062F1E1 /* MyViewController.xib */; };
 		0480504F208F249C000FAA6C /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480504E208F249C000FAA6C /* UILabel+VerticalAlign.m */; };
+		04816B8C20B26B3000EF9458 /* MDMultipleSegmentView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B8B20B26B3000EF9458 /* MDMultipleSegmentView1.m */; };
+		04816B8F20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B8E20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m */; };
+		04816B9220B2C13500EF9458 /* MDMultipleSegmentViewCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B9120B2C13500EF9458 /* MDMultipleSegmentViewCell1.m */; };
 		0481795B2068C5BC00326E28 /* AddSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048179592068C5BC00326E28 /* AddSheetViewController.m */; };
 		0481795C2068C5BC00326E28 /* AddSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0481795A2068C5BC00326E28 /* AddSheetViewController.xib */; };
 		04849083200EE2D000D0ACF1 /* AnswerTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04849081200EE2D000D0ACF1 /* AnswerTableVC.m */; };
@@ -322,6 +328,11 @@
 		04EDAD1F2085945700BBC902 /* MyTougaoVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EDAD1D2085945700BBC902 /* MyTougaoVc.xib */; };
 		04EDAD33208598B400BBC902 /* MyTougaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDAD31208598B400BBC902 /* MyTougaoCell.m */; };
 		04EDAD34208598B400BBC902 /* MyTougaoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EDAD32208598B400BBC902 /* MyTougaoCell.xib */; };
+		04EDD77F20AE6DA700EC0F0E /* huocheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDD77E20AE6DA700EC0F0E /* huocheModel.m */; };
+		04EDD78320AE982300EC0F0E /* ChooseCarGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDD78120AE982300EC0F0E /* ChooseCarGViewController.m */; };
+		04EDD78420AE982300EC0F0E /* ChooseCarGViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EDD78220AE982300EC0F0E /* ChooseCarGViewController.xib */; };
+		04EDD78820AE99B000EC0F0E /* ChooseCarGCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDD78620AE99B000EC0F0E /* ChooseCarGCell.m */; };
+		04EDD78920AE99B000EC0F0E /* ChooseCarGCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EDD78720AE99B000EC0F0E /* ChooseCarGCell.xib */; };
 		99026D2A15BB502A7E5EBEE0 /* Pods_WUYINGDENGXIA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */; };
 /* End PBXBuildFile section */
 
@@ -409,6 +420,11 @@
 		043E2D502073839A00C68835 /* QuestionsAslVcViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionsAslVcViewController.h; sourceTree = "<group>"; };
 		043E2D512073839A00C68835 /* QuestionsAslVcViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionsAslVcViewController.m; sourceTree = "<group>"; };
 		043E2D522073839A00C68835 /* QuestionsAslVcViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionsAslVcViewController.xib; sourceTree = "<group>"; };
+		0441198420AA843000E88F13 /* takeCarCityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = takeCarCityModel.h; sourceTree = "<group>"; };
+		0441198520AA843000E88F13 /* takeCarCityModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = takeCarCityModel.m; sourceTree = "<group>"; };
+		0441198720AAC03800E88F13 /* ChooseCarVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseCarVc.h; sourceTree = "<group>"; };
+		0441198820AAC03800E88F13 /* ChooseCarVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseCarVc.m; sourceTree = "<group>"; };
+		0441198920AAC03800E88F13 /* ChooseCarVc.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseCarVc.xib; sourceTree = "<group>"; };
 		0445223C200762BC006DEA70 /* PassMeetTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassMeetTableCell.h; sourceTree = "<group>"; };
 		0445223D200762BC006DEA70 /* PassMeetTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassMeetTableCell.m; sourceTree = "<group>"; };
 		0445223E200762BC006DEA70 /* PassMeetTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassMeetTableCell.xib; sourceTree = "<group>"; };
@@ -702,6 +718,12 @@
 		047E96EF1FFCC4DC0062F1E1 /* MyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyViewController.xib; sourceTree = "<group>"; };
 		0480504D208F249C000FAA6C /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
 		0480504E208F249C000FAA6C /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
+		04816B8A20B26B3000EF9458 /* MDMultipleSegmentView1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMultipleSegmentView1.h; sourceTree = "<group>"; };
+		04816B8B20B26B3000EF9458 /* MDMultipleSegmentView1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMultipleSegmentView1.m; sourceTree = "<group>"; };
+		04816B8D20B26C1C00EF9458 /* MDMultipleSegmentLayout1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMultipleSegmentLayout1.h; sourceTree = "<group>"; };
+		04816B8E20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMultipleSegmentLayout1.m; sourceTree = "<group>"; };
+		04816B9020B2C13500EF9458 /* MDMultipleSegmentViewCell1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMultipleSegmentViewCell1.h; sourceTree = "<group>"; };
+		04816B9120B2C13500EF9458 /* MDMultipleSegmentViewCell1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMultipleSegmentViewCell1.m; sourceTree = "<group>"; };
 		048179582068C5BC00326E28 /* AddSheetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSheetViewController.h; sourceTree = "<group>"; };
 		048179592068C5BC00326E28 /* AddSheetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSheetViewController.m; sourceTree = "<group>"; };
 		0481795A2068C5BC00326E28 /* AddSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddSheetViewController.xib; sourceTree = "<group>"; };
@@ -872,6 +894,14 @@
 		04EDAD30208598B400BBC902 /* MyTougaoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTougaoCell.h; sourceTree = "<group>"; };
 		04EDAD31208598B400BBC902 /* MyTougaoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTougaoCell.m; sourceTree = "<group>"; };
 		04EDAD32208598B400BBC902 /* MyTougaoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTougaoCell.xib; sourceTree = "<group>"; };
+		04EDD77D20AE6DA700EC0F0E /* huocheModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huocheModel.h; sourceTree = "<group>"; };
+		04EDD77E20AE6DA700EC0F0E /* huocheModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = huocheModel.m; sourceTree = "<group>"; };
+		04EDD78020AE982300EC0F0E /* ChooseCarGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseCarGViewController.h; sourceTree = "<group>"; };
+		04EDD78120AE982300EC0F0E /* ChooseCarGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseCarGViewController.m; sourceTree = "<group>"; };
+		04EDD78220AE982300EC0F0E /* ChooseCarGViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseCarGViewController.xib; sourceTree = "<group>"; };
+		04EDD78520AE99B000EC0F0E /* ChooseCarGCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseCarGCell.h; sourceTree = "<group>"; };
+		04EDD78620AE99B000EC0F0E /* ChooseCarGCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseCarGCell.m; sourceTree = "<group>"; };
+		04EDD78720AE99B000EC0F0E /* ChooseCarGCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseCarGCell.xib; sourceTree = "<group>"; };
 		1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WUYINGDENGXIA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DEB56FF3770F67287BFA43 /* Pods-WUYINGDENGXIA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.release.xcconfig"; sourceTree = "<group>"; };
 		D59E5D584A9C7A9F934CEE87 /* Pods-WUYINGDENGXIA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.debug.xcconfig"; sourceTree = "<group>"; };
@@ -927,6 +957,9 @@
 				043DE6DA206CDE3400C00289 /* TakeCarView.h */,
 				043DE6DB206CDE3400C00289 /* TakeCarView.m */,
 				043DE6DD206CDE5600C00289 /* TakeCarView.xib */,
+				04EDD78520AE99B000EC0F0E /* ChooseCarGCell.h */,
+				04EDD78620AE99B000EC0F0E /* ChooseCarGCell.m */,
+				04EDD78720AE99B000EC0F0E /* ChooseCarGCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1005,6 +1038,10 @@
 				047960A220A144B600373D9F /* huiguErModel.m */,
 				047960A720A17B3B00373D9F /* huiguDetailModel.h */,
 				047960A820A17B3B00373D9F /* huiguDetailModel.m */,
+				0441198420AA843000E88F13 /* takeCarCityModel.h */,
+				0441198520AA843000E88F13 /* takeCarCityModel.m */,
+				04EDD77D20AE6DA700EC0F0E /* huocheModel.h */,
+				04EDD77E20AE6DA700EC0F0E /* huocheModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1065,6 +1102,12 @@
 				04914674206C91AD0050DC5C /* SignUpViewController.h */,
 				04914675206C91AD0050DC5C /* SignUpViewController.m */,
 				04914676206C91AD0050DC5C /* SignUpViewController.xib */,
+				0441198720AAC03800E88F13 /* ChooseCarVc.h */,
+				0441198820AAC03800E88F13 /* ChooseCarVc.m */,
+				0441198920AAC03800E88F13 /* ChooseCarVc.xib */,
+				04EDD78020AE982300EC0F0E /* ChooseCarGViewController.h */,
+				04EDD78120AE982300EC0F0E /* ChooseCarGViewController.m */,
+				04EDD78220AE982300EC0F0E /* ChooseCarGViewController.xib */,
 				044783D3206E2CA700342737 /* SignUpResultVC.h */,
 				044783D4206E2CA700342737 /* SignUpResultVC.m */,
 				044783D5206E2CA700342737 /* SignUpResultVC.xib */,
@@ -1117,6 +1160,12 @@
 				042F7D4220036E59005138C0 /* MDMultipleSegmentLayout.m */,
 				042F7D3C20036E58005138C0 /* MDMultipleSegmentView.h */,
 				042F7D3E20036E59005138C0 /* MDMultipleSegmentView.m */,
+				04816B8A20B26B3000EF9458 /* MDMultipleSegmentView1.h */,
+				04816B8B20B26B3000EF9458 /* MDMultipleSegmentView1.m */,
+				04816B8D20B26C1C00EF9458 /* MDMultipleSegmentLayout1.h */,
+				04816B8E20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m */,
+				04816B9020B2C13500EF9458 /* MDMultipleSegmentViewCell1.h */,
+				04816B9120B2C13500EF9458 /* MDMultipleSegmentViewCell1.m */,
 				042F7D4320036E5A005138C0 /* MDMultipleSegmentViewCell.h */,
 				042F7D4120036E59005138C0 /* MDMultipleSegmentViewCell.m */,
 				042F7D39200344F9005138C0 /* DetailTableViewController.h */,
@@ -2585,6 +2634,7 @@
 				046BEB35207DF441006F0AE8 /* XuyuanResultVc.xib in Resources */,
 				047528E72045358D00A9794B /* DiscussCell.xib in Resources */,
 				0487A164206382F700198B33 /* 37x-Checkmark.png in Resources */,
+				04EDD78920AE99B000EC0F0E /* ChooseCarGCell.xib in Resources */,
 				046BEB3A207DFADF006F0AE8 /* XuyuanJiluVc.xib in Resources */,
 				04D6A5FC20874F5300F6C6D8 /* Icon-Small@2x.png in Resources */,
 				04677E4E207A079C003BB577 /* QuestionResultVC.xib in Resources */,
@@ -2598,6 +2648,7 @@
 				047305AE208844C1008FA1C5 /* LoginVc.xib in Resources */,
 				046BEB2B207DDC98006F0AE8 /* XuyuanchiVc.xib in Resources */,
 				04E1BDD2200DE8CF00BC9CE5 /* PersonDetailVC.xib in Resources */,
+				0441198B20AAC03800E88F13 /* ChooseCarVc.xib in Resources */,
 				04C704CE208487370057AD75 /* XiaoxiDetailVc.xib in Resources */,
 				0423C3F620073D7F005E3F9D /* MeetDetailViewController.xib in Resources */,
 				0487A156206382F700198B33 /* VideoSendIcon@2x.png in Resources */,
@@ -2609,6 +2660,7 @@
 				04D0F0752080A6C60098494C /* RenzhengThreeVc.xib in Resources */,
 				0466538F2005F6330051B276 /* PublicPageViewController.xib in Resources */,
 				0477D501207F3AE500F0B0C4 /* shujiaCollectionCell.xib in Resources */,
+				04EDD78420AE982300EC0F0E /* ChooseCarGViewController.xib in Resources */,
 				04787A5E207CA94400D6DB67 /* MyLiwuResultVc.xib in Resources */,
 				04E1BDCD200DD32400BC9CE5 /* QATableVIewCell.xib in Resources */,
 				047E96F11FFCC4DC0062F1E1 /* MyViewController.xib in Resources */,
@@ -2770,6 +2822,7 @@
 				043DE6D8206CC61800C00289 /* SignUpTableViewCell.m in Sources */,
 				04701E26206B4429007AB2D0 /* MeetRichengCell.m in Sources */,
 				047E96CB1FFCC29D0062F1E1 /* XHLaunchAdButton.m in Sources */,
+				0441198A20AAC03800E88F13 /* ChooseCarVc.m in Sources */,
 				047E96461FFCC1370062F1E1 /* HeadlineViewController.m in Sources */,
 				04DDA5AB20479AD600629EC8 /* DiscussCollectionView.m in Sources */,
 				047E96731FFCC21C0062F1E1 /* ICInfomationView.m in Sources */,
@@ -2780,6 +2833,7 @@
 				047E96EA1FFCC4C00062F1E1 /* InforViewController.m in Sources */,
 				04E79442207F781E00F9A21A /* ZZNewsSheetMenu1.m in Sources */,
 				047E967C1FFCC2790062F1E1 /* MBProgressHUD+BYHUDTools.m in Sources */,
+				0441198620AA843000E88F13 /* takeCarCityModel.m in Sources */,
 				047E96581FFCC1670062F1E1 /* TabBarControllerConfig.m in Sources */,
 				04849083200EE2D000D0ACF1 /* AnswerTableVC.m in Sources */,
 				045E7F442085C20500A11537 /* MyHuidaCell.m in Sources */,
@@ -2871,6 +2925,7 @@
 				047E96A81FFCC2870062F1E1 /* UIImage+Resize.m in Sources */,
 				042F738B207248F8006110B4 /* PYSearchViewController.m in Sources */,
 				047E969E1FFCC2870062F1E1 /* UIImage+RoundedCorner.m in Sources */,
+				04EDD77F20AE6DA700EC0F0E /* huocheModel.m in Sources */,
 				04E1BDC7200DD0BA00BC9CE5 /* QATableVIewController.m in Sources */,
 				047305BC20887AF5008FA1C5 /* ZhaohuiMimaVc.m in Sources */,
 				045A78E7208466CF008BB180 /* XitongVc.m in Sources */,
@@ -2911,7 +2966,9 @@
 				0487A135206382D500198B33 /* HX_AlbumModel.m in Sources */,
 				0477D4F1207EF40A00F0B0C4 /* MyKeshiVc.m in Sources */,
 				047E96A31FFCC2870062F1E1 /* UIImage+GIF.m in Sources */,
+				04816B8C20B26B3000EF9458 /* MDMultipleSegmentView1.m in Sources */,
 				047E96D21FFCC29D0062F1E1 /* XHLaunchAd.m in Sources */,
+				04EDD78320AE982300EC0F0E /* ChooseCarGViewController.m in Sources */,
 				045E7F5C2085EB4B00A11537 /* MyShoucangVc.m in Sources */,
 				04E1BDDB200DF33800BC9CE5 /* AnswerTableViewCell.m in Sources */,
 				047E96E41FFCC4800062F1E1 /* TrainViewController.m in Sources */,
@@ -2938,7 +2995,9 @@
 				0434F975209C4CB300F90FE5 /* WKWebViewDelegate.m in Sources */,
 				04E1BDD6200DF32700BC9CE5 /* PageTableViewCell.m in Sources */,
 				048EEFDE2004759200C6510B /* ZZNewsSheetConfig.m in Sources */,
+				04816B9220B2C13500EF9458 /* MDMultipleSegmentViewCell1.m in Sources */,
 				045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */,
+				04816B8F20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m in Sources */,
 				046BEB1C207DAFC4006F0AE8 /* MyDuihuanCell.m in Sources */,
 				04787A58207C9D7500D6DB67 /* MyLiwuDetailVc.m in Sources */,
 				047B8CF220A41BE400892F61 /* MyhuidaModel.m in Sources */,
@@ -2951,6 +3010,7 @@
 				04D0F0792080A6DB0098494C /* RenzhengResultVc.m in Sources */,
 				047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */,
 				042F738E207248F8006110B4 /* NSBundle+PYSearchExtension.m in Sources */,
+				04EDD78820AE99B000EC0F0E /* ChooseCarGCell.m in Sources */,
 				045ED9742088A8CB009746B7 /* MMScanView.m in Sources */,
 				045E7F402085C1A400A11537 /* MyHuidaVc.m in Sources */,
 				0480504F208F249C000FAA6C /* UILabel+VerticalAlign.m in Sources */,

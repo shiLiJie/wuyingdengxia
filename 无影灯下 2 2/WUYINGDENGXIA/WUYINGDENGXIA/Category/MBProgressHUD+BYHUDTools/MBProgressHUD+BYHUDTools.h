@@ -20,4 +20,12 @@
 
 + (void)hideHUD;
 + (void)hideHUDForView:(UIView *)view;
+
+
+/**
+ 单独显示信息一秒后消失
+ 
+ @param message 信息
+ */
++ (void)showOneSecond:(NSString *)message;
 @end

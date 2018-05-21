@@ -20,10 +20,12 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     ZZNewsSheetItem *_currentItem;
     ZZNewsSheetItem  *_placeHolderItem;
 }
+
 @property(nonatomic,weak)UIScrollView  *newsSheetScrollView;
 @property(nonatomic,weak)UIView *menuNavitem;
 @property(nonatomic,weak)UIView  *mySubjectView;
-@property(nonatomic,weak)UIView  *recommendSubjectView;
+@property(nonatomic,strong)UIView  *recommendSubjectView;
+
 
 @property(nonatomic,strong)NSMutableArray<ZZNewsSheetItem *> *mySubjectItemArray;
 @property(nonatomic,strong)NSMutableArray<ZZNewsSheetItem*> *recommendSubjectItemArray;
@@ -109,6 +111,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
         
         self.ishuanyipi = NO;
         [self commit];
+        
     }
     return self;
 }
@@ -212,6 +215,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 }
 //设置推荐标签
 - (void)setRecommentSubject{
+    
+    
     UIView *recommendSubjectView = [[UIView alloc]initWithFrame:CGRectZero];
     recommendSubjectView.backgroundColor = [UIColor whiteColor];
     [self.newsSheetScrollView addSubview:recommendSubjectView];
@@ -254,14 +259,20 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 
 //换一批
 -(void)huanyipi{
+    
+//    self.recommentBlock();
+    
     self.ishuanyipi = YES;
-    self.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5",@"科技6"].mutableCopy;
+//    self.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5",@"科技6"].mutableCopy;
     self.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技"].mutableCopy;
     
-    [self setRecommentSubject];
+//    [self setRecommentSubject];
+
+    
+//    [self setRecommentSubject];
 
 //    self.hiddenAllCornerFlag = YES;
-//    [self layoutSubviews];
+    [self layoutSubviews];
 
 }
 

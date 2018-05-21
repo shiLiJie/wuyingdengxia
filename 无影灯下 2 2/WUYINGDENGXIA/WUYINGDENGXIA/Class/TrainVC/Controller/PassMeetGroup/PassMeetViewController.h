@@ -23,7 +23,15 @@
 
 @property (nonatomic, strong) huiguModel *huiguModel;
 
+@property (nonatomic, strong) NSArray *huiguerArr;
 
 @property (nonatomic,weak)id <PassMeetDelegate> delegate;
+
+
+//获取回顾列表
+-(void)getVideoList;
+
+//我的收藏视频列表
+-(void)getMyshoucangQusetion;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "YijieshuVc.h"
 #import "YijieshuCell.h"
+#import "MyHuodongModel.h"
 
 @interface YijieshuVc ()
 
@@ -30,7 +31,8 @@
 }
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 11;
+//    return 11;
+    return self.yijieshuArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -46,8 +48,20 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"YijieshuCell" owner:nil options:nil] firstObject];
     }
-    cell.choosetype = yiqiandaoType;
-    [cell setUpUi:cell.choosetype];
+    
+    MyHuodongModel *model = [[MyHuodongModel alloc] init];
+    model = self.yijieshuArr[indexPath.row];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:model.meeting_image] placeholderImage:GetImage(@"")];
+    cell.titleLab.text = model.meet_title;
+    cell.timeLab.text = [NSString stringWithFormat:@"%@-%@",model.begin_time,model.end_time];
+    if ([model.is_sign isEqualToString:@"0"]) {
+        cell.choosetype = weiqiandaoType;
+        [cell setUpUi:cell.choosetype];
+    }else{
+        cell.choosetype = yiqiandaoType;//已签到
+        [cell setUpUi:cell.choosetype];
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

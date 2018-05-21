@@ -30,6 +30,10 @@
 @property (nonatomic, strong) NSMutableArray *weikaishiArr;
 @property (nonatomic, strong) NSMutableArray *jieshuArr;
 
+@property (nonatomic, strong) WeikaishiVc *weikaishiVc;
+@property (nonatomic, strong) YijieshuVc *yijieshuVc;
+
+
 
 @end
 
@@ -103,16 +107,18 @@
     [self.view addSubview:_collectView];
 }
 
+
+
 -(WeikaishiVc *)tablecontroller{
-    WeikaishiVc *vc = [[WeikaishiVc alloc] init];
-    vc.delegate = self;
+    self.weikaishiVc = [[WeikaishiVc alloc] init];
+    self.weikaishiVc.delegate = self;
     
-    return vc;
+    return self.weikaishiVc;
 }
 -(YijieshuVc *)tablecontroller1{
-    YijieshuVc *vc = [[YijieshuVc alloc] init];
-    vc.delegate = self;
-    return vc;
+    self.yijieshuVc = [[YijieshuVc alloc] init];
+    self.yijieshuVc.delegate = self;
+    return self.yijieshuVc;
 }
 
 -(BOOL)hideNavigationBottomLine{
@@ -147,10 +153,12 @@
     return title;
 }
 
+
 //获取活动信息
 -(void)getHuodongInfo{
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mymetting?userid=%@",user.userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
@@ -162,12 +170,22 @@
                                                            [arrayM addObject:[MyHuodongModel MyHuodongWithDict:dict]];
                                                            
                                                        }
-                                                       self.dataArr= arrayM;
+                                                       weakSelf.dataArr= arrayM;
                                                        
                                                        MyHuodongModel *model = [[MyHuodongModel alloc] init];
-                                                       for (model in self.dataArr) {
-                                                           //
+                                                       for (model in weakSelf.dataArr) {
+                                                           //判断是否接受
+                                                           if (!model.isfinish) {
+                                                               [weakSelf.weikaishiArr addObject:model];
+                                                           }else{
+                                                               [weakSelf.jieshuArr addObject:model];
+                                                           }
                                                        }
+                                                       
+                                                       weakSelf.weikaishiVc.weikaishiArr = weakSelf.weikaishiArr;
+                                                       weakSelf.yijieshuVc.yijieshuArr = weakSelf.jieshuArr;
+                                                       [weakSelf.weikaishiVc.tableView reloadData];
+                                                       [weakSelf.yijieshuVc.tableView reloadData];
                                                    }
                                                       fail:^(NSError *error) {
                                                           
@@ -176,11 +194,17 @@
 
 #pragma mark - 底部两个tableview点击代理方法 -
 -(void)tableviewDidSelectPageWithIndex3:(NSIndexPath *)indexPath{
+    MyHuodongModel *model = self.dataArr[indexPath.row];
     MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
+    vc.meetId = model.meet_id;
+    vc.isJieshu = NO;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)tableviewDidSelectPageWithIndex4:(NSIndexPath *)indexPath{
-    PassMeetViewController *vc = [[PassMeetViewController alloc] init];
+    MyHuodongModel *model = self.dataArr[indexPath.row];
+    MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
+    vc.meetId = model.meet_id;
+    vc.isJieshu = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

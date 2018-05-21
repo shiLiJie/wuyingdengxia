@@ -37,8 +37,6 @@
     
     //键盘上弹配置
 //    [self keyboardManager];
-
-
     
     return YES;
 }
@@ -129,17 +127,18 @@
         user.userName = obj[@"nickname"];
         user.headimg = obj[@"headimgurl"];
         user.usercity = obj[@"city"];
+        user.we_chat_id = openID;
         NSString *sex = [NSString stringWithFormat:@"%@",obj[@"sex"]];
         if ([sex isEqualToString:@"1"]) {
             user.usersex = @"男";
         }else{
             user.usersex = @"女";
         }
-        user.loginStatus = YES;
         [MBProgressHUD showSuccess:@"登录成功"];
         [user saveUserInfoToSanbox];
+        
         //发出通知 从微信回调回来之后,发一个通知,让请求支付的页面接收消息,并且展示出来,或者进行一些自定义的展示或者跳转
-        NSNotification * notification = [NSNotification notificationWithName:@"WXLogin" object:nil];
+        NSNotification * notification = [NSNotification notificationWithName:@"WXLogin" object:openID];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     } fail:^(NSError *error) {
         NSLog(@"获取用户信息时出错 = %@", error);

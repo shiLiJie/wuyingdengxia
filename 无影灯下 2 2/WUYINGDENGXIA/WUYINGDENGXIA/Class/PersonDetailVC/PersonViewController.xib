@@ -84,7 +84,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHL-bi-YPs">
                             <rect key="frame" x="16" y="25" width="21" height="22"/>
-                            <state key="normal" image="fanhui"/>
+                            <state key="normal" image="baifh"/>
                             <connections>
                                 <action selector="leftBack:" destination="-1" eventType="touchUpInside" id="LTQ-gM-YnJ"/>
                             </connections>
@@ -137,8 +137,8 @@
         </view>
     </objects>
     <resources>
+        <image name="baifh" width="21" height="17"/>
         <image name="bg" width="375" height="144"/>
-        <image name="fanhui" width="21" height="17"/>
         <image name="v" width="19" height="16"/>
     </resources>
 </document>

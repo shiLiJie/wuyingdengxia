@@ -62,8 +62,6 @@
     
     // Do any additional setup after loading the view.
     // 1,创建Pan手势识别器,并绑定监听方法
-    
-    
     _panGestureRec = [[UIScreenEdgePanGestureRecognizer alloc]initWithTarget:self action:@selector(panGestureRec:)];
     _panGestureRec.edges = UIRectEdgeLeft;
     // 为导航控制器的view添加Pan手势识别器

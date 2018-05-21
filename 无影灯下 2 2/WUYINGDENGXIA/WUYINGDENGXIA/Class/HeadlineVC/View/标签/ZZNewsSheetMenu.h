@@ -13,6 +13,8 @@
 
 typedef void(^clossViewBlock)(NSMutableArray *itemArray);
 
+typedef void(^recommentBlock)(void);
+
 @interface ZZNewsSheetMenu : UIView
 
 //初始化方法
@@ -34,6 +36,7 @@ typedef void(^clossViewBlock)(NSMutableArray *itemArray);
 @property(nonatomic,assign) BOOL ishuanyipi;
 
 @property(nonatomic,copy)  clossViewBlock clossviewblock;
+@property(nonatomic,copy)  recommentBlock recommentBlock;
 
 //显示
 - (void)showNewsMenu;

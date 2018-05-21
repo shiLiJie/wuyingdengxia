@@ -22,7 +22,7 @@
             self.qiandaoLab.textColor = RGB(252, 186, 42);
             break;
         case weiqiandaoType:
-            self.qiandaoLab.text = @"未签到";
+            self.qiandaoLab.text = @"审核通过";
             self.qiandaoLab.textColor = RGB(151, 151, 151);
             break;
             

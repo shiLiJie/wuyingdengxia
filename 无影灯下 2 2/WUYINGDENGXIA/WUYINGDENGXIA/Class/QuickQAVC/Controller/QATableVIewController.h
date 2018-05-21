@@ -30,4 +30,10 @@
 //对应的标签
 @property (nonatomic,strong) lableModel *lablemodel;
 
+//获取标签下对应问答
+-(void)getQusetionWithLabel;
+
+//我的收藏问题列表
+-(void)getMyshoucangQusetion;
+
 @end

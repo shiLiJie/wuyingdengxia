@@ -67,6 +67,15 @@ ZZHotKeysLayoutDelegate>
     [self.yueliangbiBtn setTitle:self.yueliang forState:UIControlStateNormal];
     self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.bottomView.frame));
     
+    //禁止返回
+    NSNotification *notification =[NSNotification notificationWithName:@"JINZHIFANHUI" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    //回复返回
+    NSNotification *notification =[NSNotification notificationWithName:@"HUIFUFANHUI" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
@@ -102,8 +111,7 @@ ZZHotKeysLayoutDelegate>
 }
 
 -(void)left_button_event:(UIButton *)sender{
-
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 //右上角分享
@@ -168,15 +176,15 @@ ZZHotKeysLayoutDelegate>
         UIImage *image = self.imageArr[0];
         self.pic1.image = image;
         self.picViewHeight.constant = 66;
-    }
-    if (self.imageArr.count==2) {
+        
+    }else if (self.imageArr.count==2) {
         UIImage *image = self.imageArr[0];
         self.pic1.image = image;
         UIImage *image1 = self.imageArr[1];
         self.pic2.image = image1;
         self.picViewHeight.constant = 66;
-    }
-    if (self.imageArr.count==3) {
+        
+    }else if (self.imageArr.count==3) {
         UIImage *image = self.imageArr[0];
         self.pic1.image = image;
         UIImage *image1 = self.imageArr[1];
@@ -184,8 +192,8 @@ ZZHotKeysLayoutDelegate>
         UIImage *image2 = self.imageArr[2];
         self.pic3.image = image2;
         self.picViewHeight.constant = 66;
-    }
-    if (self.imageArr.count==4) {
+        
+    }else if (self.imageArr.count==4) {
         UIImage *image = self.imageArr[0];
         self.pic1.image = image;
         UIImage *image1 = self.imageArr[1];
@@ -195,8 +203,8 @@ ZZHotKeysLayoutDelegate>
         UIImage *image3 = self.imageArr[3];
         self.pic4.image = image3;
         self.picViewHeight.constant = 66;
-    }
-    if (self.imageArr.count==5) {
+        
+    }else if (self.imageArr.count==5) {
         UIImage *image = self.imageArr[0];
         self.pic1.image = image;
         UIImage *image1 = self.imageArr[1];
@@ -208,10 +216,15 @@ ZZHotKeysLayoutDelegate>
         UIImage *image4 = self.imageArr[4];
         self.pic5.image = image4;
         self.picViewHeight.constant = 66;
+        
     }else{
         self.picViewHeight.constant = 1;
-
+        
     }
+    
+    
+    
+    
 }
 
 

@@ -32,6 +32,7 @@
     return self;
 }
 
+
 - (void)setIsSeleted:(BOOL)isSeleted
 {
     _isSeleted = isSeleted;

@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString *nameField;
 @property (nonatomic,copy) NSString *phoneField;
 @property (nonatomic,copy) NSString *shenfenField;
+@property (nonatomic,copy) NSString *useridcard;
 
 @property (nonatomic,copy) NSString *yiyuanField;
 @property (nonatomic,copy) NSString *keshiField;

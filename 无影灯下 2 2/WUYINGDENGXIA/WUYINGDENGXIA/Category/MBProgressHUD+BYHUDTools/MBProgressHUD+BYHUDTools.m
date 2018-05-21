@@ -33,6 +33,19 @@
     [hud hide:YES afterDelay:1.5];
 }
 
+
+
+/**
+ 单独显示信息一秒后消失
+
+ @param message 信息
+ */
++ (void)showOneSecond:(NSString *)message
+{
+    [self show:message icon:@"" view:nil];
+    
+}
+
 /**
  *  显示成功信息
  *

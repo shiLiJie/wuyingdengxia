@@ -10,4 +10,9 @@
 
 @interface BangPhoneVc : BaseViewController
 
+@property (nonatomic,copy) NSString *nickname;
+@property (nonatomic,copy) NSString *sex;
+@property (nonatomic,copy) NSString *headimage;
+@property (nonatomic,copy) NSString *openid;
+
 @end
