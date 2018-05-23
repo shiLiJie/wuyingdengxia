@@ -183,7 +183,7 @@ typedef enum _chooseType{
                                                         
                                                         if ([dic[@"code"] isEqualToString:SucceedCoder]) {
                                                             
-                                                            [arr addObject:dic[@"data"][@"url"]];
+                                                            [arr addObject:dic[@"data"][@"complete_url"]];
                                                             
                                                             //上传完左右照片,提交投稿
                                                             if (i == weakSelf.imageArr.count-1) {

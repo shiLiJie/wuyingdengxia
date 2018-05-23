@@ -115,7 +115,20 @@
     return title;
 }
 - (IBAction)sureBtnClick:(UIButton *)sender {
-    NSLog(@"创建新标签");
+    
+    
+    
+    if (!kStringIsEmpty(self.addSheetTextfield.text)) {
+        
+//        UserInfoModel *user = [UserInfoModel shareUserModel];
+//        [user loadUserInfoFromSanbox];
+//        
+//        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"add_user_label?type=0&userid=%@&to_id=%@&label_name=%@",user.userid,]] parameters:nil success:^(id obj) {
+//            
+//        } fail:^(NSError *error) {
+//            
+//        }];
+    }
 }
 
 #pragma mark - 输入框代理方法 -

@@ -168,24 +168,93 @@
         //点击认证按钮
         cell.renzhengBlcok = ^{
             
-            RenzhengOneVc *vc = [[RenzhengOneVc alloc] init];
-            [weakSelf.navigationController pushViewController:vc animated:YES];
+            UserInfoModel *user = [UserInfoModel shareUserModel];
+            [user loadUserInfoFromSanbox];
+            //判断用户登录状态
+            if (user.loginStatus) {
+                RenzhengOneVc *vc = [[RenzhengOneVc alloc] init];
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }else{
+                LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+                    
+                }];
+                [self.navigationController pushViewController:loginVc animated:YES];
+            }
         };
         
         [cell.headBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:self.headUrl] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
         //点击更换头像
         cell.touxiangBlcok = ^{
             
-            //设置主要参数
-            [imagePicker dwSetPresentDelegateVC:weakSelf SheetShowInView:weakSelf.view InfoDictionaryKeys:(long)nil];
-            //回调
-            [imagePicker dwGetpickerTypeStr:^(NSString *pickerTypeStr) {
-                
-            } pickerImagePic:^(UIImage *pickerImagePic) {
-                
-                [cell.headBtn setImage:pickerImagePic forState:UIControlStateNormal];
- 
-            }];
+            UserInfoModel *user = [UserInfoModel shareUserModel];
+            [user loadUserInfoFromSanbox];
+            //判断用户登录状态
+            if (user.loginStatus) {
+                //设置主要参数
+                [imagePicker dwSetPresentDelegateVC:weakSelf SheetShowInView:weakSelf.view InfoDictionaryKeys:(long)nil];
+                //回调
+                [imagePicker dwGetpickerTypeStr:^(NSString *pickerTypeStr) {
+                    
+                } pickerImagePic:^(UIImage *pickerImagePic) {
+                    
+                    [cell.headBtn setImage:pickerImagePic forState:UIControlStateNormal];
+                    
+                    NSData *data = UIImagePNGRepresentation(pickerImagePic);
+                    
+                    [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
+                                                        WithParams:nil
+                                                             image:data
+                                                          filename:@"6"
+                                                          mimeType:@"png"
+                                                        completion:^(id dic) {
+                                                            
+                                                            if ([dic[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                //                                                            [arr addObject:dic[@"data"][@"complete_url"]];
+                                                                
+                                                                //修改信息
+                                                                UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                                [user loadUserInfoFromSanbox];
+                                                                
+                                                                __block NSString *headimage = dic[@"data"][@"complete_url"];
+                                                                
+                                                                NSDictionary *dict = @{
+                                                                                       @"userid" : user.userid,
+                                                                                       @"head_img":dic[@"data"][@"complete_url"]
+                                                                                       };
+                                                                
+                                                                [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_change_myinfo"]
+                                                                                                             parameters:dict
+                                                                                                                success:^(id obj) {
+                                                                                                                    
+                                                                                                                    if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                                                                        user.headimg = headimage;
+                                                                                                                        [user saveUserInfoToSanbox];
+                                                                                                                        
+                                                                                                                    }else{
+                                                                                                                        [MBProgressHUD showError:obj[@"msg"]];
+                                                                                                                    }
+                                                                                                                } fail:^(NSError *error) {
+                                                                                                                    
+                                                                                                                }];
+                                                                
+                                                            }else{
+                                                                [MBProgressHUD hideHUD];
+                                                            }
+                                                            
+                                                        }
+                                                        errorBlock:^(NSError *error) {
+                                                            [MBProgressHUD hideHUD];
+                                                            
+                                                        }];
+                    
+                }];
+            }else{
+                LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+                    
+                }];
+                [self.navigationController pushViewController:loginVc animated:YES];
+            }
         };
     }
     

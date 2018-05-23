@@ -19,61 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WUYINGDENGXIA/Tools/PYSearch/PYSearchSuggestionViewController.m"
-            timestampString = "548506784.890316"
+            filePath = "WUYINGDENGXIA/Class/LoginVC/vc/DuanxinLoginVc.m"
+            timestampString = "548764000.268096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WUYINGDENGXIA/Tools/PYSearch/PYSearchSuggestionViewController.m"
-            timestampString = "548506869.670508"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WUYINGDENGXIA/Class/HeadlineVC/View/&#x6807;&#x7b7e;/ZZNewsSheetMenu.m"
-            timestampString = "548590417.983146"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "-setRecommentSubject"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WUYINGDENGXIA/Class/HeadlineVC/View/&#x5bfc;&#x822a;&#x6807;&#x7b7e;/MDMultipleSegmentLayout1.m"
-            timestampString = "548590417.983254"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-prepareLayout"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-getVerifBtnClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

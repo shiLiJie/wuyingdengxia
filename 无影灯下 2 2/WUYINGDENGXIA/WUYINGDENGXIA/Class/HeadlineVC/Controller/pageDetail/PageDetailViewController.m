@@ -83,9 +83,6 @@
     [user loadUserInfoFromSanbox];
 
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
-    NSLog(@"%@",self.articleid);
-    
-//        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://39.106.2.216/Wuyingdengxia/article_details.html?articleid=1&userid=1"]]];
 
     [self.view addSubview:_webView];
     
@@ -127,63 +124,85 @@
 //参与评论按钮点击事件
 - (IBAction)clickToComment:(UIButton *)sender {
     
-    self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-    [self.view addSubview:self.input];
-    if (self.inputStr.length > 0) {
-        self.input.inputTextView.text = self.inputStr;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    //判断用户登录状态
+    if (user.loginStatus) {
+        self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [self.view addSubview:self.input];
+        if (self.inputStr.length > 0) {
+            self.input.inputTextView.text = self.inputStr;
+        }
+        self.input.delegate = self;
+        [self.input inputViewShow];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
     }
-    self.input.delegate = self;
-    [self.input inputViewShow];
-
 }
 //点赞
 - (IBAction)dianzan:(UIButton *)sender {
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
- 
     __weak typeof(self) weakSelf = self;
-    
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_support?userid=%@&toid=%@&supType=1",user.userid,self.articleid]]
-                                                parameters:nil
-                                                   success:^(id obj) {
-        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-            
-            [weakSelf.zanBtn setImage:GetImage(@"xiaodianzan2") forState:UIControlStateNormal];
-        }else{
-            
-        }
-    }
-                                                       fail:^(NSError *error) {
-        //
-    }];
-    
 
+    //判断用户登录状态
+    if (user.loginStatus) {
+        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_support?userid=%@&toid=%@&supType=1",user.userid,self.articleid]]
+                                                    parameters:nil
+                                                       success:^(id obj) {
+                                                           if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                               
+                                                               [weakSelf.zanBtn setImage:GetImage(@"xiaodianzan2") forState:UIControlStateNormal];
+                                                           }else{
+                                                               
+                                                           }
+                                                       }
+                                                          fail:^(NSError *error) {
+                                                              
+                                                          }];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
 }
 //收藏
 - (IBAction)shoucang:(UIButton *)sender {
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    NSDictionary *dic = @{
-                          @"userid":user.userid,
-                          @"toid":self.articleid,
-                          @"type":@"1"
-                          };
-    
-    __weak typeof(self) weakSelf = self;
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_collection"]
-                                                 parameters:dic
-                                                    success:^(id obj) {
-                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                            
-                                                            [weakSelf.shoucangBtn setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
-                                                        }else{
-                                                            
+    //判断用户登录状态
+    if (user.loginStatus) {
+        NSDictionary *dic = @{
+                              @"userid":user.userid,
+                              @"toid":self.articleid,
+                              @"type":@"1"
+                              };
+        
+        __weak typeof(self) weakSelf = self;
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_collection"]
+                                                     parameters:dic
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                [weakSelf.shoucangBtn setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
+                                                            }else{
+                                                                
+                                                            }
                                                         }
-                                                    }
-                                                       fail:^(NSError *error) {
-                                                           
-                                                       }];
+                                                           fail:^(NSError *error) {
+                                                               
+                                                           }];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
 }
 
 #pragma mark - 私有action -
@@ -198,27 +217,36 @@
 
 //转发
 - (IBAction)zhuanfa:(UIButton *)sender {
+
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    
-    WXMediaMessage * message = [WXMediaMessage message];
-    message.title = self.model.article_title;
-    message.description = self.model.article_content;
-//    [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
-    
-    WXWebpageObject * webpageObject = [WXWebpageObject object];
-    webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid];
-    message.mediaObject = webpageObject;
-    
-    SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    
-    req.message = message;
-    req.scene = WXSceneSession;
-    
-    [WXApi sendReq:req];
 
+    //判断用户登录状态
+    if (user.loginStatus) {
+        
+        WXMediaMessage * message = [WXMediaMessage message];
+        message.title = self.model.article_title;
+        message.description = self.model.article_content;
+        //    [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
+        
+        WXWebpageObject * webpageObject = [WXWebpageObject object];
+        webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid];
+        message.mediaObject = webpageObject;
+        
+        SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        
+        req.message = message;
+        req.scene = WXSceneSession;
+        
+        [WXApi sendReq:req];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
 }
 
 #pragma mark - textinput代理 -

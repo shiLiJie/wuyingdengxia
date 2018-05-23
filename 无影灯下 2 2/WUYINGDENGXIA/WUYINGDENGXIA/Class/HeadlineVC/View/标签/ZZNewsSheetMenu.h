@@ -37,6 +37,8 @@ typedef void(^recommentBlock)(void);
 
 @property(nonatomic,copy)  clossViewBlock clossviewblock;
 @property(nonatomic,copy)  recommentBlock recommentBlock;
+//文章调用还是问答调用
+@property (nonatomic,copy) NSString *pageOrqa;
 
 //显示
 - (void)showNewsMenu;

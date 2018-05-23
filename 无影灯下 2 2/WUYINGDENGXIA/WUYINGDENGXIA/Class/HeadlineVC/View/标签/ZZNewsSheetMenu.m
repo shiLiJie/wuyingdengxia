@@ -235,7 +235,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     [btn addTarget:self action:@selector(huanyipi) forControlEvents:UIControlEventTouchUpInside];
     [recommendSubjectView addSubview:btn];
 
-    
+    [self layoutSubviews];
     [self.recommendSubjectItemArray removeAllObjects];
     for (int i = 0; i<self.recommendSubjectArray.count; i++) {
         ZZNewsSheetItem *item = [[ZZNewsSheetItem alloc]init];
@@ -260,28 +260,74 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 //换一批
 -(void)huanyipi{
     
-//    self.recommentBlock();
     
-    self.ishuanyipi = YES;
-//    self.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5",@"科技6"].mutableCopy;
-    self.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技"].mutableCopy;
     
-//    [self setRecommentSubject];
-
     
-//    [self setRecommentSubject];
+    
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labels_rand?limit=10&type=%@",self.pageOrqa]]
+                                                 parameters:nil
+                                                    success:^(id obj) {
 
-//    self.hiddenAllCornerFlag = YES;
-    [self layoutSubviews];
+                                                        NSMutableArray *labArr = [[NSMutableArray alloc] init];
+                                                        NSArray *arr = obj[@"data"];
+                                                        NSDictionary *dict = @{
+                                                                               @"label_name":@""
+                                                                               };
+                                                        for (dict in arr) {
+                                                            [labArr addObject:dict[@"label_name"]];
+                                                        }
 
+                                                        //    self.recommentBlock();
+
+                                                        self.ishuanyipi = YES;
+                                                        self.recommendSubjectArray = labArr;
+
+                                                        //    [self setRecommentSubject];
+
+                                                        //    self.hiddenAllCornerFlag = YES; 93
+                                                        [self layoutSubviews];
+                                                    }
+                                                       fail:^(NSError *error) {
+
+                                                       }];
+    
+
+//    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_user_key?user_id=10003&key_id=93"] parameters:nil success:^(id obj) {
+//
+//        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+//
+//            [MBProgressHUD showSuccess:obj[@"msg"]];
+//        }else{
+//            [MBProgressHUD showError:obj[@"msg"]];
+//        }
+//    } fail:^(NSError *error) {
+//
+//    }];
+    
+    
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
     
+    //投稿或者提问时添加标签才会出现的框
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, kScreen_Width-80, 35)];
+    [button setTitle:@"输入想要搜索标签的关键词" forState:UIControlStateNormal];
+    [button setTitleColor:RGB(173, 173, 173) forState:UIControlStateNormal];
+    [button setBackgroundColor:RGB(245, 245, 245)];
+    [button setImage:GetImage(@"Fill 1") forState:UIControlStateNormal];
+    button.titleLabel.font = SYSTEMFONT(12);
+    button.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    button.layer.cornerRadius = 17.5;//半径大小
+    button.layer.masksToBounds = YES;//是否切割
+    [self.newsSheetScrollView addSubview:button];
+    
     self.newsSheetScrollView.frame = self.bounds;
     CGFloat navitemHeight = 30.0f;
-    self.menuNavitem.frame = CGRectMake(0, 0, self.bounds.size.width, navitemHeight);
+    self.menuNavitem.frame = CGRectMake(0, 45, self.bounds.size.width, navitemHeight);
     self.closeMenuButton.frame = CGRectMake(self.bounds.size.width - 60, 0,50, self.menuNavitem.bounds.size.height);
     self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60 - 50, 0,50, self.menuNavitem.bounds.size.height);
     

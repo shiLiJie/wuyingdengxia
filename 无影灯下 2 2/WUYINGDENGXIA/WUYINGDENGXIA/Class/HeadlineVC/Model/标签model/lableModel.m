@@ -14,8 +14,8 @@
 {
     self = [super init];
     if (self) {
-        self.key_name = dict[@"key_name"];
-        self.key_id = dict[@"key_id"];
+        self.name = dict[@"name"];
+        self.label_id = dict[@"label_id"];
         self.key_num = dict[@"key_num"];
         self.ctime = dict[@"ctime"];
     }

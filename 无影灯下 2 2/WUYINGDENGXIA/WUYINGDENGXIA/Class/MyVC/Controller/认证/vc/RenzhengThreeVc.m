@@ -160,7 +160,7 @@
                                                                                                             
                                                                                                             if ([dic[@"code"] isEqualToString:SucceedCoder]) {
                                                                                                                 
-                                                                                                                [arr addObject:dic[@"data"][@"url"]];
+                                                                                                                [arr addObject:dic[@"data"][@"complete_url"]];
                                                                                                                 
                                                                                                                 //上传完左右照片,提交投稿
                                                                                                                 if (i == weakSelf.imageArr.count-1) {
@@ -198,13 +198,16 @@
 -(void)postRenzhengWithUid:(NSString *)uid
                  userToken:(NSString *)usertoken
                    imgPath:(NSArray *)imgpath{
+    
+    NSString *string = [imgpath componentsJoinedByString:@","];
     //认证图片数组
     NSDictionary *dict1 = @{
                             @"userid" : uid,
                             @"certtype":@"1",
                             @"user_token":usertoken,
-                            @"imgpath":@"111"
+                            @"imgpath":string
                             };
+    
     __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_usercerti"]
                                                  parameters:dict1

@@ -32,9 +32,6 @@
     if (!kStringIsEmpty(self.pageDetail1.text)) {
         [self setLabelHangjianj:self.pageDetail1];
     }
-    if (!kStringIsEmpty(self.pageDetail2.text)) {
-        [self setLabelHangjianj:self.pageDetail2];
-    }
     if (!kStringIsEmpty(self.pageDetail3.text)) {
         [self setLabelHangjianj:self.pageDetail3];
     }

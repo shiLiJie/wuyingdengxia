@@ -10,8 +10,8 @@
 
 @interface lableModel : NSObject
 
-@property (nonatomic, copy) NSString *key_name;//id
-@property (nonatomic, copy) NSString *key_id;//
+@property (nonatomic, copy) NSString *name;//id
+@property (nonatomic, copy) NSString *label_id;//
 @property (nonatomic, copy) NSString *ctime;//
 @property (nonatomic, copy) NSString *key_num;//
 

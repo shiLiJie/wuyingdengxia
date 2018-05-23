@@ -124,13 +124,23 @@
 //评论按钮点击
 - (IBAction)pinglunBtnClick:(UIButton *)sender {
     
-    self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-    [self.view addSubview:self.input];
-    if (self.inputStr.length > 0) {
-        self.input.inputTextView.text = self.inputStr;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    //判断用户登录状态
+    if (user.loginStatus) {
+        self.input = [[inputView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen] .bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [self.view addSubview:self.input];
+        if (self.inputStr.length > 0) {
+            self.input.inputTextView.text = self.inputStr;
+        }
+        self.input.delegate = self;
+        [self.input inputViewShow];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
     }
-    self.input.delegate = self;
-    [self.input inputViewShow];
 }
 
 #pragma mark - textinput代理 -

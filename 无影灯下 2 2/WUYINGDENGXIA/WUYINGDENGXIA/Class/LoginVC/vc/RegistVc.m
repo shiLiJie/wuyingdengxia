@@ -96,7 +96,7 @@
 
 //获取验证码
 - (IBAction)getVerif:(UIButton *)sender {
-    
+    self.verifBtn.userInteractionEnabled = NO;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_verifyPhone?userphone=%@",self.phoneField.text]]
                                                 parameters:nil
                                                    success:^(id obj) {
@@ -104,12 +104,14 @@
                                                            // 开启倒计时效果
                                                            [self openCountdown];
                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                           self.verifBtn.userInteractionEnabled = YES;
                                                        }else{
                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                           self.verifBtn.userInteractionEnabled = YES;
                                                        }
         
                                                    } fail:^(NSError *error) {
-        
+                                                       self.verifBtn.userInteractionEnabled = YES;
                                                    }];
 }
 

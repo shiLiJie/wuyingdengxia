@@ -10,6 +10,7 @@
 #import "MeetRichengCell.h"
 #import "SignUpViewController.h"
 #import "meetingDetailModel.h"
+#import "RenzhengOneVc.h"
 
 @interface MeetDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 //会议介绍按钮是否展开
@@ -157,7 +158,6 @@
                                                        [self.meetImage sd_setImageWithURL:[NSURL URLWithString:self.meetdetailModel.meeting_image] placeholderImage:GetImage(@"")];
                                                        [self.richengTableView reloadData];
 
-
     }
                                                       fail:^(NSError *error) {
         
@@ -246,10 +246,29 @@
 
 //参会按钮点击
 - (IBAction)joinMeetBtnClick:(UIButton *)sender {
-    SignUpViewController *vc = [[SignUpViewController alloc] init];
-    vc.meetdetailModel = [[meetingDetailModel alloc] init];
-    vc.meetdetailModel = self.meetdetailModel;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
+    //判断用户登录状态
+    if (user.loginStatus) {
+        
+        if ([user.isfinishCer isEqualToString:@"1"]) {
+            SignUpViewController *vc = [[SignUpViewController alloc] init];
+            vc.meetdetailModel = [[meetingDetailModel alloc] init];
+            vc.meetdetailModel = weakSelf.meetdetailModel;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }else{
+            RenzhengOneVc *vc = [[RenzhengOneVc alloc] init];
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
 }
 
 //会议介绍按钮点击

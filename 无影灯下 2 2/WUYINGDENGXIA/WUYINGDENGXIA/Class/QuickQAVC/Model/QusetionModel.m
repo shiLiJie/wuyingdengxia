@@ -31,7 +31,7 @@
         self.question_title = dict[@"question_title"];
         self.question_type_id = dict[@"question_type_id"];
         self.user_id = dict[@"user_id"];
-        self.username = dict[@"username"];
+        self.user_name = dict[@"user_name"];
     }
     return self;
 }

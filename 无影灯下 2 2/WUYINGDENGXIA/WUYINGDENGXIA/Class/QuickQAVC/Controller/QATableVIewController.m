@@ -34,12 +34,13 @@
 //获取标签下对应问答
 -(void)getQusetionWithLabel{
 
-    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_bylabel?label=%@",self.lablemodel.key_name]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_bylabel?label=%@",self.lableName]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        NSArray *arr = obj[@"data"];
+                                                       
                                                        NSMutableArray *arrayM = [NSMutableArray array];
                                                        for (int i = 0; i < arr.count; i ++) {
                                                            NSDictionary *dict = arr[i];
@@ -108,7 +109,9 @@
         self.cell.headImage.tag = indexPath.row;
         self.cell.delegate = self;
         QusetionModel *model = self.qusetionArr[indexPath.row];
-        self.cell.userName.text = model.username;
+        if (!kStringIsEmpty(model.user_name)) {
+            self.cell.userName.text = model.user_name;
+        }
         [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:model.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
         self.cell.mainTitle.text = model.question_title;
         self.cell.detailPage.text = model.question_content;

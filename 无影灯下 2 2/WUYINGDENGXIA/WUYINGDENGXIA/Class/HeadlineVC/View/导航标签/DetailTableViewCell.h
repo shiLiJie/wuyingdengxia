@@ -53,22 +53,22 @@
 
 
 
-//主标题
-@property (weak, nonatomic) IBOutlet UILabel *mainTitle2;
-//头像
-@property (weak, nonatomic) IBOutlet UIButton *headImage2;
-//用户名
-@property (weak, nonatomic) IBOutlet UILabel *userName2;
-//文章详情
-@property (weak, nonatomic) IBOutlet UILabel *pageDetail2;
-//浏览数
-@property (weak, nonatomic) IBOutlet UILabel *liulanLab2;
-//评论数
-@property (weak, nonatomic) IBOutlet UILabel *pinglunLab2;
-//点赞数
-@property (weak, nonatomic) IBOutlet UILabel *dianzanLab2;
-@property (weak, nonatomic) IBOutlet UIImageView *image21;
-@property (weak, nonatomic) IBOutlet UIImageView *image22;
+////主标题
+//@property (weak, nonatomic) IBOutlet UILabel *mainTitle2;
+////头像
+//@property (weak, nonatomic) IBOutlet UIButton *headImage2;
+////用户名
+//@property (weak, nonatomic) IBOutlet UILabel *userName2;
+////文章详情
+//@property (weak, nonatomic) IBOutlet UILabel *pageDetail2;
+////浏览数
+//@property (weak, nonatomic) IBOutlet UILabel *liulanLab2;
+////评论数
+//@property (weak, nonatomic) IBOutlet UILabel *pinglunLab2;
+////点赞数
+//@property (weak, nonatomic) IBOutlet UILabel *dianzanLab2;
+//@property (weak, nonatomic) IBOutlet UIImageView *image21;
+//@property (weak, nonatomic) IBOutlet UIImageView *image22;
 
 
 

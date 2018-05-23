@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSArray *pageArr;
 @property (nonatomic, strong) NSArray *userArr;
 
+@property(nonatomic, assign) NSInteger countt;
 
 
 @end
@@ -29,13 +30,70 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.countt = 5;
+    
     
     self.userArr = [[NSArray alloc] init];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
+    
+    
+    self.tableView.estimatedRowHeight = 300;//估算高度
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+    
+    
+    //刷新
+    __weak typeof(self) weakSelf = self;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //刷新时候，需要执行的代码。一般是请求最新数据，请求成功之后，刷新列表
+        [weakSelf loadNewData];
+    }];
+    
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        //刷新时候，需要执行的代码。一般是请求更多数据，请求成功之后，刷新列表
+        [weakSelf loadNoreData];
+    }];
 }
+
+
+/**
+ 请求获取最新的数据
+ */
+- (void)loadNewData {
+    NSLog(@"请求获取最新的数据");
+    //这里假设2秒之后获取到了最新的数据，刷新tableview，并且结束刷新控件的刷新状态
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //刷新列表
+        [weakSelf.tableView reloadData];
+        //拿到当前的刷新控件，结束刷新状态
+        [weakSelf.tableView.mj_header endRefreshing];
+
+    });
+}
+
+/**
+ 请求获取更多的数据
+ */
+- (void)loadNoreData {
+    NSLog(@"请求获取更多的数据");
+
+    //这里假设2秒之后获取到了更多的数据，刷新tableview，并且结束刷新控件的刷新状态
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //刷新列表
+        [weakSelf.tableView reloadData];
+        //拿到当前的刷新控件，结束刷新状态
+        [weakSelf.tableView.mj_footer endRefreshing];
+    });
+}
+
+
 
 //查看别人主页时吊用此方法,获取文章列表
 -(void)getPersonVcPageWithPersonId:(NSString *)userid{
@@ -129,20 +187,22 @@
     
     
     return self.pageArr.count;
-//    return 10;
+//    return self.countt;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     pageModel *page = [[pageModel alloc] init];
     page = self.pageArr[indexPath.section];
+
+    NSLog(@"%@",page.article_img_path);
+
     NSArray *array = [page.article_img_path componentsSeparatedByString:@","]; //字符串按照【分隔成数组
-    if (array.count == 1) {
+    if (array.count == 0) {
         return 200;
     }else{
         return 300;
     }
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -150,13 +210,42 @@
     static NSString * reuseID = @"cell";
     self.cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     
-    
-    
-    if (self.cell == nil) {
-    
+//    if (indexPath.row == 0) {
         self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
-
-    }
+//    }
+//
+//    if (indexPath.row == 1) {
+//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
+//    }
+//
+//    if (indexPath.row == 2) {
+//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][2];
+//    }
+//
+//    if (indexPath.row == 3) {
+//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
+//    }
+//    if (indexPath.row == 4) {
+//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][2];
+//    }
+//    if (indexPath.row == 5) {
+//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
+//    }
+//    if (indexPath.row == 6) {
+//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
+//    }
+//    if (indexPath.row == 7) {
+//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
+//    }
+//
+//    self.cell.image1.clipsToBounds = YES;
+//    self.cell.image1.contentMode = UIViewContentModeScaleAspectFill;
+//    self.cell.image31.clipsToBounds = YES;
+//    self.cell.image31.contentMode = UIViewContentModeScaleAspectFill;
+//    self.cell.image32.clipsToBounds = YES;
+//    self.cell.image32.contentMode = UIViewContentModeScaleAspectFill;
+//    self.cell.image33.clipsToBounds = YES;
+//    self.cell.image33.contentMode = UIViewContentModeScaleAspectFill;
 
     self.cell.delegate = self;
 
@@ -179,24 +268,9 @@
     }
     //设置按钮索引找到对应的数据
     self.cell.headTag = indexPath.row;
-    
-    
-    
-    
-//    [self.cell.headImage.imageView sd_setImageWithURL:[NSURL URLWithString:page.headimg] placeholderImage:GetImage(@"tx")];
-//    [self.cell.headImage setImage:GetImage(@"tx") forState:UIControlStateNormal];
-    
-//    userModel *user = self.userArr[indexPath.row];
-//    if (![user.userReal_name  isKindOfClass:[NSNull class]]) {
-//        self.cell.userName.text = user.userReal_name;
-//    }
-//    if (![user.headimg  isKindOfClass:[NSNull class]]) {
-//        [self.cell.headImage.imageView sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
-//    }else{
-//        [self.cell.headImage setImage:GetImage(@"tx") forState:UIControlStateNormal];
-//    }
-    
-    
+
+
+
     self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 160, 0);
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);

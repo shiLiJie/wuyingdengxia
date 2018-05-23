@@ -29,6 +29,8 @@
 
 //对应的标签
 @property (nonatomic,strong) lableModel *lablemodel;
+//标签名字
+@property (nonatomic,copy) NSString *lableName;
 
 //获取标签下对应问答
 -(void)getQusetionWithLabel;

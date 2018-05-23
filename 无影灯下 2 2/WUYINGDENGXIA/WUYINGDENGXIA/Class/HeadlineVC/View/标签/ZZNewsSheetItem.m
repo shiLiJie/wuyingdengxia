@@ -73,10 +73,10 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 //            };
             
             
-            self.layer.borderWidth = 0;
-            self.layer.borderColor = [RGB(221, 221, 221) CGColor];
-            self.backgroundColor = RGB(45, 163, 255);
-            self.itemTitleLab.textColor = [UIColor whiteColor];
+            self.layer.borderWidth = 0.5;
+            self.layer.borderColor = [RGB(45, 163, 255) CGColor];
+            self.backgroundColor = [UIColor whiteColor];
+            self.itemTitleLab.textColor = RGB(45, 163, 255);
             
         }
     }else{
@@ -114,6 +114,10 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
 }
 
 - (void)setItemTitle:(NSString *)itemTitle{
+    if (kStringIsEmpty(itemTitle)) {
+        itemTitle = @"";
+    }
+    
     _itemTitle = [itemTitle copy];
     self.itemTitleLab.text = itemTitle;
 }

@@ -9,8 +9,6 @@
 #define segViewHigh     44
 
 #import "QuickQAViewController.h"
-#import "MDMultipleSegmentView.h"
-#import "MDFlipCollectionView.h"
 #import "ZZNewsSheetMenu.h"
 #import "QATableVIewController.h"
 #import "PersonViewController.h"
@@ -22,14 +20,12 @@
 #import "lableModel.h"
 #import "QusetionModel.h"
 
-@interface QuickQAViewController ()<MDMultipleSegmentViewDeletegate,
-                                    MDFlipCollectionViewDelegate,
+#import "DFSegmentView1.h"
+
+@interface QuickQAViewController ()<
                                     QATableVIewDelegate,
-                                    PYSearchViewControllerDelegate>
-{
-    MDMultipleSegmentView *_segView;    //标签视图
-    MDFlipCollectionView *_collectView; //标签视图内容
-}
+                                    PYSearchViewControllerDelegate,
+                                    DFSegmentViewDelegate>
 
 //搜索上边隐藏的btn,其实点击的是他
 @property(nonatomic, strong) UIButton *searchBtn;
@@ -39,9 +35,12 @@
 @property(nonatomic, strong) UIView *shuView;
 //兴趣标签编辑界面
 @property(nonatomic, strong) ZZNewsSheetMenu *newsMenu;
-
 //获取标签数组
 @property (nonatomic, strong) NSArray *labelArr;
+//获取标签名字数组
+@property (nonatomic, strong) NSMutableArray *labelnameArr;
+
+@property (nonatomic, strong) DFSegmentView1 *segment;
 
 @end
 
@@ -79,6 +78,8 @@
     [super viewDidLoad];
     
     [self addUI];
+    
+    self.labelnameArr = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - UI -
@@ -161,22 +162,50 @@
     return right;
 }
 
+#pragma mark - segement代理 -
+- (UIViewController *)superViewController {
+    
+    return self;
+}
+
+- (UIViewController *)subViewControllerWithIndex:(NSInteger)index {
+    
+    
+    //    lableModel *model = [[lableModel alloc] init];
+    //    NSMutableArray *muArr = [[NSMutableArray alloc] init];
+    //    for (model in self.labelArr) {
+    //        [muArr addObject:model.key_name];
+    //    }
+    
+    QATableVIewController * baseVC = [self tablecontroller:self.segment.reloadTitleArr[index]];
+    
+    return baseVC;
+}
+
+
+- (void)headTitleSelectWithIndex:(NSInteger)index {
+    
+    //  在这里可以获取到当前的baseViewController
+    
+}
+
 //添加segview标签控制器
 -(void)addSegView{
     
-    _segView = [[MDMultipleSegmentView alloc] init];
-    _segView.delegate =  self;
-
+    self.segment = [DFSegmentView1 new];
     if (kDevice_Is_iPhoneX) {
-        _segView.frame = CGRectMake(0,90, Main_Screen_Width-44, segViewHigh);
+        self.segment.frame = CGRectMake(0,90, Main_Screen_Width, kScreen_Height-90-56);
     }else{
-        _segView.frame = CGRectMake(0,66, Main_Screen_Width-44, segViewHigh);
+        self.segment.frame = CGRectMake(0,66, Main_Screen_Width, kScreen_Height-66-56);
     }
+
+    [self.view addSubview:self.segment];
+    self.segment.delegate = self;
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labelList?user_id=%@&type=2",user.userid]]
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labels?userid=%@&type=3",user.userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
@@ -192,34 +221,11 @@
                                                            lableModel *model = [[lableModel alloc] init];
                                                            NSMutableArray *muArr = [[NSMutableArray alloc] init];
                                                            for (model in self.labelArr) {
-                                                               [muArr addObject:model.key_name];
+                                                               [muArr addObject:model.name];
                                                            }
-                                                           _segView.items = muArr;
                                                            
-                                                           //创建标签下table控制器
-                                                           NSMutableArray *tableArr = [[NSMutableArray alloc] init];
-                                                           for (int i = 0; i < muArr.count; i++) {
-                                                               [tableArr addObject:[self tablecontroller:self.labelArr[i]]];
-                                                               
-                                                           }
-
-                                                           if (kDevice_Is_iPhoneX) {
-                                                               _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                                                                                     CGRectGetMaxY(_segView.frame)+2,
-                                                                                                                                     Main_Screen_Width,
-                                                                                                                                     Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame)-34)
-                                                                                                                withArray:tableArr];
-                                                           }else{
-                                                               _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                                                                                     CGRectGetMaxY(_segView.frame)+2,
-                                                                                                                                     Main_Screen_Width,
-                                                                                                                                     Main_Screen_Height - 49 - CGRectGetMaxY(_segView.frame))
-                                                                                                                withArray:tableArr];
-                                                           }
-
-                                                           
-                                                           _collectView.delegate = self;
-                                                           [self.view addSubview:_collectView];
+                                                           self.segment.reloadTitleArr = muArr;
+                                                           [self.segment reloadData];
                                                            
                                                        }else{
                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
@@ -228,19 +234,18 @@
                                                        
                                                    }];
     
-    [self.view addSubview:_segView];
+    
     //标签下边的灰色横线
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame)+1, Main_Screen_Width, 0.5)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.segment.frame)+43, Main_Screen_Width, 0.5)];
     view.backgroundColor = RGB(232, 232, 232);
     [self.view addSubview: view];
     
     //添加加号➕按钮
-    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(_segView.frame)-44, segViewHigh, segViewHigh)];
+    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMinY(self.segment.frame)+3, segViewHigh, segViewHigh)];
     [addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
     [addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:addMenuBtn];
-
 }
 
 //设置导航栏背景色
@@ -280,10 +285,11 @@
 }
 
 
--(QATableVIewController *)tablecontroller:(lableModel *)lable{
+-(QATableVIewController *)tablecontroller:(NSString *)lable{
     QATableVIewController *vc = [[QATableVIewController alloc] init];
     vc.lablemodel = [[lableModel alloc] init];
-    vc.lablemodel = lable;
+//    vc.lablemodel = lable;
+    vc.lableName = lable;
     [vc getQusetionWithLabel];
     vc.delegate = self;
 
@@ -319,31 +325,48 @@
     
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu];
     self.newsMenu = sheetMenu;
-    sheetMenu.mySubjectArray = @[@"问题1",@"问题2",@"问题3",@"问题4",@"问题5"].mutableCopy;
-    sheetMenu.recommendSubjectArray = @[@"体育",@"军事",@"音乐",@"电影",@"中国风",@"摇滚",@"小说",@"梦想",@"机器",@"电脑"].mutableCopy;
+    self.newsMenu.pageOrqa = @"3";
     
-    //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
-    [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
-        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
-    }];
-    
-    [self.newsMenu showNewsMenu];
-    //回调编辑好的兴趣标签
-    [self.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
-        //给segeview标签数组赋值
-        _segView.items = itemArray;
-    }];
-}
+    if (kObjectIsEmpty(self.labelnameArr)) {
+        lableModel *model = [[lableModel alloc] init];
+        for (model in self.labelArr) {
+            [self.labelnameArr addObject:model.name];
+        }
+    }
+    __weak typeof(self) weakSelf = self;
+    sheetMenu.mySubjectArray = self.labelnameArr;
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_labels_rand?limit=10&type=3"]
+                                                 parameters:nil
+                                                    success:^(id obj) {
+                                                        
+                                                        NSMutableArray *labArr = [[NSMutableArray alloc] init];
+                                                        NSArray *arr = obj[@"data"];
+                                                        NSDictionary *dict = @{
+                                                                               @"label_name":@""
+                                                                               };
+                                                        for (dict in arr) {
+                                                            [labArr addObject:dict[@"label_name"]];
+                                                        }
+                                                        sheetMenu.recommendSubjectArray = labArr;
+                                                        
+                                                        [weakSelf.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
+                                                            //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
+                                                        }];
+                                                        
+                                                        [weakSelf.newsMenu showNewsMenu];
+                                                        //回调编辑好的兴趣标签
+                                                        [weakSelf.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
+                                                            //给segeview标签数组赋值
+                                                            
+                                                            weakSelf.segment.reloadTitleArr = itemArray;
+                                                            [weakSelf.segment reloadData];
+                                                            self.labelnameArr = itemArray;
+                                                        }];
+                                                    }
+                                                       fail:^(NSError *error) {
+                                                           
+                                                       }];
 
-#pragma mark - segement代理方法 -
-- (void)changeSegmentAtIndex:(NSInteger)index
-{
-    [_collectView selectIndex:index];
-}
-
-- (void)flipToIndex:(NSInteger)index
-{
-    [_segView selectIndex:index];
 }
 
 #pragma mark - 搜索控制器Delegate -

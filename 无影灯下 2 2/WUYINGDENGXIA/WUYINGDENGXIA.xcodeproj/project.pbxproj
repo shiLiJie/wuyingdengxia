@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0416907120B3DBDD00684C97 /* DFSegmentHeadView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416907020B3DBDD00684C97 /* DFSegmentHeadView1.m */; };
+		0416907420B3DBF900684C97 /* DFSegmentView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416907320B3DBF900684C97 /* DFSegmentView1.m */; };
 		0423C3E420070F6F005E3F9D /* PastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423C3E220070F6F005E3F9D /* PastViewController.m */; };
 		0423C3E520070F6F005E3F9D /* PastViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0423C3E320070F6F005E3F9D /* PastViewController.xib */; };
 		0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423C3E9200711E6005E3F9D /* MeetingNewCell.m */; };
@@ -220,6 +222,8 @@
 		04816B8C20B26B3000EF9458 /* MDMultipleSegmentView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B8B20B26B3000EF9458 /* MDMultipleSegmentView1.m */; };
 		04816B8F20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B8E20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m */; };
 		04816B9220B2C13500EF9458 /* MDMultipleSegmentViewCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B9120B2C13500EF9458 /* MDMultipleSegmentViewCell1.m */; };
+		04816B9820B2E2FC00EF9458 /* DFSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B9620B2E2FB00EF9458 /* DFSegmentView.m */; };
+		04816B9920B2E2FC00EF9458 /* DFSegmentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04816B9720B2E2FB00EF9458 /* DFSegmentHeadView.m */; };
 		0481795B2068C5BC00326E28 /* AddSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048179592068C5BC00326E28 /* AddSheetViewController.m */; };
 		0481795C2068C5BC00326E28 /* AddSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0481795A2068C5BC00326E28 /* AddSheetViewController.xib */; };
 		04849083200EE2D000D0ACF1 /* AnswerTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04849081200EE2D000D0ACF1 /* AnswerTableVC.m */; };
@@ -354,6 +358,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0416906F20B3DBDD00684C97 /* DFSegmentHeadView1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DFSegmentHeadView1.h; sourceTree = "<group>"; };
+		0416907020B3DBDD00684C97 /* DFSegmentHeadView1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DFSegmentHeadView1.m; sourceTree = "<group>"; };
+		0416907220B3DBF900684C97 /* DFSegmentView1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DFSegmentView1.h; sourceTree = "<group>"; };
+		0416907320B3DBF900684C97 /* DFSegmentView1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DFSegmentView1.m; sourceTree = "<group>"; };
 		0423C3E120070F6F005E3F9D /* PastViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PastViewController.h; sourceTree = "<group>"; };
 		0423C3E220070F6F005E3F9D /* PastViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PastViewController.m; sourceTree = "<group>"; };
 		0423C3E320070F6F005E3F9D /* PastViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PastViewController.xib; sourceTree = "<group>"; };
@@ -724,6 +732,10 @@
 		04816B8E20B26C1C00EF9458 /* MDMultipleSegmentLayout1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMultipleSegmentLayout1.m; sourceTree = "<group>"; };
 		04816B9020B2C13500EF9458 /* MDMultipleSegmentViewCell1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMultipleSegmentViewCell1.h; sourceTree = "<group>"; };
 		04816B9120B2C13500EF9458 /* MDMultipleSegmentViewCell1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMultipleSegmentViewCell1.m; sourceTree = "<group>"; };
+		04816B9420B2E2FA00EF9458 /* DFSegmentHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFSegmentHeadView.h; sourceTree = "<group>"; };
+		04816B9520B2E2FB00EF9458 /* DFSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFSegmentView.h; sourceTree = "<group>"; };
+		04816B9620B2E2FB00EF9458 /* DFSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFSegmentView.m; sourceTree = "<group>"; };
+		04816B9720B2E2FB00EF9458 /* DFSegmentHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFSegmentHeadView.m; sourceTree = "<group>"; };
 		048179582068C5BC00326E28 /* AddSheetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSheetViewController.h; sourceTree = "<group>"; };
 		048179592068C5BC00326E28 /* AddSheetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSheetViewController.m; sourceTree = "<group>"; };
 		0481795A2068C5BC00326E28 /* AddSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddSheetViewController.xib; sourceTree = "<group>"; };
@@ -1071,6 +1083,7 @@
 		04372A6A1FFE1E5000D0762C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04816B9320B2E2F100EF9458 /* DFSegment */,
 				0434F97F209C66E300F90FE5 /* web */,
 				048EEFD52004644B00C6510B /* 标签 */,
 				0457810F1FFF17710098D6FC /* 导航标签 */,
@@ -1976,6 +1989,21 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		04816B9320B2E2F100EF9458 /* DFSegment */ = {
+			isa = PBXGroup;
+			children = (
+				04816B9420B2E2FA00EF9458 /* DFSegmentHeadView.h */,
+				04816B9720B2E2FB00EF9458 /* DFSegmentHeadView.m */,
+				04816B9520B2E2FB00EF9458 /* DFSegmentView.h */,
+				04816B9620B2E2FB00EF9458 /* DFSegmentView.m */,
+				0416906F20B3DBDD00684C97 /* DFSegmentHeadView1.h */,
+				0416907020B3DBDD00684C97 /* DFSegmentHeadView1.m */,
+				0416907220B3DBF900684C97 /* DFSegmentView1.h */,
+				0416907320B3DBF900684C97 /* DFSegmentView1.m */,
+			);
+			path = DFSegment;
+			sourceTree = "<group>";
+		};
 		04856183207B32CE00D37B6B /* ZZHotKeysMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -2830,6 +2858,7 @@
 				0478D34E2011890A00FB1696 /* NSDate+BRAdd.m in Sources */,
 				048EEFDC2004759200C6510B /* ZZNewsSheetItem.m in Sources */,
 				04E79441207F781E00F9A21A /* ZZNewsSheetItem1.m in Sources */,
+				04816B9820B2E2FC00EF9458 /* DFSegmentView.m in Sources */,
 				047E96EA1FFCC4C00062F1E1 /* InforViewController.m in Sources */,
 				04E79442207F781E00F9A21A /* ZZNewsSheetMenu1.m in Sources */,
 				047E967C1FFCC2790062F1E1 /* MBProgressHUD+BYHUDTools.m in Sources */,
@@ -2978,6 +3007,7 @@
 				047960A920A17B3B00373D9F /* huiguDetailModel.m in Sources */,
 				047305A820883617008FA1C5 /* UserInfoModel.m in Sources */,
 				04372A6F1FFE1E6A00D0762C /* HW3DBannerView.m in Sources */,
+				04816B9920B2E2FC00EF9458 /* DFSegmentHeadView.m in Sources */,
 				045C35232011A06000B128CD /* MyDetailViewController.m in Sources */,
 				043E2D4D2073681500C68835 /* SearchResultVcViewController.m in Sources */,
 				0487A141206382DF00198B33 /* DragCellCollectionView.m in Sources */,
@@ -3004,10 +3034,12 @@
 				04C704CD208487370057AD75 /* XiaoxiDetailVc.m in Sources */,
 				047E969F1FFCC2870062F1E1 /* UIImage+animatedGIF.m in Sources */,
 				0487A137206382D500198B33 /* HX_PhotoPreviewViewCell.m in Sources */,
+				0416907420B3DBF900684C97 /* DFSegmentView1.m in Sources */,
 				04D0CF5C20995B73005FBEBC /* bannermodel.m in Sources */,
 				046BEB43207E0493006F0AE8 /* XuyuanDetailVc.m in Sources */,
 				047E961E1FFCBDEF0062F1E1 /* main.m in Sources */,
 				04D0F0792080A6DB0098494C /* RenzhengResultVc.m in Sources */,
+				0416907120B3DBDD00684C97 /* DFSegmentHeadView1.m in Sources */,
 				047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */,
 				042F738E207248F8006110B4 /* NSBundle+PYSearchExtension.m in Sources */,
 				04EDD78820AE99B000EC0F0E /* ChooseCarGCell.m in Sources */,

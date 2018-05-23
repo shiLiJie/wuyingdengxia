@@ -13,8 +13,6 @@
 #import "SearchBarEffectController.h"
 #import "HW3DBannerView.h"
 #import "DetailTableViewController.h"
-#import "MDMultipleSegmentView1.h"
-#import "MDFlipCollectionView.h"
 #import "ZZNewsSheetMenu.h"
 #import "PageDetailViewController.h"
 #import "PublicPageViewController.h"
@@ -29,20 +27,15 @@
 #import "bannerResultvc.h"
 #import "hotKeyModel.h"
 
+#import "DFSegmentView.h"
+
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
-                                    MDMultipleSegmentView1Deletegate,
-                                    MDFlipCollectionViewDelegate,
                                     JohnScrollViewDelegate,
                                     PYSearchViewControllerDelegate,
-                                    DiscussCollectionDelegate
+                                    DiscussCollectionDelegate,DFSegmentViewDelegate
                                     >
-
-{
-    MDMultipleSegmentView1 *_segView;    //标签视图
-    MDFlipCollectionView *_collectView; //标签视图内容
-}
 
 //顶部navbar搜索栏
 @property(nonatomic, strong) UISearchBar * searchBar;
@@ -56,9 +49,12 @@
 @property (nonatomic, strong) DiscussCollectionView *discuss;
 //添加加号➕按钮
 @property (nonatomic, strong) UIButton *addMenuBtn;
-//获取标签数组
+//获取标签模型数组
 @property (nonatomic, strong) NSArray *labelArr;
+//获取标签名称数组
+@property (nonatomic, strong) NSMutableArray *labelnameArr;
 
+@property (nonatomic, strong) DFSegmentView *segment;
 
 
 @end
@@ -100,6 +96,7 @@
 //初始化数组
 -(void)addArr{
     self.labelArr = [[NSArray alloc] init];
+    self.labelnameArr = [[NSMutableArray alloc] init];
 }
 
 -(DetailTableViewController *)tablecontroller:(NSString *)lable{
@@ -232,66 +229,78 @@
     }];
 }
 
+
+#pragma mark - segement代理 -
+- (UIViewController *)superViewController {
+    
+    return self;
+}
+
+- (UIViewController *)subViewControllerWithIndex:(NSInteger)index {
+    
+    
+//    lableModel *model = [[lableModel alloc] init];
+//    NSMutableArray *muArr = [[NSMutableArray alloc] init];
+//    for (model in self.labelArr) {
+//        [muArr addObject:model.key_name];
+//    }
+
+    DetailTableViewController * baseVC = [self tablecontroller:self.segment.reloadTitleArr[index]];
+    
+    return baseVC;
+}
+
+
+- (void)headTitleSelectWithIndex:(NSInteger)index {
+    
+    //  在这里可以获取到当前的baseViewController
+
+}
+
 //添加segview标签控制器
 -(void)addSegView{
     
-    _segView = [[MDMultipleSegmentView1 alloc] init];
-    _segView.delegate =  self;
-    _segView.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width-segViewHigh, segViewHigh);
+
+    self.segment = [DFSegmentView new];
     
+    self.segment.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -CGRectGetMaxY(self.scrollView.frame)-59);
+    
+    [self.view addSubview:self.segment];
+
+    self.segment.delegate = self;
+
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labelList?user_id=%@&type=1",user.userid]]
-                                                parameters:nil 
-                                                   success:^(id obj) {
-        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-
-            NSArray *arr = obj[@"data"];
-            NSMutableArray *arrayM = [NSMutableArray array];
-            for (int i = 0; i < arr.count; i ++) {
-                NSDictionary *dict = arr[i];
-                [arrayM addObject:[lableModel lableWithDict:dict]];
-                
-            }
-            self.labelArr= arrayM;
-            lableModel *model = [[lableModel alloc] init];
-            NSMutableArray *muArr = [[NSMutableArray alloc] init];
-            for (model in self.labelArr) {
-                [muArr addObject:model.key_name];
-            }
-            _segView.items = muArr;
-
-            //创建标签下table控制器
-            NSMutableArray *tableArr = [[NSMutableArray alloc] init];
-            for (int i = 0; i < muArr.count; i++) {
-                [tableArr addObject:[self tablecontroller:muArr[i]]];
-            }
-            NSArray *tablearr = tableArr;
-            if (kDevice_Is_iPhoneX) {
-                _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                                      CGRectGetMaxY(_segView.frame)+78,
-                                                                                      Main_Screen_Width,
-                                                                                      Main_Screen_Height - CGRectGetMaxY(_segView.frame)+33 - 34)
-                                                                 withArray:tablearr];
-            }else{
-                _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                                      CGRectGetMaxY(_segView.frame)+78,
-                                                                                      Main_Screen_Width,
-                                                                                      Main_Screen_Height - CGRectGetMaxY(_segView.frame)+33)
-                                                                 withArray:tablearr];
-            }
-            
-            _collectView.delegate = self;
-            [self.view addSubview:_collectView];
-            
-        }else{
-            [MBProgressHUD showSuccess:obj[@"msg"]];
-        }
-    } fail:^(NSError *error) {
-        
-    }];
-    [self.view addSubview:_segView];
     
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labels?userid=%@&type=1",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSArray *arr = obj[@"data"];
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < arr.count; i ++) {
+                                                               NSDictionary *dict = arr[i];
+                                                               [arrayM addObject:[lableModel lableWithDict:dict]];
+
+                                                           }
+                                                           self.labelArr= arrayM;
+                                                           lableModel *model = [[lableModel alloc] init];
+                                                           NSMutableArray *muArr = [[NSMutableArray alloc] init];
+                                                           for (model in self.labelArr) {
+                                                               [muArr addObject:model.name];
+                                                           }
+
+                                                           self.segment.reloadTitleArr = muArr;
+                                                           [self.segment reloadData];
+                                                           
+                                                       }else{
+                                                           [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                       }
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
+
     //添加加号➕按钮
     self.addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh)];
 //    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
@@ -314,7 +323,7 @@
     // 设置最小行间距
     layout.minimumLineSpacing = 15 ;
     // 设置最小列间距
-    self.discuss = [[DiscussCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segView.frame), kScreen_Width, 78) collectionViewLayout:layout];
+    self.discuss = [[DiscussCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, kScreen_Width, 78) collectionViewLayout:layout];
     self.discuss.backgroundColor = RGB(248, 248, 248);
     self.discuss.delegate1 = self;
     [self.view addSubview:self.discuss];
@@ -333,13 +342,8 @@
         PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
         [self.navigationController pushViewController:publicPage animated:YES];
     }else{
-        __weak typeof(self) weakSelf = self;
         LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
-//            if (result) {
-//                [weakSelf.navigationController popViewControllerAnimated:YES];
-//                PublicPageViewController *publicPage = [[PublicPageViewController alloc] init];
-//                [weakSelf.navigationController pushViewController:publicPage animated:YES];
-//            }
+
         }];
         [self.navigationController pushViewController:loginVc animated:YES];
     }
@@ -407,7 +411,6 @@
 {
     //先隐藏标签视图
     [self.newsMenu dismissNewsMenu];
-//    [self.newsMenu setRecommentSubject];
     
     __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_hotWords"]
@@ -480,45 +483,51 @@
 //弹出标签管理视图
 -(void)addMenuBtnClick{
     
+    
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu];
     self.newsMenu = sheetMenu;
+    self.newsMenu.pageOrqa = @"1";
     
-    lableModel *model = [[lableModel alloc] init];
-    NSMutableArray *muArr = [[NSMutableArray alloc] init];
-    for (model in self.labelArr) {
-        [muArr addObject:model.key_name];
+    if (kObjectIsEmpty(self.labelnameArr)) {
+        lableModel *model = [[lableModel alloc] init];
+        for (model in self.labelArr) {
+            [self.labelnameArr addObject:model.name];
+        }
     }
-    
-    sheetMenu.mySubjectArray = muArr;
-    sheetMenu.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
-    
-//    sheetMenu.mySubjectArray = @[@"科技1",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
-//    sheetMenu.recommendSubjectArray = @[@"体育科技科技",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
-//    sheetMenu.recommentBlock = ^{
-//        sheetMenu.recommendSubjectArray = @[@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
-//    };
-    
-//    [sheetMenu setRecommentSubject];
-    //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
-    [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
-//        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
-    }];
-    
-    [self.newsMenu showNewsMenu];
-    //回调编辑好的兴趣标签
-    [self.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
-        //给segeview标签数组赋值
-        _segView.items = itemArray;
-    }];
-    
-    
-//    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0/*延迟执行时间*/ * NSEC_PER_SEC));
-//    
-//    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-//        sheetMenu.recommendSubjectArray = @[@"666",@"军事",@"音乐科技科技",@"电影",@"中国风科技",@"摇滚",@"小说",@"梦想",@"机器科技",@"电脑"].mutableCopy;
-//        [sheetMenu setRecommentSubject];
-//    });
-    
+    __weak typeof(self) weakSelf = self;
+    sheetMenu.mySubjectArray = self.labelnameArr;
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_labels_rand?limit=10&type=1"]
+                                                 parameters:nil
+                                                    success:^(id obj) {
+                                                        
+                                                        NSMutableArray *labArr = [[NSMutableArray alloc] init];
+                                                        NSArray *arr = obj[@"data"];
+                                                        NSDictionary *dict = @{
+                                                                               @"label_name":@""
+                                                                               };
+                                                        for (dict in arr) {
+                                                            [labArr addObject:dict[@"label_name"]];
+                                                        }
+                                                        sheetMenu.recommendSubjectArray = labArr;
+                                                        
+                                                        [weakSelf.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
+                                                            //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
+                                                        }];
+                                                        
+                                                        [weakSelf.newsMenu showNewsMenu];
+                                                        //回调编辑好的兴趣标签
+                                                        [weakSelf.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
+                                                            //给segeview标签数组赋值
+                                                            
+                                                            weakSelf.segment.reloadTitleArr = itemArray;
+                                                            [weakSelf.segment reloadData];
+                                                            weakSelf.labelnameArr = itemArray;
+                                                        }];
+                                                    }
+                                                       fail:^(NSError *error) {
+                                                           
+                                                       }];
+ 
 }
 
 #pragma mark - 讨论视图代理方法 -
@@ -550,19 +559,10 @@
     }
 }
 
-#pragma mark - segement代理方法 -
-- (void)changeSegmentAtIndex1:(NSInteger)index
-{
-    [_collectView selectIndex:index];
-}
-
-- (void)flipToIndex:(NSInteger)index
-{
-    [_segView selectIndex:index];
-}
-
 #pragma mark - DetailTableViewController代理方法 -
 - (void)johnScrollViewDidScroll:(CGFloat)scrollY{
+    
+    
     CGFloat headerViewY;
     if (scrollY > 0) {
         
@@ -574,14 +574,15 @@
             headerViewY = -scrollY + 75;
         }
         
-        if (scrollY > bannerHigh) {
+        if (scrollY > bannerHigh +12) {
             if (kDevice_Is_iPhoneX) {
-                headerViewY = -bannerHigh + 80;
+                headerViewY = -bannerHigh + 78;
             }else{
-                headerViewY = -bannerHigh + 64;
+                headerViewY = -bannerHigh + 63;
             }
-            
         }
+        
+        
     }else{
         if (kDevice_Is_iPhoneX) {
             headerViewY = 90;
@@ -593,14 +594,17 @@
             [self.scrollView createTimer];//滚回来banner定时器再次启动
         }
     }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.scrollView.frame = CGRectMake(0,headerViewY, Main_Screen_Width, bannerHigh);
-        _segView.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame), Main_Screen_Width, segViewHigh);
-        self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
-        _discuss.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame), Main_Screen_Width, 78);
-        _collectView.frame = CGRectMake(0, CGRectGetMaxY(_segView.frame)+78, Main_Screen_Width, Main_Screen_Height - CGRectGetMaxY(self.scrollView.frame));
-        [self.scrollView updateViewFrameSetting];
         
+
+        self.scrollView.frame = CGRectMake(0,headerViewY, Main_Screen_Width, bannerHigh);
+        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-TopBarHeight);
+        self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
+        self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+//        _collectView.frame = CGRectMake(0, CGRectGetMaxY(self.segment.frame)+78, Main_Screen_Width, Main_Screen_Height - CGRectGetMaxY(self.scrollView.frame));
+//        [self.scrollView updateViewFrameSetting];
+//        [self.addMenuBtn layoutIfNeeded];
     });
 }
 

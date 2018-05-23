@@ -78,21 +78,24 @@
 
 //获取验证码
 - (IBAction)getVerif:(UIButton *)sender {
-    
+    self.verifBtn.userInteractionEnabled = NO;
     //发送微信绑定验证码
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_verifyPhone_wechat?userphone=%@",self.phoneField.text]]
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                           
+                                                           self.verifBtn.userInteractionEnabled = YES;
                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
                                                            //改变验证码按钮样式
                                                            [self openCountdown];
                                                        }else{
                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                           self.verifBtn.userInteractionEnabled = YES;
                                                        }
         
-    } fail:^(NSError *error) {
+    }
+                                                      fail:^(NSError *error) {
+                                                          self.verifBtn.userInteractionEnabled = YES;
         
     }];
 
