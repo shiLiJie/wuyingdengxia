@@ -285,6 +285,7 @@ typedef enum _chooseType{
 //选择标签按钮点击方法
 - (IBAction)chooseSheetBtnClick:(UIButton *)sender {
     AddSheetViewController *vc = [[AddSheetViewController alloc] init];
+    vc.allLabArr = self.labelArr;
     [self.navigationController pushViewController:vc animated:YES];
     
     __weak typeof(self) weakSelf = self;

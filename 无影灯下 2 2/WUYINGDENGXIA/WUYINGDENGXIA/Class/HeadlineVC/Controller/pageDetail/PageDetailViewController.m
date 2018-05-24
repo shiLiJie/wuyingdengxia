@@ -228,7 +228,8 @@
         WXMediaMessage * message = [WXMediaMessage message];
         message.title = self.model.article_title;
         message.description = self.model.article_content;
-        //    [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
+        [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
+//        [message setThumbImage:GetImage(@"tx")];
         
         WXWebpageObject * webpageObject = [WXWebpageObject object];
         webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid];

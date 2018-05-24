@@ -496,6 +496,11 @@
     }
     __weak typeof(self) weakSelf = self;
     sheetMenu.mySubjectArray = self.labelnameArr;
+    //通知主线程刷新
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //回调或者说是通知主线程刷新，
+        [self.newsMenu showNewsMenu];
+    });
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_labels_rand?limit=10&type=1"]
                                                  parameters:nil
                                                     success:^(id obj) {
@@ -510,23 +515,25 @@
                                                         }
                                                         sheetMenu.recommendSubjectArray = labArr;
                                                         
-                                                        [weakSelf.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
-                                                            //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
-                                                        }];
                                                         
-                                                        [weakSelf.newsMenu showNewsMenu];
-                                                        //回调编辑好的兴趣标签
-                                                        [weakSelf.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
-                                                            //给segeview标签数组赋值
-                                                            
-                                                            weakSelf.segment.reloadTitleArr = itemArray;
-                                                            [weakSelf.segment reloadData];
-                                                            weakSelf.labelnameArr = itemArray;
-                                                        }];
                                                     }
                                                        fail:^(NSError *error) {
                                                            
                                                        }];
+    
+    [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
+        //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
+    }];
+    
+    
+    //回调编辑好的兴趣标签
+    [self.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
+        //给segeview标签数组赋值
+        
+        self.segment.reloadTitleArr = itemArray;
+        [self.segment reloadData];
+        self.labelnameArr = itemArray;
+    }];
  
 }
 

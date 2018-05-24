@@ -18,4 +18,7 @@ typedef void(^clossViewBlock)(NSMutableArray *itemArray);
 //回调数组
 @property(nonatomic,copy)  clossViewBlock clossviewblock;
 
+//存放自定义标签的数组
+@property (nonatomic, strong) NSMutableArray *allLabArr;
+
 @end

@@ -127,7 +127,7 @@
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_meeting_byid?meet_id=%@",self.meetId]]
                                                 parameters:nil
                                                    success:^(id obj) {
-//                                                       NSLog(@"%@",obj);
+                                                       
                                                        NSDictionary *dict = obj[@"data"];
                                                        self.meetdetailModel = [meetingDetailModel meedetailtWithDict:dict];
                                                        //设置视图内容

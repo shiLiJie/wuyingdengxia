@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ZZNewsSheetConfig.h"
 
+typedef enum _chooseSheetType{
+    
+    nomalType = 0,//标题类型
+    postType    //内容类型
+    
+} chooseSheetType;
+
  typedef   void(^newsSheetBlock)(ZZNewsSheetConfig *);
 
 typedef void(^clossViewBlock)(NSMutableArray *itemArray);
@@ -39,6 +46,9 @@ typedef void(^recommentBlock)(void);
 @property(nonatomic,copy)  recommentBlock recommentBlock;
 //文章调用还是问答调用
 @property (nonatomic,copy) NSString *pageOrqa;
+
+//选择是首页标签还是发布文章的标签
+@property (nonatomic, assign) chooseSheetType choosetype;
 
 //显示
 - (void)showNewsMenu;

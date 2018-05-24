@@ -32,32 +32,28 @@
     
     self.countt = 5;
     
-    
     self.userArr = [[NSArray alloc] init];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    
-    
-    
     self.tableView.estimatedRowHeight = 300;//估算高度
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     
+//    //刷新
+//    __weak typeof(self) weakSelf = self;
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        //刷新时候，需要执行的代码。一般是请求最新数据，请求成功之后，刷新列表
+//        [weakSelf loadNewData];
+//    }];
+//
+//    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        //刷新时候，需要执行的代码。一般是请求更多数据，请求成功之后，刷新列表
+//        [weakSelf loadNoreData];
+//    }];
     
-    //刷新
-    __weak typeof(self) weakSelf = self;
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //刷新时候，需要执行的代码。一般是请求最新数据，请求成功之后，刷新列表
-        [weakSelf loadNewData];
-    }];
-    
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        //刷新时候，需要执行的代码。一般是请求更多数据，请求成功之后，刷新列表
-        [weakSelf loadNoreData];
-    }];
 }
 
 
@@ -129,7 +125,7 @@
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_mycollection?userid=%@",user.userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
-                                                       NSLog(@"%@",obj);
+//                                                       NSLog(@"%@",obj);
                                                        NSDictionary *dictObj = obj[@"data"];
                                                        NSArray *wenzhangArr = dictObj[@"article"];
                                                        if (IS_NULL_CLASS(wenzhangArr)) {
@@ -195,7 +191,7 @@
     pageModel *page = [[pageModel alloc] init];
     page = self.pageArr[indexPath.section];
 
-    NSLog(@"%@",page.article_img_path);
+//    NSLog(@"%@",page.article_img_path);
 
     NSArray *array = [page.article_img_path componentsSeparatedByString:@","]; //字符串按照【分隔成数组
     if (array.count == 0) {

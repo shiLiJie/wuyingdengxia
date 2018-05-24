@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *sueBtn;
 //自定义标签textfield
 @property (weak, nonatomic) IBOutlet UITextField *addSheetTextfield;
+//存放自定义标签的数组
+@property (nonatomic, strong) NSMutableArray *customLabArr;
+
 
 @end
 
@@ -21,6 +24,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.customLabArr = [[NSMutableArray alloc] init];
+    
     //输入框设置代理
     self.addSheetTextfield.delegate = self;
     
@@ -37,12 +43,16 @@
     [self addSheetUi];
     //监听自定义标签文本输入
     [self addTargetMethod];
+    
+
 }
 
 //- (void)viewWillAppear:(BOOL)animated {
 //    [super viewWillAppear:animated];
 //    [IQKeyboardManager sharedManager].enable = NO;
 //}
+
+
 -(void)viewWillDisappear:(BOOL)animated{
     //取消标签选择
     [self.newsMenu dismissNewsMenu];
@@ -65,17 +75,18 @@
 }
 //左上返回按钮
 -(void)left_button_event:(UIButton *)sender{
-    
+    [self.newsMenu dismissNewsMenu];
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 //添加标签视图
 -(void)addSheetUi{
     //初始化
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu1];
     self.newsMenu = sheetMenu;
-    sheetMenu.mySubjectArray = @[@"科技科技科技科",@"科技2",@"科技3",@"科技4",@"科技5"].mutableCopy;
+    sheetMenu.mySubjectArray = self.allLabArr;
     sheetMenu.recommendSubjectArray = @[@"体育",@"军事",@"音乐",@"电影",@"中国风",@"摇滚",@"小说",@"梦想",@"机器",@"电脑"].mutableCopy;
-    
+    sheetMenu.choosetype = postType;
     //设置视图界面,从新设置的时候 recommendSubjectArray 数组从新定义,然后在调用次方法
     [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
         cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
@@ -85,15 +96,37 @@
     //配置界面内容
     self.newsMenu.closeMenuButton.hidden = YES;
     self.newsMenu.editMenuButton.frame = CGRectMake(kScreen_Width - 70, 0,50, 30);
-    self.newsMenu.myTitleLab1.text = @"已选标签";
-    self.newsMenu.recommentTitleLab.text = @"推荐标签";
+//    self.newsMenu.myTitleLab1.text = @"已选标签";
+//    self.newsMenu.recommentTitleLab.text = @"推荐标签";
     
+    __weak typeof(self) weakSelf = self;
     //回调编辑好的兴趣标签
     [self.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
-        if (self.clossviewblock != nil) {
-            self.clossviewblock(itemArray);
+        if (weakSelf.clossviewblock != nil) {
+            weakSelf.clossviewblock(itemArray);
+            weakSelf.allLabArr = itemArray;
         }
     }];
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_labels_rand?limit=10&type=1"]
+                                                 parameters:nil
+                                                    success:^(id obj) {
+                                                        
+                                                        NSMutableArray *labArr = [[NSMutableArray alloc] init];
+                                                        NSArray *arr = obj[@"data"];
+                                                        NSDictionary *dict = @{
+                                                                               @"label_name":@""
+                                                                               };
+                                                        for (dict in arr) {
+                                                            [labArr addObject:dict[@"label_name"]];
+                                                        }
+                                                        weakSelf.newsMenu.recommendSubjectArray = labArr;
+                                                        [weakSelf.newsMenu layoutSubviews];
+
+                                                    }
+                                                       fail:^(NSError *error) {
+                                                           
+                                                       }];
     
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
     //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
@@ -114,11 +147,24 @@
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
+
+
+/**
+ 自定义标签点击确定按钮
+
+ @param sender sender description
+ */
 - (IBAction)sureBtnClick:(UIButton *)sender {
-    
-    
-    
+
     if (!kStringIsEmpty(self.addSheetTextfield.text)) {
+        
+        [self.customLabArr addObject:self.addSheetTextfield.text];
+        
+        [self.newsMenu.mySubjectArray addObject:self.addSheetTextfield.text];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ADDLABEL" object:self.addSheetTextfield.text];
+        
+
         
 //        UserInfoModel *user = [UserInfoModel shareUserModel];
 //        [user loadUserInfoFromSanbox];
@@ -128,6 +174,11 @@
 //        } fail:^(NSError *error) {
 //            
 //        }];
+        
+        
+        [self.addSheetTextfield resignFirstResponder];
+        self.addSheetTextfield.text = @"";
+        [self textField1TextChange:self.addSheetTextfield];
     }
 }
 
@@ -136,7 +187,7 @@
     [self.addSheetTextfield addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
 }
 -(void)textField1TextChange:(UITextField *)textField{
-    NSLog(@"textField1 - 输入框内容改变,当前内容为: %@",textField.text);
+//    NSLog(@"textField1 - 输入框内容改变,当前内容为: %@",textField.text);
     if (textField.text.length) {
         self.sueBtn.userInteractionEnabled = YES;
         [self.sueBtn setTitleColor:RGB(19, 151, 255) forState:UIControlStateNormal];
@@ -164,6 +215,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+-(void)dealloc{
+    
+    
 }
 
 /*

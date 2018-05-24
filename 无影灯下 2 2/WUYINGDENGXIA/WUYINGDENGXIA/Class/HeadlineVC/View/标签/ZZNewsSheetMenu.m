@@ -26,6 +26,9 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 @property(nonatomic,weak)UIView  *mySubjectView;
 @property(nonatomic,strong)UIView  *recommendSubjectView;
 
+@property (nonatomic, strong) UIButton *searchBtn;
+
+
 
 @property(nonatomic,strong)NSMutableArray<ZZNewsSheetItem *> *mySubjectItemArray;
 @property(nonatomic,strong)NSMutableArray<ZZNewsSheetItem*> *recommendSubjectItemArray;
@@ -80,6 +83,9 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 }
 
 - (void)dismissNewsMenu{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     if (self.clossviewblock != nil) {
         self.clossviewblock(self.mySubjectArray);
     }
@@ -110,11 +116,31 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
         _placeHolderItem = [ZZNewsSheetItem new];
         
         self.ishuanyipi = NO;
+        
+        //用户投稿或者发表问题时自定义标签通知方法
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addLabel:) name:@"ADDLABEL" object:nil];
+        
         [self commit];
         
     }
     return self;
 }
+
+//用户投稿或者发表问题时自定义标签通知方法
+-(void)addLabel:(NSNotification *)noti{
+    
+//    NSLog(@"%@",self.mySubjectArray);
+    
+    NSString *info = [noti object];
+    NSMutableArray *muArr = [[NSMutableArray alloc] init];
+    muArr = self.mySubjectArray;
+    [muArr removeLastObject];
+    [muArr addObject:info];
+    self.mySubjectArray = muArr;
+    
+//    NSLog(@"%@",self.mySubjectArray);
+}
+
 
 +(instancetype)newsSheetMenu{
     CGFloat statuHeight =  [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -141,12 +167,12 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 - (void)setUp{
     [self setMainMemuNavaitem];
     
-    if (self.mySubjectArray.count <=0 || self.recommendSubjectArray <=0)
-        return;
-    
     [self setMySubject];
     [self setRecommentSubject];
     [self defaultConfing];
+    
+    if (self.mySubjectArray.count <=0 || self.recommendSubjectArray <=0)
+        return;
 }
 - (void)defaultConfing{
     self.hiddenAllCornerFlag = YES;
@@ -182,6 +208,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 //设置已有标签
 - (void)setMySubject{
     UIView *mySubjectView = [[UIView alloc]initWithFrame:CGRectZero];
+//    UIView *mySubjectView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 100)];
     mySubjectView.backgroundColor = [UIColor whiteColor];
     [self.newsSheetScrollView addSubview:mySubjectView];
     self.mySubjectView = mySubjectView;
@@ -311,23 +338,32 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    //投稿或者提问时添加标签才会出现的框
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, kScreen_Width-80, 35)];
-    [button setTitle:@"输入想要搜索标签的关键词" forState:UIControlStateNormal];
-    [button setTitleColor:RGB(173, 173, 173) forState:UIControlStateNormal];
-    [button setBackgroundColor:RGB(245, 245, 245)];
-    [button setImage:GetImage(@"Fill 1") forState:UIControlStateNormal];
-    button.titleLabel.font = SYSTEMFONT(12);
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    button.layer.cornerRadius = 17.5;//半径大小
-    button.layer.masksToBounds = YES;//是否切割
-    [self.newsSheetScrollView addSubview:button];
-    
+    if (self.choosetype == postType) {
+        //投稿或者提问时添加标签才会出现的框
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, kScreen_Width-80, 35)];
+        [button setTitle:@"输入想要搜索标签的关键词" forState:UIControlStateNormal];
+        [button setTitleColor:RGB(173, 173, 173) forState:UIControlStateNormal];
+        [button setBackgroundColor:RGB(245, 245, 245)];
+        [button setImage:GetImage(@"Fill 1") forState:UIControlStateNormal];
+        button.titleLabel.font = SYSTEMFONT(12);
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        button.layer.cornerRadius = 17.5;//半径大小
+        button.layer.masksToBounds = YES;//是否切割
+        self.searchBtn = button;
+        [self.newsSheetScrollView addSubview:self.searchBtn];
+    }
+
     self.newsSheetScrollView.frame = self.bounds;
     CGFloat navitemHeight = 30.0f;
-    self.menuNavitem.frame = CGRectMake(0, 45, self.bounds.size.width, navitemHeight);
+    
+    if (self.choosetype == postType){
+        self.menuNavitem.frame = CGRectMake(0, 45, self.bounds.size.width, navitemHeight);
+    }else{
+        self.menuNavitem.frame = CGRectMake(0, 14, self.bounds.size.width, navitemHeight);
+    }
+    
     self.closeMenuButton.frame = CGRectMake(self.bounds.size.width - 60, 0,50, self.menuNavitem.bounds.size.height);
     self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60 - 50, 0,50, self.menuNavitem.bounds.size.height);
     
@@ -339,6 +375,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     NSInteger column = [ZZNewsSheetConfig defaultCofing].sheetMaxColumn;
     CGFloat margin = 1.0 * (KScreenWidth - size.width * column)/(column + 1);
     lab.frame = CGRectMake(margin, 0, 100, self.menuNavitem.bounds.size.height);
+    
     self.myTitleLab1 = lab;
     [self.menuNavitem addSubview:self.myTitleLab1];
     
@@ -453,8 +490,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     CGFloat mySubHeight = titleHeight + 2 * margin + mySubRow * itemHeight + margin * (mySubRow - 1);
     self.mySubjectView.frame = CGRectMake(0,CGRectGetMaxY(self.menuNavitem.frame), KScreenWidth, mySubHeight);
     if (self.mySubjectItemArray.count <= 0) {
-        mySubHeight = 0.0f;
-        self.mySubjectView.frame = CGRectZero;
+        mySubHeight = 100.0f;
+        self.mySubjectView.frame = CGRectMake(0,CGRectGetMaxY(self.menuNavitem.frame), KScreenWidth, mySubHeight);
     }
     
     
@@ -471,6 +508,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     CGFloat recSubHeight =titleHeight + 2 * margin+ recSubRow * itemHeight + margin * (recSubRow - 1);
     self.recommentTitleLab.frame = self.myTitleLab.frame;
     CGFloat recOry = CGRectGetMaxY(self.mySubjectView.frame);
+    
     self.recommendSubjectView.frame = CGRectMake(0, recOry, KScreenWidth, recSubHeight);
     if (self.recommendSubjectItemArray.count <= 0) {
         recSubHeight = titleHeight;
