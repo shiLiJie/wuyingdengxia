@@ -50,6 +50,7 @@
         self.usertoken = dict[@"usertoken"];
         self.moon_cash = dict[@"moon_cash"];
         self.we_chat_id = dict[@"we_chat_id"];
+        self.user_birthday = dict[@"user_birthday"];
         
     }
     return self;

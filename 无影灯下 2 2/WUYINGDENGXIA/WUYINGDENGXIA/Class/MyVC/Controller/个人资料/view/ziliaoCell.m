@@ -25,11 +25,13 @@
     
 }
 
+
+
 -(void)addTargetMethod{
-    [self.textfield addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.textfield addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingDidEnd];
 }
 -(void)textField1TextChange:(UITextField *)textField{
-//    NSLog(@"textField1 - 输入框内容改变,当前内容为: %@",textField.text);
+    NSLog(@"textField1 - 输入框内容改变,当前内容为: %@",textField.text);
     self.ziliaoCellBlcok(textField.text, textField.tag);
     if (textField.text.length) {
         
@@ -40,11 +42,13 @@
 //认证按钮点击
 - (IBAction)renzhengClick:(UIButton *)sender {
 
+    [self.textfield resignFirstResponder];
     self.renzhengBlcok();
 }
 //点击头像
 - (IBAction)headImageClick:(UIButton *)sender {
 
+    [self.textfield resignFirstResponder];
     self.touxiangBlcok();
 }
 

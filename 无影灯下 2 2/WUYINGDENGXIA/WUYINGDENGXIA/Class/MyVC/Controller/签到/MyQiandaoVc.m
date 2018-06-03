@@ -36,6 +36,9 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     [super viewWillAppear:nil];
+    
+    //刷新UI
+    [self uploadUI];
 }
 
 - (void)viewDidLoad {
@@ -43,22 +46,26 @@
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     
     self.liwuAar = [[NSArray alloc] init];
-    UserInfoModel *user = [UserInfoModel shareUserModel];
-    [user loadUserInfoFromSanbox];
-    if (user.loginStatus) {
-        [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
-        self.yueliangbiLab.text = user.moon_cash !=nil ? user.moon_cash : @"0";
-
-    }else{
-        self.headImage.image = GetImage(@"tx");
-        self.yueliangbiLab.text = @"0";
-    }
+    
     //设置礼物列表
     [self setCollection];
     //切圆角
     [self setCornerRadiu];
     //获取礼物列表
     [self getLiwuList];
+}
+//刷新UI
+-(void)uploadUI{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+        self.yueliangbiLab.text = user.moon_cash !=nil ? user.moon_cash : @"0";
+        
+    }else{
+        self.headImage.image = GetImage(@"tx");
+        self.yueliangbiLab.text = @"0";
+    }
 }
 
 #pragma mark - UI -
@@ -120,17 +127,26 @@
     
     NSDictionary *dict = @{
                            @"userid":user.userid,
-                           @"type":@"2"
+                           @"type":@"1",
+                           @"toid":@"0"
                            };
     
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_my_sign?userid=%@&type=2",user.userid]]
-                                                 parameters:nil
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_sign"]
+                                                 parameters:dict
                                                     success:^(id obj) {
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-            
+            //签到成功添加五个月亮币
             [MBProgressHUD showSuccess:obj[@"msg"]];
+            user.moon_cash = [NSString stringWithFormat:@"%ld",[user.moon_cash integerValue] + 5];
+            [user saveUserInfoToSanbox];
+            [self.qiandaoBtn setTitle:@"已签到" forState:UIControlStateNormal];
+            [self uploadUI];
         }else{
-            [MBProgressHUD showError:obj[@"msg"]];
+            if ([obj[@"msg"] isEqualToString:@"今天你已经签过到了"]) {
+                [self.qiandaoBtn setTitle:@"已签到" forState:UIControlStateNormal];
+                [self uploadUI];
+            }
+            [MBProgressHUD showOneSecond:obj[@"msg"]];
         }
     } fail:^(NSError *error) {
         
@@ -164,9 +180,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (kDevice_Is_iPhoneX) {
-        return  CGSizeMake(kScreen_Width * 0.44,(kScreen_Height * 0.23));
+        return  CGSizeMake(kScreen_Width * 0.46,(kScreen_Height * 0.23));
     }else{
-        return  CGSizeMake(kScreen_Width * 0.44,(kScreen_Height * 0.28));
+        return  CGSizeMake(kScreen_Width * 0.46,(kScreen_Height * 0.28));
     }
     
 }

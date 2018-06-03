@@ -20,6 +20,8 @@ typedef enum _chooseSheetType{
 
 typedef void(^clossViewBlock)(NSMutableArray *itemArray);
 
+typedef void(^searchBlock)(void);
+
 typedef void(^recommentBlock)(void);
 
 @interface ZZNewsSheetMenu : UIView
@@ -44,6 +46,8 @@ typedef void(^recommentBlock)(void);
 
 @property(nonatomic,copy)  clossViewBlock clossviewblock;
 @property(nonatomic,copy)  recommentBlock recommentBlock;
+@property(nonatomic,copy)  searchBlock searchBlock;
+
 //文章调用还是问答调用
 @property (nonatomic,copy) NSString *pageOrqa;
 

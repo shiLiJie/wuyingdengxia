@@ -14,7 +14,7 @@
 @interface MyTougaoVc ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArr;
-
+@property (nonatomic, strong) UIImageView *imageview;
 @end
 
 @implementation MyTougaoVc
@@ -22,13 +22,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //获取我的投稿信息
-    [self getMytougaoInfo];
+
     
     self.dataArr = [[NSArray alloc] init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
+    
+    //获取我的投稿信息
+    [self getMytougaoInfo];
 }
 
 #pragma mark - UI -
@@ -68,6 +74,7 @@
 -(void)getMytougaoInfo{
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myarticle?userid=%@",user.userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
@@ -78,8 +85,8 @@
                                                            [arrayM addObject:[MyTougaoModel MytougaoWithDict:dict]];
                                                            
                                                        }
-                                                       self.dataArr= arrayM;
-                                                       [self.tableView reloadData];
+                                                       weakSelf.dataArr= [[arrayM reverseObjectEnumerator] allObjects];
+                                                       [weakSelf.tableView reloadData];
     }
                                                       fail:^(NSError *error) {
         
@@ -88,7 +95,16 @@
 
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArr.count;
+
+    if (self.dataArr.count == 0) {
+        
+        self.imageview.image = GetImage(@"wutougao");
+        self.imageview.hidden = NO;
+        return 0;
+    }else{
+        self.imageview.hidden = YES;
+        return self.dataArr.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

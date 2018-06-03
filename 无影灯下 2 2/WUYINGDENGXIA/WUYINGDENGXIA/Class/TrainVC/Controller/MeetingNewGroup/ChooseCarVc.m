@@ -37,12 +37,14 @@
     [super viewDidLoad];
     
     
-    
+    [MBProgressHUD showMessage:@"加载中..."];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
         // 处理耗时操作的代码块...
         [self setUpData];
         //通知主线程刷新
         dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
             [self CreateUI];
         });
     });
@@ -305,10 +307,12 @@
         self.tableview.userInteractionEnabled = NO;
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             
+//            [MBProgressHUD showMessage:@"加载中..."];
             weakSelf.zhanArr = [[weakSelf.zhanArr filteredArrayUsingPredicate:searchPredicate11] mutableCopy];
             [weakSelf setUpData];
             //通知主线程刷新
             dispatch_async(dispatch_get_main_queue(), ^{
+//                [MBProgressHUD hideHUD];
                 //回调或者说是通知主线程刷新，
                 [weakSelf.tableview reloadData];
                 weakSelf.tableview.userInteractionEnabled = YES;

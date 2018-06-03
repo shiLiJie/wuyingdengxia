@@ -21,6 +21,10 @@
 @property (weak, nonatomic) IBOutlet UIView *yuanjiaoview;
 
 @property (nonatomic,copy) NSString *inputStr;
+//收藏按钮
+@property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
+//是否收藏的标记
+@property (nonatomic, assign) BOOL isShoucang;
 
 
 @end
@@ -48,6 +52,8 @@
     
     //设置网页
     [self setWeb];
+    //问题详情
+    [self getQuestionDetail];
     
     //监听通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"WXShare" object:nil];
@@ -55,6 +61,35 @@
     if ([WXApi isWXAppInstalled]) {
         
     }
+}
+
+//问题详情
+-(void)getQuestionDetail{
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_byquesid?quesid=%@",self.questionModel.question_id]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSDictionary *dict = obj[@"data"];
+                                                           
+                                                           if (!kObjectIsEmpty(dict[@"is_collection"])) {
+                                                               if ([dict[@"is_collection"] isEqualToString:@"1"]) {
+                                                                   [self.shoucangBtn setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
+                                                                   self.isShoucang = YES;
+                                                               }else{
+                                                                   [self.shoucangBtn setImage:GetImage(@"shoucang") forState:UIControlStateNormal];
+                                                                   self.isShoucang = NO;
+                                                               }
+                                                           }
+                                                       }else{
+                                                           [MBProgressHUD showError:obj[@"msg"]];
+                                                       }
+                                                       
+    }
+                                                      fail:^(NSError *error) {
+        
+    }];
 }
 
 
@@ -66,7 +101,12 @@
     userContentController =[[WKUserContentController alloc]init];
     configuration.userContentController = userContentController;
     //wkweb
-    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    if (kDevice_Is_iPhoneX) {
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48-34)configuration:configuration];
+    }else{
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    }
+    
     _webView.UIDelegate = self;
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
@@ -108,7 +148,7 @@
 }
 
 -(NSMutableAttributedString *)setTitle{
-    return [self changeTitle:self.questionModel.question_title.length >0 ? self.questionModel.question_title : @"问题详情"];
+    return [self changeTitle:!kStringIsEmpty(self.questionModel.question_title) ? self.questionModel.question_title : @"问题详情"];
 //    return [self changeTitle:@"问题详情"];
 }
 
@@ -178,7 +218,7 @@
 - (IBAction)shoucang:(UIButton *)sender {
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    NSLog(@"%@",self.questionModel);
+
     NSDictionary *dic = @{
                           @"userid":user.userid,
                           @"toid":self.questionModel.question_id,
@@ -186,19 +226,38 @@
                           };
     
     __weak typeof(self) weakSelf = self;
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_collection"]
-                                                 parameters:dic
-                                                    success:^(id obj) {
-                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                            
-                                                            [sender setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
-                                                        }else{
-                                                            
+    if (!self.isShoucang) {
+        //收藏
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_collection"]
+                                                     parameters:dic
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                weakSelf.isShoucang = YES;
+                                                                [sender setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
+                                                            }else{
+                                                                
+                                                            }
                                                         }
-                                                    }
-                                                       fail:^(NSError *error) {
-                                                           
-                                                       }];
+                                                           fail:^(NSError *error) {
+                                                               
+                                                           }];
+    }else{
+        //取消收藏
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_cel_collect"]
+                                                     parameters:dic
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                weakSelf.isShoucang = NO;
+                                                                [sender setImage:GetImage(@"shoucang") forState:UIControlStateNormal];
+                                                            }else{
+                                                                
+                                                            }
+                                                        }
+                                                           fail:^(NSError *error) {
+                                                               
+                                                           }];
+    }
+    
 }
 - (IBAction)zhuanfa:(UIButton *)sender {
     

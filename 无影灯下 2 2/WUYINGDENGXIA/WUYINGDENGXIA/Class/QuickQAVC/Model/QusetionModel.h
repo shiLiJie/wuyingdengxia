@@ -28,6 +28,7 @@
 @property (nonatomic, copy) NSString *question_type_id;//
 @property (nonatomic, copy) NSString *user_id;//
 @property (nonatomic, copy) NSString *user_name;
+@property (nonatomic, copy) NSString *last_answer_time;
 
 
 + (instancetype)QusetionWithDict:(NSDictionary *)dict;

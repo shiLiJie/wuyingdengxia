@@ -93,10 +93,10 @@
     //不可投稿状态
     self.isEditor = NO;
     //切圆角
-    self.yueliangbibtn.layer.cornerRadius = 12;//半径大小
+    self.yueliangbibtn.layer.cornerRadius = 11.5;//半径大小
     self.yueliangbibtn.layer.masksToBounds = YES;//是否切割
     self.yueliangbibtn.layer.borderColor  = RGB(102, 102, 102).CGColor;
-    self.yueliangbibtn.layer.borderWidth = 0.5;
+    self.yueliangbibtn.layer.borderWidth = 1;
     //进来默认不匿名
     self.nimingBtn.on = NO;
     self.isNIMing = NO;
@@ -188,8 +188,13 @@
         
         //如果有图片
         if (self.imageArr.count > 0) {
+            //全局group
+            dispatch_group_t downloadGroup = dispatch_group_create();
             
             for (int i = 0; i<self.imageArr.count; i++) {
+                
+                dispatch_group_enter(downloadGroup);
+                
                 NSData *data = UIImagePNGRepresentation(self.imageArr[i]);
                 
                 [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
@@ -201,27 +206,40 @@
                                                         if ([dic[@"code"] isEqualToString:SucceedCoder]) {
                                                             [arr addObject:dic[@"data"][@"complete_url"]];
                                                             
-                                                            //上传完左右照片,提交投稿
-                                                            if (i == weakSelf.imageArr.count-1) {
-                                                                //发送投稿请求
-                                                                [weakSelf postQuestionWithUid:user.userid questags:questags img_path:arr];
-                                                            }
+//                                                            //上传完左右照片,提交投稿
+//                                                            if (i == weakSelf.imageArr.count-1) {
+//                                                                //发送投稿请求
+//                                                                NSString *string = [arr componentsJoinedByString:@","];
+//                                                                [weakSelf postQuestionWithUid:user.userid questags:questags img_path:string];
+//                                                            }
                                                             
                                                         }else{
                                                             [MBProgressHUD hideHUD];
-                                                            
                                                         }
+                                                        
+                                                        dispatch_group_leave(downloadGroup);
                                                     }
                                                     errorBlock:^(NSError *error) {
                                                         
                                                         [MBProgressHUD hideHUD];
                                                         
+                                                        dispatch_group_leave(downloadGroup);
+                                                        
                                                     }];
-                
+   
             }
+            
+            //for循环执行完毕,调用方法
+            dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+                
+                NSString *string = [arr componentsJoinedByString:@","];
+                [weakSelf postQuestionWithUid:user.userid questags:questags img_path:string];
+            });
+            
         }else{
             //没图片
-            [weakSelf postQuestionWithUid:user.userid questags:questags img_path:arr];
+            NSString *string = [arr componentsJoinedByString:@","];
+            [weakSelf postQuestionWithUid:user.userid questags:questags img_path:string];
         }
 
     }else{
@@ -237,7 +255,7 @@
  @param questags 标签数组
  @param imagearr 图片数组
  */
--(void)postQuestionWithUid:(NSString *)uid questags:(NSString *)questags img_path:(NSArray *)imagearr{
+-(void)postQuestionWithUid:(NSString *)uid questags:(NSString *)questags img_path:(NSString *)imagearr{
     
     NSDictionary *dict = @{
                            @"userid":uid,
@@ -265,7 +283,14 @@
                                                             QuestionResult.title = weakSelf.titleStr;
                                                             QuestionResult.detail = weakSelf.detailTextView.text;
                                                             QuestionResult.yueliang = [weakSelf.yueliangbibtn.titleLabel.text intValue] > 0 ? weakSelf.yueliangbibtn.titleLabel.text : @"0";
+                                                            
+                                                            //月亮币
+                                                            UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                            [user loadUserInfoFromSanbox];
+                                                            user.moon_cash = [NSString stringWithFormat:@"%d",[user.moon_cash intValue]-[QuestionResult.yueliang intValue]];
+                                                            [user saveUserInfoToSanbox];
                                                             [weakSelf.navigationController pushViewController:QuestionResult animated:YES];
+                                                            
                                                         }else{
                                                             [MBProgressHUD hideHUD];
                                                             [MBProgressHUD showError:@"提问失败"];
@@ -537,9 +562,18 @@
 //            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
 //        }else{
         if (kDevice_Is_iPhoneX) {
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            if (kDevice_Is_iPhoneX) {
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+            }else{
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            }
+            
         }else{
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            if (kDevice_Is_iPhoneX) {
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+            }else{
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            }
         }
 //
 //        }

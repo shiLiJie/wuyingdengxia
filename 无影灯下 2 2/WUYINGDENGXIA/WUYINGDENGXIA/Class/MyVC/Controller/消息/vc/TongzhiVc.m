@@ -8,10 +8,12 @@
 
 #import "TongzhiVc.h"
 #import "XiaoxiCell.h"
+#import "canhuiModel.h"
+#import "tuigaoModel.h"
 
 @interface TongzhiVc ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation TongzhiVc
@@ -26,7 +28,7 @@
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 3;
+    return self.dataArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -39,17 +41,27 @@
     static NSString * reuseID = @"XiaoxiCell";
     XiaoxiCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     
-    if (!cell) {
+//    if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"XiaoxiCell" owner:nil options:nil] firstObject];
-    }
-    cell.xiaoxiType = tuigaoType;
-    [cell setUpImage];
-    if (indexPath.row == 1) {
-        cell.xiaoxiType = canhuiType;
-        cell.xiaoxiTitle.text = @"参会通知";
+//    }
+    
+    NSDictionary *dict = self.dataArr[indexPath.row];
+    if ([dict[@"type"] isEqualToString:@"1"]) {
+        cell.xiaoxiTitle.text = @"退稿通知";
+        cell.xiaoxiDetail.text = dict[@"content"];
+        cell.xiaoxiType = tuigaoType;
         [cell setUpImage];
     }
-    if (indexPath.row == 2) {
+    else
+    
+    if ([dict[@"type"] isEqualToString:@"2"]) {
+        cell.xiaoxiType = canhuiType;
+        cell.xiaoxiTitle.text = @"参会通知";
+        cell.xiaoxiDetail.text = dict[@"content"];
+        [cell setUpImage];
+    }
+    else
+    {
         cell.xiaoxiType = wenjuanType;
         cell.xiaoxiTitle.text = @"问卷调查";
         [cell setUpImage];
@@ -61,8 +73,17 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    self.TongzhiVcBlcok(indexPath);
-    [self.delegate transIndex:indexPath];
+
+    NSDictionary *dict = self.dataArr[indexPath.row];
+    if ([dict[@"type"] isEqualToString:@"1"]){
+        
+        [self.delegate transIndex:indexPath isTuigao:YES dataDict:dict];
+        
+    }else{
+        
+        [self.delegate transIndex:indexPath isTuigao:NO dataDict:dict];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

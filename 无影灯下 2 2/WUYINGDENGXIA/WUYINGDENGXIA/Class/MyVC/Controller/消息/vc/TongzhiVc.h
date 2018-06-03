@@ -10,14 +10,19 @@
 //typedef void(^TongzhiVcBlcok) (NSIndexPath *index);
 @protocol TongzhiVcDelegate <NSObject>//协议
 
-- (void)transIndex:(NSIndexPath *)index;//协议方法
+- (void)transIndex:(NSIndexPath *)index isTuigao:(BOOL)istuigao dataDict:(NSDictionary *)dict;//协议方法
 
 @end
 
 @interface TongzhiVc : BaseViewController
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (nonatomic, assign) id<TongzhiVcDelegate> delegate;//代理属性
 
 //@property (nonatomic,assign)TongzhiVcBlcok TongzhiVcBlcok;
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
+
 
 @end

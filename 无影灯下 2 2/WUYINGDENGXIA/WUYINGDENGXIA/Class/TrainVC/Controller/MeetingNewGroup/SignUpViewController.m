@@ -243,8 +243,8 @@
                          isOne:(BOOL)isone{
     
 
-    start = @"北京";
-    end = @"洛阳";
+//    start = @"北京";
+//    end = @"洛阳";
     if (![start isEqualToString:@"请选择"] && ![end isEqualToString:@"请选择"] && ![date isEqualToString:@"选择乘车日期"]) {
         //发送查询车票请求
         NSString  *url = [[NSString stringWithFormat:@"http://apis.juhe.cn/train/s2swithprice?start=%@&end=%@&date=%@&key=ba31b08d5a33f101ba2193f2daaf3492",start,end,date] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

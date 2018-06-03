@@ -44,11 +44,22 @@
     self.liwuJiage.text = self.liwumodel.moon_cash;
     self.LiwuName.text = self.liwumodel.goods_name;
     self.detailLab.text = self.liwumodel.goods_tips;
+    
+    self.LiwuImage.clipsToBounds = YES;
 }
 
 //确认兑换点击
 - (IBAction)duihuanClick:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    //月亮币控制
+    if ([user.moon_cash integerValue] < [self.liwumodel.moon_cash integerValue]) {
+        [MBProgressHUD showOneSecond:@"月亮币不足"];
+        return;
+    }
+    
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定使用%@月亮币兑换？",self.liwumodel.moon_cash]
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -94,6 +105,10 @@
                                                             vc.courtesy_code = obj[@"data"][@"courtesy_code"];
                                                             vc.exchange_code = obj[@"data"][@"exchange_code"];
                                                             vc.order_num = obj[@"data"][@"order_num"];
+                                                            
+                                                            user.moon_cash = [NSString stringWithFormat:@"%d",[user.moon_cash intValue]-[self.liwumodel.moon_cash intValue]];
+                                                            [user saveUserInfoToSanbox];
+                                                            
                                                             [weakSelf.navigationController pushViewController:vc animated:YES];
                                                         }else{
                                                             [MBProgressHUD showError:obj[@"msg"]];

@@ -165,17 +165,30 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     [self setUp];
 }
 - (void)setUp{
+    
+
+    
     [self setMainMemuNavaitem];
     
     [self setMySubject];
     [self setRecommentSubject];
-    [self defaultConfing];
+
+    if (self.choosetype == postType){
+        [self nodefaultConfing];
+    }else{
+        [self defaultConfing];
+    }
     
     if (self.mySubjectArray.count <=0 || self.recommendSubjectArray <=0)
         return;
 }
+
 - (void)defaultConfing{
     self.hiddenAllCornerFlag = YES;
+}
+
+- (void)nodefaultConfing{
+    self.hiddenAllCornerFlag = NO;
 }
 - (void)setMainMemuNavaitem{
     UIView * menuNav = [[UIView alloc]init];
@@ -196,10 +209,12 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     
     UIButton * editButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [editButton setTitle:@"完成" forState:UIControlStateSelected];
     [editButton setTitleColor:RGB(45, 163, 255) forState:UIControlStateNormal];
     [editButton setTitleColor:RGB(45, 163, 255) forState:UIControlStateSelected];
     [editButton addTarget:self action:@selector(editMenu:) forControlEvents:UIControlEventTouchUpInside];
     [editButton setFont:[UIFont boldSystemFontOfSize:15]];
+    editButton.selected = !self.hiddenAllCornerFlag;
     [menuNav addSubview:editButton];
     self.editMenuButton = editButton;
     
@@ -335,6 +350,14 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     
 }
 
+
+/**
+ 投稿或提问时点击搜索标签
+ */
+-(void)searchSheetLab{
+    self.searchBlock();
+}
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     
@@ -351,6 +374,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         button.layer.cornerRadius = 17.5;//半径大小
         button.layer.masksToBounds = YES;//是否切割
+        [button addTarget:self action:@selector(searchSheetLab) forControlEvents:UIControlEventTouchUpInside];
         self.searchBtn = button;
         [self.newsSheetScrollView addSubview:self.searchBtn];
     }
@@ -360,15 +384,23 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     
     if (self.choosetype == postType){
         self.menuNavitem.frame = CGRectMake(0, 45, self.bounds.size.width, navitemHeight);
+        self.closeMenuButton.frame = CGRectZero;
+        self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60, 0,50, self.menuNavitem.bounds.size.height);
     }else{
         self.menuNavitem.frame = CGRectMake(0, 14, self.bounds.size.width, navitemHeight);
+        self.closeMenuButton.frame = CGRectMake(self.bounds.size.width - 60, 0,50, self.menuNavitem.bounds.size.height);
+        self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60 - 50, 0,50, self.menuNavitem.bounds.size.height);
     }
     
-    self.closeMenuButton.frame = CGRectMake(self.bounds.size.width - 60, 0,50, self.menuNavitem.bounds.size.height);
-    self.editMenuButton.frame = CGRectMake(self.bounds.size.width - 60 - 50, 0,50, self.menuNavitem.bounds.size.height);
+
     
     UILabel *lab = [[UILabel alloc] init];
-    lab.text = @"我的导航";
+    if (self.choosetype == postType){
+        lab.text = @"已选标签";
+    }else{
+        lab.text = @"我的导航";
+    }
+    
     lab.textColor = RGB(51, 51, 51);
     lab.font = [UIFont boldSystemFontOfSize:15];
     CGSize size = [ZZNewsSheetConfig defaultCofing].sheetItemSize;

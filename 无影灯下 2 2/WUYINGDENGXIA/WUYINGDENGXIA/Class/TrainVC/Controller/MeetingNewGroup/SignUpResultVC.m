@@ -91,8 +91,16 @@
     [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     
 }
+//查看进度
 - (IBAction)lookProBtnClick:(UIButton *)sender {
+
+    self.tabBarController.selectedIndex = 4;
     
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0/*延迟执行时间*/ * NSEC_PER_SEC));
+    
+    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"CHAKANJINDU" object:nil userInfo:nil]];
+    });
 }
 
 - (void)didReceiveMemoryWarning {

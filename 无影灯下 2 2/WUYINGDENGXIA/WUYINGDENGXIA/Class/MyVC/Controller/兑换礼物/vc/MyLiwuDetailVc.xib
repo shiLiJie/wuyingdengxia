@@ -60,7 +60,7 @@
                     <rect key="frame" x="0.0" y="349" width="375" height="81.333333333333314"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xv-bj-SDU">
-                            <rect key="frame" x="16" y="22" width="69.666666666666671" height="21"/>
+                            <rect key="frame" x="16" y="22" width="343" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -89,6 +89,7 @@
                     <constraints>
                         <constraint firstItem="L9w-Py-HjK" firstAttribute="centerY" secondItem="xi2-uW-RaW" secondAttribute="centerY" id="IRe-L8-Src"/>
                         <constraint firstItem="xi2-uW-RaW" firstAttribute="centerY" secondItem="20F-XG-otu" secondAttribute="centerY" id="JP5-b3-QkH"/>
+                        <constraint firstAttribute="trailing" secondItem="7Xv-bj-SDU" secondAttribute="trailing" constant="16" id="O8Z-yx-oHO"/>
                         <constraint firstItem="20F-XG-otu" firstAttribute="top" secondItem="7Xv-bj-SDU" secondAttribute="bottom" constant="5" id="PpG-l2-JeS"/>
                         <constraint firstItem="xi2-uW-RaW" firstAttribute="leading" secondItem="20F-XG-otu" secondAttribute="trailing" constant="10" id="RHP-w3-Htb"/>
                         <constraint firstItem="7Xv-bj-SDU" firstAttribute="centerY" secondItem="R7m-F5-53o" secondAttribute="centerY" constant="-8" id="dqU-ub-NBs"/>

@@ -17,6 +17,8 @@
 //兑换礼物数组
 @property (nonatomic, strong) NSArray *duihuanArr;
 
+@property (nonatomic, strong) UIImageView *imageview;
+
 
 @end
 
@@ -24,11 +26,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.duihuanArr = [[NSArray alloc] init];
     
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
     
     //获取兑换记录
     [self getDuihuanList];
@@ -51,7 +58,7 @@
 -(void)getDuihuanList{
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    
+    __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_goods_by_userid?user_id=%@",user.userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
@@ -64,8 +71,8 @@
                                                            [arrayM addObject:[DuihuanModel DuihuanModelWithDict:dict]];
   
                                                        }
-                                                       self.duihuanArr= arrayM;
-                                                       [self.tableview reloadData];
+                                                       weakSelf.duihuanArr= [[arrayM reverseObjectEnumerator] allObjects];
+                                                       [weakSelf.tableview reloadData];
         
     } fail:^(NSError *error) {
         
@@ -96,8 +103,16 @@
 
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return self.duihuanArr.count;
+    if (self.duihuanArr.count == 0) {
+        
+        self.imageview.image = GetImage(@"wufensi");
+        self.imageview.hidden = NO;
+        return 0;
+    }else{
+        self.imageview.hidden = YES;
+        return self.duihuanArr.count;
+    }
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

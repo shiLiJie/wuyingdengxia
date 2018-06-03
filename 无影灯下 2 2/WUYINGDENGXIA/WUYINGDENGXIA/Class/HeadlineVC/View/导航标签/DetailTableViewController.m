@@ -22,6 +22,8 @@
 
 @property(nonatomic, assign) NSInteger countt;
 
+@property (nonatomic, strong) UIImageView *imageview;
+
 
 @end
 
@@ -40,6 +42,12 @@
     
     self.tableView.estimatedRowHeight = 300;//估算高度
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
+    
+    self.imageview.hidden = YES;
     
     
 //    //刷新
@@ -94,7 +102,7 @@
 //查看别人主页时吊用此方法,获取文章列表
 -(void)getPersonVcPageWithPersonId:(NSString *)userid{
     __weak typeof(self) weakSelf = self;
-    
+    self.imageview.hidden = YES;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myarticle?userid=%@",userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
@@ -138,7 +146,12 @@
                                                            [arrayM addObject:[pageModel pageWithDict:dict]];
                                                        }
                                                        
-                                                       weakSelf.pageArr= arrayM;
+                                                       weakSelf.pageArr= [[arrayM reverseObjectEnumerator] allObjects];
+                                                       if (weakSelf.pageArr.count == 0) {
+                                                           weakSelf.imageview.hidden = NO;
+                                                           weakSelf.imageview.image = GetImage(@"wushoucang");
+                                                       }
+                                                       
                                                        [weakSelf.tableView reloadData];
                                                        
                                                    } fail:^(NSError *error) {
@@ -150,7 +163,7 @@
 -(void)setLable:(NSString *)lable{
     self.pageArr = [[NSArray alloc] init];
     __weak typeof(self) weakSelf = self;
-    
+    self.imageview.hidden = YES;
     NSString  *url = [[NSString stringWithFormat:@"get_article_bylabel?label=%@&sortby=1",lable] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:url]
                                                 parameters:nil
@@ -181,89 +194,135 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (self.pageArr.count == 0) {
+
+        return 0;
+    }else{
+        
+        return self.pageArr.count;
+    }
     
-    return self.pageArr.count;
 //    return self.countt;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    pageModel *page = [[pageModel alloc] init];
-    page = self.pageArr[indexPath.section];
-
-//    NSLog(@"%@",page.article_img_path);
-
-    NSArray *array = [page.article_img_path componentsSeparatedByString:@","]; //字符串按照【分隔成数组
-    if (array.count == 0) {
-        return 200;
-    }else{
-        return 300;
-    }
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    pageModel *page = [[pageModel alloc] init];
+//    page = self.pageArr[indexPath.section];
+//
+////    NSLog(@"%@",page.article_img_path);
+//
+//    NSArray *array = [page.article_img_path componentsSeparatedByString:@","]; //字符串按照【分隔成数组
+//    if (array.count == 0) {
+//        return 200;
+//    }else{
+//        return 300;
+//    }
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString * reuseID = @"cell";
     self.cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     
-//    if (indexPath.row == 0) {
-        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
-//    }
-//
-//    if (indexPath.row == 1) {
-//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
-//    }
-//
-//    if (indexPath.row == 2) {
-//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][2];
-//    }
-//
-//    if (indexPath.row == 3) {
-//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
-//    }
-//    if (indexPath.row == 4) {
-//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][2];
-//    }
-//    if (indexPath.row == 5) {
-//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
-//    }
-//    if (indexPath.row == 6) {
-//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
-//    }
-//    if (indexPath.row == 7) {
-//        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
-//    }
-//
-//    self.cell.image1.clipsToBounds = YES;
-//    self.cell.image1.contentMode = UIViewContentModeScaleAspectFill;
-//    self.cell.image31.clipsToBounds = YES;
-//    self.cell.image31.contentMode = UIViewContentModeScaleAspectFill;
-//    self.cell.image32.clipsToBounds = YES;
-//    self.cell.image32.contentMode = UIViewContentModeScaleAspectFill;
-//    self.cell.image33.clipsToBounds = YES;
-//    self.cell.image33.contentMode = UIViewContentModeScaleAspectFill;
-
     self.cell.delegate = self;
-
+    
     pageModel *page = [[pageModel alloc] init];
     page = self.pageArr[indexPath.row];
-    self.cell.mainTitle.text = page.article_title;
-    self.cell.pageDetail.text = page.article_content;
-    self.cell.pinglunLab.text = page.recom_num;
-    self.cell.liulanLab.text = page.overlook_num;
-    self.cell.dianzanLab.text = page.support_num;
-    if (kStringIsEmpty(page.user_name)) {
-        self.cell.userName.text = @"";
-    }else{
-        self.cell.userName.text = page.user_name;
+    
+    NSArray *array = [page.article_img_path componentsSeparatedByString:@","]; //字符串按照【分隔成数组
+    
+    
+    if (array.count == 1) {
+        if (kStringIsEmpty(array[0])) {
+            self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
+            self.cell.mainTitle.text = page.article_title;
+            self.cell.pageDetail.text = page.article_content;
+            self.cell.pinglunLab.text = page.recom_num;
+            self.cell.liulanLab.text = page.overlook_num;
+            self.cell.dianzanLab.text = page.support_num;
+            if (kStringIsEmpty(page.user_name)) {
+                self.cell.userName.text = @" ";
+            }else{
+                self.cell.userName.text = page.user_name;
+            }
+            if (kStringIsEmpty(page.headimg)) {
+                
+                [self.cell.headImage setBackgroundImage:GetImage(@"tx") forState:UIControlStateNormal];
+            }else{
+                [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:page.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+            }
+        }else{
+            self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
+            [self.cell.image1 sd_setImageWithURL:[NSURL URLWithString:array[0]] placeholderImage:GetImage(@"")];
+            self.cell.mainTitle.text = page.article_title;
+            self.cell.pageDetail.text = page.article_content;
+            self.cell.pinglunLab.text = page.recom_num;
+            self.cell.liulanLab.text = page.overlook_num;
+            self.cell.dianzanLab.text = page.support_num;
+            if (kStringIsEmpty(page.user_name)) {
+                self.cell.userName.text = @" ";
+            }else{
+                self.cell.userName.text = page.user_name;
+            }
+            if (kStringIsEmpty(page.headimg)) {
+                
+                [self.cell.headImage setBackgroundImage:GetImage(@"tx") forState:UIControlStateNormal];
+            }else{
+                [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:page.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+            }
+        }
+        
+        
+        
+    }else if (array.count == 2){
+        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][1];
+        [self.cell.image1 sd_setImageWithURL:[NSURL URLWithString:array[0]] placeholderImage:GetImage(@"")];
+        
+        self.cell.mainTitle1.text = page.article_title;
+        self.cell.pageDetail1.text = page.article_content;
+        self.cell.pinglunLab1.text = page.recom_num;
+        self.cell.liulanLab1.text = page.overlook_num;
+        self.cell.dianzanLab1.text = page.support_num;
+        if (kStringIsEmpty(page.user_name)) {
+            self.cell.userName1.text = @" ";
+        }else{
+            self.cell.userName1.text = page.user_name;
+        }
+        if (kStringIsEmpty(page.headimg)) {
+            
+            [self.cell.headImage1 setBackgroundImage:GetImage(@"tx") forState:UIControlStateNormal];
+        }else{
+            [self.cell.headImage1 sd_setBackgroundImageWithURL:[NSURL URLWithString:page.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+        }
+        
+    }else if (array.count >= 3){
+        self.cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][2];
+        [self.cell.image31 sd_setImageWithURL:[NSURL URLWithString:array[0]] placeholderImage:GetImage(@"")];
+        [self.cell.image32 sd_setImageWithURL:[NSURL URLWithString:array[1]] placeholderImage:GetImage(@"")];
+        [self.cell.image33 sd_setImageWithURL:[NSURL URLWithString:array[2]] placeholderImage:GetImage(@"")];
+        
+        self.cell.mainTitle3.text = page.article_title;
+        self.cell.pageDetail3.text = page.article_content;
+        self.cell.pinglunLab3.text = page.recom_num;
+        self.cell.liulanLab3.text = page.overlook_num;
+        self.cell.dianzanLab3.text = page.support_num;
+        if (kStringIsEmpty(page.user_name)) {
+            self.cell.userName3.text = @" ";
+        }else{
+            self.cell.userName3.text = page.user_name;
+        }
+        if (kStringIsEmpty(page.headimg)) {
+            
+            [self.cell.headImage3 setBackgroundImage:GetImage(@"tx") forState:UIControlStateNormal];
+        }else{
+            [self.cell.headImage3 sd_setBackgroundImageWithURL:[NSURL URLWithString:page.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+        }
     }
-    if (kStringIsEmpty(page.headimg)) {
-        [self.cell.headImage setBackgroundImage:GetImage(@"tx") forState:UIControlStateNormal];
-    }else{
-        [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:page.headimg] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
-    }
+
+
     //设置按钮索引找到对应的数据
-    self.cell.headTag = indexPath.row;
+//    self.cell.headTag = indexPath.row;
 
 
 
@@ -281,7 +340,6 @@
     
     if ([self.delegate respondsToSelector:@selector(tableviewDidSelectPageWithIndex:article_id:user_id:pageModle:)]) {
         [self.delegate tableviewDidSelectPageWithIndex:indexPath article_id:page.article_id user_id:page.user_id pageModle:page];
-        
     }
 }
 

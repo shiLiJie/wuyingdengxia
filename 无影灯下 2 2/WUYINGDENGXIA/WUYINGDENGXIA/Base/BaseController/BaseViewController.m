@@ -130,7 +130,7 @@ static NSString* const kURL_Reachability__Address=@"www.baidu.com";
 -(void)set_Title:(NSMutableAttributedString *)title
 {
     UILabel *navTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 44)];
-    navTitleLabel.numberOfLines = 0;//可能出现多行的标题
+    navTitleLabel.numberOfLines = 1;//可能出现多行的标题
     [navTitleLabel setAttributedText:title];
     navTitleLabel.textAlignment = NSTextAlignmentCenter;
     navTitleLabel.backgroundColor = [UIColor clearColor];
@@ -195,7 +195,8 @@ static NSString* const kURL_Reachability__Address=@"www.baidu.com";
         [self.right_button addTarget:self action:@selector(right_click:) forControlEvents:UIControlEventTouchUpInside];
         self.right_button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.right_button];
-        self.navigationItem.rightBarButtonItem = item;
+        
+        self.navigationItem.rightBarButtonItem =  item;
     }
     return isright;
 }

@@ -22,4 +22,7 @@
 
 @property (nonatomic, weak) id<DiscussCollectionDelegate> delegate1;
 
+
+
+
 @end

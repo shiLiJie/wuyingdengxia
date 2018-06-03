@@ -11,6 +11,8 @@
 #import "SignUpViewController.h"
 #import "meetingDetailModel.h"
 #import "RenzhengOneVc.h"
+#import "zhuangjiaModel.h"
+#import "zhuangjiaCollectionView.h"
 
 @interface MeetDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 //会议介绍按钮是否展开
@@ -30,14 +32,32 @@
 
 @property (nonatomic, strong) meetingDetailModel *meetdetailModel;
 
+@property (nonatomic, strong) zhuangjiaCollectionView *zhuangjiaCol;
+
 
 
 @end
 
 @implementation MeetDetailViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.sectionInset = UIEdgeInsetsMake(0 , 0, 0, 0 );
+    layout.itemSize = CGSizeMake(kScreen_Width/3, 200);
+    
+    // 设置最小行间距
+    layout.minimumLineSpacing = 10 ;
+    // 设置最小列间距
+    self.zhuangjiaCol = [[zhuangjiaCollectionView alloc] initWithFrame:CGRectMake(0, 0, self.zhuanjiaView.frame.size.width, self.zhuanjiaView.frame.size.height) collectionViewLayout:layout];
+    [self.zhuanjiaView addSubview:self.zhuangjiaCol];
+
+    //会议顶部图片设置
+    self.meetImage.clipsToBounds = YES;
     
     //获取会议详情信息
     [self getMeetDetailInfo];
@@ -100,13 +120,15 @@
         [self.baomingBtn setUserInteractionEnabled:YES];
     }
     self.isJieshu = NO;
+
+
 }
 
 //由于Scroller不滚动,没办法才在didappear里设置滚动范围
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
+    self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhuanjiaView.frame));
     
     //设置阴影
     CALayer *layer = [CALayer layer];
@@ -128,35 +150,54 @@
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        
-                                                       NSDictionary *dict = obj[@"data"];
-                                                       self.meetdetailModel = [meetingDetailModel meedetailtWithDict:dict];
-                                                       //设置视图内容
-                                                       self.meetName.text = self.meetdetailModel.meet_title;
-                                                       self.meetTime.text = self.meetdetailModel.begin_time;
-                                                       self.meetAddress.text = self.meetdetailModel.meet_address;
-                                                       self.meetDetailText.text = self.meetdetailModel.meet_content;
-                                                       
-                                                       self.meetdetailModel.meet_date = dict[@"meet_date"];
-                                                       NSArray *arr = dict[@"meet_date"];
-                                                       if (kArrayIsEmpty(arr)) {
-                                                           return;
-                                                       }
-                                                       NSDictionary *dic = arr[0];
-                                                       NSArray *arry = [dic objectForKey:@"meet_class"];
-                                                       NSDictionary *dicy = [[NSDictionary alloc] init];
-                                                       for (dicy in arry) {
-//                                                           [self.timeaArr addObject:dicy[@"meet_class_begin"]];
-//                                                           [self.timeaArr addObject:dicy[@"meet_class_end"]];
-                                                           NSString *timeStr = [NSString stringWithFormat:@"%@-%@",dicy[@"meet_class_begin"],dicy[@"meet_class_end"]];
-                                                           [self.timeaArr addObject:timeStr];
-                                                           [self.detailaArr addObject:dicy[@"main_content"]];
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           NSDictionary *dict = obj[@"data"];
+                                                           self.meetdetailModel = [meetingDetailModel meedetailtWithDict:dict];
+                                                           //设置视图内容
+                                                           self.meetName.text = self.meetdetailModel.meet_title;
+                                                           self.meetTime.text = self.meetdetailModel.begin_time;
+                                                           self.meetAddress.text = self.meetdetailModel.meet_address;
+                                                           self.meetDetailText.text = self.meetdetailModel.meet_content;
+                                                           
+                                                           self.meetdetailModel.meet_date = dict[@"meet_date"];
+                                                           NSArray *arr = dict[@"meet_date"];
+                                                           if (kArrayIsEmpty(arr)) {
+                                                               return;
+                                                           }
+                                                           NSDictionary *dic = arr[0];
+                                                           NSArray *arry = [dic objectForKey:@"meet_class"];
+                                                           NSDictionary *dicy = [[NSDictionary alloc] init];
+                                                           for (dicy in arry) {
+                                                               //                                                           [self.timeaArr addObject:dicy[@"meet_class_begin"]];
+                                                               //                                                           [self.timeaArr addObject:dicy[@"meet_class_end"]];
+                                                               NSString *timeStr = [NSString stringWithFormat:@"%@-%@",dicy[@"meet_class_begin"],dicy[@"meet_class_end"]];
+                                                               [self.timeaArr addObject:timeStr];
+                                                               [self.detailaArr addObject:dicy[@"main_content"]];
+                                                               
+                                                           }
+                                                           
+                                                           NSArray *zhuangjiaArr = dict[@"meet_talk"];
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < zhuangjiaArr.count; i ++) {
+                                                               NSDictionary *dict = zhuangjiaArr[i];
+                                                               [arrayM addObject:[zhuangjiaModel zhuagnjiaWithDict:dict]];
+                                                               
+                                                           }
+                                                           self.zhuangjiaCol.zhuangjiaDataArr = arrayM;
+                                                           [self.zhuangjiaCol reloadData];
+                                                           
+                                                           
+                                                           //给会议日程加载多少条赋值
+                                                           self.arrCount = self.timeaArr.count>2 ? 2 : self.timeaArr.count;
+                                                           [self.meetImage sd_setImageWithURL:[NSURL URLWithString:self.meetdetailModel.meeting_image] placeholderImage:GetImage(@"")];
+                                                           [self.richengTableView reloadData];
+                                                           
+                                                       }else{
+                                                           //获取失败
                                                            
                                                        }
                                                        
-                                                       //给会议日程加载多少条赋值
-                                                       self.arrCount = self.timeaArr.count>2 ? 2 : self.timeaArr.count;
-                                                       [self.meetImage sd_setImageWithURL:[NSURL URLWithString:self.meetdetailModel.meeting_image] placeholderImage:GetImage(@"")];
-                                                       [self.richengTableView reloadData];
+                                                       
 
     }
                                                       fail:^(NSError *error) {
@@ -289,7 +330,7 @@
     
     [self.scroller layoutIfNeeded];
     [self.view layoutIfNeeded];
-    self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
+    self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhuanjiaView.frame));
    
 }
 
@@ -343,7 +384,7 @@
         [self.scroller layoutIfNeeded];
         [self.view layoutIfNeeded];
         [UIView animateWithDuration:0.5 animations:^{
-            self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.huiyiRichengView.frame));
+            self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhuanjiaView.frame));
             
         }];
     });

@@ -182,8 +182,12 @@
                                                            }
                                                        }
                                                        
+                                                       weakSelf.weikaishiVc.weikaishiArr = [[NSMutableArray alloc] init];
+                                                       weakSelf.yijieshuVc.yijieshuArr = [[NSMutableArray alloc] init];
+                                                       
                                                        weakSelf.weikaishiVc.weikaishiArr = weakSelf.weikaishiArr;
                                                        weakSelf.yijieshuVc.yijieshuArr = weakSelf.jieshuArr;
+                                                       
                                                        [weakSelf.weikaishiVc.tableView reloadData];
                                                        [weakSelf.yijieshuVc.tableView reloadData];
                                                    }

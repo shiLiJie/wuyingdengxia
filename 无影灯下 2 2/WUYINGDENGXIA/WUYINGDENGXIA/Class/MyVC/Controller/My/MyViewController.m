@@ -47,6 +47,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     [super viewWillAppear:nil];
 }
@@ -56,9 +57,12 @@
     [self userInfo];
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //监听查看报名进度的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookMeetPro:)name:@"CHAKANJINDU" object:nil];
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     
     self.tableview.delegate = self;
@@ -105,7 +109,7 @@
         self.fensiNum.text = ![user.fansnum isEqualToString:@""] ? user.fansnum : @"0";
         self.zanNum.text = ![user.supportnum isEqualToString:@""] ? user.supportnum : @"0";
         [self.yueliangbiNum setTitle:![user.moon_cash isEqualToString:@""] ? user.moon_cash : @" 0" forState:UIControlStateNormal];
-        if ([user.isV isEqualToString:@"1"]) {
+        if ([user.isfinishCer isEqualToString:@"1"]) {
             self.vipImage.image = GetImage(@"v");
         }
     }else{
@@ -224,6 +228,15 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+/**
+ 通知方法,查看会议报名进度
+ 
+ @param text text description
+ */
+- (void)lookMeetPro:(NSNotification *)text{
+    [self tableView:self.tableview didSelectRowAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+}
+
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -288,6 +301,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

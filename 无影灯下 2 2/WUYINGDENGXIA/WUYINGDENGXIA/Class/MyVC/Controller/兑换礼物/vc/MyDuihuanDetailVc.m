@@ -46,6 +46,7 @@
     
     [self.image sd_setImageWithURL:[NSURL URLWithString:self.duihuanmodel.goods_img] placeholderImage:GetImage(@"")];
     
+    self.image.clipsToBounds = YES;
 }
 
 #pragma mark - UI -

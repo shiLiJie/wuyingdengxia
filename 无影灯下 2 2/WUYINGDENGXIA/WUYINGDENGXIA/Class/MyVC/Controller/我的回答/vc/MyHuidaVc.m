@@ -16,13 +16,15 @@
 
 @property (nonatomic, strong) NSArray *huidaArr;
 
-
+@property (nonatomic, strong) UIImageView *imageview;
 @end
 
 @implementation MyHuidaVc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    
     self.huidaArr = [[NSArray alloc] init];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
@@ -30,6 +32,10 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
     //获取我的回答接口数据
     [self getMyhuida];
 }
@@ -62,7 +68,7 @@
                                                            [arrayM addObject:[MyhuidaModel MyhuidaWithDict:dict]];
                                                            
                                                        }
-                                                       weakSelf.huidaArr= arrayM;
+                                                       weakSelf.huidaArr= [[arrayM reverseObjectEnumerator] allObjects];
                                                        [weakSelf.tableView reloadData];
     }
                                                       fail:^(NSError *error) {
@@ -92,7 +98,15 @@
 
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.huidaArr.count;
+    if (self.huidaArr.count == 0) {
+        
+        self.imageview.image = GetImage(@"wuhuida");
+        self.imageview.hidden = NO;
+        return 0;
+    }else{
+        self.imageview.hidden = YES;
+        return self.huidaArr.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -109,8 +123,8 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyHuidaCell" owner:nil options:nil] firstObject];
     }
     MyhuidaModel *model = self.huidaArr[indexPath.row];
-    cell.titleLab.text = model.question_title;
-    cell.detailLab.text = model.question_content;
+    cell.titleLab.text = [NSString stringWithFormat:@"%@",model.question_title];
+    cell.detailLab.text = [NSString stringWithFormat:@"%@",model.question_content];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -119,9 +133,9 @@
     MyhuidaModel *model = self.huidaArr[indexPath.row];
     AnswerViewController *vc = [[AnswerViewController alloc] init];
     vc.questionModel = [[QusetionModel alloc] init];
-    vc.questionModel.question_title = model.question_title;
-    vc.questionModel.question_id = model.question_id;
-    vc.questionModel.user_id = model.user_id;
+    vc.questionModel.question_title = [NSString stringWithFormat:@"%@",model.question_title];
+    vc.questionModel.question_id = [NSString stringWithFormat:@"%@",model.question_id];
+    vc.questionModel.user_id = [NSString stringWithFormat:@"%@",model.user_id];
     vc.choosetype = questionType;
     [self.navigationController pushViewController:vc animated:YES];
 }

@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.liwuImage.clipsToBounds = YES;
 }
 
 @end

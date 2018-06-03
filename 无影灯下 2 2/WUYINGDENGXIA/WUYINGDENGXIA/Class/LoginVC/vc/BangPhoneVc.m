@@ -215,6 +215,7 @@
             user.usertoken = dic[@"usertoken"];
             user.moon_cash = dic[@"moon_cash"];
             user.we_chat_id = dic[@"we_chat_id"];
+            user.user_birthday = dic[@"user_birthday"];
             
             [user saveUserInfoToSanbox];
             

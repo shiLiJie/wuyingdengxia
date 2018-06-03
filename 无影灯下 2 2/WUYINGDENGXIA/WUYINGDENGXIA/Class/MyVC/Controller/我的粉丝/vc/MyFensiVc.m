@@ -9,8 +9,15 @@
 #import "MyFensiVc.h"
 #import "MyGuanzhuCell.h"
 #import "PersonViewController.h"
+#import "MyfensiModel.h"
 
 @interface MyFensiVc ()
+
+//我的粉丝数组
+@property (nonatomic, strong) NSArray *fensiArr;
+@property (nonatomic, strong) UIImageView *imageview;
+
+
 
 @end
 
@@ -18,11 +25,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    
+    self.fensiArr = [[NSArray alloc] init];
+    //调取粉丝
+    [self getMyfensiInfo];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -46,6 +64,37 @@
     }
 }
 
+
+/**
+ 获取我的粉丝
+ */
+-(void)getMyfensiInfo{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myfans?userid=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSArray *arr = obj[@"data"];
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < arr.count; i ++) {
+                                                               NSDictionary *dict = arr[i];
+                                                               [arrayM addObject:[MyfensiModel MyfensiWithDict:dict]];
+                                                               
+                                                           }
+                                                           weakSelf.fensiArr= arrayM;
+                                                           [weakSelf.tableView reloadData];
+                                                       }else{
+                                                           [MBProgressHUD showError:obj[@"msg"]];
+                                                       }
+                                                       
+    } fail:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{
     return NO;
@@ -56,7 +105,7 @@
 }
 
 -(NSMutableAttributedString *)setTitle{
-    return [self changeTitle:@"我的关注"];
+    return [self changeTitle:@"我的粉丝"];
 }
 
 //左侧按钮设置点击
@@ -81,7 +130,15 @@
 
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    if (self.fensiArr.count == 0) {
+        
+        self.imageview.image = GetImage(@"wufensi");
+        self.imageview.hidden = NO;
+        return 0;
+    }else{
+        self.imageview.hidden = YES;
+        return self.fensiArr.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -97,8 +154,23 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyGuanzhuCell" owner:nil options:nil] firstObject];
     }
-    cell.choosetype = weiguanzhuType;
-    [cell setUIWithchooseType:cell.choosetype];
+    MyfensiModel *model = self.fensiArr[indexPath.row];
+    [cell.headImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.fanshead]] placeholderImage:GetImage(@"tx")];
+    cell.userName.text = [NSString stringWithFormat:@"%@",model.fansname];
+    cell.fensiLab.text = [NSString stringWithFormat:@"粉丝 %@",model.fansnum];
+    if (!kStringIsEmpty(model.isfinish_cert) &&[model.isfinish_cert isEqualToString:@"1"]) {
+        cell.vipImage.image = GetImage(@"v");
+    }else{
+        cell.vipImage.image = GetImage(@"v1");
+    }
+    if ([[NSString stringWithFormat:@"%@",model.is_follow] isEqualToString:@"1"]) {
+        cell.choosetype = guanzhuType;
+        [cell setUIWithchooseType:cell.choosetype];
+    }else{
+        cell.choosetype = weiguanzhuType;
+        [cell setUIWithchooseType:cell.choosetype];
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

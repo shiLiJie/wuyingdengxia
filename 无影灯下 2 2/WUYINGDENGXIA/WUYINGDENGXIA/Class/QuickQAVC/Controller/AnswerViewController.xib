@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AnswerViewController">
             <connections>
+                <outlet property="shoucangBtn" destination="fwl-wP-LRd" id="10s-LG-6WF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="yuanjiaoview" destination="yFe-uR-8Gd" id="67J-Zz-ue8"/>
             </connections>

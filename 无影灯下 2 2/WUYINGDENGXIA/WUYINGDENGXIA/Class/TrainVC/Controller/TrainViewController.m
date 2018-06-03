@@ -18,20 +18,28 @@
 #import "meetingModel.h"
 #import "huiguModel.h"
 
+#import "hotKeyModel.h"
+#import "searchResultModel.h"
+#import "PageDetailViewController.h"
+#import "AnswerViewController.h"
+#import "DetailTableViewCell.h"
+
 #define segViewHigh     44
 
 @interface TrainViewController ()<MDMultipleSegmentViewDeletegate,
                                 MDFlipCollectionViewDelegate,
                                 MeetNewDelegate,
                                 PassDelegate,
-                                PYSearchViewControllerDelegate>
+                                PYSearchViewControllerDelegate,
+                                PYSearchViewControllerDataSource>
 {
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
 }
 
 @property (nonatomic, strong) UIButton *searchBtn;
-
+//获取搜索模型数组
+@property (nonatomic, strong) NSMutableArray *searchArr;
 
 @end
 
@@ -47,6 +55,8 @@
     [super viewDidLoad];
     
     [self addSegView];
+    
+    self.searchArr = [[NSMutableArray alloc] init];
 }
 #pragma mark - UI -
 //添加segview标签控制器
@@ -114,21 +124,76 @@
 }
 //搜索按钮点击
 -(void)gotoSearchKey{
-    //数据数组
-    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-    //创建搜索控制器
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        //创建搜索后的控制器
-        [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
-    }];
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_hotWords"]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       
+                                                       NSMutableArray *arrayy = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           hotKeyModel *model = [hotKeyModel hotKeyWithDict:dict];
+                                                           [arrayy addObject:model.search_content];
+                                                       }
+                                                       
+                                                       //                                                       self.modelArr= arrayM;
+                                                       //数据数组
+                                                       NSArray *hotSeaches = arrayy;
+                                                       //创建搜索控制器
+                                                       PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+                                                           
+                                                           [weakSelf searchWithKey:searchText];
+                                                           
+                                                           //创建搜索后的控制器
+                                                           
+                                                       }];
+                                                       
+                                                       searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
+                                                       searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
+                                                       
+                                                       searchViewController.delegate = self;
+                                                       searchViewController.dataSource = self;
+                                                       // 5. Present a navigation controller
+                                                       UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+                                                       [self presentViewController:nav animated:NO completion:nil];
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          
+                                                      }];
+}
+
+/**
+ 搜索请求方法
+ 
+ @param key 搜索关键词
+ */
+-(void)searchWithKey:(NSString *)key{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"searchall?user_id=%@&key=%@",user.userid,key]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
-    searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
-    
-    searchViewController.delegate = self;
-    // 5. Present a navigation controller
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    [self presentViewController:nav animated:NO completion:nil];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           NSArray *arr = obj[@"data"];
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < arr.count; i ++) {
+                                                               NSDictionary *dict = arr[i];
+                                                               [arrayM addObject:[searchResultModel searchResultWithDict:dict]];
+                                                               
+                                                           }
+                                                           self.searchArr= arrayM;
+                                                           
+                                                       }else{
+                                                           
+                                                       }
+                                                       
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                      }];
 }
 
 #pragma mark - segement代理方法 -
@@ -142,23 +207,77 @@
     [_segView selectIndex:index];
 }
 
-#pragma mark - 搜索控制器Delegate -
+
+#pragma mark - 搜索页代理方法 -
 - (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
 {
     if (searchText.length) {
         // Simulate a send request to get a search suggestions
-        //发起网络请求,请求联想的内容
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
-            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
-                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
-                
-                [searchSuggestionsM addObject:searchSuggestion];
-            }
-            //联想数组复制
-            searchViewController.searchSuggestions = searchSuggestionsM;
+            //            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
+            //            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
+            //                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
+            //                [searchSuggestionsM addObject:searchSuggestion];
+            //            }
+            // Refresh and display the search suggustions
+            
+            [self searchWithKey:searchText];
+            
+            //            searchViewController.searchSuggestions = searchSuggestionsM;
         });
     }
+}
+
+
+- (void)searchViewController:(PYSearchViewController *)searchViewController didSelectSearchSuggestionAtIndexPath:(NSIndexPath *)indexPath
+                   searchBar:(UISearchBar *)searchBar{
+    searchResultModel *model = [[searchResultModel alloc] init];
+    model = self.searchArr[indexPath.row];
+    if ([model.type isEqualToString:@"1"]) {
+        PageDetailViewController *vc = [[PageDetailViewController alloc] init];
+        vc.articleid = model.type_id;
+        [searchViewController.navigationController pushViewController:vc animated:YES];
+    }
+    if ([model.type isEqualToString:@"3"]) {
+        AnswerViewController *vc = [[AnswerViewController alloc] init];
+        QusetionModel *qmodel = [[QusetionModel alloc] init];
+        qmodel.question_id = model.type_id;
+        vc.questionModel = qmodel;
+        vc.choosetype = questionType;
+        [searchViewController.navigationController pushViewController:vc animated:YES];
+    }
+    
+    
+}
+
+
+- (UITableViewCell *)searchSuggestionView:(UITableView *)searchSuggestionView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    searchResultModel *model = self.searchArr[indexPath.row];
+    static NSString * reuseID = @"cell";
+    DetailTableViewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
+    cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
+    cell.mainTitle.text = model.title;
+    cell.pageDetail.text = model.content;
+    
+    return cell;
+}
+
+
+- (NSInteger)searchSuggestionView:(UITableView *)searchSuggestionView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.searchArr.count;
+}
+
+
+- (NSInteger)numberOfSectionsInSearchSuggestionView:(UITableView *)searchSuggestionView{
+    return 1;
+}
+
+
+- (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 150;
 }
 
 #pragma mark - 会议资讯和往期回顾点击代理方法 -

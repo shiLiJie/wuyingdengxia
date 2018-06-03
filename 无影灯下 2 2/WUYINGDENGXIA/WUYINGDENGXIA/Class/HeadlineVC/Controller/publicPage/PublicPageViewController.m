@@ -170,8 +170,10 @@ typedef enum _chooseType{
         
         //如果有图片
         if (self.imageArr.count > 0) {
-            
+            dispatch_group_t downloadGroup = dispatch_group_create();
             for (int i = 0; i<self.imageArr.count; i++) {
+                dispatch_group_enter(downloadGroup);
+                
                 NSData *data = UIImagePNGRepresentation(self.imageArr[i]);
                 
                 [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
@@ -185,24 +187,31 @@ typedef enum _chooseType{
                                                             
                                                             [arr addObject:dic[@"data"][@"complete_url"]];
                                                             
-                                                            //上传完左右照片,提交投稿
-                                                            if (i == weakSelf.imageArr.count-1) {
-                                                                //发送投稿请求
-                                                                [weakSelf postPageWithUid:user.userid articleClass:articleClass articleImg:arr];
-                                                                
-                                                            }
+//                                                            //上传完左右照片,提交投稿
+//                                                            if (i == weakSelf.imageArr.count-1) {
+//                                                                //发送投稿请求
+//                                                                [weakSelf postPageWithUid:user.userid articleClass:articleClass articleImg:arr];
+//
+//                                                            }
                                                             
                                                         }else{
                                                             [MBProgressHUD hideHUD];
                                                         }
-
+                                                        dispatch_group_leave(downloadGroup);
                                                     }
                                                     errorBlock:^(NSError *error) {
                                                         [MBProgressHUD hideHUD];
-                                                        
+                                                        dispatch_group_leave(downloadGroup);
                                                     }];
                 
             }
+            //for循环执行完毕,调用方法
+            dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+                
+                NSString *string = [arr componentsJoinedByString:@","];
+                [weakSelf postPageWithUid:user.userid articleClass:articleClass articleImg:arr];
+            });
+            
         }else{
             //没图片
             [weakSelf postPageWithUid:user.userid articleClass:articleClass articleImg:arr];
@@ -420,10 +429,18 @@ typedef enum _chooseType{
     [UIView animateKeyframesWithDuration:animationDuration delay:0 options:options animations:^{
         //根据选择的编辑框来决定键盘上的view上移距离
         if (self.choosetype == titleType) {
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            if (kDevice_Is_iPhoneX) {
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+            }else{
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            }
+            
         }else{
-            self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
-
+            if (kDevice_Is_iPhoneX) {
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight+34);
+            }else{
+                self.chooseView.transform = CGAffineTransformMakeTranslation(0, -keyboardHeight);
+            }
         }
         
 

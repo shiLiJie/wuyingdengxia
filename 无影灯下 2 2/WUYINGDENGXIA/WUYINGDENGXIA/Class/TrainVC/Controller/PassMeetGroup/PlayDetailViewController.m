@@ -118,7 +118,12 @@
     userContentController =[[WKUserContentController alloc]init];
     configuration.userContentController = userContentController;
     //wkweb
-    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    if (kDevice_Is_iPhoneX) {
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48-34)configuration:configuration];
+    }else{
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    }
+    
     _webView.UIDelegate = self;
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
@@ -132,21 +137,29 @@
     WKWebViewDelegate * delegateController = [[WKWebViewDelegate alloc]init];
     delegateController.delegate = self;
     
-    [userContentController addScriptMessageHandler:delegateController  name:@"asd"];
+//    [userContentController addScriptMessageHandler:delegateController  name:@"asd"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"shard"];
 }
 
 #pragma mark - WKScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
     NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
-    if ([message.name isEqualToString:@"asd"]) {
+    
+//    //点击头像
+//    if ([message.name isEqualToString:@"asd"]) {
+//        [self pushToPersonViewWithUserid:message.body];
+//    }
+    //分享
+    if ([message.name isEqualToString:@"share"]) {
         //做处理
-        [self pushToPersonViewWithUserid:message.body];
+        [self zhuanfa];
     }
 }
 // oc调用JS方法   页面加载完成之后调用
 - (void)webView:(WKWebView *)tmpWebView didFinishNavigation:(WKNavigation *)navigation{
     
     //say()是JS方法名，completionHandler是异步回调block
+//    NSString *jsStr = [NSString stringWithFormat:@"shareResult('%@','%@','%@')",title,content,url];
     [_webView evaluateJavaScript:@"asd()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         //        NSLog(@"%@",result);
         

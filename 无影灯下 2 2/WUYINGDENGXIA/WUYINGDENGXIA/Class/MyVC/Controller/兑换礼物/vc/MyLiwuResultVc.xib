@@ -51,7 +51,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星巴克 拿铁1杯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6Q-UR-fEp">
-                            <rect key="frame" x="17" y="69" width="108" height="22.5"/>
+                            <rect key="frame" x="17" y="69" width="303" height="22.5"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -127,6 +127,7 @@
                         <constraint firstItem="6sB-OE-G7D" firstAttribute="centerY" secondItem="In7-DD-lkR" secondAttribute="centerY" id="79A-Vd-Obc"/>
                         <constraint firstItem="GIL-eS-N4p" firstAttribute="leading" secondItem="OP8-kE-leO" secondAttribute="leading" id="7kv-vc-mDa"/>
                         <constraint firstItem="6sB-OE-G7D" firstAttribute="width" secondItem="In7-DD-lkR" secondAttribute="width" id="99o-xo-LhY"/>
+                        <constraint firstAttribute="trailing" secondItem="V6Q-UR-fEp" secondAttribute="trailing" constant="17" id="E4V-sk-qCA"/>
                         <constraint firstAttribute="width" secondItem="kY9-85-c5v" secondAttribute="height" multiplier="674:510" id="Hw9-ka-uxe"/>
                         <constraint firstItem="V6Q-UR-fEp" firstAttribute="top" secondItem="eu3-I5-utT" secondAttribute="bottom" constant="20" id="ItI-wp-uVB"/>
                         <constraint firstItem="eu3-I5-utT" firstAttribute="top" secondItem="kY9-85-c5v" secondAttribute="top" constant="17" id="QEV-9L-2JU"/>

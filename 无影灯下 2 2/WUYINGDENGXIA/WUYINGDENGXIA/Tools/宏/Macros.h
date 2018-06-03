@@ -22,8 +22,8 @@
 #define WX_UNION_ID @"unionid"
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"
 
-//#define BaseUrl @"http://39.106.2.216/index.php/API/"
-#define BaseUrl @"http://cloud.yszg.org/index.php/API/"
+#define BaseUrl @"http://39.106.2.216/index.php/API/"
+//#define BaseUrl @"http://cloud.yszg.org/index.php/API/"
 
 
 //中文字体

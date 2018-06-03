@@ -18,7 +18,7 @@
 -(void)setUpImage{
     switch (self.xiaoxiType) {
         case canhuiType:
-            self.xiaoxiImage.image = GetImage(@"wodetougaoicon");
+            self.xiaoxiImage.image = GetImage(@"wodehuodong");
             break;
         case tuigaoType:
             self.xiaoxiImage.image = GetImage(@"wodetougaoicon");

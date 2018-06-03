@@ -43,6 +43,7 @@
     
     self.navigationBar.tintColor = ColorFromRGB(0x6F7179);
     
+    
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(-0.8, 0);
     self.view.layer.shadowOpacity = 0.6;

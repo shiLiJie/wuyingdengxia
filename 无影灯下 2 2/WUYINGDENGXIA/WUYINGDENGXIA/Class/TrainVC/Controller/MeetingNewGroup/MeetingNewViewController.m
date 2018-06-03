@@ -33,7 +33,9 @@
 
 //获取会议
 -(void)getMeetInfo{
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allmeeting"] parameters:nil success:^(id obj) {
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allmeeting"]
+                                                parameters:nil
+                                                   success:^(id obj) {
         
         NSArray *arr = obj[@"data"];
         NSMutableArray *arrayM = [NSMutableArray array];

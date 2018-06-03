@@ -29,14 +29,14 @@
                         <rect key="frame" x="12" y="0.0" width="504" height="120"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大会名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rr7-yW-eN9">
-                        <rect key="frame" x="12" y="127" width="60" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rr7-yW-eN9">
+                        <rect key="frame" x="12" y="127" width="456" height="21"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-Xw-T7A">
-                        <rect key="frame" x="81" y="128.5" width="41" height="17"/>
+                        <rect key="frame" x="477" y="129" width="41" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="EP0-hh-Ij8"/>
                             <constraint firstAttribute="width" constant="41" id="yE8-Fg-ggL"/>
@@ -44,8 +44,8 @@
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <state key="normal" title="报名中"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="具体时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ver-7Z-YNQ">
-                        <rect key="frame" x="12" y="153" width="49.5" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ver-7Z-YNQ">
+                        <rect key="frame" x="12" y="153" width="3.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -61,6 +61,7 @@
                     <constraint firstItem="Tsa-Xw-T7A" firstAttribute="centerY" secondItem="Rr7-yW-eN9" secondAttribute="centerY" id="lq5-aK-3dw"/>
                     <constraint firstItem="Tsa-Xw-T7A" firstAttribute="leading" secondItem="Rr7-yW-eN9" secondAttribute="trailing" constant="9" id="mRX-q5-R31"/>
                     <constraint firstItem="Rr7-yW-eN9" firstAttribute="leading" secondItem="3U0-Tc-1GV" secondAttribute="leading" id="p2v-yo-eHu"/>
+                    <constraint firstAttribute="trailing" secondItem="Rr7-yW-eN9" secondAttribute="trailing" constant="60" id="pgy-Gr-4TL"/>
                     <constraint firstItem="Rr7-yW-eN9" firstAttribute="top" secondItem="3U0-Tc-1GV" secondAttribute="bottom" constant="7" id="qhe-8K-t6X"/>
                 </constraints>
             </tableViewCellContentView>
@@ -71,7 +72,7 @@
                 <outlet property="meetName" destination="Rr7-yW-eN9" id="SOe-JD-cdI"/>
                 <outlet property="meetTime" destination="Ver-7Z-YNQ" id="vXu-es-HPC"/>
             </connections>
-            <point key="canvasLocation" x="-224" y="90"/>
+            <point key="canvasLocation" x="-224" y="89.5"/>
         </tableViewCell>
     </objects>
 </document>

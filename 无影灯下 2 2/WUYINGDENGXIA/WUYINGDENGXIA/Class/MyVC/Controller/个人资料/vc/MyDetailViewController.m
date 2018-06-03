@@ -52,7 +52,7 @@
     if (user.loginStatus) {
         self.phoneStr = user.phoneNum;
         self.nichengStr = user.userName;
-        self.birthStr = user.userStschool;
+        self.birthStr = user.user_birthday;
         self.sexStr = user.usersex;
         self.cityStr = user.usercity;
         self.isFinishCer = user.isfinishCer;
@@ -69,6 +69,7 @@
     self.tableview.dataSource = self;
     
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
 //    self.cityStr = @"";
 //    self.birthStr = @"";
@@ -264,21 +265,49 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.titleLab.text = self.titleArr1[indexPath.row];
         
+        //手机号
         if (indexPath.row == 0) {
             cell.textfield.tag = indexPath.row;
             cell.textfield.text = weakSelf.phoneStr;
+            cell.textfield.userInteractionEnabled = NO;
             cell.ziliaoCellBlcok = ^(NSString *text, NSInteger tag) {
                 if (tag == indexPath.row) {
                     weakSelf.phoneStr = text;
                 }
             };
         }
+        //昵称
         if (indexPath.row == 1) {
             cell.textfield.tag = indexPath.row;
             cell.textfield.text = weakSelf.nichengStr;
             cell.ziliaoCellBlcok = ^(NSString *text, NSInteger tag) {
                 if (tag == indexPath.row) {
                     weakSelf.nichengStr = text;
+                    
+                    //修改信息
+                    UserInfoModel *user = [UserInfoModel shareUserModel];
+                    [user loadUserInfoFromSanbox];
+                    
+                    NSDictionary *dict = @{
+                                           @"userid" : user.userid,
+                                           @"username":text,
+                                           
+                                           };
+                    
+                    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_change_myinfo"]
+                                                                 parameters:dict
+                                                                    success:^(id obj) {
+                                                                        
+                                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                            user.userName = text;
+                                                                            [user saveUserInfoToSanbox];
+                                                                            
+                                                                        }else{
+                                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                                        }
+                                                                    } fail:^(NSError *error) {
+                                                                        
+                                                                    }];
                 }
             };
         }
@@ -352,6 +381,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //取消设置昵称的键盘
+     [[UIApplication sharedApplication].keyWindow endEditing:YES];
+    
     __weak typeof(self) weakSelf = self;
     if (indexPath.section == 2){
         
@@ -405,7 +437,7 @@
         }
         if (indexPath.row == 1) {
             //生日
-            [BRDatePickerView showDatePickerWithTitle:@"入学年份" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:NO resultBlock:^(NSString *selectValue) {
+            [BRDatePickerView showDatePickerWithTitle:@"生日" dateType:UIDatePickerModeDate defaultSelValue:@"" minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:NO resultBlock:^(NSString *selectValue) {
                 
                 weakSelf.birthStr = selectValue;
                 //修改信息
@@ -414,7 +446,7 @@
                 
                 NSDictionary *dict = @{
                                        @"userid" : user.userid,
-                                       @"userschool":selectValue,
+                                       @"user_birthday":selectValue,
 
                                        };
                 
@@ -423,7 +455,7 @@
                                                                 success:^(id obj) {
                                                                     
                                                                     if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                                        user.userStschool = selectValue;
+                                                                        user.user_birthday = selectValue;
                                                                         [user saveUserInfoToSanbox];
                                                                         
                                                                     }else{

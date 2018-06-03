@@ -15,14 +15,14 @@
 
 @property (nonatomic, strong) NSArray *guanzhuArr;
 
-
+@property (nonatomic, strong) UIImageView *imageview;
 @end
 
 @implementation MyGuanzhuVc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.guanzhuArr = [[NSArray alloc] init];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
@@ -30,8 +30,15 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
+    
     //获取我的关注列表
     [self getGuanzhuList];
+    
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -112,7 +119,15 @@
 
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.guanzhuArr.count;
+    if (self.guanzhuArr.count == 0) {
+        
+        self.imageview.image = GetImage(@"wufensi");
+        self.imageview.hidden = NO;
+        return 0;
+    }else{
+        self.imageview.hidden = YES;
+        return self.guanzhuArr.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -49,7 +49,12 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
     _flagType = flagType;
     
     if (flagType == ZZCornerFlagTypeNone) {
-        self.closeButton.hidden = NO;
+        self.closeButton.hidden = YES;
+        
+        self.layer.borderWidth = 0.5;
+        self.layer.borderColor = [RGB(45, 163, 255) CGColor];
+        self.backgroundColor = [UIColor whiteColor];
+        self.itemTitleLab.textColor = RGB(45, 163, 255);
         return;
     }
     

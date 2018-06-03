@@ -25,7 +25,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="392" height="118.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="B35-Ob-ijw">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B35-Ob-ijw">
                         <rect key="frame" x="20" y="25.5" width="117" height="68"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -34,13 +34,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017年3月28日至2017年3月31日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2j-EO-NT4">
-                        <rect key="frame" x="144" y="52" width="183.5" height="15"/>
+                        <rect key="frame" x="144" y="52" width="227.5" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苏州医疗器械装备交流会" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHc-Hi-Bx7">
-                        <rect key="frame" x="144" y="26" width="165" height="21"/>
+                        <rect key="frame" x="144" y="26" width="227.5" height="21"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -64,11 +64,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="BiA-co-aP9" secondAttribute="trailing" id="5HE-iQ-WMO"/>
+                    <constraint firstItem="h2j-EO-NT4" firstAttribute="trailing" secondItem="jxj-RO-dBy" secondAttribute="trailing" id="9QU-yl-KgY"/>
                     <constraint firstItem="h2j-EO-NT4" firstAttribute="centerY" secondItem="B35-Ob-ijw" secondAttribute="centerY" id="ANT-Js-Yho"/>
                     <constraint firstItem="B35-Ob-ijw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="DL6-AH-Ama"/>
                     <constraint firstItem="h2j-EO-NT4" firstAttribute="top" secondItem="XHc-Hi-Bx7" secondAttribute="bottom" constant="5" id="LLD-cq-f26"/>
                     <constraint firstAttribute="bottomMargin" secondItem="BiA-co-aP9" secondAttribute="bottom" constant="-9" id="NcH-gD-rni"/>
                     <constraint firstItem="B35-Ob-ijw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZBk-69-4OX"/>
+                    <constraint firstItem="XHc-Hi-Bx7" firstAttribute="trailing" secondItem="jxj-RO-dBy" secondAttribute="trailing" id="ZaQ-hO-T5y"/>
                     <constraint firstItem="jxj-RO-dBy" firstAttribute="bottom" secondItem="B35-Ob-ijw" secondAttribute="bottom" id="axK-Fb-iSF"/>
                     <constraint firstItem="XHc-Hi-Bx7" firstAttribute="leading" secondItem="h2j-EO-NT4" secondAttribute="leading" id="gmP-Sz-5Rd"/>
                     <constraint firstAttribute="trailingMargin" secondItem="jxj-RO-dBy" secondAttribute="trailing" id="pCH-tu-4db"/>
@@ -86,7 +88,4 @@
             <point key="canvasLocation" x="-139" y="-46"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="tupian" width="20" height="17"/>
-    </resources>
 </document>

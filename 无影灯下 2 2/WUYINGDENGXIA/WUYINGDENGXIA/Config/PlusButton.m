@@ -85,7 +85,7 @@
     [button sizeToFit];
     if (kDevice_Is_iPhoneX) {
 //        button.frame = CGRectMake(0.0, 0.0, Main_Screen_Width/5, 83);
-        button.frame = CGRectMake(0.0, 0.0, 49, 49);
+        button.frame = CGRectMake(0.0, 0.0, 49, 48);
     }else{
         button.frame = CGRectMake(0.0, 0.0, kScreen_Width/5, 49);
         [button setImageEdgeInsets:UIEdgeInsetsMake(15, 0, 15, 0)];

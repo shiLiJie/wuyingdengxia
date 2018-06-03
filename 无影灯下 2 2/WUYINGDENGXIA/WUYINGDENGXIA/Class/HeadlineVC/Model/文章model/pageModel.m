@@ -45,9 +45,59 @@
     return self;
 }
 
+//- (instancetype)initWithshoucangDict:(NSDictionary *)dict
+//{
+//    self = [super init];
+//    if (self) {
+//        self.article_author = dict[@"article_author"];
+//        self.article_img_path = dict[@"article_img_path"];
+//        self.article_tags = dict[@"article_tags"];
+//        self.article_id = dict[@"collection_id"];
+//        self.recom_num = dict[@"comment_num"];
+//        self.ctime = dict[@"ctime"];
+//        self.headimg = dict[@"headimg"];
+//        self.overlook_num = dict[@"overlook_num"];
+//        self.support_num = dict[@"support_num"];
+//        self.article_title = dict[@"title"];
+//        self.user_id = dict[@"user_id"];
+//        self.user_name = dict[@"user_name"];
+//
+//
+//
+//
+//        self.article_class = dict[@"article_class"];
+//        self.article_content = dict[@"article_content"];
+//        self.article_moon_cash = dict[@"article_moon_cash"];
+//
+//        self.article_type = dict[@"article_type"];
+//        self.change_id = dict[@"change_id"];
+//
+//        self.failreason = dict[@"failreason"];
+//        self.is_check = dict[@"is_check"];
+//        self.is_edit_check = dict[@"is_edit_check"];
+//        self.is_main_check = dict[@"is_main_check"];
+//        self.is_pro = dict[@"is_pro"];
+//        self.is_pro_check = dict[@"is_pro_check"];
+//        self.is_public = dict[@"is_public"];
+//        self.nowlevel = dict[@"nowlevel"];
+//
+//        self.public_id = dict[@"public_id"];
+//
+//
+//
+//
+//    }
+//    return self;
+//}
+
 + (instancetype)pageWithDict:(NSDictionary *)dict
 {
     return [[self alloc] initWithDict:dict];
 }
+
+//+ (instancetype)pageshoucangWithDict:(NSDictionary *)dict
+//{
+//    return [[self alloc] initWithshoucangDict:dict];
+//}
 
 @end

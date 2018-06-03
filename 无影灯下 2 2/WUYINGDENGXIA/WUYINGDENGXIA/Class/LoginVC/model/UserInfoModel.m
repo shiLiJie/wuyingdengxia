@@ -259,6 +259,12 @@ static UserInfoModel * _userInfoModel;
     }else{
         [defaults setObject:@"" forKey:@"we_chat_id"];
     }
+    
+    if (!kObjectIsEmpty(self.user_birthday) && ![self.user_birthday isEqualToString:@""]) {
+        [defaults setObject:self.user_birthday forKey:@"user_birthday"];
+    }else{
+        [defaults setObject:@"" forKey:@"user_birthday"];
+    }
 
     [defaults synchronize];
 }
@@ -308,6 +314,7 @@ static UserInfoModel * _userInfoModel;
     self.user_token = [defaults objectForKey:@"user_token"];
     self.moon_cash = [defaults objectForKey:@"moon_cash"];
     self.we_chat_id = [defaults objectForKey:@"we_chat_id"];
+    self.user_birthday = [defaults objectForKey:@"user_birthday"];
     
 }
 

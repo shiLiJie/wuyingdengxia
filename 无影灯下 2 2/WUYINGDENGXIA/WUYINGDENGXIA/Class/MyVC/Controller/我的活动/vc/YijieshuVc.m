@@ -12,12 +12,16 @@
 
 @interface YijieshuVc ()
 
+@property (nonatomic, strong) UIImageView *imageview;
 @end
 
 @implementation YijieshuVc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -28,11 +32,29 @@
     }else{
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 113, 0);
     }
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
 }
+
+//-(void)setYijieshuArr:(NSMutableArray *)yijieshuArr{
+//
+//    [self.tableView reloadData];
+//}
+
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return 11;
-    return self.yijieshuArr.count;
+
+    if (self.yijieshuArr.count == 0) {
+        
+        self.imageview.image = GetImage(@"wufensi");
+        self.imageview.hidden = NO;
+        return 0;
+    }else{
+        self.imageview.hidden = YES;
+        return self.yijieshuArr.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -45,14 +67,22 @@
     static NSString * reuseID = @"YijieshuCell";
     YijieshuCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     
-    if (!cell) {
+//    if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"YijieshuCell" owner:nil options:nil] firstObject];
-    }
+//    }
     
     MyHuodongModel *model = [[MyHuodongModel alloc] init];
     model = self.yijieshuArr[indexPath.row];
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:model.meeting_image] placeholderImage:GetImage(@"")];
-    cell.titleLab.text = model.meet_title;
+    if (!kStringIsEmpty(model.meeting_image)) {
+        [cell.image sd_setImageWithURL:[NSURL URLWithString:model.meeting_image] placeholderImage:GetImage(@"")];
+    }
+    
+    if (!kStringIsEmpty(model.meet_title)) {
+        cell.titleLab.text = model.meet_title;
+    }else{
+        cell.titleLab.text = @"";
+    }
+    
     cell.timeLab.text = [NSString stringWithFormat:@"%@-%@",model.begin_time,model.end_time];
     if ([model.is_sign isEqualToString:@"0"]) {
         cell.choosetype = weiqiandaoType;

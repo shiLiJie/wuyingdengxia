@@ -18,17 +18,17 @@
 
 @property (nonatomic, strong) NSArray *tiwenArr;;
 
+@property (nonatomic, strong) UIImageView *imageview;
+
 @end
 
 @implementation MyTiwenVc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.tiwenArr = [[NSArray alloc] init];
-    //获取提问列表
-    [self getUserTiWenList];
-    
+
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -36,6 +36,14 @@
     self.tableView.estimatedRowHeight = 100;//期望高度
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
+    
+    //获取提问列表
+    [self getUserTiWenList];
 }
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{
@@ -86,7 +94,8 @@
             [arrayM addObject:[QusetionModel QusetionWithDict:dict]];
             
         }
-        weakSelf.tiwenArr= arrayM;
+        weakSelf.tiwenArr= [[arrayM reverseObjectEnumerator] allObjects];
+        
         
         [self.tableView reloadData];
     } fail:^(NSError *error) {
@@ -94,9 +103,54 @@
     }];
 }
 
+//获取多长时间之前
+-(NSString *)getBeforeTimeWithTime:(NSString *)str{
+    //把字符串转为NSdate
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *timeDate = [dateFormatter dateFromString:str];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:timeDate];
+    
+    long temp = 0;
+    
+    NSString *result;
+    
+    if (timeInterval/60 < 1) {
+        result = [NSString stringWithFormat:@"刚刚"];
+    }
+    else if((temp = timeInterval/60) <60){
+        result = [NSString stringWithFormat:@"%ld分钟前",temp];
+    }
+    else if((temp = temp/60) <24){
+        result = [NSString stringWithFormat:@"%ld小时前",temp];
+    }
+    else if((temp = temp/24) <30){
+        result = [NSString stringWithFormat:@"%ld天前",temp];
+    }
+    else if((temp = temp/30) <12){
+        result = [NSString stringWithFormat:@"%ld月前",temp];
+    }
+    else{
+        temp = temp/12;
+        result = [NSString stringWithFormat:@"%ld年前",temp];
+    }
+    return result;
+}
+
+
 #pragma mark - tableviewDelegate -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.tiwenArr.count;
+    if (self.tiwenArr.count == 0) {
+        
+        self.imageview.image = GetImage(@"wutiwen");
+        self.imageview.hidden = NO;
+        return 0;
+    }else{
+        self.imageview.hidden = YES;
+        return self.tiwenArr.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -126,7 +180,7 @@
     cell.titleLab.text = model.question_title;
     cell.detailLab.text = model.question_content;
     cell.huidaLab.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
-    
+    cell.timeLab.text = [self getBeforeTimeWithTime:model.ctime];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

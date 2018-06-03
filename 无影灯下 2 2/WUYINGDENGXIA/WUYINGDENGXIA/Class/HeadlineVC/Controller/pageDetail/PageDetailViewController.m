@@ -32,8 +32,14 @@
 @property (weak, nonatomic) IBOutlet UIView *pinglunView;
 //评论内容
 @property (nonatomic,copy) NSString *inputStr;
+//评论id
+@property (nonatomic,copy) NSString *comentId;
+//评论还是回复
+@property (nonatomic,assign) BOOL isPinglun;
 
-
+//是否收藏,是否点赞标记
+@property (nonatomic, assign) BOOL isShoucang;
+@property (nonatomic, assign) BOOL isZan;
 
 @end
 
@@ -55,6 +61,10 @@
     if ([WXApi isWXAppInstalled]) {
         
     }
+    //获取文章详情
+    [self getPageDetail];
+    
+    self.isPinglun = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,6 +79,46 @@
     [IQKeyboardManager sharedManager].enable = YES;
 }
 
+
+/**
+ 获取文章详情
+ */
+-(void)getPageDetail{
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_articleinfo_byid?articleid=%@&userid=%@",self.articleid,user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSDictionary *dict = obj[@"data"];
+                                                           if ([dict[@"is_support"] isEqualToString:@"1"]) {
+                                                               [self.zanBtn setImage:GetImage(@"xiaodianzan2") forState:UIControlStateNormal];
+                                                               self.isZan = YES;
+                                                           }else{
+                                                               [self.zanBtn setImage:GetImage(@"dadianzan") forState:UIControlStateNormal];
+                                                               self.isZan = NO;
+                                                           }
+                                                           
+                                                           if ([dict[@"is_collection"] isEqualToString:@"1"]) {
+                                                               [self.shoucangBtn setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
+                                                               self.isShoucang = YES;
+                                                           }else{
+                                                               [self.shoucangBtn setImage:GetImage(@"shoucang") forState:UIControlStateNormal];
+                                                               self.isShoucang = NO;
+                                                           }
+                                                       }else{
+                                                           [MBProgressHUD showError:obj[@"msg"]];
+                                                       }
+                                                       
+        
+    }
+                                                      fail:^(NSError *error) {
+        
+    }];
+}
+
 //设置网页
 -(void)setWeb{
     //配置环境
@@ -76,8 +126,14 @@
     userContentController =[[WKUserContentController alloc]init];
     configuration.userContentController = userContentController;
     //wkweb
-    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    if (kDevice_Is_iPhoneX) {
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48-34)configuration:configuration];
+    }else{
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    }
+    
     _webView.UIDelegate = self;
+    _webView.navigationDelegate = self;
 
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
@@ -91,6 +147,9 @@
     delegateController.delegate = self;
     
     [userContentController addScriptMessageHandler:delegateController  name:@"asd"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"refreshcomment"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"comment_id"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"postReplyComment"];
 }
 
 //左侧按钮设置点击
@@ -150,19 +209,44 @@
 
     //判断用户登录状态
     if (user.loginStatus) {
-        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_support?userid=%@&toid=%@&supType=1",user.userid,self.articleid]]
-                                                    parameters:nil
-                                                       success:^(id obj) {
-                                                           if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                               
-                                                               [weakSelf.zanBtn setImage:GetImage(@"xiaodianzan2") forState:UIControlStateNormal];
-                                                           }else{
-                                                               
+        
+        if (!self.isZan) {
+            //点赞
+            [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_support?userid=%@&toid=%@&supType=1",user.userid,self.articleid]]
+                                                        parameters:nil
+                                                           success:^(id obj) {
+                                                               if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                   weakSelf.isZan = YES;
+                                                                   [weakSelf.zanBtn setImage:GetImage(@"xiaodianzan2") forState:UIControlStateNormal];
+                                                               }else{
+                                                                   
+                                                               }
                                                            }
-                                                       }
-                                                          fail:^(NSError *error) {
-                                                              
-                                                          }];
+                                                              fail:^(NSError *error) {
+                                                                  
+                                                              }];
+        }else{
+            //取消点赞
+            NSDictionary *dic = @{
+                                  @"userid":user.userid,
+                                  @"toid":self.articleid,
+                                  @"supType":@"1"
+                                  };
+            [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_cel_support"]
+                                                        parameters:dic
+                                                           success:^(id obj) {
+                                                               if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                   weakSelf.isZan = NO;
+                                                                   [weakSelf.zanBtn setImage:GetImage(@"dadianzan") forState:UIControlStateNormal];
+                                                               }else{
+                                                                   
+                                                               }
+                                                           }
+                                                              fail:^(NSError *error) {
+                                                                  
+                                                              }];
+        }
+        
     }else{
         LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
             
@@ -177,26 +261,52 @@
     [user loadUserInfoFromSanbox];
     //判断用户登录状态
     if (user.loginStatus) {
-        NSDictionary *dic = @{
-                              @"userid":user.userid,
-                              @"toid":self.articleid,
-                              @"type":@"1"
-                              };
-        
-        __weak typeof(self) weakSelf = self;
-        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_collection"]
-                                                     parameters:dic
-                                                        success:^(id obj) {
-                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                                
-                                                                [weakSelf.shoucangBtn setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
-                                                            }else{
-                                                                
+        //收藏
+        if (!self.isShoucang) {
+            NSDictionary *dic = @{
+                                  @"userid":user.userid,
+                                  @"toid":self.articleid,
+                                  @"type":@"1"
+                                  };
+            
+            __weak typeof(self) weakSelf = self;
+            [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_collection"]
+                                                         parameters:dic
+                                                            success:^(id obj) {
+                                                                if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                    weakSelf.isShoucang = YES;
+                                                                    [weakSelf.shoucangBtn setImage:GetImage(@"yishoucang") forState:UIControlStateNormal];
+                                                                }else{
+                                                                    
+                                                                }
                                                             }
-                                                        }
-                                                           fail:^(NSError *error) {
-                                                               
-                                                           }];
+                                                               fail:^(NSError *error) {
+                                                                   
+                                                               }];
+        }else{
+            //取消收藏
+            NSDictionary *dic = @{
+                                  @"userid":user.userid,
+                                  @"toid":self.articleid,
+                                  @"type":@"1"
+                                  };
+            
+            __weak typeof(self) weakSelf = self;
+            [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_cel_collect"]
+                                                         parameters:dic
+                                                            success:^(id obj) {
+                                                                if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                    weakSelf.isShoucang = NO;
+                                                                    [weakSelf.shoucangBtn setImage:GetImage(@"shoucang") forState:UIControlStateNormal];
+                                                                }else{
+                                                                    
+                                                                }
+                                                            }
+                                                               fail:^(NSError *error) {
+                                                                   
+                                                               }];
+        }
+        
     }else{
         LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
             
@@ -255,8 +365,25 @@
     self.inputStr = text;
 }
 
+//发送评论
 - (void)sendText:(NSString *)text{
     
+    if (self.isPinglun) {
+        //评论
+        [self postPinglunWithText:text];
+    }else{
+        //回复
+        [self postCommentWithText:text];
+    }
+}
+
+
+/**
+ 文章评论
+
+ @param text 评论内容
+ */
+-(void)postPinglunWithText:(NSString *)text{
     NSDictionary *dict = @{
                            @"userid":self.userid,
                            @"toid":self.articleid,
@@ -264,37 +391,94 @@
                            @"comContent":text,
                            @"comment_to_type":@"0"
                            };
-    NSLog(@"%@",dict);
+    
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"] parameters:dict success:^(id obj) {
         
-        NSLog(@"%@",obj);
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+            
+            NSString *jsStr = [NSString stringWithFormat:@"refreshcomment()"];
+            
+            [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+                
+            }];
+            
+        }else{
+            [MBProgressHUD showError:obj[@"msg"]];
+        }
+        
+        
     } fail:^(NSError *error) {
         //
     }];
 }
 
+/**
+ 评论回复
+
+ @param text 评论内容
+ */
+-(void)postCommentWithText:(NSString *)text{
+    
+    NSDictionary *dict = @{
+                           @"userid": self.userid,
+                           @"toid" : self.comentId,
+                           @"comType":@"1",
+                           @"comContent":text,
+                           @"comment_to_type":@"2"
+                           };
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            NSString *jsStr = [NSString stringWithFormat:@"postReplyComment()"];
+                                                            
+                                                            [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+                                                                
+                                                            }];
+                                                            
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+        
+    } fail:^(NSError *error) {
+        
+    }];
+    
+}
+
 #pragma mark - WKScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
         NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
+    //点用户头像
     if ([message.name isEqualToString:@"asd"]) {
+        self.isPinglun = YES;
         //做处理
         [self pushToPersonViewWithUserid:message.body];
     }
+    
+    //点用户头像
+    if ([message.name isEqualToString:@"comment_id"]) {
+        self.isPinglun = NO;
+        //做处理
+        self.comentId = message.body;
+    }
+
 }
+
+
 // oc调用JS方法   页面加载完成之后调用
 - (void)webView:(WKWebView *)tmpWebView didFinishNavigation:(WKNavigation *)navigation{
-    
-    //say()是JS方法名，completionHandler是异步回调block
-    [_webView evaluateJavaScript:@"asd()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        //        NSLog(@"%@",result);
-        
-    }];
+//refreshcomment
+
     
     if (_webView.title.length > 0) {
         self.title = _webView.title;
     }
     
 }
+
 //跳转到个人页
 -(void)pushToPersonViewWithUserid:(NSString *)userid{
     PersonViewController *publishPerson = [[PersonViewController alloc] init];

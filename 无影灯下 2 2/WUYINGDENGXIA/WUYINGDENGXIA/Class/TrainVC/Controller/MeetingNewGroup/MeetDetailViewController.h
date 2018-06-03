@@ -35,4 +35,6 @@
 @property (nonatomic,copy) NSString *meetId;
 @property (nonatomic,assign) BOOL isJieshu;
 
+//专家view
+@property (weak, nonatomic) IBOutlet UIView *zhuanjiaView;
 @end

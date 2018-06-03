@@ -26,15 +26,20 @@
 #import "lableModel.h"
 #import "bannerResultvc.h"
 #import "hotKeyModel.h"
-
 #import "DFSegmentView.h"
 
+#import "DetailTableViewCell.h"
+#import "searchResultModel.h"
+#import "AnswerViewController.h"
+#import "QusetionModel.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
                                     JohnScrollViewDelegate,
                                     PYSearchViewControllerDelegate,
-                                    DiscussCollectionDelegate,DFSegmentViewDelegate
+                                    PYSearchViewControllerDataSource,
+                                    DiscussCollectionDelegate,
+                                    DFSegmentViewDelegate
                                     >
 
 //顶部navbar搜索栏
@@ -51,6 +56,8 @@
 @property (nonatomic, strong) UIButton *addMenuBtn;
 //获取标签模型数组
 @property (nonatomic, strong) NSArray *labelArr;
+//获取搜索模型数组
+@property (nonatomic, strong) NSMutableArray *searchArr;
 //获取标签名称数组
 @property (nonatomic, strong) NSMutableArray *labelnameArr;
 
@@ -97,6 +104,7 @@
 -(void)addArr{
     self.labelArr = [[NSArray alloc] init];
     self.labelnameArr = [[NSMutableArray alloc] init];
+    self.searchArr = [[NSMutableArray alloc] init];
 }
 
 -(DetailTableViewController *)tablecontroller:(NSString *)lable{
@@ -142,7 +150,7 @@
     left.frame = CGRectMake(0, 0, 44, 60);
     [left setImage:GetImage(@"saoma") forState:UIControlStateNormal];
     [left setFont: [UIFont systemFontOfSize:14]];
-    left.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    left.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     return left;
 }
 
@@ -152,7 +160,7 @@
     [right setTitle:@"投稿" forState:UIControlStateNormal];
     [right setTitleColor:RGB(30, 150, 255) forState:UIControlStateNormal];
     [right setFont: [UIFont systemFontOfSize:17]];
-    right.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
+    right.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     return right;
 }
 
@@ -164,7 +172,7 @@
         if (kDevice_Is_iPhoneX) {
             _searchBtn.frame = CGRectMake(50, 48, Main_Screen_Width-105, 36);
         }else{
-            _searchBtn.frame = CGRectMake(50, 25, Main_Screen_Width-105, 36);
+            _searchBtn.frame = CGRectMake(60, 25, Main_Screen_Width-120, 36);
         }
         [_searchBtn addTarget:self action:@selector(setUpSearch) forControlEvents:UIControlEventTouchUpInside];
         [_searchBtn setBackgroundColor:RGB(245, 245, 245)];
@@ -333,7 +341,7 @@
 #pragma mark - 按钮action -
 //发表文章
 -(void)right_button_event:(UIButton*)sender{
-    
+ 
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     //判断用户登录状态
@@ -434,13 +442,14 @@
                                                            [weakSelf searchWithKey:searchText];
                                                            
                                                            //创建搜索后的控制器
-//                                                           [searchViewController.navigationController pushViewController:[[SearchResultVcViewController alloc] init] animated:YES];
+                                                           
                                                        }];
                                                        
                                                        searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
                                                        searchViewController.searchHistoryStyle = PYHotSearchStyleDefault;
                                                        
                                                        searchViewController.delegate = self;
+                                                       searchViewController.dataSource = self;
                                                        // 5. Present a navigation controller
                                                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
                                                        [self presentViewController:nav animated:NO completion:nil];
@@ -467,15 +476,21 @@
                                                    success:^(id obj) {
         
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-            
-            [MBProgressHUD showSuccess:obj[@"msg"]];
+            NSArray *arr = obj[@"data"];
+            NSMutableArray *arrayM = [NSMutableArray array];
+            for (int i = 0; i < arr.count; i ++) {
+                NSDictionary *dict = arr[i];
+                [arrayM addObject:[searchResultModel searchResultWithDict:dict]];
+                
+            }
+            self.searchArr= arrayM;
+
         }else{
-            [MBProgressHUD showError:obj[@"msg"]];
+
         }
         
     }
-                                                      fail:^(NSError *error) {
-        
+                                                      fail:^(NSError *error) {  
     }];
 }
 
@@ -514,7 +529,7 @@
                                                             [labArr addObject:dict[@"label_name"]];
                                                         }
                                                         sheetMenu.recommendSubjectArray = labArr;
-                                                        
+                                                        [weakSelf.newsMenu layoutSubviews];
                                                         
                                                     }
                                                        fail:^(NSError *error) {
@@ -544,7 +559,7 @@
     vc.model = model;
     
     [self.navigationController pushViewController:vc animated:YES];
-    self.searchBar.hidden = YES;
+    self.searchBar.hidden = YES;                                      
     self.searchBtn.hidden = YES;
 }
 
@@ -555,22 +570,81 @@
     if (searchText.length) {
         // Simulate a send request to get a search suggestions
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
-            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
-                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
-                [searchSuggestionsM addObject:searchSuggestion];
-            }
+//            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
+//            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
+//                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
+//                [searchSuggestionsM addObject:searchSuggestion];
+//            }
             // Refresh and display the search suggustions
-            searchViewController.searchSuggestions = searchSuggestionsM;
+            
+            [self searchWithKey:searchText];
+            
+//            searchViewController.searchSuggestions = searchSuggestionsM;
         });
     }
 }
+
+
+- (void)searchViewController:(PYSearchViewController *)searchViewController didSelectSearchSuggestionAtIndexPath:(NSIndexPath *)indexPath
+                   searchBar:(UISearchBar *)searchBar{
+    searchResultModel *model = [[searchResultModel alloc] init];
+    model = self.searchArr[indexPath.row];
+    if ([model.type isEqualToString:@"1"]) {
+        PageDetailViewController *vc = [[PageDetailViewController alloc] init];
+        vc.articleid = model.type_id;
+        [searchViewController.navigationController pushViewController:vc animated:YES];
+    }
+    if ([model.type isEqualToString:@"3"]) {
+        AnswerViewController *vc = [[AnswerViewController alloc] init];
+        QusetionModel *qmodel = [[QusetionModel alloc] init];
+        qmodel.question_id = model.type_id;
+        vc.questionModel = qmodel;
+        vc.choosetype = questionType;
+        [searchViewController.navigationController pushViewController:vc animated:YES];
+    }
+    
+    
+}
+
+
+- (UITableViewCell *)searchSuggestionView:(UITableView *)searchSuggestionView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    searchResultModel *model = self.searchArr[indexPath.row];
+    static NSString * reuseID = @"cell";
+    DetailTableViewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
+    cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
+    cell.mainTitle.text = model.title;
+    cell.pageDetail.text = model.content;
+    
+    return cell;
+}
+
+
+- (NSInteger)searchSuggestionView:(UITableView *)searchSuggestionView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.searchArr.count;
+}
+
+
+- (NSInteger)numberOfSectionsInSearchSuggestionView:(UITableView *)searchSuggestionView{
+    return 1;
+}
+
+
+- (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 150;
+}
+
 
 #pragma mark - DetailTableViewController代理方法 -
 - (void)johnScrollViewDidScroll:(CGFloat)scrollY{
     
     
     CGFloat headerViewY;
+    
+    
+    
     if (scrollY > 0) {
         
         [self.scrollView.timer invalidate];//滚动过程中banner定时器停止
@@ -578,14 +652,14 @@
         if (kDevice_Is_iPhoneX) {
             headerViewY = -scrollY + 90;
         }else{
-            headerViewY = -scrollY + 75;
+            headerViewY = -scrollY + 76;
         }
         
         if (scrollY > bannerHigh +12) {
             if (kDevice_Is_iPhoneX) {
                 headerViewY = -bannerHigh + 78;
             }else{
-                headerViewY = -bannerHigh + 63;
+                headerViewY = -bannerHigh + 64;
             }
         }
         
@@ -594,7 +668,7 @@
         if (kDevice_Is_iPhoneX) {
             headerViewY = 90;
         }else{
-            headerViewY = 75;
+            headerViewY = 76;
         }
         
         if (self.scrollView.timer == nil) {

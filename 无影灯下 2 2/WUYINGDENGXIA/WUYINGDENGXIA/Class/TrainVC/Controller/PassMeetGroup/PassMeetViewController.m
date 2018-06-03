@@ -14,7 +14,7 @@
 @interface PassMeetViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 
-
+@property (nonatomic, strong) UIImageView *imageview;
 
 
 @end
@@ -29,6 +29,11 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
+    self.imageview.hidden = YES;
 
 }
 
@@ -63,6 +68,7 @@
 
 //获取回顾列表
 -(void)getVideoList{
+    self.imageview.hidden = YES;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_allsub_replay?replay_id=%@",self.huiguModel.replay_id]]
                                                 parameters:nil
                                                    success:^(id obj) {
@@ -90,6 +96,9 @@
                                                    success:^(id obj) {
                                                        
                                                        NSDictionary *dictObj = obj[@"data"];
+                                                       if (IS_NULL_CLASS(dictObj[@"video"])) {
+                                                           return;
+                                                       }
                                                        NSArray *wenzhangArr = dictObj[@"video"];
                                                        
                                                        if (IS_NULL_CLASS(wenzhangArr)) {
@@ -103,6 +112,10 @@
                                                        }
                                                        
                                                        weakSelf.huiguerArr= arrayM;
+                                                       if (weakSelf.huiguerArr.count == 0) {
+                                                           weakSelf.imageview.image = GetImage(@"wushoucang");
+                                                           weakSelf.imageview.hidden = NO;
+                                                       }
                                                        [weakSelf.tableview reloadData];
                                                        
                                                        
@@ -134,19 +147,35 @@
     }
     
     huiguErModel *model = self.huiguerArr[indexPath.row];
-    cell.videoName.text = model.meeting_title;
-    cell.videoPerson.text = model.meeting_specialist;
-    cell.playNum.text = model.play_num;
-    cell.talkNum.text = model.comment_num;
-    cell.goodNum.text = model.support_num;
+    if (!kStringIsEmpty(model.meeting_title)) {
+        cell.videoName.text = model.meeting_title;
+    }
+    if (!kStringIsEmpty(model.meeting_specialist)) {
+        cell.videoPerson.text = model.meeting_specialist;
+    }
+    if (!kStringIsEmpty(model.play_num)) {
+        cell.playNum.text = model.play_num;
+    }
+    if (!kStringIsEmpty(model.comment_num)) {
+        cell.talkNum.text = model.comment_num;
+    }
+    if (!kStringIsEmpty(model.support_num)) {
+        cell.goodNum.text = model.support_num;
+    }
+
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //耗时操作
+        if (!kStringIsEmpty(model.video_url)) {
+            UIImage *image = [UIImage thumbnailImageForVideo:[NSURL URLWithString:model.video_url] atTime:1];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //回调或者说是通知主线程刷新，
+                cell.videoImage.image = image;
+            });
+        }
         //cell.videoImage.image = [UIImage thumbnailImageForVideo:[NSURL URLWithString:model.video_url] atTime:1];
-        UIImage *image = [UIImage thumbnailImageForVideo:[NSURL URLWithString:@"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"] atTime:1];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //回调或者说是通知主线程刷新，
-            cell.videoImage.image = image;
-        });
+        
+        
     });
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

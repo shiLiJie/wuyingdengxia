@@ -80,9 +80,16 @@
         huiguModel *model = [[huiguModel alloc] init];
         model = self.huiguArr[indexPath.row];
 
-        cell.meetName.text = model.replay_title;
-        cell.meetTime.text = model.begin_time;
-
+        if (!kStringIsEmpty(model.replay_title)) {
+            cell.meetName.text = model.replay_title;
+        }else{
+            cell.meetName.text = @" ";
+        }
+        if (!kStringIsEmpty(model.begin_time)) {
+            cell.meetTime.text = model.begin_time;
+        }else{
+            cell.meetTime.text = @" ";
+        }
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

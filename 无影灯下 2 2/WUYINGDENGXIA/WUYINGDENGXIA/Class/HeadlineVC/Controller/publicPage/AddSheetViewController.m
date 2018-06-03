@@ -8,6 +8,8 @@
 
 #import "AddSheetViewController.h"
 #import "IQKeyboardManager.h"
+#import "SearchSheetLabVc.h"
+#import "lableModel2.h"
 
 @interface AddSheetViewController ()<UITextFieldDelegate>
 //确定按钮
@@ -17,6 +19,8 @@
 //存放自定义标签的数组
 @property (nonatomic, strong) NSMutableArray *customLabArr;
 
+@property (nonatomic, assign) BOOL isAddLab;
+
 
 @end
 
@@ -24,6 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.isAddLab = NO;
 
     self.customLabArr = [[NSMutableArray alloc] init];
     
@@ -47,16 +53,21 @@
 
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    [IQKeyboardManager sharedManager].enable = NO;
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.isAddLab = NO;
+    [self.newsMenu layoutSubviews];
+}
 
 
 -(void)viewWillDisappear:(BOOL)animated{
+    if (self.isAddLab) {
+        return;
+    }
     //取消标签选择
     [self.newsMenu dismissNewsMenu];
 //    [IQKeyboardManager sharedManager].enable = YES;
+    
 }
 
 #pragma mark - UI -
@@ -106,6 +117,28 @@
             weakSelf.clossviewblock(itemArray);
             weakSelf.allLabArr = itemArray;
         }
+    }];
+    
+    //点击搜索按钮的回调
+    [self.newsMenu setSearchBlock:^{
+        SearchSheetLabVc *vc = [[SearchSheetLabVc alloc] init];
+        weakSelf.isAddLab = YES;
+        //搜索结束后回调过来的数组
+        vc.dismissviewBlock = ^(NSMutableArray *itemArray) {
+            NSMutableArray *larr = [[NSMutableArray alloc] init];
+            larr = weakSelf.newsMenu.mySubjectArray;
+            if (!kObjectIsEmpty(itemArray)) {
+                lableModel2 *model = [[lableModel2 alloc] init];
+                for (model in itemArray) {
+                    [larr addObject:model.label_name];
+                }
+                weakSelf.newsMenu.mySubjectArray = larr;
+                [weakSelf.newsMenu layoutSubviews];
+            }
+        };
+        
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+       
     }];
     
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_labels_rand?limit=10&type=1"]

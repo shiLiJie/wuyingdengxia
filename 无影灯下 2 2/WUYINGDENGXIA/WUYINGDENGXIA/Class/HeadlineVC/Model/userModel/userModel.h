@@ -46,6 +46,7 @@
 @property (nonatomic ,copy)NSString *user_token;
 @property (nonatomic,copy) NSString *moon_cash;
 @property (nonatomic,copy) NSString *we_chat_id;
+@property (nonatomic,copy) NSString *user_birthday;
 
 + (instancetype)userWithDict:(NSDictionary *)dict;
 

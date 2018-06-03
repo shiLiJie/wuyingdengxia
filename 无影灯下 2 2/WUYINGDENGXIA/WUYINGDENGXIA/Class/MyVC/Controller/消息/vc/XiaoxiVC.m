@@ -13,6 +13,7 @@
 #import "XitongVc.h"
 #import "XiaoxiDetailVc.h"
 
+
 #define segViewHigh     44
 
 @interface XiaoxiVC ()<MDMultipleSegmentViewDeletegate,MDFlipCollectionViewDelegate,TongzhiVcDelegate,XitongVcDelegate>
@@ -20,6 +21,14 @@
     MDMultipleSegmentView *_segView;    //标签视图
     MDFlipCollectionView *_collectView; //标签视图内容
 }
+
+@property (nonatomic, strong) NSMutableArray *allDataArr;
+@property (nonatomic, strong) NSMutableArray *tuigaoArr;
+@property (nonatomic, strong) NSMutableArray *canhuiArr;
+
+@property (nonatomic, strong) TongzhiVc *vc;
+
+
 
 @end
 
@@ -56,7 +65,74 @@
     [super viewDidLoad];
     [self addSegView];
 //    [self.navigationController.view bringSubviewToFront:_segView];
+    
+    self.allDataArr = [[NSMutableArray alloc] init];
+    self.tuigaoArr = [[NSMutableArray alloc] init];
+    self.canhuiArr = [[NSMutableArray alloc] init];
+    
+    [self getSystemInfoWithPage];
+    [self getSystemInfoWithMeet];
 }
+
+
+/**
+ 获取退稿信息
+ */
+-(void)getSystemInfoWithPage{
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_sys_msg?user_id=%@&type=1",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       NSArray *arr = obj[@"data"];
+
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [self.allDataArr addObject:dict];
+                                                           
+                                                       }
+                                                       
+                                                       self.vc.dataArr = self.allDataArr;
+                                                       [self.vc.tableView reloadData];
+    }
+                                                      fail:^(NSError *error) {
+        
+    }];
+}
+
+
+/**
+ 获取参会信息
+ */
+-(void)getSystemInfoWithMeet{
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_sys_msg?user_id=%@&type=2",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       NSArray *arr = obj[@"data"];
+                                                       
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [self.allDataArr addObject:dict];
+                                                           
+                                                       }
+                                                       
+                                                       self.vc.dataArr = self.allDataArr;
+                                                       [self.vc.tableView reloadData];
+                                                       
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          
+                                                      }];
+}
+
 
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{
@@ -130,10 +206,10 @@
 
 #pragma mark - 私有action -
 -(TongzhiVc *)tablecontroller{
-    TongzhiVc *vc = [[TongzhiVc alloc] init];
-    vc.delegate = self;
+    self.vc = [[TongzhiVc alloc] init];
+    self.vc.delegate = self;
 
-    return vc;
+    return self.vc;
 }
 
 -(XitongVc *)tablecontroller1{
@@ -144,21 +220,21 @@
 }
 
 #pragma mark - 消息列表代理方法 -
--(void)transIndex:(NSIndexPath *)index{
-    
+-(void)transIndex:(NSIndexPath *)index isTuigao:(BOOL)istuigao dataDict:(NSDictionary *)dict{
     _segView.hidden = YES;//返回隐藏顶部view
     //通知消息
     XiaoxiDetailVc *vc = [[XiaoxiDetailVc alloc] init];
-    vc.titleStriing = @"通知消息";
-    if (index.row == 0) {
+    if ([dict[@"type"] isEqualToString:@"1"]){
         vc.xiaoxiType = tuigaoType;
-    }else if(index.row == 1){
-        vc.xiaoxiType = canhuiType;
+        vc.titleStriing = @"退稿消息";
     }else{
-        vc.xiaoxiType = wenjuanType;
+        vc.xiaoxiType = canhuiType;
+        vc.titleStriing = @"参会消息";
     }
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 -(void)transIndex1:(NSIndexPath *)index{
 //    _segView.hidden = YES;//返回隐藏顶部view
 //    //系统消息

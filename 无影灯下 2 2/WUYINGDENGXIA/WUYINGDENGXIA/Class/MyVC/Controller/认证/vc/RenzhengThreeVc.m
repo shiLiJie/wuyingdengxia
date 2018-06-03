@@ -147,8 +147,9 @@
                                                             
                                                             //如果有图片
                                                             if (self.imageArr.count > 0) {
-                                                                
+                                                                dispatch_group_t downloadGroup = dispatch_group_create();
                                                                 for (int i = 0; i<self.imageArr.count; i++) {
+                                                                    dispatch_group_enter(downloadGroup);
                                                                     NSData *data = UIImagePNGRepresentation(self.imageArr[i]);
                                                                     
                                                                     [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
@@ -165,7 +166,7 @@
                                                                                                                 //上传完左右照片,提交投稿
                                                                                                                 if (i == weakSelf.imageArr.count-1) {
                                                                                                                     //发送认证请求
-                                                                                                                    [weakSelf postRenzhengWithUid:user.userid userToken:user.usertoken imgPath:arr];
+                                                                                                                    [weakSelf postRenzhengWithUid:user.userid userToken:user.user_token imgPath:arr];
                                                                                                                 }
                                                                                                                 
                                                                                                             }else{
@@ -173,14 +174,20 @@
                                                                                                                 [MBProgressHUD hideHUD];
                                                                                                                 [MBProgressHUD showError:dic[@"msg"]];
                                                                                                             }
-                                                                                                            
+                                                                                                            dispatch_group_leave(downloadGroup);
                                                                                                         }
                                                                                                         errorBlock:^(NSError *error) {
                                                                                                             [MBProgressHUD hideHUD];
-                                                                                                            
+                                                                                                            dispatch_group_leave(downloadGroup);
                                                                                                         }];
                                                                     
                                                                 }
+                                                                //for循环执行完毕,调用方法
+                                                                dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    NSString *string = [arr componentsJoinedByString:@","];
+                                                                    [weakSelf postRenzhengWithUid:user.userid userToken:user.user_token imgPath:arr];
+                                                                });
                                                             }else{
                                                                 //发送认证请求
                                                                 [weakSelf postRenzhengWithUid:user.userid userToken:user.usertoken imgPath:arr];

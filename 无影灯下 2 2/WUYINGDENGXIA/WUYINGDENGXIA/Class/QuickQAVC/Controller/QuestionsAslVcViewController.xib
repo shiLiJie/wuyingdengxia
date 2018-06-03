@@ -155,34 +155,34 @@
                     <rect key="frame" x="0.0" y="728" width="375" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYu-4j-4gn">
-                            <rect key="frame" x="21" y="13.666666666666629" width="22" height="22"/>
+                            <rect key="frame" x="21" y="12.666666666666629" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="rYu-4j-4gn" secondAttribute="height" multiplier="1:1" id="5cC-3o-ISa"/>
-                                <constraint firstAttribute="height" constant="22" id="pgb-JB-eOe"/>
+                                <constraint firstAttribute="height" constant="24" id="pgb-JB-eOe"/>
                             </constraints>
-                            <state key="normal" backgroundImage="tupian"/>
+                            <state key="normal" image="tupian"/>
                             <state key="highlighted" image="tupian"/>
                             <connections>
                                 <action selector="choosePicBtnClick:" destination="-1" eventType="touchUpInside" id="8nV-zZ-P1A"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRf-If-DsG">
-                            <rect key="frame" x="64" y="13.666666666666629" width="22" height="22"/>
+                            <rect key="frame" x="66" y="12.666666666666629" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="yRf-If-DsG" secondAttribute="height" multiplier="1:1" id="cbX-Xu-dDa"/>
-                                <constraint firstAttribute="height" constant="22" id="h1X-hP-8Yh"/>
+                                <constraint firstAttribute="height" constant="24" id="h1X-hP-8Yh"/>
                             </constraints>
-                            <state key="normal" backgroundImage="biaoqian"/>
+                            <state key="normal" image="biaoqian"/>
                             <state key="highlighted" image="biaoqian"/>
                             <connections>
                                 <action selector="chooseSheetBtnClick:" destination="-1" eventType="touchUpInside" id="Zm1-Dd-hNw"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6CS-Dw-GZH">
-                            <rect key="frame" x="107" y="13" width="24" height="24"/>
+                            <rect key="frame" x="111" y="13.666666666666629" width="23" height="23"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="24" id="11M-qj-vmH"/>
-                                <constraint firstAttribute="width" constant="24" id="sZl-NI-uf5"/>
+                                <constraint firstAttribute="height" constant="23" id="11M-qj-vmH"/>
+                                <constraint firstAttribute="width" constant="23" id="sZl-NI-uf5"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="¥">
