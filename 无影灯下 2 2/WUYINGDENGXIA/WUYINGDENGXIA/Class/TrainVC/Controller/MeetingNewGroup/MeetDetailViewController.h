@@ -31,8 +31,10 @@
 @property (weak, nonatomic) IBOutlet UIView *huiyiRichengView;
 @property (weak, nonatomic) IBOutlet UITableView *richengTableView;
 @property (weak, nonatomic) IBOutlet UIButton *huiyiRichengBtn;
-
+//会议id
 @property (nonatomic,copy) NSString *meetId;
+//判断未开始或者报名中
+@property (nonatomic,copy) NSString *weikaishiOrBaomingzhong;
 @property (nonatomic,assign) BOOL isJieshu;
 
 //专家view

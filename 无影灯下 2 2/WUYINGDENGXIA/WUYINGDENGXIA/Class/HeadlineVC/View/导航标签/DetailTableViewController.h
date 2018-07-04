@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "pageModel.h"
 
+typedef enum _choosePageType{
+
+    labelType = 0,//标题类型
+    shoucangType,//内容类型
+    personType
+
+} choosePageType;
+
 @protocol JohnScrollViewDelegate<NSObject>
 
 @optional
@@ -34,12 +42,16 @@
 
 //对应的标签(主页用)
 @property (nonatomic,copy) NSString *lable;
+//对应的标签(主页用)
+@property (nonatomic,copy) NSString *lableName;
+//选择从哪进来
+@property (nonatomic, assign) choosePageType choosetype;
 
 //我的收藏文章列表
 -(void)getMyshoucangPage;
 
 //查看别人主页时吊用此方法,获取文章列表
--(void)getPersonVcPageWithPersonId:(NSString *)userid;
+-(void)getPersonVcPageWithPersonId:(NSString *)userid userName:(NSString *)username userHeadimg:(NSString *)userheadimg;
 
 
 @end

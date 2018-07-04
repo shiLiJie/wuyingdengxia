@@ -106,6 +106,7 @@ ZZHotKeysLayoutDelegate>
 -(UIButton *)set_leftButton{
     UIButton *btn = [[UIButton alloc] init];
     btn.frame = CGRectMake(0, 0, 44, 60);
+    
     [btn setImage:GetImage(@"fanhui") forState:UIControlStateNormal];
     return btn;
 }
@@ -117,6 +118,7 @@ ZZHotKeysLayoutDelegate>
 //右上角分享
 -(UIButton *)set_rightButton{
     UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(kScreen_Width-44, 0, 44, 60);
     [btn setImage:GetImage(@"fenxiang") forState:UIControlStateNormal];
     return btn;
 }

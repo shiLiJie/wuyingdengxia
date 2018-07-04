@@ -10,11 +10,16 @@
 
 @implementation zhuanjiaCell
 
+//-(void)layoutSubviews{
+////    [self.zhuanjiaDetail alignTop];
+////    [self.zhuanjiaDetail sizeToFit];
+//}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    
+
     self.zhuangjiaImage.clipsToBounds = YES;
+    
 }
 
 @end

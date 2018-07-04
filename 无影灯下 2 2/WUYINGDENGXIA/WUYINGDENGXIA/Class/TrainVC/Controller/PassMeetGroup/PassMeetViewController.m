@@ -108,7 +108,7 @@
                                                        NSMutableArray *arrayM = [NSMutableArray array];
                                                        for (int i = 0; i < wenzhangArr.count; i ++) {
                                                            NSDictionary *dict = wenzhangArr[i];
-                                                           [arrayM addObject:[huiguErModel huiguErWithDict:dict]];
+                                                           [arrayM addObject:[huiguErModel huiguShoucangWithDict:dict]];
                                                        }
                                                        
                                                        weakSelf.huiguerArr= arrayM;
@@ -188,13 +188,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([self.delegate respondsToSelector:@selector(tableviewDidSelectPageWithIndex2:)]) {
-        [self.delegate tableviewDidSelectPageWithIndex2:indexPath];
+    huiguErModel *model = [[huiguErModel alloc] init];
+    model = self.huiguerArr[indexPath.row];
+    
+    if ([self.delegate respondsToSelector:@selector(tableviewDidSelectPageWithIndex2:huiguErModel:)]) {
+        [self.delegate tableviewDidSelectPageWithIndex2:indexPath huiguErModel:model];
     }
     
     PlayDetailViewController *vc = [[PlayDetailViewController alloc] init];
+
     vc.huifuerModel = [[huiguErModel alloc] init];
-    vc.huifuerModel = self.huiguerArr[indexPath.row];
+    vc.huifuerModel = model;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

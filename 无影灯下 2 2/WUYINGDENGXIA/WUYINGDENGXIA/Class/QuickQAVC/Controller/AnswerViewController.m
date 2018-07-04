@@ -25,7 +25,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
 //是否收藏的标记
 @property (nonatomic, assign) BOOL isShoucang;
-
+//评论id
+@property (nonatomic,copy) NSString *comentId;
+//评论还是回复
+@property (nonatomic,assign) BOOL isPinglun;
 
 @end
 
@@ -61,6 +64,7 @@
     if ([WXApi isWXAppInstalled]) {
         
     }
+    self.isPinglun = YES;
 }
 
 //问题详情
@@ -133,6 +137,9 @@
     delegateController.delegate = self;
     
     [userContentController addScriptMessageHandler:delegateController  name:@"asd"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"refreshcomment"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"comment_id"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"postReplyComment"];
 }
 
 //左侧按钮设置点击
@@ -144,7 +151,14 @@
 }
 
 -(void)left_button_event:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.webView.canGoBack==YES) {
+        
+        [self.webView goBack];
+        
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 -(NSMutableAttributedString *)setTitle{
@@ -166,10 +180,18 @@
 
 #pragma mark - WKScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
-    NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
+    //点用户头像
     if ([message.name isEqualToString:@"asd"]) {
+        self.isPinglun = YES;
         //做处理
         [self pushToPersonViewWithUserid:message.body];
+    }
+    
+    //点用户头像
+    if ([message.name isEqualToString:@"comment_id"]) {
+        self.isPinglun = NO;
+        //做处理
+        self.comentId = message.body;
     }
 }
 // oc调用JS方法   页面加载完成之后调用
@@ -198,7 +220,7 @@
     // 注意通知内容类型的匹配
     if (notification.object == 0)
     {
-        NSLog(@"分享成功");
+//        NSLog(@"分享成功");
     }
 }
 
@@ -288,9 +310,21 @@
     req.bText = NO;
     
     req.message = message;
-    req.scene = WXSceneSession;
-    
-    [WXApi sendReq:req];
+    NSArray *titles = @[@"发送给朋友",@"分享到朋友圈"];
+    NSArray *imageNames = @[@"wxfx",@"pyqfx"];
+    HLActionSheet *sheet = [[HLActionSheet alloc] initWithTitles:titles iconNames:imageNames];
+    [sheet showActionSheetWithClickBlock:^(int btnIndex) {
+        if (btnIndex == 0) {
+            req.scene = WXSceneSession;
+            [WXApi sendReq:req];
+        }else{
+            req.scene = WXSceneTimeline;
+            [WXApi sendReq:req];
+        }
+    } cancelBlock:^{
+        
+    }];
+
 }
 
 #pragma mark - textinput代理 -
@@ -299,23 +333,94 @@
 }
 
 - (void)sendText:(NSString *)text{
+    
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
+    
+    
+    if (self.webView.canGoBack) {
+        self.isPinglun = NO;
+    }else{
+        self.isPinglun = YES;
+    }
+    
+    if (self.isPinglun) {
+        //评论
+        [self postPinglunWithText:text userId:user.userid];
+    }else{
+        //回复
+        [self postCommentWithText:text userId:user.userid];
+    }
+    
+}
+
+/**
+ 文章评论
+ 
+ @param text 评论内容
+ */
+-(void)postPinglunWithText:(NSString *)text userId:(NSString *)userid{
     NSDictionary *dict = @{
                            @"quesid":self.questionModel.question_id,
-                           @"userid":user.userid,
+                           @"userid":userid,
                            @"anwContent":text
                            };
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_anwser"] parameters:dict success:^(id obj) {
-        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-            
-            [MBProgressHUD showSuccess:obj[@"msg"]];
-        }else{
-            [MBProgressHUD showError:obj[@"msg"]];
-        }
-    } fail:^(NSError *error) {
-        [MBProgressHUD showError:@"评论失败"];
-    }];
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_anwser"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            NSString *jsStr = [NSString stringWithFormat:@"refreshcomment('%@')",text];
+                                                            
+                                                            [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+                                                                
+                                                            }];
+                                                            
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+                                                        
+                                                        
+                                                    } fail:^(NSError *error) {
+                                                        //
+                                                    }];
+}
+
+/**
+ 评论回复
+ 
+ @param text 评论内容
+ */
+-(void)postCommentWithText:(NSString *)text userId:(NSString *)userid{
+    
+    NSDictionary *dict = @{
+                           @"userid": userid,
+                           @"toid" : self.comentId,
+                           @"comType":@"1",
+                           @"comContent":text,
+                           @"comment_to_type":@"3"
+                           };
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            NSString *jsStr = [NSString stringWithFormat:@"postReplyComment('%@')",text];
+                                                            
+                                                            [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+                                                                
+                                                            }];
+                                                            
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+                                                        
+                                                    } fail:^(NSError *error) {
+                                                        
+                                                    }];
     
 }
 

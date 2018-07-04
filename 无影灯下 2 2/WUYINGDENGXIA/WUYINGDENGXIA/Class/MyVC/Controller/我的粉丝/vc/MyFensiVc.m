@@ -28,8 +28,7 @@
 
     
     self.fensiArr = [[NSArray alloc] init];
-    //调取粉丝
-    [self getMyfensiInfo];
+
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.frame.size.height)];
     self.tableView.delegate = self;
@@ -62,6 +61,12 @@
             blackLineImageView.hidden = YES;
         }
     }
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        //调取粉丝
+        [self getMyfensiInfo];
+    }
 }
 
 
@@ -87,7 +92,7 @@
                                                            weakSelf.fensiArr= arrayM;
                                                            [weakSelf.tableView reloadData];
                                                        }else{
-                                                           [MBProgressHUD showError:obj[@"msg"]];
+//                                                           [MBProgressHUD showError:obj[@"msg"]];
                                                        }
                                                        
     } fail:^(NSError *error) {
@@ -177,6 +182,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PersonViewController *vc = [[PersonViewController alloc] init];
+    MyfensiModel *model = [[MyfensiModel alloc] init];
+    model = self.fensiArr[indexPath.row];
+    vc.userid = model.fansid;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

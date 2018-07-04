@@ -30,6 +30,25 @@
     self.upBtn.layer.masksToBounds = YES;//是否切割
     
     [self addTargetMethod];//监听文本输入
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (!kStringIsEmpty(user.userHospital)) {
+        if (![user.userHospital isEqualToString:@" "]) {
+            self.yiyuanField.text = user.userHospital;
+        }
+    }
+    if (!kStringIsEmpty(user.userOffice)) {
+        if (![user.userOffice isEqualToString:@" "]) {
+            self.keshiField.text = user.userOffice;
+        }
+    }
+    if (!kStringIsEmpty(user.userPost)) {
+        if (![user.userPost isEqualToString:@" "]) {
+            self.zhiwuField.text = user.userPost;
+        }
+    }
+    
 }
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{
@@ -130,6 +149,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc{
+    
 }
 
 /*

@@ -23,6 +23,7 @@
 #import "PageDetailViewController.h"
 #import "AnswerViewController.h"
 #import "DetailTableViewCell.h"
+#import "MeetingNewCell.h"
 
 #define segViewHigh     44
 
@@ -143,7 +144,7 @@
                                                        //创建搜索控制器
                                                        PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"输入想要搜索的关键词" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
                                                            
-                                                           [weakSelf searchWithKey:searchText];
+                                                           [weakSelf searchWithKey:searchText searchViewController:searchViewController];
                                                            
                                                            //创建搜索后的控制器
                                                            
@@ -168,10 +169,34 @@
  
  @param key 搜索关键词
  */
--(void)searchWithKey:(NSString *)key{
+-(void)searchWithKey:(NSString *)key searchViewController:(PYSearchViewController *)searchViewController{
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"searchall?user_id=%@&key=%@",user.userid,key]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+//    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"searchall?user_id=%@&key=%@",user.userid,key]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+//
+//    [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
+//                                                parameters:nil
+//                                                   success:^(id obj) {
+//
+//                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+//                                                           NSArray *arr = obj[@"data"];
+//                                                           NSMutableArray *arrayM = [NSMutableArray array];
+//                                                           for (int i = 0; i < arr.count; i ++) {
+//                                                               NSDictionary *dict = arr[i];
+//                                                               [arrayM addObject:[searchResultModel searchResultWithDict:dict]];
+//
+//                                                           }
+//                                                           self.searchArr= arrayM;
+//
+//                                                       }else{
+//
+//                                                       }
+//
+//                                                   }
+//                                                      fail:^(NSError *error) {
+//                                                      }];
+    
+    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_search_meeting?key=%@",key]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
                                                 parameters:nil
@@ -182,13 +207,15 @@
                                                            NSMutableArray *arrayM = [NSMutableArray array];
                                                            for (int i = 0; i < arr.count; i ++) {
                                                                NSDictionary *dict = arr[i];
-                                                               [arrayM addObject:[searchResultModel searchResultWithDict:dict]];
+                                                               [arrayM addObject:[meetingModel meetWithDict:dict]];
                                                                
                                                            }
-                                                           self.searchArr= arrayM;
+                                                           self.searchArr = arrayM;
+                                                           searchViewController.searchSuggestions = self.searchArr;
                                                            
                                                        }else{
-                                                           
+                                                           [self.searchArr removeAllObjects];
+                                                           searchViewController.searchSuggestions = self.searchArr;
                                                        }
                                                        
                                                    }
@@ -221,7 +248,7 @@
             //            }
             // Refresh and display the search suggustions
             
-            [self searchWithKey:searchText];
+            [self searchWithKey:searchText searchViewController:searchViewController];
             
             //            searchViewController.searchSuggestions = searchSuggestionsM;
         });
@@ -253,12 +280,41 @@
 
 - (UITableViewCell *)searchSuggestionView:(UITableView *)searchSuggestionView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    searchResultModel *model = self.searchArr[indexPath.row];
-    static NSString * reuseID = @"cell";
-    DetailTableViewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
-    cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
-    cell.mainTitle.text = model.title;
-    cell.pageDetail.text = model.content;
+    static NSString * reuseID = @"MeetingNewCell";
+    MeetingNewCell * cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
+    
+    if (!cell) {
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"MeetingNewCell" owner:nil options:nil] firstObject];
+        cell.baomingBtn.layer.cornerRadius = CGRectGetHeight(cell.baomingBtn.frame)/2;//2.0是圆角的弧度，根据需求自己更改
+        cell.baomingBtn.layer.masksToBounds = YES;
+        cell.baomingBtn.layer.borderColor = RGB(245, 166, 35).CGColor;//设置边框颜色
+        [cell.baomingBtn setTitleColor:RGB(245, 166, 35) forState:UIControlStateNormal];
+        cell.baomingBtn.layer.borderWidth = 0.5f;//设置边框颜色
+        
+        meetingModel *model = [[meetingModel alloc] init];
+        model = self.searchArr[indexPath.row];
+        [cell.meetImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.meeting_image]] placeholderImage:GetImage(@"")];
+        cell.meetName.text = model.meet_title;
+        cell.meetTime.text = model.begin_time;
+        if ([model.isfinish isEqualToString:@"0"]) {
+            cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
+            [cell.baomingBtn setTitle:@"未开始" forState:UIControlStateNormal];
+            [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
+        }
+        //        if ([model.isfinish isEqualToString:@"1"]) {
+        //            cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
+        //            [cell.baomingBtn setTitle:@"未开始" forState:UIControlStateNormal];
+        //            [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
+        //        }
+        if ([model.isfinish isEqualToString:@"2"]) {
+            cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
+            [cell.baomingBtn setTitle:@"已结束" forState:UIControlStateNormal];
+            [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
+        }
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -277,7 +333,7 @@
 
 - (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return kScreen_Height * 0.3;
 }
 
 #pragma mark - 会议资讯和往期回顾点击代理方法 -
@@ -285,6 +341,7 @@
     
     MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
     vc.meetId = meetmodel.meet_id;
+    vc.weikaishiOrBaomingzhong = meetmodel.isfinish;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

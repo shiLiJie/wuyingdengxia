@@ -95,6 +95,7 @@
     //初始化
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu1];
     self.newsMenu = sheetMenu;
+    self.newsMenu.pageOrqa = self.pageOrqu;
     sheetMenu.mySubjectArray = self.allLabArr;
     sheetMenu.recommendSubjectArray = @[@"体育",@"军事",@"音乐",@"电影",@"中国风",@"摇滚",@"小说",@"梦想",@"机器",@"电脑"].mutableCopy;
     sheetMenu.choosetype = postType;
@@ -141,7 +142,7 @@
        
     }];
     
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_labels_rand?limit=10&type=1"]
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labels_rand?limit=10&type=%@",self.pageOrqu]]
                                                  parameters:nil
                                                     success:^(id obj) {
                                                         

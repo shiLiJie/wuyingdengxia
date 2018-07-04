@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.image.clipsToBounds = YES;
 }
 
 -(void)setUpUi:(chooseType)choosetype{

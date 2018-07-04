@@ -39,13 +39,25 @@
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    if (!kStringIsEmpty(user.userName)) {
-        self.userName.text = user.userName;
+    if (user.loginStatus) {
+        if (!kStringIsEmpty(user.userName)) {
+            self.userName.text = user.userName;
+        }else{
+            self.userName.text = @"您的昵称";
+        }
+        if (!kStringIsEmpty(user.moon_cash)) {
+            [self.yueliangbi setTitle:user.moon_cash forState:UIControlStateNormal];
+        }else{
+            [self.yueliangbi setTitle:@" 0" forState:UIControlStateNormal];
+        }
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+    }else{
+        self.userName.text = @"您的昵称";
+        [self.yueliangbi setTitle:@" 0" forState:UIControlStateNormal];
+        self.headImage.image = GetImage(@"tx");
+        
     }
-    if (!kStringIsEmpty(user.moon_cash)) {
-        [self.yueliangbi setTitle:user.moon_cash forState:UIControlStateNormal];
-    }
-    [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+    
 }
 
 #pragma mark - 私有方法 -
@@ -61,8 +73,18 @@
 }
 //许愿按钮点击
 - (IBAction)xuyuanClick:(UIButton *)sender {
-    XuyuanVc *vc = [[XuyuanVc alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        XuyuanVc *vc = [[XuyuanVc alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

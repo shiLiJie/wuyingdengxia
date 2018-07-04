@@ -88,7 +88,8 @@
     NSNotification *notification =[NSNotification notificationWithName:@"HUIFUFANHUI" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     //返回设置页
-    [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+//    [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
 //查看进度

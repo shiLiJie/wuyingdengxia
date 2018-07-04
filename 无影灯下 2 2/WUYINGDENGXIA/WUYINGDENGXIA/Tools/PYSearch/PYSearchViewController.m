@@ -393,15 +393,21 @@
     for (UIView *subView in [[searchBar.subviews lastObject] subviews]) {
         if ([[subView class] isSubclassOfClass:[UITextField class]]) {
             UITextField *textField = (UITextField *)subView;
-            textField.font = [UIFont systemFontOfSize:16];
+            textField.font = [UIFont systemFontOfSize:14];
             _searchTextField = textField;
+            
             break;
         }
+        
+        UIView* backgroundView = [searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
+        backgroundView.layer.cornerRadius = 15.0f;
+        backgroundView.clipsToBounds = YES;
+
     }
 
     self.searchBar = searchBar;
-//    self.searchBar.layer.cornerRadius = CGRectGetHeight(searchBar.frame)/2;//半径大小
-//    self.searchBar.layer.masksToBounds = YES;//是否切割
+    _searchTextField.layer.cornerRadius = CGRectGetHeight(_searchTextField.frame)/2;//半径大小
+    _searchTextField.layer.masksToBounds = YES;//是否切割
     
     UIView *headerView = [[UIView alloc] init];
     headerView.py_width = PYScreenW;
@@ -443,6 +449,7 @@
     
     self.hotSearches = nil;
 }
+
 
 - (UILabel *)setupTitleLabel:(NSString *)title
 {

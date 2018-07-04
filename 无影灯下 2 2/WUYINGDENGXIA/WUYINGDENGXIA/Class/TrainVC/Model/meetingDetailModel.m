@@ -27,6 +27,7 @@
         self.meet_title = !kStringIsEmpty(dict[@"meet_title"]) ? dict[@"meet_title"] : @" ";
         self.meeting_image = !kStringIsEmpty(dict[@"meeting_image"]) ? dict[@"meeting_image"] : @" ";
         self.province = !kStringIsEmpty(dict[@"province"]) ? dict[@"province"] : @" ";
+        self.is_attend = !kStringIsEmpty(dict[@"is_attend"]) ? dict[@"is_attend"] : @" ";
     
         
 //        self.city = dict[@"city"];

@@ -36,7 +36,7 @@
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"confirm_wish?wishid=%@",self.wishid]]
                                                 parameters:nil
                                                    success:^(id obj) {
-                                                       NSLog(@"%@",obj);
+//                                                       NSLog(@"%@",obj);
     } fail:^(NSError *error) {
         
     }];

@@ -105,7 +105,7 @@
                 <outlet property="startStep" destination="wjp-Eb-Bkf" id="Y4v-Ww-qEs"/>
                 <outlet property="startTime" destination="pRo-It-tJ4" id="4m1-J4-OV4"/>
             </connections>
-            <point key="canvasLocation" x="-444" y="25"/>
+            <point key="canvasLocation" x="-709" y="31"/>
         </tableViewCell>
     </objects>
 </document>

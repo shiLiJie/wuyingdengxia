@@ -33,8 +33,13 @@
     self.imageview.contentMode = UIViewContentModeCenter;
     [self.view addSubview:self.imageview];
     
-    //获取我的投稿信息
-    [self getMytougaoInfo];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus){
+        //获取我的投稿信息
+        [self getMytougaoInfo];
+    }
+    
 }
 
 #pragma mark - UI -
@@ -121,7 +126,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyTougaoCell" owner:nil options:nil] firstObject];
     }
     
-    [cell setUIWithchooseType:cell.choosetype];
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     MyTougaoModel *model = [[MyTougaoModel alloc] init];
     model = self.dataArr[indexPath.row];
@@ -137,6 +142,7 @@
     if ([model.is_check isEqualToString:@"1"]) {
         cell.choosetype = susscessType;
     }
+    [cell setUIWithchooseType:cell.choosetype];
     
     
     
@@ -149,6 +155,7 @@
     PageDetailViewController *vc = [[PageDetailViewController alloc] init];
     vc.articleid = model.article_id;
     vc.userid = model.user_id;
+    vc.MyPage = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -34,7 +34,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wfz-4c-afw">
                     <rect key="frame" x="0.0" y="78" width="124" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <state key="normal" title="请选择">
+                    <state key="normal" title="始发站">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -44,16 +44,16 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A24-ae-Wt1">
                     <rect key="frame" x="251" y="78" width="124" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <state key="normal" title="请选择">
+                    <state key="normal" title="终点站">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="youBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="KuM-px-Y1j"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZj-4q-Euj">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZj-4q-Euj">
                     <rect key="frame" x="124" y="78" width="127" height="36"/>
-                    <state key="normal" title="旋转按钮"/>
+                    <state key="normal" image="qiehuan"/>
                     <connections>
                         <action selector="xuanzhuanBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="1SQ-n2-lIg"/>
                     </connections>
@@ -99,7 +99,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNa-P9-UW8">
-                    <rect key="frame" x="10" y="320" width="355" height="1"/>
+                    <rect key="frame" x="10" y="311" width="355" height="1"/>
                     <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="mLR-pu-Q0p"/>
@@ -126,8 +126,8 @@
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最好要靠窗的座位" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIa-Pq-vuo">
-                    <rect key="frame" x="242" y="287" width="123" height="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIa-Pq-vuo">
+                    <rect key="frame" x="365" y="296" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -255,10 +255,11 @@
                 <outlet property="youCity" destination="A24-ae-Wt1" id="Zkm-tf-F19"/>
                 <outlet property="zuoCity" destination="Wfz-4c-afw" id="Rck-Fl-WFi"/>
             </connections>
-            <point key="canvasLocation" x="-24" y="-76"/>
+            <point key="canvasLocation" x="-115" y="-259"/>
         </view>
     </objects>
     <resources>
         <image name="jiaotong" width="36" height="36"/>
+        <image name="qiehuan" width="36" height="36"/>
     </resources>
 </document>

@@ -17,4 +17,6 @@
 @property (nonatomic, assign) CGSize  py_size;
 @property (nonatomic, assign) CGPoint py_origin;
 
+- (UIView*)subViewOfClassName:(NSString*)className;
+
 @end

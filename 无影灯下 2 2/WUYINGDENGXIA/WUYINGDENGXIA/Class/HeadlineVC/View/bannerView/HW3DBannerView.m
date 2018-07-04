@@ -58,7 +58,7 @@
     _initAlpha = 1;
     _autoScrollTimeInterval = 2.0;
     _imageHeightPoor = 0;
-    self.otherPageControlColor = [UIColor grayColor];
+    self.otherPageControlColor = RGBA(233, 233, 233, 0.3);
     self.curPageControlColor = [UIColor whiteColor];
     _showPageControl = YES;
     _hidesForSinglePage = YES;

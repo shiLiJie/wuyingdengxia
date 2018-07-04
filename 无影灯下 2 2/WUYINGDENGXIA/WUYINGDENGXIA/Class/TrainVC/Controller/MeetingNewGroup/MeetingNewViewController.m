@@ -42,8 +42,9 @@
         for (int i = 0; i < arr.count; i ++) {
             NSDictionary *dict = arr[i];
             [arrayM addObject:[meetingModel meetWithDict:dict]];
-            
         }
+                                                       
+        arrayM = [[[arrayM reverseObjectEnumerator] allObjects] mutableCopy];
         self.meetingArr= arrayM;
         
         [self.tableview reloadData];
@@ -79,12 +80,22 @@
         
         meetingModel *model = [[meetingModel alloc] init];
         model = self.meetingArr[indexPath.row];
-        cell.meetImage.image = GetImage(model.meeting_image);
+        [cell.meetImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.meeting_image]] placeholderImage:GetImage(@"")];
         cell.meetName.text = model.meet_title;
         cell.meetTime.text = model.begin_time;
         if ([model.isfinish isEqualToString:@"0"]) {
             cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
             [cell.baomingBtn setTitle:@"未开始" forState:UIControlStateNormal];
+            [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
+        }
+//        if ([model.isfinish isEqualToString:@"1"]) {
+//            cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
+//            [cell.baomingBtn setTitle:@"未开始" forState:UIControlStateNormal];
+//            [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
+//        }
+        if ([model.isfinish isEqualToString:@"2"]) {
+            cell.baomingBtn.layer.borderColor = RGB(198, 198, 198).CGColor;//设置边框颜色
+            [cell.baomingBtn setTitle:@"已结束" forState:UIControlStateNormal];
             [cell.baomingBtn setTitleColor:RGB(198, 198, 198) forState:UIControlStateNormal];
         }
     }

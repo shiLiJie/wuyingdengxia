@@ -15,12 +15,13 @@
     self = [super init];
     if (self) {
         self.ctime = dict[@"ctime"];
-        self.followhead = dict[@"followhead"];
-        self.followid = dict[@"followid"];
+        self.followhead = dict[@"headimg"];
+        self.followid = dict[@"user_id"];
         self.followname = dict[@"followname"];
         
         self.user_post = dict[@"user_post"];
         self.fans_num = dict[@"fans_num"];
+        self.isfinish_cert = dict[@"isfinish_cert"];
 
     }
     return self;

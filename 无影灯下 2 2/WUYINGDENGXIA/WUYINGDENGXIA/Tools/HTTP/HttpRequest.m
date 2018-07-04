@@ -19,6 +19,7 @@ static NSMutableArray *sg_requestTasks;
 
 
 @implementation HttpRequest
+
 -(void)haha{
     self.netState = NETStateError;
 }
@@ -52,17 +53,17 @@ static HttpRequest * webUtil = nil;
     // 检测网络连接的单例,网络变化时的回调方法
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if(status == AFNetworkReachabilityStatusNotReachable){
-            NSLog(@"断网了");
+//            NSLog(@"断网了");
             
             return ;
         }
         if(status == AFNetworkReachabilityStatusReachableViaWiFi){
-            NSLog(@"wifi");
+//            NSLog(@"wifi");
 
             return ;
         }
         if(status == AFNetworkReachabilityStatusReachableViaWWAN){
-            NSLog(@"4G");
+//            NSLog(@"4G");
             
             return ;
         }

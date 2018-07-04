@@ -35,10 +35,6 @@
     self.imageview.contentMode = UIViewContentModeCenter;
     [self.view addSubview:self.imageview];
     
-    //获取我的关注列表
-    [self getGuanzhuList];
-    
-    
 }
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -59,6 +55,13 @@
             //隐藏黑线
             blackLineImageView.hidden = YES;
         }
+    }
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        //获取我的关注列表
+        [self getGuanzhuList];
     }
 }
 
@@ -121,7 +124,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.guanzhuArr.count == 0) {
         
-        self.imageview.image = GetImage(@"wufensi");
+        self.imageview.image = GetImage(@"wuguanzhu");
         self.imageview.hidden = NO;
         return 0;
     }else{
@@ -150,16 +153,24 @@
     MyGuanzhuModel *model = [[MyGuanzhuModel alloc] init];
     model = self.guanzhuArr[indexPath.row];
     if (!kStringIsEmpty(model.followname)) {
-        cell.userName.text = model.followname;
+        cell.userName.text = [NSString stringWithFormat:@"%@",model.followname];
     }
     if (!kStringIsEmpty(model.user_post)) {
-        cell.zhiwuLab.text = model.user_post;
+        cell.zhiwuLab.text = [NSString stringWithFormat:@"职务:%@",model.user_post];
     }
     if (!kStringIsEmpty(model.fans_num)) {
         cell.fensiLab.text = [NSString stringWithFormat:@"粉丝  %@",model.fans_num];
     }
     if (!kStringIsEmpty(model.followhead)) {
         [cell.headImage sd_setImageWithURL:[NSURL URLWithString:model.followhead] placeholderImage:GetImage(@"tx")];
+        
+    }
+    if (!kStringIsEmpty(model.isfinish_cert)) {
+        if ([model.isfinish_cert isEqualToString:@"1"]) {
+            cell.vipImage.image = GetImage(@"v");
+        }else{
+            cell.vipImage.image = GetImage(@"v1");
+        }
         
     }
     

@@ -91,6 +91,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *image32;
 @property (weak, nonatomic) IBOutlet UIImageView *image33;
 
-
+/**
+ 设置行间距
+ */
+-(void)setWordSpace;
 
 @end

@@ -137,8 +137,15 @@
 
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
+    if (self.MyPage) {
+        //我的投稿详情
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/DetailsArticleMy.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
+    }else{
+        //普通文章详情
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid]]]];
+    }
+    
+    
 
     [self.view addSubview:_webView];
     
@@ -161,7 +168,14 @@
 }
 
 -(void)left_button_event:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.webView.canGoBack==YES) {
+        
+        [self.webView goBack];
+        
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 
@@ -321,7 +335,7 @@
     // 注意通知内容类型的匹配
     if (notification.object == 0)
     {
-        NSLog(@"分享成功");
+//        NSLog(@"分享成功");
     }
 }
 
@@ -342,16 +356,37 @@
 //        [message setThumbImage:GetImage(@"tx")];
         
         WXWebpageObject * webpageObject = [WXWebpageObject object];
-        webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid];
+        
+        if (self.MyPage) {
+            //加载我的投稿详情
+            webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/DetailsArticleMy.html?articleid=%@&userid=%@",self.articleid,user.userid];
+        }else{
+            //普通文章详情
+            webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid];
+        }
+        
         message.mediaObject = webpageObject;
         
         SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];
         req.bText = NO;
-        
         req.message = message;
-        req.scene = WXSceneSession;
         
-        [WXApi sendReq:req];
+
+        NSArray *titles = @[@"发送给朋友",@"分享到朋友圈"];
+        NSArray *imageNames = @[@"wxfx",@"pyqfx"];
+        HLActionSheet *sheet = [[HLActionSheet alloc] initWithTitles:titles iconNames:imageNames];
+        [sheet showActionSheetWithClickBlock:^(int btnIndex) {
+            if (btnIndex == 0) {
+                req.scene = WXSceneSession;
+                [WXApi sendReq:req];
+            }else{
+                req.scene = WXSceneTimeline;
+                [WXApi sendReq:req];
+            }
+        } cancelBlock:^{
+            
+        }];
+ 
     }else{
         LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
             
@@ -367,6 +402,12 @@
 
 //发送评论
 - (void)sendText:(NSString *)text{
+    
+    if (self.webView.canGoBack) {
+        self.isPinglun = NO;
+    }else{
+        self.isPinglun = YES;
+    }
     
     if (self.isPinglun) {
         //评论
@@ -384,24 +425,29 @@
  @param text 评论内容
  */
 -(void)postPinglunWithText:(NSString *)text{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
     NSDictionary *dict = @{
-                           @"userid":self.userid,
+                           @"userid":user.userid,
                            @"toid":self.articleid,
                            @"comType":@"0",
                            @"comContent":text,
                            @"comment_to_type":@"0"
                            };
     
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"] parameters:dict success:^(id obj) {
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
         
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
             
-            NSString *jsStr = [NSString stringWithFormat:@"refreshcomment()"];
+//            [MBProgressHUD showSuccess:obj[@"msg"]];
+            NSString *jsStr = [NSString stringWithFormat:@"refreshcomment('%@')",text];
             
             [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
                 
             }];
-            
+             
         }else{
             [MBProgressHUD showError:obj[@"msg"]];
         }
@@ -418,13 +464,14 @@
  @param text 评论内容
  */
 -(void)postCommentWithText:(NSString *)text{
-    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
     NSDictionary *dict = @{
-                           @"userid": self.userid,
+                           @"userid": user.userid,
                            @"toid" : self.comentId,
                            @"comType":@"1",
                            @"comContent":text,
-                           @"comment_to_type":@"2"
+                           @"comment_to_type":@"3"
                            };
     
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"]
@@ -432,7 +479,7 @@
                                                     success:^(id obj) {
                                                         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                             
-                                                            NSString *jsStr = [NSString stringWithFormat:@"postReplyComment()"];
+                                                            NSString *jsStr = [NSString stringWithFormat:@"postReplyComment('%@')",text];
                                                             
                                                             [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
                                                                 
@@ -445,26 +492,24 @@
     } fail:^(NSError *error) {
         
     }];
-    
 }
 
 #pragma mark - WKScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
-        NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
-    //点用户头像
+//        NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
+    //点头像
     if ([message.name isEqualToString:@"asd"]) {
         self.isPinglun = YES;
         //做处理
         [self pushToPersonViewWithUserid:message.body];
     }
     
-    //点用户头像
+    //回复
     if ([message.name isEqualToString:@"comment_id"]) {
         self.isPinglun = NO;
         //做处理
         self.comentId = message.body;
     }
-
 }
 
 

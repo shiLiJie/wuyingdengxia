@@ -70,8 +70,13 @@
     self.weikaishiArr = [[NSMutableArray alloc] init];
     self.jieshuArr = [[NSMutableArray alloc] init];
     
-    //获取活动信息
-    [self getHuodongInfo];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        //获取活动信息
+        [self getHuodongInfo];
+    }
+    
 }
 #pragma mark - UI -
 //添加segview标签控制器
@@ -174,22 +179,28 @@
                                                        
                                                        MyHuodongModel *model = [[MyHuodongModel alloc] init];
                                                        for (model in weakSelf.dataArr) {
-                                                           //判断是否接受
-                                                           if (!model.isfinish) {
-                                                               [weakSelf.weikaishiArr addObject:model];
+
+                                                           if ([model.isfinish isKindOfClass:[NSNull class]]) {
+                                                               
                                                            }else{
-                                                               [weakSelf.jieshuArr addObject:model];
+                                                               //判断是否接受
+                                                               if (![model.isfinish isEqualToString:@"2"]) {
+                                                                   [weakSelf.weikaishiArr addObject:model];
+                                                               }else{
+                                                                   [weakSelf.jieshuArr addObject:model];
+                                                               }
                                                            }
-                                                       }
-                                                       
-                                                       weakSelf.weikaishiVc.weikaishiArr = [[NSMutableArray alloc] init];
-                                                       weakSelf.yijieshuVc.yijieshuArr = [[NSMutableArray alloc] init];
-                                                       
-                                                       weakSelf.weikaishiVc.weikaishiArr = weakSelf.weikaishiArr;
-                                                       weakSelf.yijieshuVc.yijieshuArr = weakSelf.jieshuArr;
-                                                       
-                                                       [weakSelf.weikaishiVc.tableView reloadData];
-                                                       [weakSelf.yijieshuVc.tableView reloadData];
+                                                           
+                                                           weakSelf.weikaishiVc.weikaishiArr = [[NSMutableArray alloc] init];
+                                                           weakSelf.yijieshuVc.yijieshuArr = [[NSMutableArray alloc] init];
+                                                           
+                                                           weakSelf.weikaishiVc.weikaishiArr = weakSelf.weikaishiArr;
+                                                           weakSelf.yijieshuVc.yijieshuArr = weakSelf.jieshuArr;
+                                                           
+                                                           [weakSelf.weikaishiVc.tableView reloadData];
+                                                           [weakSelf.yijieshuVc.tableView reloadData];
+                                                           }
+                                                           
                                                    }
                                                       fail:^(NSError *error) {
                                                           
@@ -198,15 +209,17 @@
 
 #pragma mark - 底部两个tableview点击代理方法 -
 -(void)tableviewDidSelectPageWithIndex3:(NSIndexPath *)indexPath{
-    MyHuodongModel *model = self.dataArr[indexPath.row];
+    MyHuodongModel *model = self.weikaishiArr[indexPath.row];
     MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
+    vc.weikaishiOrBaomingzhong = @"0";
     vc.meetId = model.meet_id;
     vc.isJieshu = NO;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)tableviewDidSelectPageWithIndex4:(NSIndexPath *)indexPath{
-    MyHuodongModel *model = self.dataArr[indexPath.row];
+    MyHuodongModel *model = self.jieshuArr[indexPath.row];
     MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
+    vc.weikaishiOrBaomingzhong = @"0";
     vc.meetId = model.meet_id;
     vc.isJieshu = YES;
     [self.navigationController pushViewController:vc animated:YES];

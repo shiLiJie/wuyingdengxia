@@ -194,8 +194,8 @@ static NSString *albumCellId = @"cellId";
                         
                         HX_PhotoModel *model = assetManager.selectedPhotos.lastObject;
                         vc.cellIndex = model.tableViewIndex;
-                        NSLog(@"i===%d",i);
-                        NSLog(@"model.tableViewIndex===%ld",model.tableViewIndex);
+//                        NSLog(@"i===%d",i);
+//                        NSLog(@"model.tableViewIndex===%ld",model.tableViewIndex);
                         [weakSelf.navigationController pushViewController:vc animated:NO];
 
                         break;

@@ -20,5 +20,7 @@ typedef void(^clossViewBlock)(NSMutableArray *itemArray);
 
 //存放自定义标签的数组
 @property (nonatomic, strong) NSMutableArray *allLabArr;
+//判断文章进来还是问答进来的
+@property (nonatomic,copy) NSString *pageOrqu;
 
 @end

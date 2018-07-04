@@ -23,6 +23,7 @@
 @property (nonatomic, copy) NSString *replay_id;//
 @property (nonatomic, copy) NSString *replay_title;//
 @property (nonatomic, copy) NSString *suport_num;//
+@property (nonatomic, copy) NSString *front_img;//
 
 
 

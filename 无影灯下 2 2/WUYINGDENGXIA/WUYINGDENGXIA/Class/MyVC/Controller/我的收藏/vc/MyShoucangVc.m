@@ -95,20 +95,36 @@
 
 -(DetailTableViewController *)tablecontroller{
     DetailTableViewController *vc = [[DetailTableViewController alloc] init];
-    [vc getMyshoucangPage];
+    vc.choosetype = shoucangType;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        [vc getMyshoucangPage];
+    }
     vc.delegate = self;
     
     return vc;
 }
 -(QATableVIewController *)tablecontroller1{
     QATableVIewController *vc = [[QATableVIewController alloc] init];
-    [vc getMyshoucangQusetion];
+    vc.choosetype = QAshoucangType;
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        [vc getMyshoucangQusetion];
+    }
+    
     vc.delegate = self;
     return vc;
 }
 -(PassMeetViewController *)tablecontroller2{
     PassMeetViewController *vc = [[PassMeetViewController alloc] init];
-    [vc getMyshoucangQusetion];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        [vc getMyshoucangQusetion];
+    }
+    
     vc.delegate = self;
     return vc;
 }
@@ -157,9 +173,7 @@
 }
 
 -(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath{
-    
-
-    
+  
 }
 //文章头像点击
 -(void)clickUserNamePushPublishVc{
@@ -183,8 +197,9 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 //视频点击索引
--(void)tableviewDidSelectPageWithIndex2:(NSIndexPath *)indexPath{
+-(void)tableviewDidSelectPageWithIndex2:(NSIndexPath *)indexPath huiguErModel:(huiguErModel *)model{
     PlayDetailViewController *vc = [[PlayDetailViewController alloc] init];
+    vc.huifuerModel = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

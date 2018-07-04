@@ -20,10 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.verifBtn.layer.cornerRadius = CGRectGetHeight(self.verifBtn.frame)/2;//半径大小
+    
+}
+
+-(void)viewDidLayoutSubviews{
+    self.verifBtn.layer.cornerRadius = CGRectGetHeight(self.verifBtn.frame)/2-1;//半径大小
     self.verifBtn.layer.masksToBounds = YES;//是否切割
     
-    self.loginBtn.layer.cornerRadius = CGRectGetHeight(self.loginBtn.frame)/2;//半径大小
+    self.loginBtn.layer.cornerRadius = CGRectGetHeight(self.loginBtn.frame)/2-1;//半径大小
     self.loginBtn.layer.masksToBounds = YES;//是否切割
 }
 #pragma mark - UI -
@@ -119,6 +123,7 @@
                                                             user.moon_cash = dic[@"moon_cash"];
                                                             user.we_chat_id = dic[@"we_chat_id"];
                                                             user.user_birthday = dic[@"user_birthday"];
+                                                            user.userPost = dic[@"userPost"];
                                                             
                                                             [user saveUserInfoToSanbox];
                                                             [self.navigationController popToRootViewControllerAnimated:YES];

@@ -22,7 +22,7 @@
 
 @property (nonatomic, weak) id<DiscussCollectionDelegate> delegate1;
 
-
-
+//讨论网络数据获取
+-(void)getDisNetData;
 
 @end

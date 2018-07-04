@@ -50,7 +50,7 @@
 
     if (self.weikaishiArr.count == 0) {
         
-        self.imageview.image = GetImage(@"wufensi");
+        self.imageview.image = GetImage(@"wuhuodong");
         self.imageview.hidden = NO;
         return 0;
     }else{

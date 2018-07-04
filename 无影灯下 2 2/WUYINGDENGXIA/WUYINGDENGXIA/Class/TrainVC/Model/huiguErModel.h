@@ -21,7 +21,9 @@
 @property (nonatomic, copy) NSString *play_num;//
 
 
-
+//往期回顾二级装模型
 + (instancetype)huiguErWithDict:(NSDictionary *)dict;
+//收藏转模型
++ (instancetype)huiguShoucangWithDict:(NSDictionary *)dict;
 
 @end

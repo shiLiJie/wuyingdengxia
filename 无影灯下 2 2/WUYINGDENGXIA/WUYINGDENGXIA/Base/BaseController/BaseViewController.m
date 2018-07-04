@@ -179,7 +179,7 @@ static NSString* const kURL_Reachability__Address=@"www.baidu.com";
     if (isleft) {
         UIButton *leftbutton = [self set_leftButton];
         [leftbutton addTarget:self action:@selector(left_click:) forControlEvents:UIControlEventTouchUpInside];
-        leftbutton.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+        leftbutton.contentEdgeInsets = UIEdgeInsetsMake(0, -22, 0, 0);
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
         self.navigationItem.leftBarButtonItem = item;
     }
@@ -193,7 +193,7 @@ static NSString* const kURL_Reachability__Address=@"www.baidu.com";
     if (isright) {
         self.right_button = [self set_rightButton];
         [self.right_button addTarget:self action:@selector(right_click:) forControlEvents:UIControlEventTouchUpInside];
-        self.right_button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
+        self.right_button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -22);
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.right_button];
         
         self.navigationItem.rightBarButtonItem =  item;

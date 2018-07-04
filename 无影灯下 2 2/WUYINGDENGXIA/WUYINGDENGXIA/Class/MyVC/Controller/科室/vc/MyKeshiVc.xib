@@ -21,19 +21,29 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q4f-Mm-HkK">
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q4f-Mm-HkK">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg0" translatesAutoresizingMaskIntoConstraints="NO" id="xP0-yg-Er0">
+                    <rect key="frame" x="60" y="0.0" width="255" height="667"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="q4f-Mm-HkK" secondAttribute="trailing" id="CNA-jZ-Zak"/>
+                <constraint firstAttribute="bottom" secondItem="xP0-yg-Er0" secondAttribute="bottom" id="Dph-oV-Pl2"/>
+                <constraint firstItem="xP0-yg-Er0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ays-d3-cND"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="q4f-Mm-HkK" secondAttribute="bottom" id="gSe-2B-y0h"/>
                 <constraint firstItem="q4f-Mm-HkK" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="jfv-9L-cAG"/>
+                <constraint firstItem="xP0-yg-Er0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="qa7-Gb-Q6z"/>
                 <constraint firstItem="q4f-Mm-HkK" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="trh-NI-OjD"/>
+                <constraint firstAttribute="trailing" secondItem="xP0-yg-Er0" secondAttribute="trailing" constant="60" id="u69-7x-91k"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>
     </objects>
+    <resources>
+        <image name="bg0" width="317" height="287"/>
+    </resources>
 </document>

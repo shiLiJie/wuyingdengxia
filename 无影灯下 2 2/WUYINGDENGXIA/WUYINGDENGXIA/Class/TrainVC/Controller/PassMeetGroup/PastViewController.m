@@ -90,6 +90,7 @@
         }else{
             cell.meetTime.text = @" ";
         }
+        [cell.meetImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.front_img]] placeholderImage:GetImage(@"")];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -27,9 +27,32 @@
     return self;
 }
 
+- (instancetype)initWithShoucangDict:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self) {
+        self.replay_id = dict[@"replay_id"];
+        
+        self.meeting_content = dict[@"abstract"];
+        self.replay_sub_id = dict[@"play_id"];
+        self.meeting_specialist = dict[@"maintalk"];
+        self.comment_num = dict[@"comment_num"];
+        self.support_num = dict[@"support_num"];
+        self.video_url = dict[@"play_url"];
+        self.meeting_title = dict[@"replay_title"];
+        self.play_num = dict[@"play_num"];
+    }
+    return self;
+}
+
 + (instancetype)huiguErWithDict:(NSDictionary *)dict
 {
     return [[self alloc] initWithDict:dict];
+}
+
++ (instancetype)huiguShoucangWithDict:(NSDictionary *)dict
+{
+    return [[self alloc] initWithShoucangDict:dict];
 }
 
 @end

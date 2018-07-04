@@ -172,7 +172,7 @@ static NSString *cellFooterId = @"photoCellFooterId";
         for (int i = 0; i < assetManager.selectedPhotos.count; i ++) {
             HX_PhotoModel *modelPH = assetManager.selectedPhotos[i];
             
-            NSLog(@"%ld---%ld",modelPH.tableViewIndex,_cellIndex);
+//            NSLog(@"%ld---%ld",modelPH.tableViewIndex,_cellIndex);
             
             if (modelPH.tableViewIndex == _cellIndex) {
                 [collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_cellIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];

@@ -9,14 +9,11 @@
 #import "DetailTableViewCell.h"
 
 
-
 @implementation DetailTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    self.headImage = 0;
-    
+
     self.mainTitle.font = BOLDSYSTEMFONT(16);
     
     UITapGestureRecognizer *tapRecognizerWeibo=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushPublishWithTag:)];
@@ -24,19 +21,63 @@
     self.userName.userInteractionEnabled=YES;
     [self.userName addGestureRecognizer:tapRecognizerWeibo];
     
-    [self.headImage addTarget:self action:@selector(pushPublishWithTag:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.headImage addTarget:self action:@selector(pushPublishWithTag:) forControlEvents:UIControlEventTouchUpInside];
+
+    self.headImage.layer.cornerRadius = CGRectGetHeight(self.headImage.frame)/2;//半径大小
+    self.headImage.layer.masksToBounds = YES;//是否切割
+    
+    self.headImage1.layer.cornerRadius = CGRectGetHeight(self.headImage1.frame)/2;//半径大小
+    self.headImage1.layer.masksToBounds = YES;//是否切割
+    
+    self.headImage3.layer.cornerRadius = CGRectGetHeight(self.headImage3.frame)/2;//半径大小
+    self.headImage3.layer.masksToBounds = YES;//是否切割
+    
+}
+
+
+/**
+ 设置行间距
+ */
+-(void)setWordSpace{
     //4行间距
     if (!kStringIsEmpty(self.pageDetail.text)) {
-        [self setLabelHangjianj:self.pageDetail];
+        
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail WithSpace:1.5 highSpace:1];
+    }
+    if (!kStringIsEmpty(self.mainTitle1.text)) {
+        
+        [DetailTableViewCell changeWordSpaceForLabel:self.mainTitle1 WithSpace:1 highSpace:4];
     }
     if (!kStringIsEmpty(self.pageDetail1.text)) {
-        [self setLabelHangjianj:self.pageDetail1];
+        
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail1 WithSpace:1 highSpace:1];
     }
     if (!kStringIsEmpty(self.pageDetail3.text)) {
-        [self setLabelHangjianj:self.pageDetail3];
+        
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail3 WithSpace:1 highSpace:1] ;
     }
-
 }
+
+
+/**
+ 间距
+
+ @param label lab
+ @param space 字间距
+ @param highSpace 行间距
+ */
++ (void)changeWordSpaceForLabel:(UILabel *)label WithSpace:(float)space highSpace:(float)highSpace{
+    
+    NSString *labelText = label.text;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText attributes:@{NSKernAttributeName:@(space)}];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = highSpace;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
+    label.attributedText = attributedString;
+    [label sizeToFit];
+    
+}
+
 
 -(void)setLabelHangjianj:(UILabel *)lab{
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:lab.text];

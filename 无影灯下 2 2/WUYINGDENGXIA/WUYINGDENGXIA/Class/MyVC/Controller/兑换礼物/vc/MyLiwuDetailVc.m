@@ -54,6 +54,13 @@
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
+    if (!user.loginStatus) {
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+        return;
+    }
     //月亮币控制
     if ([user.moon_cash integerValue] < [self.liwumodel.moon_cash integerValue]) {
         [MBProgressHUD showOneSecond:@"月亮币不足"];
@@ -74,7 +81,7 @@
     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {
                                                              //响应事件
-                                                             NSLog(@"action = %@", action);
+//                                                             NSLog(@"action = %@", action);
                                                          }];
     
     [alert addAction:defaultAction];

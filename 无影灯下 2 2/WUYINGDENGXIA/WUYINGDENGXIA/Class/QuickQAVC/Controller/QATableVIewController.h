@@ -10,6 +10,8 @@
 #import "lableModel.h"
 #import "QusetionModel.h"
 
+
+
 @protocol QATableVIewDelegate<NSObject>
 
 @optional
@@ -21,7 +23,16 @@
 
 @end
 
+
+
 @interface QATableVIewController : UIViewController
+
+typedef enum chooseQAType{
+    
+    QAlabelType = 0,//标题类型
+    QAshoucangType//收藏类型
+    
+} chooseQAType;
 
 @property (nonatomic,weak) id<QATableVIewDelegate>delegate;
 
@@ -31,6 +42,8 @@
 @property (nonatomic,strong) lableModel *lablemodel;
 //标签名字
 @property (nonatomic,copy) NSString *lableName;
+//选择从哪进来
+@property (nonatomic, assign) chooseQAType choosetype;
 
 //获取标签下对应问答
 -(void)getQusetionWithLabel;

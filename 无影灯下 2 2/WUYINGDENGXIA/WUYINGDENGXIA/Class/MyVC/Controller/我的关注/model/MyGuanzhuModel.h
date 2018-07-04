@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *followname;//
 
 @property (nonatomic, copy) NSString *user_post;//
+@property (nonatomic, copy) NSString *isfinish_cert;//
 @property (nonatomic, copy) NSString *fans_num;//
 
 

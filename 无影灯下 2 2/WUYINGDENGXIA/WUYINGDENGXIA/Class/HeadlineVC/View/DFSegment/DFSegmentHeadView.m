@@ -126,8 +126,10 @@
 
 - (void)setSelectItemWithIndex:(NSInteger)index {
     
+    [self.delegate selectWithIndex:index];
+    
     if (index > [self.delegate dfSegmentNumber] || index < 0) {
-        
+
         return;
     }
     

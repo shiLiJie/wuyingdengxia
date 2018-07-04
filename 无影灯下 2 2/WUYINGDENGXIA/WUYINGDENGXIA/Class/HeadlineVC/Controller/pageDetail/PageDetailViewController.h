@@ -15,6 +15,9 @@
 @property (nonatomic,copy) NSString *articleid;
 @property (nonatomic,copy) NSString *userid;
 
+//我的投稿还是普通文章
+@property (nonatomic,assign) BOOL MyPage;
+
 @property (nonatomic, strong) pageModel *model;
 
 

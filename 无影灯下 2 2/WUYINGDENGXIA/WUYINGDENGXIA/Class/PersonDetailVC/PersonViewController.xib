@@ -63,10 +63,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCU-YJ-N98">
-                            <rect key="frame" x="302" y="109.33333333333333" width="48" height="23.999999999999986"/>
+                            <rect key="frame" x="296" y="109.33333333333333" width="54" height="23.999999999999986"/>
                             <color key="backgroundColor" red="0.9882352941176471" green="0.72941176470588232" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="48" id="3I2-Zj-Rru"/>
+                                <constraint firstAttribute="width" constant="54" id="3I2-Zj-Rru"/>
                                 <constraint firstAttribute="height" constant="24" id="yKd-HD-egA"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>

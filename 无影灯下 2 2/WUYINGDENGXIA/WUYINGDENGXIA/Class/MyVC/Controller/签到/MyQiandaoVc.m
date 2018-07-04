@@ -61,11 +61,26 @@
     if (user.loginStatus) {
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
         self.yueliangbiLab.text = user.moon_cash !=nil ? user.moon_cash : @"0";
+        __weak typeof(self) weakSelf = self;
+        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_singdata?userid=%@",user.userid]]
+                                                    parameters:nil
+                                                       success:^(id obj) {
+                                                           
+                                                           
+                                                           NSDictionary *dict = obj[@"data"];
+                                                           if ([[NSString stringWithFormat:@"%@",dict[@"isSign"]] isEqualToString:@"1"]) {
+                                                               [weakSelf.qiandaoBtn setTitle:@"已签到" forState:UIControlStateNormal];
+                                                           }
+                                                       } fail:^(NSError *error) {
+                                                           
+                                                       }];
         
     }else{
         self.headImage.image = GetImage(@"tx");
         self.yueliangbiLab.text = @"0";
     }
+    
+    
 }
 
 #pragma mark - UI -
@@ -124,33 +139,40 @@
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    
-    NSDictionary *dict = @{
-                           @"userid":user.userid,
-                           @"type":@"1",
-                           @"toid":@"0"
-                           };
-    
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_sign"]
-                                                 parameters:dict
-                                                    success:^(id obj) {
-        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-            //签到成功添加五个月亮币
-            [MBProgressHUD showSuccess:obj[@"msg"]];
-            user.moon_cash = [NSString stringWithFormat:@"%ld",[user.moon_cash integerValue] + 5];
-            [user saveUserInfoToSanbox];
-            [self.qiandaoBtn setTitle:@"已签到" forState:UIControlStateNormal];
-            [self uploadUI];
-        }else{
-            if ([obj[@"msg"] isEqualToString:@"今天你已经签过到了"]) {
-                [self.qiandaoBtn setTitle:@"已签到" forState:UIControlStateNormal];
-                [self uploadUI];
-            }
-            [MBProgressHUD showOneSecond:obj[@"msg"]];
-        }
-    } fail:^(NSError *error) {
+    if (user.loginStatus) {
+        NSDictionary *dict = @{
+                               @"userid":user.userid,
+                               @"type":@"1",
+                               @"toid":@"0"
+                               };
         
-    }];
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_sign"]
+                                                     parameters:dict
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                //签到成功添加五个月亮币
+                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                user.moon_cash = [NSString stringWithFormat:@"%ld",[user.moon_cash integerValue] + 5];
+                                                                [user saveUserInfoToSanbox];
+                                                                [self.qiandaoBtn setTitle:@"已签到" forState:UIControlStateNormal];
+                                                                [self uploadUI];
+                                                            }else{
+                                                                if ([obj[@"msg"] isEqualToString:@"今天你已经签过到了"]) {
+                                                                    [self.qiandaoBtn setTitle:@"已签到" forState:UIControlStateNormal];
+                                                                    [self uploadUI];
+                                                                }
+                                                                [MBProgressHUD showOneSecond:obj[@"msg"]];
+                                                            }
+                                                        } fail:^(NSError *error) {
+                                                            
+                                                        }];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
+    
 }
 
 #pragma mark  - CollectionView -
@@ -189,8 +211,8 @@
 //#pragma mark  定义整个CollectionViewCell与整个View的间距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-//    return UIEdgeInsetsMake(0, 0, (self.medals.count / 3 - 2) * DeviceSize.width / 3, 0);//（上、左、下、右）
-    return UIEdgeInsetsMake(0, 10, 0, 10);//（上、左、下、右）
+//    return UIEdgeInsetsMake(0, kScreen_Width *0.03, 0, kScreen_Width *0.03);
+    return UIEdgeInsetsMake(0, 5, 0, 5);
 }
 //#pragma mark  点击CollectionView触发事件
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

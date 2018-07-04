@@ -33,6 +33,7 @@
         self.user_id = dict[@"user_id"];
         self.user_name = dict[@"user_name"];
         self.last_answer_time = dict[@"last_answer_time"];
+        self.is_anony = dict[@"is_anony"];
     }
     return self;
 }

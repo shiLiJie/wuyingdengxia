@@ -25,8 +25,10 @@
 @property (nonatomic, strong) NSMutableArray *allDataArr;
 @property (nonatomic, strong) NSMutableArray *tuigaoArr;
 @property (nonatomic, strong) NSMutableArray *canhuiArr;
+@property (nonatomic, strong) NSMutableArray *xitongArr;
 
 @property (nonatomic, strong) TongzhiVc *vc;
+@property (nonatomic, strong) XitongVc *svc;
 
 
 
@@ -69,9 +71,12 @@
     self.allDataArr = [[NSMutableArray alloc] init];
     self.tuigaoArr = [[NSMutableArray alloc] init];
     self.canhuiArr = [[NSMutableArray alloc] init];
+    self.xitongArr = [[NSMutableArray alloc] init];
     
     [self getSystemInfoWithPage];
     [self getSystemInfoWithMeet];
+    [self getQAInfo];
+    [self getSystemInfo];
 }
 
 
@@ -126,6 +131,59 @@
                                                        
                                                        self.vc.dataArr = self.allDataArr;
                                                        [self.vc.tableView reloadData];
+                                                       
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          
+                                                      }];
+}
+
+/**
+ 问卷通知
+ */
+-(void)getQAInfo{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_sys_msg?user_id=%@&type=4",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       NSArray *arr = obj[@"data"];
+                                                       
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [self.allDataArr addObject:dict];
+                                                           
+                                                       }
+                                                       
+                                                       self.vc.dataArr = self.allDataArr;
+                                                       [self.vc.tableView reloadData];
+                                                       
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          
+                                                      }];
+}
+
+-(void)getSystemInfo{
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_sys_msg?user_id=%@&type=3",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       NSArray *arr = obj[@"data"];
+                                                       
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [self.xitongArr addObject:dict];
+                                                           
+                                                       }
+                                                       self.xitongArr = [[self.xitongArr reverseObjectEnumerator] allObjects];
+                                                       self.svc.dataArr = self.xitongArr;
+                                                       [self.svc.tableView reloadData];
                                                        
                                                    }
                                                       fail:^(NSError *error) {
@@ -213,10 +271,10 @@
 }
 
 -(XitongVc *)tablecontroller1{
-    XitongVc *vc = [[XitongVc alloc] init];
-    vc.delegate = self;
+    self.svc = [[XitongVc alloc] init];
+    self.svc.delegate = self;
 
-    return vc;
+    return self.svc;
 }
 
 #pragma mark - 消息列表代理方法 -

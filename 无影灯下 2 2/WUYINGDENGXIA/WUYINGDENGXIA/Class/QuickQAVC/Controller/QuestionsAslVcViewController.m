@@ -38,7 +38,7 @@
 //是否正在编辑中
 @property (nonatomic, assign) BOOL isEditor;
 //是否匿名
-@property (nonatomic, assign) BOOL isNIMing;
+@property (nonatomic, copy) NSString *isNIMing;
 //月亮币左右按钮间距
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint1;
@@ -93,13 +93,13 @@
     //不可投稿状态
     self.isEditor = NO;
     //切圆角
-    self.yueliangbibtn.layer.cornerRadius = 11.5;//半径大小
+    self.yueliangbibtn.layer.cornerRadius = 10;//半径大小
     self.yueliangbibtn.layer.masksToBounds = YES;//是否切割
     self.yueliangbibtn.layer.borderColor  = RGB(102, 102, 102).CGColor;
-    self.yueliangbibtn.layer.borderWidth = 1;
+    self.yueliangbibtn.layer.borderWidth = 1.3;
     //进来默认不匿名
     self.nimingBtn.on = NO;
-    self.isNIMing = NO;
+    self.isNIMing = @"1";
     
     //添加图片选择器视图
     if (self.addPhotoView != nil) {
@@ -166,6 +166,7 @@
 -(UIButton *)set_rightButton{
     UIButton *btn = [[UIButton alloc] init];
     [btn setTitle:@"提交" forState:UIControlStateNormal];
+    btn.frame = CGRectMake(kScreen_Width-80, 0, 44, 60);
     [btn setTitleColor:RGB(191, 191, 191) forState:UIControlStateNormal];
     
     return btn;
@@ -174,6 +175,19 @@
 //投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
     if (self.isEditor) {
+        
+        if (kArrayIsEmpty(self.labelArr)) {
+            [MBProgressHUD showOneSecond:@"请先添加标签"];
+            return;
+        }
+        
+        NSString  *moonCash = [self.yueliangbibtn.titleLabel.text intValue] > 0 ? self.yueliangbibtn.titleLabel.text : @"0";
+        if ([moonCash integerValue] > 0) {
+
+        }else{
+            [MBProgressHUD showOneSecond:@"请选择月亮币个数"];
+            return;
+        }
 
         UserInfoModel *user = [UserInfoModel shareUserModel];
         [user loadUserInfoFromSanbox];
@@ -257,6 +271,11 @@
  */
 -(void)postQuestionWithUid:(NSString *)uid questags:(NSString *)questags img_path:(NSString *)imagearr{
     
+    if (self.nimingBtn.on == YES) {
+        self.isNIMing = @"0";
+    }else{
+        self.isNIMing = @"1";
+    }
     NSDictionary *dict = @{
                            @"userid":uid,
                            @"quesTitle":self.titleStr,
@@ -264,7 +283,8 @@
                            @"quesContent":self.detailTextView.text,
                            @"quesType":@"",
                            @"img_path":imagearr,
-                           @"questags":questags
+                           @"questags":questags,
+                           @"is_anony":self.isNIMing
                            };
     
     __weak typeof(self) weakSelf = self;
@@ -330,6 +350,7 @@
     
     __weak typeof(self) weakSelf = self;
     AddSheetViewController *vc = [[AddSheetViewController alloc] init];
+    vc.pageOrqu = @"3";
     [self.navigationController pushViewController:vc animated:YES];
     
     vc.clossviewblock = ^(NSMutableArray *itemArray) {
@@ -368,13 +389,14 @@
 
 //点击匿名开关
 - (IBAction)clickNiming:(UISwitch *)sender {
-    if (sender.on) {
-        sender.on = NO;
-        self.isNIMing = NO;
-    }else{
-        sender.on = YES;
-        self.isNIMing = YES;
-    }
+//    if (sender.on == YES) {
+//        sender.on = NO;
+//        self.isNIMing = @"0";
+//
+//    }else{
+//        sender.on = YES;
+//        self.isNIMing = @"1";
+//    }
 }
 
 //初始化月亮币按钮状态
@@ -639,7 +661,7 @@
             if (photos.count == 0) {
                 [arr removeAllObjects];
                 [weakSelf.imageArr removeAllObjects];
-                NSLog(@"%ld",weakSelf.imageArr.count);
+//                NSLog(@"%ld",weakSelf.imageArr.count);
             }
             weakSelf.picView.hidden = NO;
             

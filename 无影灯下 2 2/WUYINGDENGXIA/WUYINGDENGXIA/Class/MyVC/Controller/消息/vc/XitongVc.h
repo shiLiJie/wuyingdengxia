@@ -20,6 +20,8 @@
 
 @property(nonatomic,weak)id<XitongVcDelegate>   delegate;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 //@property (nonatomic,assign)XitongVcBlcok XitongVcBlcok;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end

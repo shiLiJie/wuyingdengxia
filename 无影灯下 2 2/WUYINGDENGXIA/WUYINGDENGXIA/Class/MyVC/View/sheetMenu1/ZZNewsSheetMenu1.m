@@ -277,7 +277,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 
 - (void)moveItemFromMySubjectToRecommend:(ZZNewsSheetItem1 *)item{
     if (self.mySubjectItemArray.count == 1) {
-        NSLog(@"最少留一个");
+//        NSLog(@"最少留一个");
         return;
     }
     

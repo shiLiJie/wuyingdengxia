@@ -158,6 +158,11 @@ typedef enum _chooseType{
     
     if (self.isEditor) {
         
+        if (kArrayIsEmpty(self.labelArr)) {
+            [MBProgressHUD showOneSecond:@"请先添加标签添加"];
+            return;
+        }
+        
         UserInfoModel *user = [UserInfoModel shareUserModel];
         [user loadUserInfoFromSanbox];
         
@@ -295,6 +300,7 @@ typedef enum _chooseType{
 - (IBAction)chooseSheetBtnClick:(UIButton *)sender {
     AddSheetViewController *vc = [[AddSheetViewController alloc] init];
     vc.allLabArr = self.labelArr;
+    vc.pageOrqu = @"1";
     [self.navigationController pushViewController:vc animated:YES];
     
     __weak typeof(self) weakSelf = self;
@@ -376,7 +382,7 @@ typedef enum _chooseType{
         //标题截取20字符
         if (textView.text.length >= 20){
             textView.text = [textView.text substringToIndex:20];
-            NSLog(@"标题最多输入20个字");
+//            NSLog(@"标题最多输入20个字");
         }
         //如果什么都没有输入,结束编辑后默认还原
         if ([textView.text isEqualToString:@""]) {
@@ -511,7 +517,7 @@ typedef enum _chooseType{
             if (photos.count == 0) {
                 [arr removeAllObjects];
                 [weakSelf.imageArr removeAllObjects];
-                NSLog(@"%ld",weakSelf.imageArr.count);
+//                NSLog(@"%ld",weakSelf.imageArr.count);
             }
 
             

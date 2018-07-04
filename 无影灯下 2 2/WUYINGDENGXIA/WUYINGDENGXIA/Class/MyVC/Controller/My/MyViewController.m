@@ -50,9 +50,12 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     [super viewWillAppear:nil];
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    
     //个人信息设置
     [self userInfo];
 }
@@ -108,7 +111,7 @@
         self.userName.text = ![user.userName isEqualToString:@""] ? user.userName : @"您的昵称";
         self.fensiNum.text = ![user.fansnum isEqualToString:@""] ? user.fansnum : @"0";
         self.zanNum.text = ![user.supportnum isEqualToString:@""] ? user.supportnum : @"0";
-        [self.yueliangbiNum setTitle:![user.moon_cash isEqualToString:@""] ? user.moon_cash : @" 0" forState:UIControlStateNormal];
+        [self.yueliangbiNum setTitle:![user.moon_cash isEqualToString:@""] ? [NSString stringWithFormat:@" %@",user.moon_cash] : @" 0" forState:UIControlStateNormal];
         if ([user.isfinishCer isEqualToString:@"1"]) {
             self.vipImage.image = GetImage(@"v");
         }
@@ -120,6 +123,9 @@
         [self.yueliangbiNum setTitle:@" 0" forState:UIControlStateNormal];
         self.vipImage.image = GetImage(@"v1");
     }
+    //获取用户认证信息
+    [self getUserInfo];
+
 }
 
 //四个大按钮
@@ -177,6 +183,40 @@
 }
 
 #pragma mark - 私有方法 -
+//获取用户认证信息
+-(void)getUserInfo{
+    UserInfoModel *USER = [UserInfoModel shareUserModel];
+    [USER loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@&current_userid=%@",BaseUrl,USER.userid,USER.userid]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSDictionary *ditc = obj[@"data"];
+                                                           userModel *user = [userModel userWithDict:ditc];
+
+                                                           if (!kStringIsEmpty(user.isfinishCer)) {
+                                                               USER.isfinishCer = user.isfinishCer;
+                                                               [USER saveUserInfoToSanbox];
+                                                               
+                                                               if ([user.isfinishCer isEqualToString:@"1"]) {
+                                                                   weakSelf.vipImage.image = GetImage(@"v");
+                                                               }else{
+                                                                   weakSelf.vipImage.image = GetImage(@"v1");
+                                                               }
+                                                           }
+                                                           
+                                                       }else{
+                                                           //失败
+                                                       }
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       //
+                                                   }];
+}
+
 //邀请按钮点击
 - (IBAction)yaoqingBtnClick:(UIButton *)sender {
     
@@ -189,13 +229,32 @@
 }
 //资料设置按钮点击
 - (IBAction)ziliaoBtnClick:(UIButton *)sender {
-    MyDetailViewController *pageDetail = [[MyDetailViewController alloc] init];
-    [self.navigationController pushViewController:pageDetail animated:YES];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        MyDetailViewController *pageDetail = [[MyDetailViewController alloc] init];
+        [self.navigationController pushViewController:pageDetail animated:YES];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
+    
 }
 //点击透明头像,效果和上边一样
 - (IBAction)headImageClick:(UIButton *)sender {
-    MyDetailViewController *pageDetail = [[MyDetailViewController alloc] init];
-    [self.navigationController pushViewController:pageDetail animated:YES];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        MyDetailViewController *pageDetail = [[MyDetailViewController alloc] init];
+        [self.navigationController pushViewController:pageDetail animated:YES];
+    }else{
+        LoginVc *loginVc = [LoginVc loginControllerWithBlock:^(BOOL result, NSString *message) {
+            
+        }];
+        [self.navigationController pushViewController:loginVc animated:YES];
+    }
 }
 //设置按钮点击
 - (IBAction)settingClick:(UIButton *)sender {

@@ -290,7 +290,7 @@
                     
                     NSDictionary *dict = @{
                                            @"userid" : user.userid,
-                                           @"username":text,
+                                           @"user_name":text,
                                            
                                            };
                     

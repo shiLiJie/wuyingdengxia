@@ -36,8 +36,14 @@
     self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height)];
     self.imageview.contentMode = UIViewContentModeCenter;
     [self.view addSubview:self.imageview];
-    //获取我的回答接口数据
-    [self getMyhuida];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        //获取我的回答接口数据
+        [self getMyhuida];
+    }
+    
 }
 
 #pragma mark - UI -

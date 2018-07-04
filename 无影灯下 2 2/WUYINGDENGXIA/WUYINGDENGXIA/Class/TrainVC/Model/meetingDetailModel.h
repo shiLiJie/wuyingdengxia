@@ -28,6 +28,7 @@
 @property (nonatomic, copy) NSString *meet_title;//
 @property (nonatomic, copy) NSString *meeting_image;//
 @property (nonatomic, copy) NSString *province;//
+@property (nonatomic, copy) NSString *is_attend;//
 
 
 + (instancetype)meedetailtWithDict:(NSDictionary *)dict;

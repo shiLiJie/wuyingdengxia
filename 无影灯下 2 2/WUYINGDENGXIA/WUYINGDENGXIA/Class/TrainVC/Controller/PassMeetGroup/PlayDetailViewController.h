@@ -12,6 +12,7 @@
 
 @interface PlayDetailViewController : BaseViewController
 
+
 @property (nonatomic, strong) huiguErModel *huifuerModel;
 
 

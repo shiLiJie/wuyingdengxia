@@ -87,16 +87,15 @@ static NSString *ID = @"zhuanjiaCell";
 //    cell.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:cell.bounds cornerRadius:cell.contentView.layer.cornerRadius].CGPath;
     
     return cell;
-    
 }
 
 //#pragma mark  定义每个UICollectionView的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (kDevice_Is_iPhoneX) {
-        return  CGSizeMake(kScreen_Width/3, 200);
+        return  CGSizeMake(kScreen_Width/3, 180);
     }else{
-        return  CGSizeMake(kScreen_Width/3, 200);
+        return  CGSizeMake(kScreen_Width/3, 180);
     }
 }
 
@@ -105,9 +104,9 @@ static NSString *ID = @"zhuanjiaCell";
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     if (kDevice_Is_iPhoneX) {
-        return UIEdgeInsetsMake(5, 15, 5,50);
+        return UIEdgeInsetsMake(5, 15, 0,50);
     }else{
-        return UIEdgeInsetsMake(5, 15, 5,0);
+        return UIEdgeInsetsMake(5, 15, 0,0);
     }
 }
 

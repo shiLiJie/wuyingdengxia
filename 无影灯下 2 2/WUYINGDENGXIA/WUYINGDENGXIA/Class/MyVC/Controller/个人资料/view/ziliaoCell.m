@@ -31,7 +31,7 @@
     [self.textfield addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingDidEnd];
 }
 -(void)textField1TextChange:(UITextField *)textField{
-    NSLog(@"textField1 - 输入框内容改变,当前内容为: %@",textField.text);
+//    NSLog(@"textField1 - 输入框内容改变,当前内容为: %@",textField.text);
     self.ziliaoCellBlcok(textField.text, textField.tag);
     if (textField.text.length) {
         

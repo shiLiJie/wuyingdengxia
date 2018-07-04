@@ -38,13 +38,13 @@
         [indexArr addObject:[NSString stringWithFormat:@"%ld",(long)indext.row]];
     }
     
-    NSLog(@"indexArr -------   %@",indexArr);
+//    NSLog(@"indexArr -------   %@",indexArr);
     
     for (int i = 0; i < indexArr.count; i ++) {
         [self.searchLabaArr addObject:self.labaArr[i]];
     }
     
-    NSLog(@"searchLabaArr --   %@",self.searchLabaArr);
+//    NSLog(@"searchLabaArr --   %@",self.searchLabaArr);
     
     //取消视图时候回传搜索选中的标签数组
     self.dismissviewBlock(self.searchLabaArr);

@@ -23,18 +23,35 @@
 -(void)setUIWithchooseType:(chooseType)chooseType{
     switch (chooseType) {
         case weiguanzhuType:
+            self.guanzhuBtn.selected = NO;
             [self.guanzhuBtn setTitle:@"关注" forState:UIControlStateNormal];
             [self.guanzhuBtn setBackgroundColor:RGB(252, 186, 42)];
-            
             break;
         case guanzhuType:
+            self.guanzhuBtn.selected = YES;
             [self.guanzhuBtn setTitle:@"已关注" forState:UIControlStateNormal];
             [self.guanzhuBtn setBackgroundColor:RGB(233, 233, 233)];
-            
             break;
             
         default:
             break;
+    }
+}
+
+
+/**
+ 关注或取消关注
+
+ @param sender sender description
+ */
+- (IBAction)followOrcelfollow:(UIButton *)sender {
+    //已经关注
+    if (sender.selected) {
+        //取消关注
+        
+    }else{
+        //没关注,点击关注
+        
     }
 }
 

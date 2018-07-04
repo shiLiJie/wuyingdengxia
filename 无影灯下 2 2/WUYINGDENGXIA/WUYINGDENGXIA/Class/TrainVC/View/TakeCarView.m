@@ -66,7 +66,22 @@
 //中间旋转按钮点击
 - (IBAction)xuanzhuanBtnClick:(UIButton *)sender {
     
-    NSArray *arr = @[@"1",@"2",@"3",@"4"];
+    if (![self.zuoCity.currentTitle isEqualToString:@"始发站"] && ![self.youCity.currentTitle isEqualToString:@"终点站"]){
+        NSString *zuo = self.zuoCity.currentTitle;
+        NSString *you = self.youCity.currentTitle;
+        [self.zuoCity setTitle:you forState:UIControlStateNormal];
+        [self.youCity setTitle:zuo forState:UIControlStateNormal];
+    }else if(![self.zuoCity.currentTitle isEqualToString:@"始发站"] && [self.youCity.currentTitle isEqualToString:@"终点站"]){
+        NSString *zuo = self.zuoCity.currentTitle;
+        [self.zuoCity setTitle:@"始发站" forState:UIControlStateNormal];
+        [self.youCity setTitle:zuo forState:UIControlStateNormal];
+    }else if([self.zuoCity.currentTitle isEqualToString:@"始发站"] && ![self.youCity.currentTitle isEqualToString:@"终点站"]){
+        NSString *you = self.youCity.currentTitle;
+        [self.zuoCity setTitle:you forState:UIControlStateNormal];
+        [self.youCity setTitle:@"终点站" forState:UIControlStateNormal];
+    }
+    
+
 //    self.takeCarViewkBlcok(arr);
 }
 

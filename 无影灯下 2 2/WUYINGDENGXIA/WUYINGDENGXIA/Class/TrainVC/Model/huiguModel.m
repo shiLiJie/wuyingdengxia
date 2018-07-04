@@ -28,6 +28,7 @@
         self.replay_id = dict[@"replay_id"];
         self.replay_title = dict[@"replay_title"];
         self.suport_num = dict[@"suport_num"];
+        self.front_img = dict[@"front_img"];
     }
     return self;
 }

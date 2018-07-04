@@ -46,6 +46,8 @@
 
 //提交报名需要的信息存储
 @property (nonatomic, strong) NSMutableDictionary *baomingDict;
+//备注lab
+@property (weak, nonatomic) IBOutlet UILabel *beizhuLab;
 
 
 @end
@@ -219,6 +221,29 @@
 }
 
 #pragma mark - 私有方法 -
+//底部备注
+- (IBAction)beiZhu:(UIButton *)sender {
+//    self.beizhuLab.text
+    __weak typeof(self) weakSelf = self;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"备注" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    //增加确定按钮；
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //获取第1个输入框；
+        UITextField *beizhuTextfield = alertController.textFields.firstObject;
+        self.beizhuLab.text = beizhuTextfield.text;
+//        [weakSelf.baomingDict setValue:beizhuTextfield.text forKey:@"special2"];
+    }]];
+    //增加取消按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    //定义第一个输入框；
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入备注";
+    }];
+    [weakSelf presentViewController:alertController animated:true completion:nil];
+}
+
+
 -(NSMutableAttributedString *)changeTitle:(NSString *)curTitle
 {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:curTitle];
@@ -245,64 +270,68 @@
 
 //    start = @"北京";
 //    end = @"洛阳";
-    if (![start isEqualToString:@"请选择"] && ![end isEqualToString:@"请选择"] && ![date isEqualToString:@"选择乘车日期"]) {
+    if (![start isEqualToString:@"始发站"] && ![end isEqualToString:@"终点站"] && ![date isEqualToString:@"选择乘车日期"]) {
         //发送查询车票请求
         NSString  *url = [[NSString stringWithFormat:@"http://apis.juhe.cn/train/s2swithprice?start=%@&end=%@&date=%@&key=ba31b08d5a33f101ba2193f2daaf3492",start,end,date] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         __weak typeof(self) weakSelf = self;
+        [MBProgressHUD showMessage:@"请稍后..."];
         [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
                                                     parameters:nil
                                                        success:^(id obj) {
                                                            
-                                                           NSArray *arr = obj[@"result"][@"list"];
-                                                           
-                                                           if ([arr isKindOfClass:[NSNull class]]) {
-                                                               [MBProgressHUD showError:@"无票"];
-                                                               return;
-                                                           }
-                                                           NSMutableArray *arrayM = [NSMutableArray array];
-                                                           for (int i = 0; i < arr.count; i ++) {
-                                                               NSDictionary *dict = arr[i];
-                                                               [arrayM addObject:[huocheModel huochepiaoWithDict:dict]];
+                                                               NSArray *arr = obj[@"result"][@"list"];
                                                                
-                                                           }
-                                                           weakSelf.huocheArr= arrayM;
-                                                           ChooseCarGViewController *vc = [[ChooseCarGViewController alloc] init];
-                                                           vc.huocheArr = [[NSArray alloc] init];
-                                                           vc.huocheArr = weakSelf.huocheArr;
-                                                           vc.time = date;
-                                                           vc.title = [NSString stringWithFormat:@"%@-%@",start,end];
-                                                           vc.isCheci = ischeci;
-                                                           [weakSelf.navigationController pushViewController:vc animated:YES];
-
-                                                           vc.checikBlcok = ^(NSString *str, BOOL isCheci) {
-                                                               
-                                                               if (isone) {
-                                                                   //第一个选车模块
-                                                                   if (ischeci) {
-                                                                       TakecarView.checi.text = str;
-                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num1"];
-                                                                   }else{
-                                                                       TakecarView.beixuanCheci.text = str;
-                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num1b"];
-                                                                   }
-                                                               }else{
-                                                                   //第二个选车模块
-                                                                   if (ischeci) {
-                                                                       TakecarView.checi.text = str;
-                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num2"];
-                                                                   }else{
-                                                                       TakecarView.beixuanCheci.text = str;
-                                                                       [weakSelf.baomingDict setValue:str forKey:@"car_num2b"];
-                                                                   }
+                                                               if ([arr isKindOfClass:[NSNull class]]) {
+                                                                   [MBProgressHUD hideHUD];
+                                                                   [MBProgressHUD showError:@"无票"];
+                                                                   return;
                                                                }
+                                                               NSMutableArray *arrayM = [NSMutableArray array];
+                                                               for (int i = 0; i < arr.count; i ++) {
+                                                                   NSDictionary *dict = arr[i];
+                                                                   [arrayM addObject:[huocheModel huochepiaoWithDict:dict]];
+                                                                   
+                                                               }
+                                                               weakSelf.huocheArr= arrayM;
+                                                               ChooseCarGViewController *vc = [[ChooseCarGViewController alloc] init];
+                                                               vc.huocheArr = [[NSArray alloc] init];
+                                                               vc.huocheArr = weakSelf.huocheArr;
+                                                               vc.time = date;
+                                                               vc.title = [NSString stringWithFormat:@"%@-%@",start,end];
+                                                               vc.isCheci = ischeci;
+                                                               [weakSelf.navigationController pushViewController:vc animated:YES];
                                                                
-                                                           };
-                                                           
+                                                               vc.checikBlcok = ^(NSString *str, BOOL isCheci) {
+                                                                   
+                                                                   if (isone) {
+                                                                       //第一个选车模块
+                                                                       if (ischeci) {
+                                                                           TakecarView.checi.text = str;
+                                                                           [weakSelf.baomingDict setValue:str forKey:@"car_num1"];
+                                                                       }else{
+                                                                           TakecarView.beixuanCheci.text = str;
+                                                                           [weakSelf.baomingDict setValue:str forKey:@"car_num1b"];
+                                                                       }
+                                                                   }else{
+                                                                       //第二个选车模块
+                                                                       if (ischeci) {
+                                                                           TakecarView.checi.text = str;
+                                                                           [weakSelf.baomingDict setValue:str forKey:@"car_num2"];
+                                                                       }else{
+                                                                           TakecarView.beixuanCheci.text = str;
+                                                                           [weakSelf.baomingDict setValue:str forKey:@"car_num2b"];
+                                                                       }
+                                                                   }
+                                                                   
+                                                               };
+                                                               [MBProgressHUD hideHUD];
+
                                                        } fail:^(NSError *error) {
-                                                           
+                                                           [MBProgressHUD hideHUD];
                                                        }];
     }else
     {
+        
         [MBProgressHUD showOneSecond:@"请完善乘车信息"];
     }
 }
@@ -462,19 +491,22 @@
     [self.baomingDict setValue:self.ruzhuBtn.currentTitle forKey:@"begin_time"];
     [self.baomingDict setValue:self.likaiBtn.currentTitle forKey:@"end_time"];
     
+    [MBProgressHUD showMessage:@"请稍后..."];
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_attend"] parameters:self.baomingDict success:^(id obj) {
         
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
             
             SignUpResultVC *vc = [[SignUpResultVC alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
+            [MBProgressHUD hideHUD];
             
         }else{
+            [MBProgressHUD hideHUD];
             [MBProgressHUD showError:obj[@"msg"]];
         }
         
     } fail:^(NSError *error) {
-        
+        [MBProgressHUD hideHUD];
     }];
     
     
@@ -529,9 +561,9 @@
             
             cell.userName.text = user.userReal_name;
             cell.userPhone.text = user.phoneNum;
-            cell.userShenfenid.text = user.useravatar_id;
+            cell.userShenfenid.text = user.userIdcard;
             cell.userSex.text = user.usersex;
-            cell.danwei.text = user.userUnit;
+            cell.danwei.text = user.userHospital;
             cell.bumen.text = user.userOffice;
             cell.zhiwu.text = user.userPost;
 

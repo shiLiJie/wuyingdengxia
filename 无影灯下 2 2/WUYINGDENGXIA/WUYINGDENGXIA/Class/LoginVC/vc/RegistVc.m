@@ -21,10 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.verifBtn.layer.cornerRadius = CGRectGetHeight(self.verifBtn.frame)/2;//半径大小
+    
+}
+-(void)viewDidLayoutSubviews{
+    self.verifBtn.layer.cornerRadius = CGRectGetHeight(self.verifBtn.frame)/2-1;//半径大小
     self.verifBtn.layer.masksToBounds = YES;//是否切割
     
-    self.registBtn.layer.cornerRadius = CGRectGetHeight(self.registBtn.frame)/2;//半径大小
+    self.registBtn.layer.cornerRadius = CGRectGetHeight(self.registBtn.frame)/2-1;//半径大小
     self.registBtn.layer.masksToBounds = YES;//是否切割
 }
 
@@ -84,7 +87,9 @@
                                                         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                             
                                                             [MBProgressHUD showSuccess:obj[@"msg"]];
-                                                            [self.navigationController popToRootViewControllerAnimated:YES];
+                                                            //注册后登陆一下
+                                                            [self loginAfterRegist];
+                                                            
                                                         }else{
                                                             [MBProgressHUD showError:obj[@"msg"]];
                                                         }
@@ -113,6 +118,68 @@
                                                    } fail:^(NSError *error) {
                                                        self.verifBtn.userInteractionEnabled = YES;
                                                    }];
+}
+
+
+//注册过后登录
+-(void)loginAfterRegist{
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"login_by_phone?phone_num=%@&password=%@",self.phoneField.text,self.pwdField.text]] parameters:nil success:^(id obj) {
+        
+        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+            //登录成功
+            NSDictionary *dic = obj[@"data"];
+            UserInfoModel *user = [UserInfoModel shareUserModel];
+            user.userName = dic[@"username"];
+            user.passWord = weakSelf.pwdField.text;
+            user.loginStatus = YES;
+            user.certid = dic[@"certid"];
+            user.ctime = dic[@"ctime"];
+            user.fansnum = dic[@"fansnum"];
+            user.headimg = dic[@"headimg"];
+            user.isV = dic[@"isV"];
+            user.isadmin = dic[@"isadmin"];
+            user.isfinishCer = dic[@"isfinishCer"];
+            user.ishead = dic[@"ishead"];
+            user.isphoneverify = dic[@"isphoneverify"];
+            user.last_login_time = dic[@"last_login_time"];
+            user.phoneNum = dic[@"phoneNum"];
+            user.supportnum = dic[@"supportnum"];
+            user.userDegree = dic[@"userDegree"];
+            user.userEmail = dic[@"userEmail"];
+            user.userHospital = dic[@"userHospital"];
+            user.userIdcard = dic[@"userIdcard"];
+            user.userLoginway = dic[@"userLoginway"];
+            user.userMajor = dic[@"userMajor"];
+            user.userOffice = dic[@"userOffice"];
+            user.userPosition = dic[@"userPosition"];
+            user.userReal_name = dic[@"userReal_name"];
+            user.userSchool = dic[@"userSchool"];
+            user.userStschool = dic[@"userStschool"];
+            user.userTitle = dic[@"userTitle"];
+            user.userUnit = dic[@"userUnit"];
+            user.user_token = dic[@"user_token"];
+            user.useravatar_id = dic[@"useravatar_id"];
+            user.usercity = dic[@"usercity"];
+            user.userid = dic[@"userid"];
+            user.usersex = dic[@"usersex"];
+            user.usertoken = dic[@"usertoken"];
+            user.moon_cash = dic[@"moon_cash"];
+            user.we_chat_id = dic[@"we_chat_id"];
+            user.user_birthday = dic[@"user_birthday"];
+            user.userPost = dic[@"userPost"];
+            
+            [user saveUserInfoToSanbox];
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+
+        }else{
+            [MBProgressHUD showError:obj[@"msg"]];
+        }
+        
+        
+    } fail:^(NSError *error) {
+        //登录失败
+    }];
 }
 
 // 开启倒计时效果

@@ -173,6 +173,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     [self setMySubject];
     [self setRecommentSubject];
 
+    //判断是首页还是投稿页,进去就是编辑状态和静态的区别
     if (self.choosetype == postType){
         [self nodefaultConfing];
     }else{
@@ -286,7 +287,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 //        if (self.ishuanyipi) {
 //            item.flagType = ZZCornerFlagTypeAddition;
 //        }else{
-            item.flagType = ZZCornerFlagTypeAddition;
+        item.flagType = ZZCornerFlagTypeAddition;
+//        item.flagType = ZZCornerFlagTypeNone;
 //        }
         [recommendSubjectView addSubview:item];
         [self.recommendSubjectItemArray addObject:item];
@@ -301,53 +303,40 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 
 //换一批
 -(void)huanyipi{
-    
-    
-    
-    
-    
-    
+    __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labels_rand?limit=10&type=%@",self.pageOrqa]]
                                                  parameters:nil
                                                     success:^(id obj) {
-
+//                                                        NSLog(@"%@",weakSelf.pageOrqa);
                                                         NSMutableArray *labArr = [[NSMutableArray alloc] init];
                                                         NSArray *arr = obj[@"data"];
                                                         NSDictionary *dict = @{
                                                                                @"label_name":@""
                                                                                };
                                                         for (dict in arr) {
-                                                            [labArr addObject:dict[@"label_name"]];
+                                                            if (![dict[@"label_name"] isEqualToString:@"热门"]) {
+                                                                [labArr addObject:dict[@"label_name"]];
+                                                            }
+                                                            if (![dict[@"label_name"] isEqualToString:@"最新"]) {
+                                                                [labArr addObject:dict[@"label_name"]];
+                                                            }
                                                         }
 
                                                         //    self.recommentBlock();
 
-                                                        self.ishuanyipi = YES;
-                                                        self.recommendSubjectArray = labArr;
+                                                        weakSelf.ishuanyipi = YES;
+                                                        weakSelf.recommendSubjectArray = labArr;
 
                                                         //    [self setRecommentSubject];
 
                                                         //    self.hiddenAllCornerFlag = YES; 93
-                                                        [self layoutSubviews];
+//                                                        [weakSelf layoutSubviews];
+                                                        [weakSelf updateAllView];
                                                     }
                                                        fail:^(NSError *error) {
 
                                                        }];
-    
-
-//    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_user_key?user_id=10003&key_id=93"] parameters:nil success:^(id obj) {
-//
-//        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-//
-//            [MBProgressHUD showSuccess:obj[@"msg"]];
-//        }else{
-//            [MBProgressHUD showError:obj[@"msg"]];
-//        }
-//    } fail:^(NSError *error) {
-//
-//    }];
-    
-    
+  
 }
 
 
@@ -440,7 +429,7 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
 
 - (void)moveItemFromMySubjectToRecommend:(ZZNewsSheetItem *)item{
     if (self.mySubjectItemArray.count == 1) {
-        NSLog(@"最少留一个");
+//        NSLog(@"最少留一个");
         return;
     }
     

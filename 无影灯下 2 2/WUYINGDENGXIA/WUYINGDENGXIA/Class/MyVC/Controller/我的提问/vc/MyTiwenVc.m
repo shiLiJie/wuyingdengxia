@@ -42,8 +42,13 @@
     self.imageview.contentMode = UIViewContentModeCenter;
     [self.view addSubview:self.imageview];
     
-    //获取提问列表
-    [self getUserTiWenList];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        //获取提问列表
+        [self getUserTiWenList];
+    }
+    
 }
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{

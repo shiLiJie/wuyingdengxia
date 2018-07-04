@@ -22,8 +22,13 @@
 @implementation XuyuanJiluVc
 
 -(void)viewWillAppear:(BOOL)animated{
-    //获取许愿记录
-    [self getxuyuanInfo];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        //获取许愿记录
+        [self getxuyuanInfo];
+    }
 }
 
 - (void)viewDidLoad {
@@ -77,15 +82,24 @@
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myalldesire?user_id=%@",user.userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
-                                                       NSArray *arr = obj[@"data"];
-                                                       NSMutableArray *arrayM = [NSMutableArray array];
-                                                       for (int i = 0; i < arr.count; i ++) {
-                                                           NSDictionary *dict = arr[i];
-                                                           [arrayM addObject:[xuyuanModel xuyuanWithDict:dict]];
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSArray *arr = obj[@"data"];
+                                                           if (kArrayIsEmpty(arr)) {
+                                                               return;
+                                                           }
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < arr.count; i ++) {
+                                                               NSDictionary *dict = arr[i];
+                                                               [arrayM addObject:[xuyuanModel xuyuanWithDict:dict]];
+                                                               
+                                                           }
+                                                           self.xuyuanArr= arrayM;
+                                                           [self.tableview reloadData];
+                                                       }else{
                                                            
                                                        }
-                                                       self.xuyuanArr= arrayM;
-                                                       [self.tableview reloadData];
+                                                       
     }
                                                       fail:^(NSError *error) {
         

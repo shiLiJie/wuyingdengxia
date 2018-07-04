@@ -35,11 +35,26 @@
     if (kDevice_Is_iPhone4) {
         self.constraintHigh.constant = 80;
     }
-    self.loginBtn.layer.cornerRadius = CGRectGetHeight(self.loginBtn.frame)/2;//半径大小
-    self.loginBtn.layer.masksToBounds = YES;//是否切割
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXLoginSucessWithOpenIdAPPdelegate:) name:@"WXLogin" object:nil];
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    if ([self respondsToSelector:@selector(set_colorBackground)]) {
+        UIColor *backgroundColor =  [self set_colorBackground];
+        UIImage *bgimage = [UIImage imageWithColor:backgroundColor];
+        
+        [self.navigationController.navigationBar setBackgroundImage:bgimage forBarMetrics:UIBarMetricsDefault];
+    }
+}
+
+-(void)viewDidLayoutSubviews{
+    self.loginBtn.layer.cornerRadius = CGRectGetHeight(self.loginBtn.frame)/2;//半径大小
+    self.loginBtn.layer.masksToBounds = YES;//是否切割
+}
+
 -(void)WXLogin:(NSNotification *)notification{
     
 }
@@ -195,7 +210,7 @@
                 [self wechatLogin];
             }
         } fail:^(NSError *error) {
-            NSLog(@"用refresh_token来更新accessToken时出错 = %@", error);
+//            NSLog(@"用refresh_token来更新accessToken时出错 = %@", error);
         }];
     }
     else {
@@ -233,7 +248,7 @@
         [self WXLoginSucessWithOpenId:openID];
         
     } fail:^(NSError *error) {
-        NSLog(@"获取用户信息时出错 = %@", error);
+//        NSLog(@"获取用户信息时出错 = %@", error);
     }];
 }
 
@@ -316,6 +331,7 @@
                                                            user.moon_cash = dic[@"moon_cash"];
                                                            user.we_chat_id = dic[@"we_chat_id"];
                                                            user.user_birthday = dic[@"user_birthday"];
+                                                           user.userPost = dic[@"userPost"];
                                                            
                                                            [user saveUserInfoToSanbox];
                                                            

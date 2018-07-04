@@ -10,6 +10,7 @@
 #import "SettingCell.h"
 #import "RenzhengOneVc.h"
 #import "MyDetailViewController.h"
+#import<StoreKit/StoreKit.h>
 
 @interface SettingVc ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -102,7 +103,7 @@
         return 1;
     }else
     if (section == 2) {
-        return 2;
+        return 1;
     }else{
         return 1;
     }
@@ -161,16 +162,20 @@
         cell.huancunLab.text = [NSString stringWithFormat:@"%@M",self.cacheSize];
     }
     if (indexPath.section == 2) {
+        //关于我们
         if (indexPath.row == 0) {
             if (!cell) {
-                cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][3];
+//                cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][3];
+                cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][4];
             }
+        //软件评分
         }else{
             if (!cell) {
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][4];
             }
         }
     }
+    //登录
     if (indexPath.section == 3) {
         if (!cell) {
             cell = [[NSBundle mainBundle] loadNibNamed:@"SettingCell" owner:nil options:nil][5];
@@ -207,9 +212,16 @@
     }
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            //关于我们
+            //软件评分
+            //不论iOS 版本均可使用APP内部打开网页形式，跳转到App Store 直接编辑评论
+            NSString *urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review", @"1406220749"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
         }else{
             //软件评分
+            //不论iOS 版本均可使用APP内部打开网页形式，跳转到App Store 直接编辑评论
+            NSString *urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review", @"1406220749"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+
         }
     }
     if (indexPath.section == 3) {

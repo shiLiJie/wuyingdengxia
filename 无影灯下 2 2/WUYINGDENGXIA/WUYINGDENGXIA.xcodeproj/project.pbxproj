@@ -56,6 +56,8 @@
 		0445224520076300006DEA70 /* PassMeetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0445224320076300006DEA70 /* PassMeetViewController.xib */; };
 		044783D6206E2CA700342737 /* SignUpResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 044783D4206E2CA700342737 /* SignUpResultVC.m */; };
 		044783D7206E2CA700342737 /* SignUpResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044783D5206E2CA700342737 /* SignUpResultVC.xib */; };
+		045198D820E0D77F008AFEA7 /* HLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 045198D520E0D77E008AFEA7 /* HLActionSheet.m */; };
+		045198D920E0D77F008AFEA7 /* HLActionSheetItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 045198D720E0D77F008AFEA7 /* HLActionSheetItem.m */; };
 		0452A436201AC27C00E5A48D /* BRCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0452A435201AC21F00E5A48D /* BRCity.plist */; };
 		045781221FFF619D0098D6FC /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045781201FFF619D0098D6FC /* DetailTableViewCell.m */; };
 		045781231FFF619D0098D6FC /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045781211FFF619D0098D6FC /* DetailTableViewCell.xib */; };
@@ -457,6 +459,10 @@
 		044783D3206E2CA700342737 /* SignUpResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpResultVC.h; sourceTree = "<group>"; };
 		044783D4206E2CA700342737 /* SignUpResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpResultVC.m; sourceTree = "<group>"; };
 		044783D5206E2CA700342737 /* SignUpResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpResultVC.xib; sourceTree = "<group>"; };
+		045198D420E0D77D008AFEA7 /* HLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLActionSheet.h; sourceTree = "<group>"; };
+		045198D520E0D77E008AFEA7 /* HLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLActionSheet.m; sourceTree = "<group>"; };
+		045198D620E0D77E008AFEA7 /* HLActionSheetItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLActionSheetItem.h; sourceTree = "<group>"; };
+		045198D720E0D77F008AFEA7 /* HLActionSheetItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLActionSheetItem.m; sourceTree = "<group>"; };
 		0452A434201ABF0400E5A48D /* BRPickerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BRPickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0452A435201AC21F00E5A48D /* BRCity.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BRCity.plist; sourceTree = "<group>"; };
 		0457811F1FFF619D0098D6FC /* DetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
@@ -1187,6 +1193,17 @@
 			path = PassMeetGroup;
 			sourceTree = "<group>";
 		};
+		045198C420E0D023008AFEA7 /* ShareView */ = {
+			isa = PBXGroup;
+			children = (
+				045198D420E0D77D008AFEA7 /* HLActionSheet.h */,
+				045198D520E0D77E008AFEA7 /* HLActionSheet.m */,
+				045198D620E0D77E008AFEA7 /* HLActionSheetItem.h */,
+				045198D720E0D77F008AFEA7 /* HLActionSheetItem.m */,
+			);
+			path = ShareView;
+			sourceTree = "<group>";
+		};
 		0457810D1FFF17170098D6FC /* searchView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1828,6 +1845,7 @@
 		047E965A1FFCC16E0062F1E1 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				045198C420E0D023008AFEA7 /* ShareView */,
 				04896F9820A2EEA700792031 /* PhotoPicker */,
 				045ED96E2088A8B5009746B7 /* MMScanner */,
 				04856183207B32CE00D37B6B /* ZZHotKeysMenu */,
@@ -3015,6 +3033,7 @@
 				0478D3522011895500FB1696 /* BRTextField.m in Sources */,
 				046BEB34207DF441006F0AE8 /* XuyuanResultVc.m in Sources */,
 				043DE6DC206CDE3400C00289 /* TakeCarView.m in Sources */,
+				045198D820E0D77F008AFEA7 /* HLActionSheet.m in Sources */,
 				047E96AC1FFCC2870062F1E1 /* UIImage+Capture.m in Sources */,
 				04372A701FFE1E6A00D0762C /* UIView+Banner.m in Sources */,
 				0423C3F520073D7F005E3F9D /* MeetDetailViewController.m in Sources */,
@@ -3026,6 +3045,7 @@
 				04914677206C91AD0050DC5C /* SignUpViewController.m in Sources */,
 				042F738D207248F8006110B4 /* PYSearchSuggestionViewController.m in Sources */,
 				04EDAD1E2085945700BBC902 /* MyTougaoVc.m in Sources */,
+				045198D920E0D77F008AFEA7 /* HLActionSheetItem.m in Sources */,
 				0477D4FB207F01E200F0B0C4 /* KeshiShujiaVc.m in Sources */,
 				042F7D4420036E5A005138C0 /* MDMultipleSegmentView.m in Sources */,
 				0481795B2068C5BC00326E28 /* AddSheetViewController.m in Sources */,
@@ -3311,7 +3331,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/WUYINGDENGXIA/SDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yszg.WUYINGDENGXIA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yszg.cn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3336,7 +3356,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/WUYINGDENGXIA/SDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yszg.WUYINGDENGXIA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yszg.cn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

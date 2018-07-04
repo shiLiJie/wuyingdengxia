@@ -36,28 +36,32 @@ static NSString *ID = @"DiscussCell";
         
         self.modelArr = [[NSArray alloc] init];
         
-        //请求后台热门讨论
-        [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_hot_labelList?key_id=6"]]
-                                                    parameters:nil
-                                                       success:^(id obj) {
-                                                           NSArray *arr = obj[@"data"];
-                                                           NSMutableArray *arrayM = [NSMutableArray array];
-                                                           for (int i = 0; i < arr.count; i ++) {
-                                                               NSDictionary *dict = arr[i];
-                                                               [arrayM addObject:[discussModel discussWithDict:dict]];
-                                                               
-                                                           }
-                                                           self.modelArr= arrayM;
-                                                           [self reloadData];
-        }
-                                                          fail:^(NSError *error) {
-            
-        }];
+        [self getDisNetData];
         
     }
     
     return self;
     
+}
+//讨论网络数据获取
+-(void)getDisNetData{
+    //请求后台热门讨论
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_hot_labelList?key_id=0"]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[discussModel discussWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.modelArr= arrayM;
+                                                       [self reloadData];
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          
+                                                      }];
 }
 
 //返回collection view里区(section)的个数，如果没有实现该方法，将默认返回1：

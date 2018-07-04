@@ -179,10 +179,10 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6CS-Dw-GZH">
-                            <rect key="frame" x="111" y="13.666666666666629" width="23" height="23"/>
+                            <rect key="frame" x="111" y="15.333333333333371" width="20" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="23" id="11M-qj-vmH"/>
-                                <constraint firstAttribute="width" constant="23" id="sZl-NI-uf5"/>
+                                <constraint firstAttribute="height" constant="20" id="11M-qj-vmH"/>
+                                <constraint firstAttribute="width" constant="20" id="sZl-NI-uf5"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="¥">

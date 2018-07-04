@@ -33,6 +33,8 @@
 @property (nonatomic, strong) meetingDetailModel *meetdetailModel;
 
 @property (nonatomic, strong) zhuangjiaCollectionView *zhuangjiaCol;
+//联系会务btn
+@property (weak, nonatomic) IBOutlet UIButton *huiwuBtn;
 
 
 
@@ -40,6 +42,11 @@
 
 @implementation MeetDetailViewController
 
+-(void)viewDidLayoutSubviews{
+    //设置lab行间距
+    [MeetDetailViewController changeWordSpaceForLabel:self.meetDetailText WithSpace:1.5 highSpace:5];
+    [MeetDetailViewController changeWordSpaceForLabel:self.meetAddress WithSpace:1.5 highSpace:5];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,12 +55,12 @@
     
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.sectionInset = UIEdgeInsetsMake(0 , 0, 0, 0 );
-    layout.itemSize = CGSizeMake(kScreen_Width/3, 200);
+    layout.itemSize = CGSizeMake(kScreen_Width/3, 180);
     
     // 设置最小行间距
     layout.minimumLineSpacing = 10 ;
     // 设置最小列间距
-    self.zhuangjiaCol = [[zhuangjiaCollectionView alloc] initWithFrame:CGRectMake(0, 0, self.zhuanjiaView.frame.size.width, self.zhuanjiaView.frame.size.height) collectionViewLayout:layout];
+    self.zhuangjiaCol = [[zhuangjiaCollectionView alloc] initWithFrame:CGRectMake(0, 50, self.zhuanjiaView.frame.size.width, self.zhuanjiaView.frame.size.height-50) collectionViewLayout:layout];
     [self.zhuanjiaView addSubview:self.zhuangjiaCol];
 
     //会议顶部图片设置
@@ -68,15 +75,15 @@
     //给会议日程加载多少条赋值
     self.arrCount = self.timeaArr.count>2 ? 2 : self.timeaArr.count;
     
-    //默认不展开
+    //默认不展开 
     self.isJieshao = NO;
     self.isRicheng = NO;
     
 
     //报名按钮切圆角
-    self.baomingBtn.layer.cornerRadius = 42/2;//半径大小
-    self.baomingBtn.layer.masksToBounds = YES;//是否切割
-    
+//    self.baomingBtn.layer.cornerRadius = 42/2;//半径大小
+//    self.baomingBtn.layer.masksToBounds = YES;//是否切割
+
     
     self.richengTableView.rowHeight = UITableViewAutomaticDimension;
     self.richengTableView.estimatedRowHeight = 120;
@@ -94,11 +101,11 @@
     self.richengTableView.userInteractionEnabled = NO;
 
     //设置会议详情内容
-    self.meetDetailText.text = @"        移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限移动设备的屏幕⼤大⼩小是极其有限的,因此直接展⽰示在⽤用户眼前的内容也相当有限";
+    self.meetDetailText.text = @"";
+    //顶部图片圆角设置
+    self.meetImage.layer.cornerRadius = 5;//半径大小
+    self.meetImage.layer.masksToBounds = YES;//是否切割
     
-    //设置lab行间距
-    [self setLabelHangjianj:self.meetDetailText];
-    [self setLabelHangjianj:self.meetAddress];
     
     // 接收分享回调通知
     //监听通知
@@ -107,22 +114,28 @@
     if ([WXApi isWXAppInstalled]) {
         
     }
-}
-
--(void)viewWillAppear:(BOOL)animated{
     
     //判断会议是否已经结束
-    if (self.isJieshu) {
-        [self.baomingBtn setTitle:@"已结束" forState:UIControlStateNormal];
+    if ([self.weikaishiOrBaomingzhong isEqualToString:@"0"] || [self.weikaishiOrBaomingzhong isEqualToString:@"2"]) {
+        //    if (self.isJieshu) {
+        self.baomingBtn.backgroundColor = RGB(233, 233, 233);
         [self.baomingBtn setUserInteractionEnabled:NO];
     }else{
-        [self.baomingBtn setTitle:@"报名" forState:UIControlStateNormal];
+        self.baomingBtn.backgroundColor = RGB(45, 163, 255);
         [self.baomingBtn setUserInteractionEnabled:YES];
     }
     self.isJieshu = NO;
-
-
+    
+    //获取用户认证信息
+    [self getUserInfo];
 }
+
+//-(void)viewWillAppear:(BOOL)animated{
+//
+//
+//
+//
+//}
 
 //由于Scroller不滚动,没办法才在didappear里设置滚动范围
 -(void)viewDidAppear:(BOOL)animated
@@ -130,36 +143,59 @@
     [super viewDidAppear:animated];
     self.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhuanjiaView.frame));
     
-    //设置阴影
-    CALayer *layer = [CALayer layer];
-    layer.frame = self.baomingBtn.frame;
-    layer.backgroundColor = RGB(45, 163, 255).CGColor;
-    layer.shadowColor = RGB(45, 163, 255).CGColor;
-    layer.shadowOffset = CGSizeMake(0, 2);
-    layer.shadowOpacity = 0.5;
-    layer.cornerRadius = 42/2;
-    [self.view.layer addSublayer:layer];
-    //一到最上层
-    [self.view bringSubviewToFront:self.baomingBtn];
+//    //设置阴影
+//    CALayer *layer = [CALayer layer];
+//    layer.frame = self.baomingBtn.frame;
+//    layer.backgroundColor = RGB(45, 163, 255).CGColor;
+//    layer.shadowColor = RGB(45, 163, 255).CGColor;
+//    layer.shadowOffset = CGSizeMake(0, 2);
+//    layer.shadowOpacity = 0.5;
+//    layer.cornerRadius = 42/2;
+//    [self.view.layer addSublayer:layer];
+//    //一到最上层
+//    [self.view bringSubviewToFront:self.baomingBtn];
 
 }
 
 #pragma mark - UI -
 -(void)getMeetDetailInfo{
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_meeting_byid?meet_id=%@",self.meetId]]
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_meeting_byid?meet_id=%@&user_id=%@",self.meetId,user.userid]]
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                            NSDictionary *dict = obj[@"data"];
-                                                           self.meetdetailModel = [meetingDetailModel meedetailtWithDict:dict];
+                                                           weakSelf.meetdetailModel = [meetingDetailModel meedetailtWithDict:dict];
                                                            //设置视图内容
-                                                           self.meetName.text = self.meetdetailModel.meet_title;
-                                                           self.meetTime.text = self.meetdetailModel.begin_time;
-                                                           self.meetAddress.text = self.meetdetailModel.meet_address;
-                                                           self.meetDetailText.text = self.meetdetailModel.meet_content;
+                                                           weakSelf.meetName.text = weakSelf.meetdetailModel.meet_title;
+                                                           weakSelf.meetTime.text = weakSelf.meetdetailModel.begin_time;
+                                                           weakSelf.meetAddress.text = weakSelf.meetdetailModel.meet_address;
+                                                           weakSelf.meetDetailText.text = weakSelf.meetdetailModel.meet_content;
+                                                           [weakSelf.meetImage sd_setImageWithURL:[NSURL URLWithString:weakSelf.meetdetailModel.meeting_image] placeholderImage:GetImage(@"")];
+                                                           if ([weakSelf.meetdetailModel.is_attend isEqualToString:@"1"]) {
+                                                               weakSelf.baomingBtn.backgroundColor = RGB(233, 233, 233);
+                                                               [weakSelf.baomingBtn setUserInteractionEnabled:NO];
+                                                               [weakSelf.baomingBtn setTitle:@"已报名" forState:UIControlStateNormal];
+                                                               
+                                                           }
                                                            
-                                                           self.meetdetailModel.meet_date = dict[@"meet_date"];
+                                                           NSArray *zhuangjiaArr = dict[@"meet_talk"];
+                                                           if (kArrayIsEmpty(zhuangjiaArr)) {
+                                                               return;
+                                                           }
+                                                           NSMutableArray *arrayM = [NSMutableArray array];
+                                                           for (int i = 0; i < zhuangjiaArr.count; i ++) {
+                                                               NSDictionary *dict = zhuangjiaArr[i];
+                                                               [arrayM addObject:[zhuangjiaModel zhuagnjiaWithDict:dict]];
+                                                               
+                                                           }
+                                                           weakSelf.zhuangjiaCol.zhuangjiaDataArr = arrayM;
+                                                           [weakSelf.zhuangjiaCol reloadData];
+                                                           
+                                                           weakSelf.meetdetailModel.meet_date = dict[@"meet_date"];
                                                            NSArray *arr = dict[@"meet_date"];
                                                            if (kArrayIsEmpty(arr)) {
                                                                return;
@@ -175,29 +211,21 @@
                                                                [self.detailaArr addObject:dicy[@"main_content"]];
                                                                
                                                            }
-                                                           
-                                                           NSArray *zhuangjiaArr = dict[@"meet_talk"];
-                                                           NSMutableArray *arrayM = [NSMutableArray array];
-                                                           for (int i = 0; i < zhuangjiaArr.count; i ++) {
-                                                               NSDictionary *dict = zhuangjiaArr[i];
-                                                               [arrayM addObject:[zhuangjiaModel zhuagnjiaWithDict:dict]];
-                                                               
-                                                           }
-                                                           self.zhuangjiaCol.zhuangjiaDataArr = arrayM;
-                                                           [self.zhuangjiaCol reloadData];
-                                                           
-                                                           
+ 
                                                            //给会议日程加载多少条赋值
-                                                           self.arrCount = self.timeaArr.count>2 ? 2 : self.timeaArr.count;
-                                                           [self.meetImage sd_setImageWithURL:[NSURL URLWithString:self.meetdetailModel.meeting_image] placeholderImage:GetImage(@"")];
-                                                           [self.richengTableView reloadData];
+                                                           weakSelf.arrCount = weakSelf.timeaArr.count>2 ? 2 : weakSelf.timeaArr.count;
+                                                           
+                                                           [weakSelf.richengTableView reloadData];
+                                                           
+                                                           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                               weakSelf.scroller.contentSize =  CGSizeMake(0, CGRectGetMaxY(weakSelf.zhuanjiaView.frame));
+                                                           });
+                                                           
                                                            
                                                        }else{
                                                            //获取失败
                                                            
                                                        }
-                                                       
-                                                       
 
     }
                                                       fail:^(NSError *error) {
@@ -206,7 +234,7 @@
 }
 
 -(NSMutableAttributedString *)setTitle{
-    return [self changeTitle:@"会议名称不能也不能太长"];
+    return [self changeTitle:@"会议详情"];
 }
 
 -(UIColor*)set_colorBackground{
@@ -214,16 +242,23 @@
 }
 
 -(BOOL)hideNavigationBottomLine{
-    return NO;
+    return YES;
 }
 
 #pragma mark - 私有action -
+//联系会务拨打电话
+- (IBAction)connectHuiwu:(UIButton *)sender {
+    
+    NSString *allString = [NSString stringWithFormat:@"tel:18611969985"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:allString]];
+}
+
 - (void)getOrderPayResult:(NSNotification *)notification
 {
     // 注意通知内容类型的匹配
     if (notification.object == 0)
     {
-        NSLog(@"分享成功");
+//        NSLog(@"分享成功");
     }
 }
 
@@ -277,12 +312,31 @@
 }
 
 #pragma mark - 私有方法 -
--(void)setLabelHangjianj:(UILabel *)lab{
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:lab.text];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:4];//调整行间距
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [lab.text length])];
-    lab.attributedText = attributedString;
+//获取用户认证信息
+-(void)getUserInfo{
+    UserInfoModel *USER = [UserInfoModel shareUserModel];
+    [USER loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@&current_userid=%@",BaseUrl,USER.userid,USER.userid]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSDictionary *ditc = obj[@"data"];
+                                                           userModel *user = [userModel userWithDict:ditc];
+                                                           
+                                                           if (!kStringIsEmpty(user.isfinishCer)) {
+                                                               USER.isfinishCer = user.isfinishCer;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                       }else{
+                                                           //失败
+                                                       }
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       //
+                                                   }];
 }
 
 //参会按钮点击
@@ -390,6 +444,24 @@
     });
 }
 
+/**
+ 间距
+ 
+ @param label lab
+ @param space 字间距
+ @param highSpace 行间距
+ */
++ (void)changeWordSpaceForLabel:(UILabel *)label WithSpace:(float)space highSpace:(float)highSpace{
+    
+    NSString *labelText = label.text;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText attributes:@{NSKernAttributeName:@(space)}];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = highSpace;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
+    label.attributedText = attributedString;
+    [label sizeToFit];
+    
+}
 
 #pragma mark - tableview代理 -
 
@@ -435,10 +507,15 @@
 //scrollView滚动时，就调用该方法。任何offset值改变都调用该方法。即滚动过程中，调用多次
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-//    NSLog(@"scrollViewDidScroll");
-//    CGPoint point=scrollView.contentOffset;
-//    NSLog(@"%f,%f",point.x,point.y);
-//
+    UIImageView* blackLineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    
+    if ([[NSString stringWithFormat:@"%.f",scrollView.contentOffset.y] isEqualToString:@"0"]) {
+        //在顶部
+        blackLineImageView.hidden = YES;
+        
+    }else{
+        blackLineImageView.hidden = NO;
+    }
 }
 
 #pragma mark - 懒加载 -

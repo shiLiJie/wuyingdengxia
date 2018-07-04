@@ -253,7 +253,7 @@
     [self.view addSubview: view];
     
     //添加加号➕按钮
-    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMinY(self.segment.frame)+3, segViewHigh, segViewHigh)];
+    UIButton *addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMinY(self.segment.frame), segViewHigh, segViewHigh)];
     [addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
     [addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -299,6 +299,7 @@
 
 -(QATableVIewController *)tablecontroller:(NSString *)lable{
     QATableVIewController *vc = [[QATableVIewController alloc] init];
+    vc.choosetype = QAlabelType;
     vc.lablemodel = [[lableModel alloc] init];
 //    vc.lablemodel = lable;
     vc.lableName = lable;
@@ -420,23 +421,49 @@
                                                             [labArr addObject:dict[@"label_name"]];
                                                         }
                                                         sheetMenu.recommendSubjectArray = labArr;
-                                                        
-                                                        [weakSelf.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
-                                                            //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
-                                                        }];
-                                                        
-                                                        //回调编辑好的兴趣标签
-                                                        [weakSelf.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
-                                                            //给segeview标签数组赋值
-                                                            
-                                                            weakSelf.segment.reloadTitleArr = itemArray;
-                                                            [weakSelf.segment reloadData];
-                                                            self.labelnameArr = itemArray;
-                                                        }];
+                                                        [weakSelf.newsMenu layoutSubviews];
+
+
                                                     }
                                                        fail:^(NSError *error) {
                                                            
                                                        }];
+    [weakSelf.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
+        //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
+    }];
+    
+    //回调编辑好的兴趣标签
+    [weakSelf.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
+        //给segeview标签数组赋值
+        
+        weakSelf.segment.reloadTitleArr = itemArray;
+        [weakSelf.segment reloadData];
+        self.labelnameArr = itemArray;
+        
+        //自定义标签
+        UserInfoModel *user = [UserInfoModel shareUserModel];
+        [user loadUserInfoFromSanbox];
+
+        NSString *string = [itemArray componentsJoinedByString:@","];
+        NSDictionary *dict = @{
+                               @"userId":user.userid,
+                               @"labelname":string,
+                               @"type":@"3",
+                               };
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_addMyLabel"]
+                                                     parameters:dict
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                            }else{
+                                                                [MBProgressHUD showError:obj[@"msg"]];
+                                                            }
+                                                            
+                                                        } fail:^(NSError *error) {
+                                                            
+                                                        }];
+    }];
 
 }
 

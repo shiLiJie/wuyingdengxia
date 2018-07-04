@@ -41,34 +41,34 @@
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEH-TG-ZPm">
-                    <rect key="frame" x="17" y="58" width="21" height="22"/>
+                    <rect key="frame" x="17" y="48" width="21" height="22"/>
                     <state key="normal" image="baifh"/>
                     <connections>
                         <action selector="goBack:" destination="-1" eventType="touchUpInside" id="Yrg-t4-JCO"/>
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tx" translatesAutoresizingMaskIntoConstraints="NO" id="tzw-N0-Fyo">
-                    <rect key="frame" x="54" y="50" width="38" height="38"/>
+                    <rect key="frame" x="54" y="40" width="38" height="38"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="38" id="DcP-ho-Puh"/>
                         <constraint firstAttribute="height" constant="38" id="mhr-X6-dF5"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李鲫鱼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Jf-un-Ggd">
-                    <rect key="frame" x="101" y="49.5" width="42" height="20"/>
+                    <rect key="frame" x="101" y="39.5" width="42" height="20"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="14"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SyA-wd-Hub">
-                    <rect key="frame" x="101" y="70.5" width="21" height="17"/>
+                    <rect key="frame" x="101" y="60.5" width="21" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title=" " image="yueliangbi-1">
                         <color key="titleColor" red="1" green="0.73725490199999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivY-WK-fAg">
-                    <rect key="frame" x="299" y="54" width="62" height="30"/>
+                    <rect key="frame" x="299" y="44" width="62" height="30"/>
                     <state key="normal" title="许愿记录">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -111,11 +111,11 @@
                 <constraint firstItem="SyA-wd-Hub" firstAttribute="leading" secondItem="4Jf-un-Ggd" secondAttribute="leading" id="lfn-Fk-5cc"/>
                 <constraint firstItem="tzw-N0-Fyo" firstAttribute="leading" secondItem="XEH-TG-ZPm" secondAttribute="trailing" constant="16" id="mla-RF-ZBe"/>
                 <constraint firstItem="4Jf-un-Ggd" firstAttribute="leading" secondItem="tzw-N0-Fyo" secondAttribute="trailing" constant="9" id="sia-AX-7XT"/>
-                <constraint firstItem="XEH-TG-ZPm" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="38" id="tcJ-rj-qjC"/>
+                <constraint firstItem="XEH-TG-ZPm" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="28" id="tcJ-rj-qjC"/>
                 <constraint firstItem="vdm-IP-R7G" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="whg-Tf-nEE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-35" y="47"/>
+            <point key="canvasLocation" x="-45" y="-58"/>
         </view>
     </objects>
     <resources>

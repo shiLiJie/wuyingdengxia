@@ -15,7 +15,7 @@
 @optional
 
 //监听点击table点击的索引
--(void)tableviewDidSelectPageWithIndex2:(NSIndexPath *)indexPath;
+-(void)tableviewDidSelectPageWithIndex2:(NSIndexPath *)indexPath huiguErModel:(huiguErModel *)model;
 
 @end
 

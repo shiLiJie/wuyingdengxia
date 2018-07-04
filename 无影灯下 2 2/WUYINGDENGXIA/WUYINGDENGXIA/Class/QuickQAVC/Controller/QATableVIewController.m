@@ -31,12 +31,55 @@
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    self.tableview.estimatedRowHeight = 300;//估算高度
+    self.tableview.rowHeight = UITableViewAutomaticDimension;
+    
     self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, self.view.frame.size.height)];
     self.imageview.contentMode = UIViewContentModeCenter;
     [self.view addSubview:self.imageview];
     
     self.imageview.hidden = YES;
     
+    if (self.choosetype == QAlabelType) {
+        //刷新
+        __weak typeof(self) weakSelf = self;
+        self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            //刷新时候，需要执行的代码。一般是请求最新数据，请求成功之后，刷新列表
+            [weakSelf loadNewData];
+        }];
+    }
+    
+}
+/**
+ 请求获取最新的数据
+ */
+- (void)loadNewData {
+    
+    __weak typeof(self) weakSelf = self;
+    self.imageview.hidden = YES;
+    NSString  *url = [[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_question_bylabel?label=%@",self.lableName]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       NSArray *arr = obj[@"data"];
+                                                       
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[QusetionModel QusetionWithDict:dict]];
+                                                           
+                                                       }
+                                                       self.qusetionArr= arrayM;
+                                                       [self.tableview reloadData];
+                                                       //拿到当前的刷新控件，结束刷新状态
+                                                       [weakSelf.tableview.mj_header endRefreshing];
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          //拿到当前的刷新控件，结束刷新状态
+                                                          [weakSelf.tableview.mj_header endRefreshing];
+                                                      }];
+ 
 }
 
 //获取标签下对应问答
@@ -142,28 +185,33 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    
     return self.qusetionArr.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 140;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    return 140;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString * reuseID = @"QATableVIewCell";
     self.cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+    self.cell.delegate = self;
     
+    QusetionModel *model = self.qusetionArr[indexPath.row];
     
-    if (!self.cell) {
-        
-        self.cell = [[[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil] firstObject];
+    if ([model.question_image isKindOfClass:[NSNull class]]) {
+        //纯文字
+        self.cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][0];
         self.cell.headImage.tag = indexPath.row;
-        self.cell.delegate = self;
-        QusetionModel *model = self.qusetionArr[indexPath.row];
-
+        if ([model.is_anony isEqualToString:@"0"]) {
+            self.cell.userName.hidden = YES;
+            self.cell.headImage.hidden = YES;
+        }else{
+            self.cell.userName.hidden = NO;
+            self.cell.headImage.hidden = NO;
+        }
         self.cell.userName.text = [NSString stringWithFormat:@"%@",model.user_name];
         [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.headimg]] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
         self.cell.mainTitle.text = [NSString stringWithFormat:@"%@",model.question_title];
@@ -171,11 +219,96 @@
         self.cell.answerNum.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
         self.cell.mooncash.text = [NSString stringWithFormat:@"%@",model.moon_cash];
         self.cell.answerTime.text = [NSString stringWithFormat:@"%@",[self getBeforeTimeWithTime:model.last_answer_time]];
- 
+        
+        return self.cell;
     }
+    NSArray *array = [model.question_image componentsSeparatedByString:@","]; //字符串按照,分隔成数组
     
+    if (array.count == 1) {
+        if (kStringIsEmpty(array[0])) {
+            //纯文字
+            self.cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][0];
+            self.cell.headImage.tag = indexPath.row;
+            if ([model.is_anony isEqualToString:@"0"]) {
+                self.cell.userName.hidden = YES;
+                self.cell.headImage.hidden = YES;
+            }else{
+                self.cell.userName.hidden = NO;
+                self.cell.headImage.hidden = NO;
+            }
+            self.cell.userName.text = [NSString stringWithFormat:@"%@",model.user_name];
+            [self.cell.headImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.headimg]] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+            self.cell.mainTitle.text = [NSString stringWithFormat:@"%@",model.question_title];
+            self.cell.detailPage.text = [NSString stringWithFormat:@"%@",model.question_content];
+            self.cell.answerNum.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
+            self.cell.mooncash.text = [NSString stringWithFormat:@"%@",model.moon_cash];
+            self.cell.answerTime.text = [NSString stringWithFormat:@"%@",[self getBeforeTimeWithTime:model.last_answer_time]];
+        }else{
+            //一张图
+            self.cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][1];
+            self.cell.headImage1.tag = indexPath.row;
+            if ([model.is_anony isEqualToString:@"0"]) {
+                self.cell.userName.hidden = YES;
+                self.cell.headImage.hidden = YES;
+            }else{
+                self.cell.userName.hidden = NO;
+                self.cell.headImage.hidden = NO;
+            }
+            self.cell.userName1.text = [NSString stringWithFormat:@"%@",model.user_name];
+            [self.cell.headImage1 sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.headimg]] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+            self.cell.mainTitle1.text = [NSString stringWithFormat:@"%@",model.question_title];
+            self.cell.detailPage1.text = [NSString stringWithFormat:@"%@",model.question_content];
+            self.cell.answerNum1.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
+            self.cell.mooncash1.text = [NSString stringWithFormat:@"%@",model.moon_cash];
+            self.cell.answerTime1.text = [NSString stringWithFormat:@"%@",[self getBeforeTimeWithTime:model.last_answer_time]];
+            [self.cell.image1 sd_setImageWithURL:[NSURL URLWithString:array[0]] placeholderImage:GetImage(@"")];
+        }
+        
+    }else if (array.count == 2){
+        //一张图
+        self.cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][1];
+        self.cell.headImage1.tag = indexPath.row;
+        if ([model.is_anony isEqualToString:@"0"]) {
+            self.cell.userName.hidden = YES;
+            self.cell.headImage.hidden = YES;
+        }else{
+            self.cell.userName.hidden = NO;
+            self.cell.headImage.hidden = NO;
+        }
+        self.cell.userName1.text = [NSString stringWithFormat:@"%@",model.user_name];
+        [self.cell.headImage1 sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.headimg]] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+        self.cell.mainTitle1.text = [NSString stringWithFormat:@"%@",model.question_title];
+        self.cell.detailPage1.text = [NSString stringWithFormat:@"%@",model.question_content];
+        self.cell.answerNum1.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
+        self.cell.mooncash1.text = [NSString stringWithFormat:@"%@",model.moon_cash];
+        self.cell.answerTime1.text = [NSString stringWithFormat:@"%@",[self getBeforeTimeWithTime:model.last_answer_time]];
+        [self.cell.image1 sd_setImageWithURL:[NSURL URLWithString:array[0]] placeholderImage:GetImage(@"")];
+        
+    }else if (array.count >= 3){
+        //三张图
+        self.cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][2];
+        self.cell.headImage2.tag = indexPath.row;
+        if ([model.is_anony isEqualToString:@"0"]) {
+            self.cell.userName.hidden = YES;
+            self.cell.headImage.hidden = YES;
+        }else{
+            self.cell.userName.hidden = NO;
+            self.cell.headImage.hidden = NO;
+        }
+        self.cell.userName2.text = [NSString stringWithFormat:@"%@",model.user_name];
+        [self.cell.headImage2 sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.headimg]] forState:UIControlStateNormal placeholderImage:GetImage(@"tx")];
+        self.cell.mainTitle2.text = [NSString stringWithFormat:@"%@",model.question_title];
+        self.cell.detailPage2.text = [NSString stringWithFormat:@"%@",model.question_content];
+        self.cell.answerNum2.text = [NSString stringWithFormat:@"已回答 %@",model.answer_num];
+        self.cell.mooncash2.text = [NSString stringWithFormat:@"%@",model.moon_cash];
+        self.cell.answerTime2.text = [NSString stringWithFormat:@"%@",[self getBeforeTimeWithTime:model.last_answer_time]];
+        [self.cell.image21 sd_setImageWithURL:[NSURL URLWithString:array[0]] placeholderImage:GetImage(@"")];
+        [self.cell.image22 sd_setImageWithURL:[NSURL URLWithString:array[1]] placeholderImage:GetImage(@"")];
+        [self.cell.image23 sd_setImageWithURL:[NSURL URLWithString:array[2]] placeholderImage:GetImage(@"")];
+    }
+
+    [self.cell setLabelSpace];
     self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    self.tableview.contentInset = UIEdgeInsetsMake(0, 0, 80, 0);
     
     return self.cell;
 }

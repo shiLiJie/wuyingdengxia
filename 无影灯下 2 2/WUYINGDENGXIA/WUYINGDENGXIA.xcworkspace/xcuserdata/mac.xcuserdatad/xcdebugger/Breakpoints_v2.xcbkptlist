@@ -4,19 +4,13 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WUYINGDENGXIA/Class/HeadlineVC/Controller/pageDetail/PageDetailViewController.m"
-            timestampString = "549709636.500891"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
-            landmarkName = "-sendText:"
-            landmarkType = "7">
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -25,46 +19,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WUYINGDENGXIA/Class/HeadlineVC/Controller/pageDetail/PageDetailViewController.m"
-            timestampString = "549709638.116933"
+            filePath = "WUYINGDENGXIA/Class/MyVC/Controller/&#x6d88;&#x606f;/vc/TongzhiVc.m"
+            timestampString = "552194581.287896"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
-            landmarkName = "-postPinglunWithText:"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[PageDetailViewController postPinglunWithText:]"
-                  moduleName = "WUYINGDENGXIA"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tangkai/Documents/GitHub/wuyingdengxia/%E6%97%A0%E5%BD%B1%E7%81%AF%E4%B8%8B%202%202/WUYINGDENGXIA/WUYINGDENGXIA/Class/HeadlineVC/Controller/pageDetail/PageDetailViewController.m"
-                  timestampString = "549709638.1242141"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "395"
-                  endingLineNumber = "395"
-                  offsetFromSymbolStart = "348">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__48-[PageDetailViewController postPinglunWithText:]_block_invoke"
-                  moduleName = "WUYINGDENGXIA"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tangkai/Documents/GitHub/wuyingdengxia/%E6%97%A0%E5%BD%B1%E7%81%AF%E4%B8%8B%202%202/WUYINGDENGXIA/WUYINGDENGXIA/Class/HeadlineVC/Controller/pageDetail/PageDetailViewController.m"
-                  timestampString = "549709638.126631"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "397"
-                  endingLineNumber = "397"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -47,7 +47,7 @@
     
     NSDictionary *dict = self.dataArr[indexPath.row];
     if ([dict[@"type"] isEqualToString:@"1"]) {
-        cell.xiaoxiTitle.text = @"退稿通知";
+        cell.xiaoxiTitle.text = @"投稿通知";
         cell.xiaoxiDetail.text = dict[@"content"];
         cell.xiaoxiType = tuigaoType;
         [cell setUpImage];
@@ -61,7 +61,7 @@
         [cell setUpImage];
     }
     else
-    {
+    if ([dict[@"type"] isEqualToString:@"4"]){
         cell.xiaoxiType = wenjuanType;
         cell.xiaoxiTitle.text = @"问卷调查";
         [cell setUpImage];
@@ -77,11 +77,11 @@
     NSDictionary *dict = self.dataArr[indexPath.row];
     if ([dict[@"type"] isEqualToString:@"1"]){
         
-        [self.delegate transIndex:indexPath isTuigao:YES dataDict:dict];
+//        [self.delegate transIndex:indexPath isTuigao:YES dataDict:dict];
         
     }else{
         
-        [self.delegate transIndex:indexPath isTuigao:NO dataDict:dict];
+//        [self.delegate transIndex:indexPath isTuigao:NO dataDict:dict];
     }
     
 }

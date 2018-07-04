@@ -22,6 +22,10 @@
 @property (nonatomic, strong) inputView *input;//输入框
 
 @property (nonatomic,copy) NSString *inputStr;
+//评论id
+@property (nonatomic,copy) NSString *comentId;
+//评论还是回复
+@property (nonatomic,assign) BOOL isPinglun;
 
 @end
 
@@ -30,6 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -44,6 +49,8 @@
     
     //设置网页
     [self setWeb];
+    
+    self.isPinglun = YES;
 }
 
 //设置网页
@@ -59,7 +66,7 @@
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://39.106.2.216/Wuyingdengxia/DiscussDetails.html?key_dis_id=%@&Userid=%@",self.model.key_dis_id ,user.userid]]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://39.106.2.216/Wuyingdengxia/DiscussDetails.html?key_dis_id=%@&userid=%@",self.model.key_dis_id ,user.userid]]]];
     
     [self.view addSubview:_webView];
     
@@ -68,28 +75,34 @@
     delegateController.delegate = self;
     
     [userContentController addScriptMessageHandler:delegateController  name:@"asd"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"refreshDiscussList"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"comment_id"];
+    [userContentController addScriptMessageHandler:delegateController  name:@"postReplyComment"];
 }
 
 #pragma mark - WKScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
-    NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
+    
+    //点用户头像
     if ([message.name isEqualToString:@"asd"]) {
+        self.isPinglun = YES;
         //做处理
+        [self pushToPersonViewWithUserid:message.body];
+    }
+    
+    //点用户头像
+    if ([message.name isEqualToString:@"comment_id"]) {
+        self.isPinglun = NO;
+        //做处理
+        self.comentId = message.body;
     }
 }
 // oc调用JS方法   页面加载完成之后调用
 - (void)webView:(WKWebView *)tmpWebView didFinishNavigation:(WKNavigation *)navigation{
     
-    //say()是JS方法名，completionHandler是异步回调block
-    [_webView evaluateJavaScript:@"asd()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        //        NSLog(@"%@",result);
-        
-    }];
-    
     if (_webView.title.length > 0) {
         self.title = _webView.title;
     }
-    
 }
 
 //左侧按钮设置点击
@@ -121,6 +134,14 @@
     return title;
 }
 
+
+//跳转到个人页
+-(void)pushToPersonViewWithUserid:(NSString *)userid{
+    PersonViewController *publishPerson = [[PersonViewController alloc] init];
+    publishPerson.userid = userid;
+    [self.navigationController pushViewController:publishPerson animated:YES];
+}
+
 //评论按钮点击
 - (IBAction)pinglunBtnClick:(UIButton *)sender {
     
@@ -149,31 +170,90 @@
 }
 
 - (void)sendText:(NSString *)text{
-    
-    
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
+    
+    if (self.isPinglun) {
+        //评论
+        [self postPinglunWithText:text userId:user.userid];
+    }else{
+        //回复
+        [self postCommentWithText:text userId:user.userid];
+    }
+
+}
+
+
+/**
+ 文章评论
+ 
+ @param text 评论内容
+ */
+-(void)postPinglunWithText:(NSString *)text userId:(NSString *)userid{
     NSDictionary *dict = @{
                            @"key_dis_id":self.model.key_dis_id,
-                           @"user_id":user.userid,
+                           @"user_id":userid,
                            @"key_dis_content":text
                            };
     
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_key_dis"]
                                                  parameters:dict
                                                     success:^(id obj) {
+                                                        
                                                         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+
+                                                            NSString *jsStr = [NSString stringWithFormat:@"refreshDiscussList('%@')",text];
+//                                                            NSString *jsStr = [NSString stringWithFormat:@"refreshDiscussList()"];
                                                             
-                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                            [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+//                                                                NSLog(@"%@",error);
+                                                            }];
+                                                            
                                                         }else{
                                                             [MBProgressHUD showError:obj[@"msg"]];
                                                         }
-    } fail:^(NSError *error) {
-        
-    }];
-    
+                                                        
+                                                        
+                                                    } fail:^(NSError *error) {
+                                                        //
+                                                    }];
 }
 
+/**
+ 评论回复
+ 
+ @param text 评论内容
+ */
+-(void)postCommentWithText:(NSString *)text userId:(NSString *)userid{
+    
+    NSDictionary *dict = @{
+                           @"userid": userid,
+                           @"toid" : self.comentId,
+                           @"comType":@"1",
+                           @"comContent":text,
+                           @"comment_to_type":@"2"
+                           };
+    
+    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_comment"]
+                                                 parameters:dict
+                                                    success:^(id obj) {
+                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                            
+                                                            NSString *jsStr = [NSString stringWithFormat:@"postReplyComment()"];
+                                                            
+                                                            [_webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+                                                                
+                                                            }];
+                                                            
+                                                        }else{
+                                                            [MBProgressHUD showError:obj[@"msg"]];
+                                                        }
+                                                        
+                                                    } fail:^(NSError *error) {
+                                                        
+                                                    }];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

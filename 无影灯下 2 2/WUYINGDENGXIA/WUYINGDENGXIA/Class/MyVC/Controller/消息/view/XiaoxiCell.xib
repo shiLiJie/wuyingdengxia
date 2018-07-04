@@ -42,7 +42,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退稿通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psd-0d-b8a">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="稿件通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psd-0d-b8a">
                         <rect key="frame" x="74" y="22" width="68" height="24"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="17"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -83,7 +83,7 @@
                 <outlet property="xiaoxiTime" destination="fOS-yT-49Y" id="YHs-om-YfH"/>
                 <outlet property="xiaoxiTitle" destination="Psd-0d-b8a" id="pPh-om-uTj"/>
             </connections>
-            <point key="canvasLocation" x="-593" y="-5"/>
+            <point key="canvasLocation" x="-666" y="51"/>
         </tableViewCell>
     </objects>
 </document>

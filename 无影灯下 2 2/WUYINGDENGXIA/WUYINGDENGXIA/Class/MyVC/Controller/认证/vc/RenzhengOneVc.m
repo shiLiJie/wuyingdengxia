@@ -29,13 +29,24 @@
     self.nextBtn.layer.masksToBounds = YES;//是否切割
     
     [self addTargetMethod];//监听文本输入
+
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     self.phoneField.text = user.phoneNum;
     if (!kStringIsEmpty(user.userIdcard)) {
-        if (![user.userIdcard isEqualToString:@"0"]) {
+        if (![user.userIdcard isEqualToString:@" "]) {
             self.userCarId.text = user.userIdcard;
+        }
+    }
+    if (!kStringIsEmpty(user.userReal_name)) {
+        if (![user.userReal_name isEqualToString:@" "]) {
+            self.nameField.text = user.userReal_name;
+        }
+    }
+    if (!kStringIsEmpty(user.userPosition)) {
+        if (![user.userPosition isEqualToString:@" "]) {
+            self.shenfenField.text = user.userPosition;
         }
     }
 }
@@ -145,6 +156,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc{
+    
 }
 
 /*

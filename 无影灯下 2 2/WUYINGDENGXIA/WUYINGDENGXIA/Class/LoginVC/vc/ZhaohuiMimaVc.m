@@ -21,10 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.verifBtn.layer.cornerRadius = CGRectGetHeight(self.verifBtn.frame)/2;//半径大小
+
+}
+-(void)viewDidLayoutSubviews{
+    self.verifBtn.layer.cornerRadius = CGRectGetHeight(self.verifBtn.frame)/2-1;//半径大小
     self.verifBtn.layer.masksToBounds = YES;//是否切割
     
-    self.registBtn.layer.cornerRadius = CGRectGetHeight(self.registBtn.frame)/2;//半径大小
+    self.registBtn.layer.cornerRadius = CGRectGetHeight(self.registBtn.frame)/2-1;//半径大小
     self.registBtn.layer.masksToBounds = YES;//是否切割
 }
 
@@ -198,6 +201,7 @@
                                                                                                                user.moon_cash = dic[@"moon_cash"];
                                                                                                                user.we_chat_id = dic[@"we_chat_id"];
                                                                                                                user.user_birthday = dic[@"user_birthday"];
+                                                                                                               user.userPost = dic[@"userPost"];
                                                                                                                
                                                                                                                [user saveUserInfoToSanbox];
                                                             }

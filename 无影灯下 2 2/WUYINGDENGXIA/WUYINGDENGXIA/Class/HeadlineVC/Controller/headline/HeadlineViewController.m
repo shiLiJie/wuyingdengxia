@@ -94,10 +94,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController.view addSubview:self.searchBar];
+    [self.navigationController.view addSubview:self.searchBtn];
+    
     //添加UI控件
     [self addUI];
     //加载数组
     [self addArr];
+    //监听网络情况
+    [self netWorkStatus];
 }
 
 //初始化数组
@@ -110,6 +116,7 @@
 -(DetailTableViewController *)tablecontroller:(NSString *)lable{
     DetailTableViewController *vc = [[DetailTableViewController alloc] init];
     vc.lable = lable;
+    vc.choosetype = labelType;
     vc.delegate = self;
     __weak typeof(self) weakSelf = self;
     vc.DidScrollBlock = ^(CGFloat scrollY) {
@@ -122,8 +129,6 @@
 #pragma mark - UI设置 -
 //添加各种试图
 -(void)addUI{
-    [self.navigationController.view addSubview:self.searchBar];
-    [self.navigationController.view addSubview:self.searchBtn];
     //添加banner
     [self addBannerView];
     //添加标签控制器
@@ -192,6 +197,7 @@
 
 //添加banner
 -(void)addBannerView{
+
     if (kDevice_Is_iPhoneX) {
         _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 90, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
     }else{
@@ -202,50 +208,62 @@
     _scrollView.imageRadius = 4; // 设置卡片圆角
     _scrollView.imageHeightPoor = 10; // 设置中间卡片与两边卡片的高度差
     // 设置要加载的图片
-    
+    [self getBannerNetData];
+
+}
+//banner网络请求
+-(void)getBannerNetData{
     __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allbanner"]
                                                 parameters:nil
                                                    success:^(id obj) {
-        NSMutableArray *bannermodelarr = [[NSMutableArray alloc] init];
-        NSArray *arr = obj[@"data"];
-        NSMutableArray *arrayM = [NSMutableArray array];
-        for (int i = 0; i < arr.count; i ++) {
-            NSDictionary *dict = arr[i];
-            [arrayM addObject:[bannermodel bannerWithDict:dict]];
-        }
-        bannermodel *model = [[bannermodel alloc] init];
-        for (model in arrayM) {
-            [ bannermodelarr addObject:model.banner_imgpath];
-        }
-        weakSelf.scrollView.data = bannermodelarr;
-        _scrollView.placeHolderImage = [UIImage imageNamed:@""]; // 设置占位图片
-        [weakSelf.view addSubview:weakSelf.scrollView];
-        _scrollView.clickImageBlock = ^(NSInteger currentIndex) { // 点击中间图片的回调
-            bannermodel *model1 = [[bannermodel alloc] init];
-            model1 = arrayM[currentIndex];
-            //当前banner的链接,点的时候直接加载就ok
-            NSLog(@"%@",model1.banner_link);
-            bannerResultvc *vc = [[bannerResultvc alloc] init];
-            vc.url = model1.banner_link;
-            [weakSelf.navigationController pushViewController:vc animated:YES];
-            weakSelf.searchBar.hidden = YES;
-            weakSelf.searchBtn.hidden = YES;
-        };
-    } fail:^(NSError *error) {
-        
-    }];
+                                                       NSMutableArray *bannermodelarr = [[NSMutableArray alloc] init];
+                                                       NSArray *arr = obj[@"data"];
+                                                       NSMutableArray *arrayM = [NSMutableArray array];
+                                                       for (int i = 0; i < arr.count; i ++) {
+                                                           NSDictionary *dict = arr[i];
+                                                           [arrayM addObject:[bannermodel bannerWithDict:dict]];
+                                                       }
+                                                       bannermodel *model = [[bannermodel alloc] init];
+                                                       for (model in arrayM) {
+                                                           [ bannermodelarr addObject:model.banner_imgpath];
+                                                       }
+                                                       weakSelf.scrollView.data = bannermodelarr;
+                                                       _scrollView.placeHolderImage = [UIImage imageNamed:@""]; // 设置占位图片
+                                                       [weakSelf.view addSubview:weakSelf.scrollView];
+                                                       _scrollView.clickImageBlock = ^(NSInteger currentIndex) { // 点击中间图片的回调
+                                                           bannermodel *model1 = [[bannermodel alloc] init];
+                                                           model1 = arrayM[currentIndex];
+                                                           UserInfoModel *user = [UserInfoModel shareUserModel];
+                                                           [user loadUserInfoFromSanbox];
+                                                           model1.banner_link = [model1.banner_link stringByAppendingString:[NSString stringWithFormat:@"&user_id=%@",user.userid]];
+                                                           //当前banner的链接,点的时候直接加载就ok
+                                                           //            NSLog(@"%@",model1.banner_link);
+                                                           bannerResultvc *vc = [[bannerResultvc alloc] init];
+                                                           
+                                                           if ([model1.banner_link hasPrefix:@"http://"] || [model1.banner_link hasPrefix:@"https://"]) {
+                                                               
+                                                           } else {
+                                                               model1.banner_link = [NSString stringWithFormat:@"http://%@", model1.banner_link];
+                                                           }
+                                                           vc.url = model1.banner_link;
+                                                           [weakSelf.navigationController pushViewController:vc animated:YES];
+                                                           weakSelf.searchBar.hidden = YES;
+                                                           weakSelf.searchBtn.hidden = YES;
+                                                       };
+                                                   } fail:^(NSError *error) {
+                                                       
+                                                   }];
 }
 
 
 #pragma mark - segement代理 -
 - (UIViewController *)superViewController {
-    
     return self;
 }
 
+
 - (UIViewController *)subViewControllerWithIndex:(NSInteger)index {
-    
     
 //    lableModel *model = [[lableModel alloc] init];
 //    NSMutableArray *muArr = [[NSMutableArray alloc] init];
@@ -254,6 +272,7 @@
 //    }
 
     DetailTableViewController * baseVC = [self tablecontroller:self.segment.reloadTitleArr[index]];
+    baseVC.lableName = self.segment.reloadTitleArr[index];
     
     return baseVC;
 }
@@ -262,21 +281,37 @@
 - (void)headTitleSelectWithIndex:(NSInteger)index {
     
     //  在这里可以获取到当前的baseViewController
+    NSLog(@"%ld",(long)index);
 
 }
 
 //添加segview标签控制器
 -(void)addSegView{
-    
+
 
     self.segment = [DFSegmentView new];
     
-    self.segment.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -CGRectGetMaxY(self.scrollView.frame)-59);
+//    self.segment.frame = CGRectMake(0,CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -CGRectGetMaxY(self.scrollView.frame)-50);
+    self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
     
     [self.view addSubview:self.segment];
 
     self.segment.delegate = self;
 
+    [self getSegViewData];
+
+    //添加加号➕按钮
+    self.addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh)];
+//    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
+    [self.addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
+    [self.addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.addMenuBtn];
+    
+}
+
+//标签控制器网络请求
+-(void)getSegViewData{
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     
@@ -290,7 +325,7 @@
                                                            for (int i = 0; i < arr.count; i ++) {
                                                                NSDictionary *dict = arr[i];
                                                                [arrayM addObject:[lableModel lableWithDict:dict]];
-
+                                                               
                                                            }
                                                            self.labelArr= arrayM;
                                                            lableModel *model = [[lableModel alloc] init];
@@ -298,7 +333,7 @@
                                                            for (model in self.labelArr) {
                                                                [muArr addObject:model.name];
                                                            }
-
+                                                           
                                                            self.segment.reloadTitleArr = muArr;
                                                            [self.segment reloadData];
                                                            
@@ -308,15 +343,6 @@
                                                    } fail:^(NSError *error) {
                                                        
                                                    }];
-
-    //添加加号➕按钮
-    self.addMenuBtn = [[UIButton alloc] initWithFrame:CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh)];
-//    [addMenuBtn setTitle:@"╋" forState:UIControlStateNormal];
-    [self.addMenuBtn setImage:GetImage(@"Group 2") forState:UIControlStateNormal];
-    [self.addMenuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.addMenuBtn addTarget:self action:@selector(addMenuBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.addMenuBtn];
-    
 }
 
 //添加讨论collection
@@ -378,7 +404,7 @@
                 url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", result]];
             }
             
-            NSLog(@"%@",result);
+//            NSLog(@"%@",result);
             
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             [manager GET:[url absoluteString] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
@@ -399,6 +425,35 @@
 }
 
 #pragma mark - 私有方法 -
+/**
+ 网络监听
+ */
+-(void)netWorkStatus{
+    __weak typeof(self) weakSelf = self;
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    // 检测网络连接的单例,网络变化时的回调方法
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if(status == AFNetworkReachabilityStatusNotReachable){
+            
+            return ;
+        }
+        if(status == AFNetworkReachabilityStatusReachableViaWiFi){
+            
+            [weakSelf getSegViewData];
+            [weakSelf getBannerNetData];
+            [weakSelf.discuss getDisNetData];
+            return ;
+        }
+        if(status == AFNetworkReachabilityStatusReachableViaWWAN){
+            
+            [weakSelf getSegViewData];
+            [weakSelf getBannerNetData];
+            [weakSelf.discuss getDisNetData];
+            return ;
+        }
+    }];
+}
+
 //扫一扫方法
 - (void)showInfo:(NSString*)str {
     [self showInfo:str andTitle:@"提示"];
@@ -414,6 +469,7 @@
     [alert addAction:action1];
     [self presentViewController:alert animated:YES completion:NULL];
 }
+
 //弹出搜索视图
 - (void)setUpSearch
 {
@@ -498,11 +554,10 @@
 //弹出标签管理视图
 -(void)addMenuBtnClick{
     
-    
     ZZNewsSheetMenu *sheetMenu = [ZZNewsSheetMenu newsSheetMenu];
     self.newsMenu = sheetMenu;
     self.newsMenu.pageOrqa = @"1";
-    
+
     if (kObjectIsEmpty(self.labelnameArr)) {
         lableModel *model = [[lableModel alloc] init];
         for (model in self.labelArr) {
@@ -519,7 +574,7 @@
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_labels_rand?limit=10&type=1"]
                                                  parameters:nil
                                                     success:^(id obj) {
-                                                        
+
                                                         NSMutableArray *labArr = [[NSMutableArray alloc] init];
                                                         NSArray *arr = obj[@"data"];
                                                         NSDictionary *dict = @{
@@ -530,24 +585,47 @@
                                                         }
                                                         sheetMenu.recommendSubjectArray = labArr;
                                                         [weakSelf.newsMenu layoutSubviews];
-                                                        
+
                                                     }
                                                        fail:^(NSError *error) {
-                                                           
+
                                                        }];
-    
+
     [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
         //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
     }];
-    
-    
+
+
     //回调编辑好的兴趣标签
     [self.newsMenu updataItmeArray:^(NSMutableArray *itemArray) {
         //给segeview标签数组赋值
-        
+
         self.segment.reloadTitleArr = itemArray;
         [self.segment reloadData];
         self.labelnameArr = itemArray;
+
+        //自定义标签
+        UserInfoModel *user = [UserInfoModel shareUserModel];
+        [user loadUserInfoFromSanbox];
+        NSString *string = [itemArray componentsJoinedByString:@","];
+        NSDictionary *dict = @{
+                               @"userId":user.userid,
+                               @"labelname":string,
+                               @"type":@"1",
+                               };
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_addMyLabel"]
+                                                     parameters:dict
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                            }else{
+                                                                [MBProgressHUD showError:obj[@"msg"]];
+                                                            }
+                                                            
+        } fail:^(NSError *error) {
+            
+        }];
     }];
  
 }
@@ -565,7 +643,9 @@
 
 
 #pragma mark - 搜索页代理方法 -
-- (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
+- (void)searchViewController:(PYSearchViewController *)searchViewController
+         searchTextDidChange:(UISearchBar *)seachBar
+                  searchText:(NSString *)searchText
 {
     if (searchText.length) {
         // Simulate a send request to get a search suggestions
@@ -602,12 +682,11 @@
         vc.choosetype = questionType;
         [searchViewController.navigationController pushViewController:vc animated:YES];
     }
-    
-    
 }
 
 
-- (UITableViewCell *)searchSuggestionView:(UITableView *)searchSuggestionView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)searchSuggestionView:(UITableView *)searchSuggestionView
+                    cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     searchResultModel *model = self.searchArr[indexPath.row];
     static NSString * reuseID = @"cell";
@@ -620,7 +699,8 @@
 }
 
 
-- (NSInteger)searchSuggestionView:(UITableView *)searchSuggestionView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)searchSuggestionView:(UITableView *)searchSuggestionView
+            numberOfRowsInSection:(NSInteger)section{
     
     return self.searchArr.count;
 }
@@ -631,7 +711,8 @@
 }
 
 
-- (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView
+        heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return 150;
 }
@@ -639,58 +720,96 @@
 
 #pragma mark - DetailTableViewController代理方法 -
 - (void)johnScrollViewDidScroll:(CGFloat)scrollY{
+
+    
+//    NSLog(@"%f",scrollY);
+    __block CGFloat headerViewY;
     
     
-    CGFloat headerViewY;
-    
-    
-    
+    //上滑
     if (scrollY > 0) {
         
         [self.scrollView.timer invalidate];//滚动过程中banner定时器停止
         self.scrollView.timer = nil;
-        if (kDevice_Is_iPhoneX) {
-            headerViewY = -scrollY + 90;
-        }else{
-            headerViewY = -scrollY + 76;
-        }
         
+        
+        //推到顶部了
         if (scrollY > bannerHigh +12) {
             if (kDevice_Is_iPhoneX) {
                 headerViewY = -bannerHigh + 78;
             }else{
                 headerViewY = -bannerHigh + 64;
             }
+        }else{
+            //没推到顶部,少判断
+            if (kDevice_Is_iPhoneX) {
+                headerViewY = -scrollY + 90;
+            }else{
+                headerViewY = -scrollY + 76;
+            }
         }
         
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.scrollView.frame = CGRectMake(0,-bannerHigh + 64, Main_Screen_Width, bannerHigh);
+            //        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-headerViewY-bannerHigh);
+            self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
+            self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
+            self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+        } completion:^(BOOL finished) {
+            
+        }];
+
         
-    }else{
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//                self.scrollView.frame = CGRectMake(0, headerViewY, Main_Screen_Width, bannerHigh);
+//                self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22-headerViewY-bannerHigh);
+////                self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
+//                self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
+//                self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+//
+//        });
+        
+    }else if (scrollY < 0){
+        //下滑
         if (kDevice_Is_iPhoneX) {
             headerViewY = 90;
         }else{
             headerViewY = 76;
         }
-        
+
         if (self.scrollView.timer == nil) {
             [self.scrollView createTimer];//滚回来banner定时器再次启动
         }
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
         
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.scrollView.frame = CGRectMake(0,headerViewY, Main_Screen_Width, bannerHigh);
+            //        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-headerViewY-bannerHigh);
+            self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
+            self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
+            self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+        } completion:^(BOOL finished) {
+            
+        }];
 
-        self.scrollView.frame = CGRectMake(0,headerViewY, Main_Screen_Width, bannerHigh);
-        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-TopBarHeight);
-        self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
-        self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
-//        _collectView.frame = CGRectMake(0, CGRectGetMaxY(self.segment.frame)+78, Main_Screen_Width, Main_Screen_Height - CGRectGetMaxY(self.scrollView.frame));
-//        [self.scrollView updateViewFrameSetting];
-//        [self.addMenuBtn layoutIfNeeded];
-    });
+
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//            self.scrollView.frame = CGRectMake(0,headerViewY, Main_Screen_Width, bannerHigh);
+//                    self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22-headerViewY-bannerHigh);
+////            self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22-TopBarHeight);
+//            self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
+//            self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+//
+//        });
+    }
+
 }
 
 //监听table点击方法传来索引
--(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath article_id:(NSString *)articleid user_id:(NSString *)userid pageModle:(pageModel *)model{
+-(void)tableviewDidSelectPageWithIndex:(NSIndexPath *)indexPath
+                            article_id:(NSString *)articleid
+                               user_id:(NSString *)userid
+                             pageModle:(pageModel *)model{
     
     PageDetailViewController *pageDetail = [[PageDetailViewController alloc] init];
     pageDetail.articleid = articleid;

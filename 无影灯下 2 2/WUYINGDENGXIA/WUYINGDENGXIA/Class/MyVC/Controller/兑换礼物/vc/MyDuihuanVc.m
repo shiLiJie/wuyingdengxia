@@ -24,6 +24,12 @@
 
 @implementation MyDuihuanVc
 
+-(void)viewDidLayoutSubviews{
+    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height)];
+    self.imageview.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:self.imageview];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -33,17 +39,20 @@
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, self.view.frame.size.width, self.view.frame.size.height)];
-    self.imageview.contentMode = UIViewContentModeCenter;
-    [self.view addSubview:self.imageview];
+
     
-    //获取兑换记录
-    [self getDuihuanList];
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (user.loginStatus) {
+        //获取兑换记录
+        [self getDuihuanList];
+    }
+    
 }
 
 #pragma mark - UI -
 -(BOOL)hideNavigationBottomLine{
-    return YES;
+    return NO;
 }
 
 -(UIColor *)set_colorBackground{
@@ -64,7 +73,7 @@
                                                    success:^(id obj) {
                                                        NSArray *arr = obj[@"data"];
                                                        
-                                                       NSLog(@"%@",arr);
+//                                                       NSLog(@"%@",arr);
                                                        NSMutableArray *arrayM = [NSMutableArray array];
                                                        for (int i = 0; i < arr.count; i ++) {
                                                            NSDictionary *dict = arr[i];
@@ -105,7 +114,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.duihuanArr.count == 0) {
         
-        self.imageview.image = GetImage(@"wufensi");
+        self.imageview.image = GetImage(@"wuduihuan");
         self.imageview.hidden = NO;
         return 0;
     }else{

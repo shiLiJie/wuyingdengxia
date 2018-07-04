@@ -39,6 +39,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *zanLab;
 //关注
 @property (weak, nonatomic) IBOutlet UIButton *guanzhuBtn;
+//是否关注
+@property (nonatomic, assign) BOOL isFollow;
+//用户名
+@property (nonatomic,copy) NSString *username;
+//头像地址
+@property (nonatomic,copy) NSString *userheadimg;
 
 @end
 
@@ -51,6 +57,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.isFollow = NO;
     
     [self.navigationController.navigationBar setHidden:YES];
     
@@ -75,37 +83,64 @@
     
     self.headImageView.layer.cornerRadius = CGRectGetHeight(self.headImageView.frame)/2;//半径大小
     self.headImageView.layer.masksToBounds = YES;//是否切割
-    
-    //添加segeview
-    [self addSegView];
-    
-    
-    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@",BaseUrl,self.userid]
+
+    UserInfoModel *USER = [UserInfoModel shareUserModel];
+    [USER loadUserInfoFromSanbox];
+    __weak typeof(self) weakSelf = self;
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@&current_userid=%@",BaseUrl,self.userid,USER.userid]
                                                 parameters:nil
                                                    success:^(id obj) {
-                                                       NSDictionary *ditc = obj[@"data"];
-                                                       userModel *user = [userModel userWithDict:ditc];
-                                                       if (!kStringIsEmpty(user.headimg)) {
-                                                           [self.headImageView sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
-                                                       }
-                                                       if (!kStringIsEmpty(user.username)) {
-                                                            self.userNameLab.text = user.username !=nil ? user.username : @"";
-                                                       }
-                                                       if (!kStringIsEmpty(user.fansnum)) {
-                                                            self.funsLab.text = user.fansnum !=nil ? [NSString stringWithFormat:@"粉丝数  %@",user.fansnum] : @"粉丝数  0";
-                                                       }
-                                                       if (!kStringIsEmpty(user.supportnum)) {
-                                                            self.zanLab.text = user.supportnum !=nil ? [NSString stringWithFormat:@"点赞数  %@",user.fansnum] : @"点赞数  0";
-                                                       }
-                                                       if (!kStringIsEmpty(user.isV)) {
-                                                           if ([user.isV isEqualToString:@"1"]) {
-                                                               self.vipImageView.image = GetImage(@"v");
+                                                       
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSDictionary *ditc = obj[@"data"];
+                                                           userModel *user = [userModel userWithDict:ditc];
+                                                           if (!kStringIsEmpty(user.headimg)) {
+                                                               [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:user.headimg] placeholderImage:GetImage(@"tx")];
+                                                               weakSelf.userheadimg = user.headimg;
                                                            }
+                                                           if (!kStringIsEmpty(user.username)) {
+                                                               weakSelf.userNameLab.text = user.username !=nil ? user.username : @"";
+                                                               weakSelf.username = user.username !=nil ? user.username : @"";
+                                                           }
+                                                           if (!kStringIsEmpty(user.fansnum)) {
+                                                               weakSelf.funsLab.text = user.fansnum !=nil ? [NSString stringWithFormat:@"粉丝数  %@",user.fansnum] : @"粉丝数  0";
+                                                           }
+                                                           if (!kStringIsEmpty(user.supportnum)) {
+                                                               weakSelf.zanLab.text = user.supportnum !=nil ? [NSString stringWithFormat:@"点赞数  %@",user.fansnum] : @"点赞数  0";
+                                                           }
+                                                           if (!kStringIsEmpty(user.userPost)) {
+                                                               weakSelf.userLvLab.text = user.userPost !=nil ? [NSString stringWithFormat:@"职务: %@",user.userPost] : @"职务: ";
+                                                           }
+                                                           if (!kStringIsEmpty(user.isfinishCer)) {
+                                                               if ([user.isfinishCer isEqualToString:@"1"]) {
+                                                                   weakSelf.vipImageView.image = GetImage(@"v");
+                                                               }else{
+                                                                   weakSelf.vipImageView.image = GetImage(@"v1");
+                                                               }
+                                                           }
+                                                           if ([user.is_follow isEqualToString:@"1"]) {
+                                                               [weakSelf.guanzhuBtn setBackgroundColor:RGB(233, 233, 233)];
+//                                                               [weakSelf.guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                                                               [weakSelf.guanzhuBtn setTitle:@"已关注" forState:UIControlStateNormal];
+                                                               weakSelf.isFollow = YES;
+                                                           }else{
+                                                               weakSelf.isFollow = NO;
+                                                           }
+                                                           
+                                                           //添加segeview
+                                                           [weakSelf addSegView];
+                                                           
+                                                       }else{
+                                                           //失败
                                                        }
+                                                       
 
     } fail:^(NSError *error) {
         //
     }];
+    
+    
 }
 
 #pragma mark - UI -
@@ -162,31 +197,60 @@
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
-    NSDictionary *dict = @{
-                           @"userid":user.userid,
-                           @"befollid":self.userid
-                           };
-    [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_follow"]
-                                                 parameters:dict
-                                                    success:^(id obj) {
-                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+    if (!self.isFollow) {
+        NSDictionary *dict = @{
+                               @"userid":user.userid,
+                               @"befollid":self.userid
+                               };
+        __weak typeof(self) weakSelf = self;
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_follow"]
+                                                     parameters:dict
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                [weakSelf.guanzhuBtn setBackgroundColor:RGB(233, 233, 233)];
+//                                                                [weakSelf.guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                                                                [weakSelf.guanzhuBtn setTitle:@"已关注" forState:UIControlStateNormal];
+                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                self.isFollow = YES;
+                                                            }else{
+                                                                
+                                                            }
+                                                        } fail:^(NSError *error) {
                                                             
-                                                            [self.guanzhuBtn setBackgroundColor:[UIColor grayColor]];
-                                                            [self.guanzhuBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
-                                                            [self.guanzhuBtn setTitle:@"已关注" forState:UIControlStateNormal];
-                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
-                                                        }else{
+                                                        }];
+    }else{
+        NSDictionary *dict = @{
+                               @"userid":user.userid,
+                               @"befollid":self.userid
+                               };
+        __weak typeof(self) weakSelf = self;
+        [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_cel_follow"]
+                                                     parameters:dict
+                                                        success:^(id obj) {
+                                                            if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                                
+                                                                [weakSelf.guanzhuBtn setBackgroundColor:RGB(252, 186, 42)];
+//                                                                [weakSelf.guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                                                                [weakSelf.guanzhuBtn setTitle:@"关注" forState:UIControlStateNormal];
+                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
+                                                                self.isFollow = NO;
+                                                            }else{
+                                                                
+                                                            }
+                                                        } fail:^(NSError *error) {
                                                             
-                                                        }
-    } fail:^(NSError *error) {
+                                                        }];
         
-    }];
+    }
+    
 
 }
 
 -(DetailTableViewController *)tablecontroller{
     DetailTableViewController *vc = [[DetailTableViewController alloc] init];
-    [vc getPersonVcPageWithPersonId:self.userid];
+    vc.choosetype = personType;
+    [vc getPersonVcPageWithPersonId:self.userid userName:self.username userHeadimg:self.userheadimg];
     vc.delegate = self;
 
     return vc;

@@ -146,7 +146,7 @@
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    NSLog(@"buttonIndex = %@", @(buttonIndex));
+//    NSLog(@"buttonIndex = %@", @(buttonIndex));
 }
 
 #pragma mark - CYLPlusButtonSubclassing

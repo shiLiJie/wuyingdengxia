@@ -53,7 +53,7 @@
     
     [self.picView addSubview:self.addPhotoView];
     
-    NSLog(@"%@-%@-%@-%@-%@-%@-%@",self.nameField,self.phoneField,self.shenfenField,self.yiyuanField,self.keshiField,self.zhiwuField,self.useridcard);
+//    NSLog(@"%@-%@-%@-%@-%@-%@-%@",self.nameField,self.phoneField,self.shenfenField,self.yiyuanField,self.keshiField,self.zhiwuField,self.useridcard);
     
     self.imageArr = [[NSMutableArray alloc] init];
     
@@ -146,11 +146,11 @@
                                                             [MBProgressHUD showMessage:@"正在上传，请稍后"];
                                                             
                                                             //如果有图片
-                                                            if (self.imageArr.count > 0) {
+                                                            if (weakSelf.imageArr.count > 0) {
                                                                 dispatch_group_t downloadGroup = dispatch_group_create();
-                                                                for (int i = 0; i<self.imageArr.count; i++) {
+                                                                for (int i = 0; i<weakSelf.imageArr.count; i++) {
                                                                     dispatch_group_enter(downloadGroup);
-                                                                    NSData *data = UIImagePNGRepresentation(self.imageArr[i]);
+                                                                    NSData *data = UIImagePNGRepresentation(weakSelf.imageArr[i]);
                                                                     
                                                                     [[HttpRequest shardWebUtil] uploadImageWithUrl:[BaseUrl stringByAppendingString:@"upload?type=1"]
                                                                                                         WithParams:nil
@@ -163,11 +163,11 @@
                                                                                                                 
                                                                                                                 [arr addObject:dic[@"data"][@"complete_url"]];
                                                                                                                 
-                                                                                                                //上传完左右照片,提交投稿
-                                                                                                                if (i == weakSelf.imageArr.count-1) {
-                                                                                                                    //发送认证请求
-                                                                                                                    [weakSelf postRenzhengWithUid:user.userid userToken:user.user_token imgPath:arr];
-                                                                                                                }
+                                                                                                                //上传完左右照片,提交
+//                                                                                                                if (i == weakSelf.imageArr.count-1) {
+//                                                                                                                    //发送认证请求
+//                                                                                                                    [weakSelf postRenzhengWithUid:user.userid userToken:user.user_token imgPath:arr];
+//                                                                                                                }
                                                                                                                 
                                                                                                             }else{
                                                                                                                 
@@ -223,7 +223,7 @@
                                                         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                             
                                                             [MBProgressHUD hideHUD];
-                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
+//                                                            [MBProgressHUD showSuccess:obj[@"msg"]];
                                                             RenzhengResultVc *vc = [[RenzhengResultVc alloc]
                                                                                     init];
                                                             [weakSelf.navigationController pushViewController:vc animated:YES];
@@ -292,7 +292,7 @@
             if (photos.count == 0) {
                 [arr removeAllObjects];
                 [weakSelf.imageArr removeAllObjects];
-                NSLog(@"%ld",weakSelf.imageArr.count);
+//                NSLog(@"%ld",weakSelf.imageArr.count);
             }
             //选择图片后展示图片视图
             weakSelf.picView.hidden = NO;
@@ -336,6 +336,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc{
+    
 }
 
 /*
