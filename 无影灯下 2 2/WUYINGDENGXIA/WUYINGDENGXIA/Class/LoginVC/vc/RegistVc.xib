@@ -147,7 +147,8 @@
                 <constraint firstItem="FKF-K6-BHP" firstAttribute="top" secondItem="7Jb-MA-Riv" secondAttribute="bottom" constant="2" id="blz-oS-UP3"/>
                 <constraint firstItem="Qgz-p2-oeJ" firstAttribute="leading" secondItem="PPE-CA-omO" secondAttribute="leading" id="e2I-15-uJZ"/>
                 <constraint firstItem="9zN-Ak-3sB" firstAttribute="top" secondItem="NNs-nb-hYG" secondAttribute="bottom" constant="13" id="fge-RP-m1W"/>
-                <constraint firstItem="NNs-nb-hYG" firstAttribute="top" secondItem="dOk-lI-buh" secondAttribute="top" constant="31" id="ouP-VZ-DwZ"/>
+                <constraint firstItem="NNs-nb-hYG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DeJ-Cm-LRs" secondAttribute="top" constant="51" id="fmr-HC-ugy"/>
+                <constraint firstItem="NNs-nb-hYG" firstAttribute="top" secondItem="dOk-lI-buh" secondAttribute="top" priority="900" constant="31" id="ouP-VZ-DwZ"/>
                 <constraint firstItem="h8c-s7-WhO" firstAttribute="trailing" secondItem="7Jb-MA-Riv" secondAttribute="trailing" id="qRR-bR-4D4"/>
                 <constraint firstItem="R7J-FW-ohU" firstAttribute="trailing" secondItem="h8c-s7-WhO" secondAttribute="trailing" id="tWW-rJ-us0"/>
                 <constraint firstItem="FKF-K6-BHP" firstAttribute="leading" secondItem="7Jb-MA-Riv" secondAttribute="leading" id="y8U-9G-aQx"/>

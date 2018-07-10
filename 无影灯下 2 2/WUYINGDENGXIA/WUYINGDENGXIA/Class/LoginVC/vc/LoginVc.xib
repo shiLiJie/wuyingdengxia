@@ -180,7 +180,8 @@
                 <constraint firstItem="2k6-YK-6Kl" firstAttribute="top" secondItem="OdE-Zb-OgI" secondAttribute="bottom" constant="28" id="RL0-5v-2ss"/>
                 <constraint firstItem="g5Q-BK-gzc" firstAttribute="leading" secondItem="X8L-6d-rb1" secondAttribute="leading" id="Rh1-dt-lnA"/>
                 <constraint firstItem="hil-lQ-Xe9" firstAttribute="leading" secondItem="4d8-G3-93k" secondAttribute="trailing" constant="18" id="WIf-hK-KXt"/>
-                <constraint firstItem="X8L-6d-rb1" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="31" id="aor-Q7-dVx"/>
+                <constraint firstItem="X8L-6d-rb1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="51" id="Z9w-Eh-PVD"/>
+                <constraint firstItem="X8L-6d-rb1" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="900" constant="31" id="aor-Q7-dVx"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="bWy-tv-5MG" secondAttribute="trailing" constant="27" id="bWQ-kM-Zlc"/>
                 <constraint firstItem="RDx-2x-lAx" firstAttribute="leading" secondItem="Nbl-eO-nMI" secondAttribute="leading" id="bWr-gG-MXh"/>
                 <constraint firstItem="OdE-Zb-OgI" firstAttribute="top" secondItem="Nt0-fo-v0I" secondAttribute="bottom" constant="34" id="cGq-Ff-hUR"/>
@@ -198,7 +199,7 @@
                 <constraint firstItem="bWy-tv-5MG" firstAttribute="leading" secondItem="g5Q-BK-gzc" secondAttribute="leading" id="zXM-MT-M7j"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-620" y="-174"/>
+            <point key="canvasLocation" x="-318" y="15"/>
         </view>
     </objects>
     <resources>

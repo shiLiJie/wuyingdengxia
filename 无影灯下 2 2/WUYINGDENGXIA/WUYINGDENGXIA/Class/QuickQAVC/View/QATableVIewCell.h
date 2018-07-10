@@ -75,6 +75,52 @@
 @property (weak, nonatomic) IBOutlet UIImageView *image22;
 @property (weak, nonatomic) IBOutlet UIImageView *image23;
 
+//主标题
+@property (weak, nonatomic) IBOutlet UILabel *nimainTitle;
+//内容详情
+@property (weak, nonatomic) IBOutlet UILabel *nidetailPage;
+//回答时间
+@property (weak, nonatomic) IBOutlet UILabel *nianswerTime;
+//回答次数
+@property (weak, nonatomic) IBOutlet UILabel *nianswerNum;
+//回答按钮
+@property (weak, nonatomic) IBOutlet UIButton *nianswer;
+//月亮币
+@property (weak, nonatomic) IBOutlet UILabel *nimooncash;
+
+
+
+//主标题
+@property (weak, nonatomic) IBOutlet UILabel *nimainTitle1;
+//内容详情
+@property (weak, nonatomic) IBOutlet UILabel *nidetailPage1;
+//回答时间
+@property (weak, nonatomic) IBOutlet UILabel *nianswerTime1;
+//回答次数
+@property (weak, nonatomic) IBOutlet UILabel *nianswerNum1;
+//回答按钮
+@property (weak, nonatomic) IBOutlet UIButton *nianswer1;
+//月亮币
+@property (weak, nonatomic) IBOutlet UILabel *nimooncash1;
+@property (weak, nonatomic) IBOutlet UIImageView *niimage1;
+
+
+//主标题
+@property (weak, nonatomic) IBOutlet UILabel *nimainTitle2;
+//内容详情
+@property (weak, nonatomic) IBOutlet UILabel *nidetailPage2;
+//回答时间
+@property (weak, nonatomic) IBOutlet UILabel *nianswerTime2;
+//回答次数
+@property (weak, nonatomic) IBOutlet UILabel *nianswerNum2;
+//回答按钮
+@property (weak, nonatomic) IBOutlet UIButton *nianswer2;
+//月亮币
+@property (weak, nonatomic) IBOutlet UILabel *nimooncash2;
+@property (weak, nonatomic) IBOutlet UIImageView *niimage21;
+@property (weak, nonatomic) IBOutlet UIImageView *niimage22;
+@property (weak, nonatomic) IBOutlet UIImageView *niimage23;
+
 
 @property (nonatomic,weak) id<QATableVIewCellDelegate>delegate;
 

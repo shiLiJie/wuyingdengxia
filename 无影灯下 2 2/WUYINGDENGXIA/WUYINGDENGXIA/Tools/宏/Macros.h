@@ -95,6 +95,9 @@
 #define isIOS8                  ([[[UIDevice currentDevice]systemVersion]floatValue] >=8.0)
 // 是否大于IOS9
 #define isIOS9                  ([[[UIDevice currentDevice]systemVersion]floatValue] >=9.0)
+
+// 是否IOS6
+#define isIOS10                  ([[[UIDevice currentDevice]systemVersion]floatValue] < 11.0)
 // 是否iPad
 #define isPad                   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 // 是否是iPhone X

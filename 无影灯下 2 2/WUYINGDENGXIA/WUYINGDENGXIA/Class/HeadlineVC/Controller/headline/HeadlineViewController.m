@@ -94,6 +94,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
     
     [self.navigationController.view addSubview:self.searchBar];
     [self.navigationController.view addSubview:self.searchBtn];
@@ -201,7 +205,12 @@
     if (kDevice_Is_iPhoneX) {
         _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 90, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
     }else{
-        _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 75, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
+        if (isIOS10) {
+            _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 10, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
+        }else{
+            _scrollView = [HW3DBannerView initWithFrame:CGRectMake(0, 75, Main_Screen_Width, bannerHigh) imageSpacing:10 imageWidth:Main_Screen_Width - 50];
+        }
+        
     }
     
     _scrollView.initAlpha = 0.5; // 设置两边卡片的透明度
@@ -750,11 +759,20 @@
         }
         
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-            self.scrollView.frame = CGRectMake(0,-bannerHigh + 64, Main_Screen_Width, bannerHigh);
-            //        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-headerViewY-bannerHigh);
-            self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
-            self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
-            self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+            if (isIOS10) {
+                self.scrollView.frame = CGRectMake(0,-bannerHigh, Main_Screen_Width, bannerHigh);
+                //        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-headerViewY-bannerHigh);
+                self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44 -TopBarHeight);
+                self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
+                self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+            }else{
+                self.scrollView.frame = CGRectMake(0,-bannerHigh + 64, Main_Screen_Width, bannerHigh);
+                //        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-headerViewY-bannerHigh);
+                self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
+                self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
+                self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
+            }
+            
         } completion:^(BOOL finished) {
             
         }];
@@ -774,7 +792,12 @@
         if (kDevice_Is_iPhoneX) {
             headerViewY = 90;
         }else{
-            headerViewY = 76;
+            if (isIOS10) {
+                headerViewY = 10;
+            }else{
+                headerViewY = 76;
+            }
+            
         }
 
         if (self.scrollView.timer == nil) {

@@ -54,6 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self addSegView];
     
@@ -68,15 +69,25 @@
     if (kDevice_Is_iPhoneX) {
         _segView.frame = CGRectMake(0,45, Main_Screen_Width, segViewHigh);
     }else{
-        _segView.frame = CGRectMake(0,20, Main_Screen_Width, segViewHigh);
+//        if (isIOS10) {
+//            _segView.frame = CGRectMake(0,0, Main_Screen_Width, segViewHigh);
+//        }else{
+            _segView.frame = CGRectMake(0,20, Main_Screen_Width, segViewHigh);
+//        }
+        
     }
     _segView.items = @[@"会议资讯",@"往期回顾"];
     _segView.titleFont = BOLDSYSTEMFONT(18);
     [self.view addSubview:_segView];
     
     self.searchBtn = [[UIButton alloc] init];
-
-    self.searchBtn.frame = CGRectMake(30, CGRectGetMaxY(_segView.frame)+6, kScreen_Width-60, 33);
+    
+    if (isIOS10) {
+        self.searchBtn.frame = CGRectMake(30, CGRectGetMaxY(_segView.frame)+6, kScreen_Width-60, 33);
+    }else{
+        self.searchBtn.frame = CGRectMake(30, CGRectGetMaxY(_segView.frame)+6, kScreen_Width-60, 33);
+    }
+    
     [_searchBtn setBackgroundColor:RGB(245, 245, 245)];
     [_searchBtn setImage:GetImage(@"Fill 1") forState:UIControlStateNormal];
     [_searchBtn setTitle:@" 输入想要搜索的关键词" forState:UIControlStateNormal];
@@ -258,22 +269,28 @@
 
 - (void)searchViewController:(PYSearchViewController *)searchViewController didSelectSearchSuggestionAtIndexPath:(NSIndexPath *)indexPath
                    searchBar:(UISearchBar *)searchBar{
-    searchResultModel *model = [[searchResultModel alloc] init];
-    model = self.searchArr[indexPath.row];
-    if ([model.type isEqualToString:@"1"]) {
-        PageDetailViewController *vc = [[PageDetailViewController alloc] init];
-        vc.articleid = model.type_id;
-        [searchViewController.navigationController pushViewController:vc animated:YES];
-    }
-    if ([model.type isEqualToString:@"3"]) {
-        AnswerViewController *vc = [[AnswerViewController alloc] init];
-        QusetionModel *qmodel = [[QusetionModel alloc] init];
-        qmodel.question_id = model.type_id;
-        vc.questionModel = qmodel;
-        vc.choosetype = questionType;
-        [searchViewController.navigationController pushViewController:vc animated:YES];
-    }
+//    searchResultModel *model = [[searchResultModel alloc] init];
+//    model = self.searchArr[indexPath.row];
+//    if ([model.type isEqualToString:@"1"]) {
+//        PageDetailViewController *vc = [[PageDetailViewController alloc] init];
+//        vc.articleid = model.type_id;
+//        [searchViewController.navigationController pushViewController:vc animated:YES];
+//    }
+//    if ([model.type isEqualToString:@"3"]) {
+//        AnswerViewController *vc = [[AnswerViewController alloc] init];
+//        QusetionModel *qmodel = [[QusetionModel alloc] init];
+//        qmodel.question_id = model.type_id;
+//        vc.questionModel = qmodel;
+//        vc.choosetype = questionType;
+//        [searchViewController.navigationController pushViewController:vc animated:YES];
+//    }
     
+    meetingModel *model = [[meetingModel alloc] init];
+    model = self.searchArr[indexPath.row];
+    MeetDetailViewController *vc = [[MeetDetailViewController alloc] init];
+    vc.meetId = model.meet_id;
+    vc.weikaishiOrBaomingzhong = model.isfinish;
+    [searchViewController.navigationController pushViewController:vc animated:YES];
     
 }
 

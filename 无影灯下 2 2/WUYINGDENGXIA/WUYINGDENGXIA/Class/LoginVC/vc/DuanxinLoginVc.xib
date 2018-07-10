@@ -109,8 +109,9 @@
             <constraints>
                 <constraint firstItem="aV4-rB-iJL" firstAttribute="trailing" secondItem="j8y-BK-oh9" secondAttribute="trailing" id="08K-B9-VXx"/>
                 <constraint firstItem="q7W-bS-dYb" firstAttribute="leading" secondItem="hwz-Eg-mP7" secondAttribute="leading" id="0Bt-fn-w9a"/>
+                <constraint firstItem="0cS-u8-8i9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="SeN-qA-ajb" secondAttribute="top" constant="51" id="0em-4c-fiI"/>
                 <constraint firstItem="q7W-bS-dYb" firstAttribute="trailing" secondItem="hwz-Eg-mP7" secondAttribute="trailing" id="39V-LI-aKV"/>
-                <constraint firstItem="vQI-GS-fps" firstAttribute="top" secondItem="0cS-u8-8i9" secondAttribute="bottom" constant="13" id="5F5-RI-X3j"/>
+                <constraint firstItem="vQI-GS-fps" firstAttribute="top" secondItem="0cS-u8-8i9" secondAttribute="bottom" priority="900" constant="13" id="5F5-RI-X3j"/>
                 <constraint firstItem="Lfm-mF-TjW" firstAttribute="width" secondItem="Lfm-mF-TjW" secondAttribute="height" multiplier="526:80" id="88D-8f-fcm"/>
                 <constraint firstItem="Lfm-mF-TjW" firstAttribute="top" secondItem="q7W-bS-dYb" secondAttribute="bottom" constant="34" id="8PS-H6-Jm4"/>
                 <constraint firstItem="0cS-u8-8i9" firstAttribute="leading" secondItem="1AC-B2-IuI" secondAttribute="leading" constant="27" id="8fi-Zf-qfe"/>
@@ -128,7 +129,7 @@
                 <constraint firstItem="Lfm-mF-TjW" firstAttribute="centerX" secondItem="1AC-B2-IuI" secondAttribute="centerX" id="eVa-Ve-Cs0"/>
                 <constraint firstItem="q7W-bS-dYb" firstAttribute="top" secondItem="U0t-Km-WvM" secondAttribute="bottom" constant="10" id="ndz-bM-Bsi"/>
                 <constraint firstItem="Lfm-mF-TjW" firstAttribute="width" secondItem="SeN-qA-ajb" secondAttribute="width" multiplier="0.7" id="wSe-eB-61R"/>
-                <constraint firstItem="0cS-u8-8i9" firstAttribute="top" secondItem="1AC-B2-IuI" secondAttribute="top" constant="31" id="zug-a8-uYm"/>
+                <constraint firstItem="0cS-u8-8i9" firstAttribute="top" secondItem="1AC-B2-IuI" secondAttribute="top" priority="900" constant="31" id="zug-a8-uYm"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="1AC-B2-IuI"/>
             <point key="canvasLocation" x="-72" y="-1686"/>

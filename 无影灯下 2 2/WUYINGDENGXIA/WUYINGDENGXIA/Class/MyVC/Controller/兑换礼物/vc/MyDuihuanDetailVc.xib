@@ -210,7 +210,7 @@
                 <constraint firstItem="iab-cL-qWF" firstAttribute="leading" secondItem="2JB-DL-Qwr" secondAttribute="leading" id="P3A-0Z-1YH"/>
                 <constraint firstItem="2JB-DL-Qwr" firstAttribute="leading" secondItem="2vb-3C-0gt" secondAttribute="leading" id="RPh-8q-QtD"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="8xl-Xc-Xmj" secondAttribute="trailing" id="Sx1-U4-hdo"/>
-                <constraint firstItem="M5D-Za-LQn" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="VRS-3m-LAO"/>
+                <constraint firstItem="M5D-Za-LQn" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="900" id="VRS-3m-LAO"/>
                 <constraint firstItem="8xl-Xc-Xmj" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="afH-uq-S93"/>
                 <constraint firstItem="2vb-3C-0gt" firstAttribute="centerY" secondItem="M5D-Za-LQn" secondAttribute="centerY" id="c56-Kv-2Ho"/>
                 <constraint firstItem="4Uz-f4-79u" firstAttribute="centerY" secondItem="CXu-Sa-mGZ" secondAttribute="centerY" id="eie-3p-WzF"/>
@@ -224,6 +224,7 @@
                 <constraint firstItem="4Uz-f4-79u" firstAttribute="leading" secondItem="CXu-Sa-mGZ" secondAttribute="trailing" constant="8" id="se2-tC-S9X"/>
                 <constraint firstItem="eYG-e5-Vrv" firstAttribute="centerY" secondItem="2vb-3C-0gt" secondAttribute="centerY" id="tOp-7W-DRq"/>
                 <constraint firstItem="byk-aL-5bX" firstAttribute="centerY" secondItem="2vb-3C-0gt" secondAttribute="centerY" constant="-25" id="wKM-Us-Xbf"/>
+                <constraint firstItem="M5D-Za-LQn" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="z7K-nM-5iy"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="-248" y="128"/>

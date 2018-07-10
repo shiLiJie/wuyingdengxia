@@ -21,7 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
 -(void)viewDidLayoutSubviews{
     self.verifBtn.layer.cornerRadius = CGRectGetHeight(self.verifBtn.frame)/2-1;//半径大小

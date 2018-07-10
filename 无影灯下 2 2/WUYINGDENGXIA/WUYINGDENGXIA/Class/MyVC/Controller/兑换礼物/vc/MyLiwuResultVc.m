@@ -24,6 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
     self.backBtn.layer.cornerRadius = CGRectGetHeight(self.backBtn.frame)/2;//半径大小
     self.backBtn.layer.borderWidth = 0.5f;//描边宽度
     self.backBtn.layer.borderColor = RGB(221, 221, 221).CGColor;

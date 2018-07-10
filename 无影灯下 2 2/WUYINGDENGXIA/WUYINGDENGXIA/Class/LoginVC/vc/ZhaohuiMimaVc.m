@@ -21,6 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 
 }
 -(void)viewDidLayoutSubviews{

@@ -141,7 +141,7 @@
                 <constraint firstItem="QTB-3Q-gBL" firstAttribute="leading" secondItem="So2-b4-fMq" secondAttribute="leading" id="cNS-1I-ubV"/>
                 <constraint firstItem="FNn-N0-2Zz" firstAttribute="top" secondItem="m1E-BW-QfW" secondAttribute="bottom" constant="2" id="fpU-EX-6XN"/>
                 <constraint firstItem="37q-YC-PPB" firstAttribute="top" secondItem="QTB-3Q-gBL" secondAttribute="bottom" constant="34" id="gkM-Zt-Jg1"/>
-                <constraint firstItem="VUb-5q-8Xi" firstAttribute="top" secondItem="V9r-nl-Fmz" secondAttribute="top" constant="31" id="hCE-gP-qbb"/>
+                <constraint firstItem="VUb-5q-8Xi" firstAttribute="top" secondItem="V9r-nl-Fmz" secondAttribute="top" priority="900" constant="31" id="hCE-gP-qbb"/>
                 <constraint firstItem="p0O-RW-Gn7" firstAttribute="leading" secondItem="Lgi-eO-b2Q" secondAttribute="leading" id="kLe-Ed-60Y"/>
                 <constraint firstItem="YSY-Cr-DbE" firstAttribute="leading" secondItem="p0O-RW-Gn7" secondAttribute="leading" id="mEy-Q3-XOL"/>
                 <constraint firstItem="37q-YC-PPB" firstAttribute="width" secondItem="37q-YC-PPB" secondAttribute="height" multiplier="526:80" id="oSb-r2-ZYP"/>
@@ -151,6 +151,7 @@
                 <constraint firstItem="V9r-nl-Fmz" firstAttribute="trailing" secondItem="p0O-RW-Gn7" secondAttribute="trailing" constant="27" id="rBR-Ki-Kog"/>
                 <constraint firstItem="VUb-5q-8Xi" firstAttribute="leading" secondItem="V9r-nl-Fmz" secondAttribute="leading" constant="27" id="uhC-95-pgN"/>
                 <constraint firstItem="So2-b4-fMq" firstAttribute="trailing" secondItem="m1E-BW-QfW" secondAttribute="trailing" id="xhr-T3-SVg"/>
+                <constraint firstItem="VUb-5q-8Xi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YEk-qJ-8gF" secondAttribute="top" constant="51" id="xvA-dm-abm"/>
                 <constraint firstItem="QTB-3Q-gBL" firstAttribute="trailing" secondItem="So2-b4-fMq" secondAttribute="trailing" id="zXL-ph-85x"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="V9r-nl-Fmz"/>

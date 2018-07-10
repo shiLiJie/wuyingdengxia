@@ -60,7 +60,12 @@
     userContentController =[[WKUserContentController alloc]init];
     configuration.userContentController = userContentController;
     //wkweb
-    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    if (isIOS10) {
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 65, kScreen_Width, kScreen_Height-48-65)configuration:configuration];
+    }else{
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+    }
+    
     _webView.UIDelegate = self;
     
     UserInfoModel *user = [UserInfoModel shareUserModel];

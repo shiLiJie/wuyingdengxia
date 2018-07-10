@@ -13,9 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    
-    
-    
+
     self.headImage.layer.cornerRadius = CGRectGetHeight(self.headImage.frame)/2;;//半径大小
     self.headImage.layer.masksToBounds = YES;//是否切割
     
@@ -30,6 +28,11 @@
     self.image21.clipsToBounds = YES;
     self.image22.clipsToBounds = YES;
     self.image23.clipsToBounds = YES;
+    
+    self.niimage1.clipsToBounds = YES;
+    self.niimage21.clipsToBounds = YES;
+    self.niimage22.clipsToBounds = YES;
+    self.niimage23.clipsToBounds = YES;
 }
 
 #pragma mark - 按钮点击方法 -
@@ -62,6 +65,23 @@
     if (!kStringIsEmpty(self.mainTitle1.text)) {
         [self setLabelHangjianj:self.mainTitle1];
         [QATableVIewCell changeWordSpaceForLabel:self.mainTitle1 WithSpace:1 highSpace:4];
+        
+    }
+    
+    
+    if (!kStringIsEmpty(self.nidetailPage.text)) {
+        [self setLabelHangjianj:self.nidetailPage];
+        [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage WithSpace:1.5 highSpace:1];
+        
+    }
+    if (!kStringIsEmpty(self.nidetailPage2.text)) {
+        [self setLabelHangjianj:self.nidetailPage2];
+        [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage2 WithSpace:1.5 highSpace:1];
+        
+    }
+    if (!kStringIsEmpty(self.nimainTitle1.text)) {
+        [self setLabelHangjianj:self.nimainTitle1];
+        [QATableVIewCell changeWordSpaceForLabel:self.nimainTitle1 WithSpace:1 highSpace:4];
         
     }
 //    if (!kStringIsEmpty(self.detailPage1.text)) {

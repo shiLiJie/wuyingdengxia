@@ -49,6 +49,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    if (isIOS10) {
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//    }
     //view切圆角
     self.yuanjiaoview.layer.cornerRadius = 17;
     self.yuanjiaoview.layer.masksToBounds = YES;//是否切割
@@ -60,10 +63,7 @@
     
     //监听通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"WXShare" object:nil];
-    // 检查是否装了微信
-    if ([WXApi isWXAppInstalled]) {
-        
-    }
+    
     self.isPinglun = YES;
 }
 
@@ -108,8 +108,13 @@
     if (kDevice_Is_iPhoneX) {
         _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48-34)configuration:configuration];
     }else{
-        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+        if (isIOS10) {
+            _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 65, kScreen_Width, kScreen_Height-48-65 )configuration:configuration];
+        }else{
+            _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height-48)configuration:configuration];
+        }
     }
+    
     
     _webView.UIDelegate = self;
     
@@ -220,7 +225,7 @@
     // 注意通知内容类型的匹配
     if (notification.object == 0)
     {
-//        NSLog(@"分享成功");
+        [MBProgressHUD showOneSecond:@"分享成功"];
     }
 }
 
@@ -314,6 +319,16 @@
     NSArray *imageNames = @[@"wxfx",@"pyqfx"];
     HLActionSheet *sheet = [[HLActionSheet alloc] initWithTitles:titles iconNames:imageNames];
     [sheet showActionSheetWithClickBlock:^(int btnIndex) {
+        
+        // 检查是否装了微信
+        if ([WXApi isWXAppInstalled]) {
+            
+        }else{
+            [MBProgressHUD showOneSecond:@"未安装微信客户端"];
+            
+            return;
+        }
+        
         if (btnIndex == 0) {
             req.scene = WXSceneSession;
             [WXApi sendReq:req];

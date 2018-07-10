@@ -157,7 +157,8 @@
             </subviews>
             <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="kY9-85-c5v" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="29" id="LsF-dx-Zix"/>
+                <constraint firstItem="kY9-85-c5v" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="900" constant="29" id="LsF-dx-Zix"/>
+                <constraint firstItem="kY9-85-c5v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="49" id="dYr-B0-7Zc"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="kY9-85-c5v" secondAttribute="trailing" constant="19" id="eVZ-kJ-S4z"/>
                 <constraint firstItem="kY9-85-c5v" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="19" id="mIs-ud-jAI"/>
             </constraints>

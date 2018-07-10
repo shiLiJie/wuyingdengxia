@@ -25,25 +25,23 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg0" translatesAutoresizingMaskIntoConstraints="NO" id="xP0-yg-Er0">
-                    <rect key="frame" x="60" y="0.0" width="255" height="667"/>
-                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="敬请期待..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X2N-u1-vhq">
+                    <rect key="frame" x="138" y="331.5" width="98" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="X2N-u1-vhq" firstAttribute="centerY" secondItem="q4f-Mm-HkK" secondAttribute="centerY" id="8Bc-GJ-twk"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="q4f-Mm-HkK" secondAttribute="trailing" id="CNA-jZ-Zak"/>
-                <constraint firstAttribute="bottom" secondItem="xP0-yg-Er0" secondAttribute="bottom" id="Dph-oV-Pl2"/>
-                <constraint firstItem="xP0-yg-Er0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ays-d3-cND"/>
+                <constraint firstItem="X2N-u1-vhq" firstAttribute="centerX" secondItem="q4f-Mm-HkK" secondAttribute="centerX" id="Hb5-vL-zyX"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="q4f-Mm-HkK" secondAttribute="bottom" id="gSe-2B-y0h"/>
                 <constraint firstItem="q4f-Mm-HkK" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="jfv-9L-cAG"/>
-                <constraint firstItem="xP0-yg-Er0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="qa7-Gb-Q6z"/>
                 <constraint firstItem="q4f-Mm-HkK" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="trh-NI-OjD"/>
-                <constraint firstAttribute="trailing" secondItem="xP0-yg-Er0" secondAttribute="trailing" constant="60" id="u69-7x-91k"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>
     </objects>
-    <resources>
-        <image name="bg0" width="317" height="287"/>
-    </resources>
 </document>

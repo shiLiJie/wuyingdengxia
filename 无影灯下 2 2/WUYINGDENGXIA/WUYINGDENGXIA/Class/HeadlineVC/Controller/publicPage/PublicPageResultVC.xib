@@ -54,8 +54,9 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Tz8-Du-V7O" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="102" id="2tB-Cg-tdl"/>
                 <constraint firstItem="kFD-8d-exC" firstAttribute="top" secondItem="Tz8-Du-V7O" secondAttribute="bottom" constant="24" id="3HI-i2-Bev"/>
-                <constraint firstItem="Tz8-Du-V7O" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="82" id="3J9-LU-jT7"/>
+                <constraint firstItem="Tz8-Du-V7O" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="900" constant="82" id="3J9-LU-jT7"/>
                 <constraint firstItem="C9S-tv-Iee" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="DvN-xH-DCo"/>
                 <constraint firstItem="C9S-tv-Iee" firstAttribute="top" secondItem="kFD-8d-exC" secondAttribute="bottom" constant="76" id="Pim-e2-Ca9"/>
                 <constraint firstItem="kFD-8d-exC" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="Q5f-AN-kGF"/>
@@ -63,7 +64,7 @@
                 <constraint firstItem="C9S-tv-Iee" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="qLR-ZL-NBC"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-48" y="-101"/>
+            <point key="canvasLocation" x="-178" y="-94"/>
         </view>
     </objects>
     <resources>

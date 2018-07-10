@@ -110,8 +110,9 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ivY-WK-fAg" secondAttribute="trailing" constant="14" id="hAZ-2t-bPl"/>
                 <constraint firstItem="SyA-wd-Hub" firstAttribute="leading" secondItem="4Jf-un-Ggd" secondAttribute="leading" id="lfn-Fk-5cc"/>
                 <constraint firstItem="tzw-N0-Fyo" firstAttribute="leading" secondItem="XEH-TG-ZPm" secondAttribute="trailing" constant="16" id="mla-RF-ZBe"/>
+                <constraint firstItem="XEH-TG-ZPm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="48" id="qm5-8n-V6u"/>
                 <constraint firstItem="4Jf-un-Ggd" firstAttribute="leading" secondItem="tzw-N0-Fyo" secondAttribute="trailing" constant="9" id="sia-AX-7XT"/>
-                <constraint firstItem="XEH-TG-ZPm" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="28" id="tcJ-rj-qjC"/>
+                <constraint firstItem="XEH-TG-ZPm" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="900" constant="28" id="tcJ-rj-qjC"/>
                 <constraint firstItem="vdm-IP-R7G" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="whg-Tf-nEE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

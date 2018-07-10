@@ -65,6 +65,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     [self addSegView];
 //    [self.navigationController.view bringSubviewToFront:_segView];
     
@@ -251,11 +254,20 @@
                                                                               Main_Screen_Height - 99)
                                                          withArray:arr];
     }else{
-        _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                              64,
-                                                                              Main_Screen_Width,
-                                                                              Main_Screen_Height - 64)
-                                                         withArray:arr];
+        if (isIOS10) {
+            _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                                  0,
+                                                                                  Main_Screen_Width,
+                                                                                  Main_Screen_Height - 64)
+                                                             withArray:arr];
+        }else{
+            _collectView = [[MDFlipCollectionView alloc] initWithFrame:CGRectMake(0,
+                                                                                  64,
+                                                                                  Main_Screen_Width,
+                                                                                  Main_Screen_Height - 64)
+                                                             withArray:arr];
+        }
+        
     }
     
     _collectView.delegate = self;

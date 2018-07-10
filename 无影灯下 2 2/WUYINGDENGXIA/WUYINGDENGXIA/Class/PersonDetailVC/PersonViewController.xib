@@ -83,7 +83,11 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHL-bi-YPs">
-                            <rect key="frame" x="16" y="25" width="21" height="22"/>
+                            <rect key="frame" x="5" y="25" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="5dZ-4p-1W1"/>
+                                <constraint firstAttribute="width" constant="44" id="RyC-Lu-Dto"/>
+                            </constraints>
                             <state key="normal" image="baifh"/>
                             <connections>
                                 <action selector="leftBack:" destination="-1" eventType="touchUpInside" id="LTQ-gM-YnJ"/>
@@ -120,7 +124,7 @@
                         <constraint firstItem="5G4-qJ-0RW" firstAttribute="top" secondItem="Qg4-jp-kEW" secondAttribute="bottom" constant="5" id="qhD-0S-VXH"/>
                         <constraint firstItem="B4c-Ig-sk1" firstAttribute="top" secondItem="LRy-Xg-OzS" secondAttribute="top" id="qz8-DD-ZNV"/>
                         <constraint firstItem="fUQ-EU-Rq6" firstAttribute="leading" secondItem="5G4-qJ-0RW" secondAttribute="trailing" constant="15" id="tfq-4p-GGs"/>
-                        <constraint firstItem="eHL-bi-YPs" firstAttribute="leading" secondItem="LRy-Xg-OzS" secondAttribute="leading" constant="16" id="tni-0f-xXT"/>
+                        <constraint firstItem="eHL-bi-YPs" firstAttribute="leading" secondItem="LRy-Xg-OzS" secondAttribute="leading" constant="5" id="tni-0f-xXT"/>
                         <constraint firstItem="Qg4-jp-kEW" firstAttribute="leading" secondItem="2cu-Tf-VVU" secondAttribute="trailing" constant="16" id="zEF-7L-5qo"/>
                     </constraints>
                 </view>

@@ -35,6 +35,10 @@
     if (kDevice_Is_iPhone4) {
         self.constraintHigh.constant = 80;
     }
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXLoginSucessWithOpenIdAPPdelegate:) name:@"WXLogin" object:nil];

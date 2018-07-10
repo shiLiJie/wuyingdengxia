@@ -102,7 +102,8 @@
             <constraints>
                 <constraint firstItem="ZmD-un-sQ8" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Gpm-MJ-2s6"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ZmD-un-sQ8" secondAttribute="trailing" id="Ljk-hI-hUW"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="ZmD-un-sQ8" secondAttribute="bottom" id="Ubg-5K-yen"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="ZmD-un-sQ8" secondAttribute="bottom" priority="900" id="Ubg-5K-yen"/>
+                <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="ZmD-un-sQ8" secondAttribute="bottom" constant="34" id="iiv-Q6-EuY"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="-624" y="-336"/>

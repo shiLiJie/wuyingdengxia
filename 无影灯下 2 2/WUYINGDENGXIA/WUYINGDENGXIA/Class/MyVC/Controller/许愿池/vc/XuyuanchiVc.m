@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.navigationController setNavigationBarHidden:YES animated:nil];
     
     self.xuyuanBtn.layer.cornerRadius = CGRectGetHeight(self.xuyuanBtn.frame)/2;//半径大小

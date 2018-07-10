@@ -18,6 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     
     //切圆角和设置弧度
     self.quedingBtn.layer.cornerRadius = CGRectGetHeight(self.quedingBtn.frame)/2;//半径大小

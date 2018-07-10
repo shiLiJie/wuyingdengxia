@@ -211,7 +211,7 @@
                                                             
                                                             if ([dic[@"code"] isEqualToString:SucceedCoder]) {
                                                                 
-                                                                //                                                            [arr addObject:dic[@"data"][@"complete_url"]];
+                                                                //[arr addObject:dic[@"data"][@"complete_url"]];
                                                                 
                                                                 //修改信息
                                                                 UserInfoModel *user = [UserInfoModel shareUserModel];

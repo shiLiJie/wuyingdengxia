@@ -24,7 +24,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     self.imageName.text = self.duihuanmodel.goods_name;
     self.jiage.text = self.duihuanmodel.moon_cash;
     self.duihuanma.text = self.duihuanmodel.exchange_code;

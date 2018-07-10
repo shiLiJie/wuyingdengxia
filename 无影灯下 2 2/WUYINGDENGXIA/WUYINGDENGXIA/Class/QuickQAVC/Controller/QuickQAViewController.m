@@ -87,6 +87,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
     [self addUI];
     
     self.labelnameArr = [[NSMutableArray alloc] init];
@@ -208,7 +212,12 @@
     if (kDevice_Is_iPhoneX) {
         self.segment.frame = CGRectMake(0,90, Main_Screen_Width, kScreen_Height-90-56);
     }else{
-        self.segment.frame = CGRectMake(0,66, Main_Screen_Width, kScreen_Height-66-56);
+        if (isIOS10) {
+            self.segment.frame = CGRectMake(0,0, Main_Screen_Width, kScreen_Height-66-56);
+        }else{
+            self.segment.frame = CGRectMake(0,66, Main_Screen_Width, kScreen_Height-66-56);
+        }
+        
     }
 
     [self.view addSubview:self.segment];
@@ -492,11 +501,13 @@
                    searchBar:(UISearchBar *)searchBar{
     searchResultModel *model = [[searchResultModel alloc] init];
     model = self.searchArr[indexPath.row];
-    if ([model.type isEqualToString:@"1"]) {
-        PageDetailViewController *vc = [[PageDetailViewController alloc] init];
-        vc.articleid = model.type_id;
-        [searchViewController.navigationController pushViewController:vc animated:YES];
-    }
+    
+//    if ([model.type isEqualToString:@"1"]) {
+//        PageDetailViewController *vc = [[PageDetailViewController alloc] init];
+//        vc.articleid = model.type_id;
+//        [searchViewController.navigationController pushViewController:vc animated:YES];
+//    }
+    
     if ([model.type isEqualToString:@"3"]) {
         AnswerViewController *vc = [[AnswerViewController alloc] init];
         QusetionModel *qmodel = [[QusetionModel alloc] init];

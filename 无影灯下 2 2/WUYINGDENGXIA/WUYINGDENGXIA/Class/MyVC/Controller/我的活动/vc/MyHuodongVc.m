@@ -63,6 +63,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     self.view.backgroundColor = [UIColor whiteColor];
     [self addSegView];
     
@@ -87,7 +90,11 @@
     if (kDevice_Is_iPhoneX) {
         _segView.frame = CGRectMake(50,98, kScreen_Width-100, 44);
     }else{
-        _segView.frame = CGRectMake(50,64, kScreen_Width-100, 44);
+        if (isIOS10) {
+            _segView.frame = CGRectMake(50,0, kScreen_Width-100, 44);
+        }else{
+            _segView.frame = CGRectMake(50,64, kScreen_Width-100, 44);
+        }
     }
     
     _segView.items = @[@"未开始",@"已结束"];

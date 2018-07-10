@@ -29,6 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (isIOS10) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     //初始化数据数组
     self.dataArr = [[NSArray alloc] init];
     //监听问题标题变化

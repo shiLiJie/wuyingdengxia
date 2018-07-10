@@ -133,7 +133,10 @@
                                                            pageModel *model = [pageModel pageWithDict:dict];
                                                            model.user_name = username;
                                                            model.headimg = userheadimg;
-                                                           [arrayM addObject:model];
+                                                           if ([model.is_check isEqualToString:@"1"]) {
+                                                               [arrayM addObject:model];
+                                                           }
+                                                           
                                                        }
                                                        
                                                        weakSelf.pageArr= arrayM;
@@ -175,7 +178,7 @@
                                                        weakSelf.pageArr= [[arrayM reverseObjectEnumerator] allObjects];
                                                        if (weakSelf.pageArr.count == 0) {
                                                            weakSelf.imageview.hidden = NO;
-                                                           weakSelf.imageview.image = GetImage(@"wushoucang");
+//                                                           weakSelf.imageview.image = GetImage(@"wushoucang");
                                                        }
                                                        
                                                        [weakSelf.tableView reloadData];

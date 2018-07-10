@@ -131,7 +131,7 @@
                 <constraint firstItem="gNf-Wt-Ta2" firstAttribute="trailing" secondItem="KAo-Bf-UiJ" secondAttribute="trailing" id="70R-oq-ddE"/>
                 <constraint firstItem="CJg-4Z-FoC" firstAttribute="leading" secondItem="YOR-ti-6tm" secondAttribute="leading" constant="27" id="901-Jt-WVC"/>
                 <constraint firstItem="PeS-hv-jpt" firstAttribute="leading" secondItem="M7W-q7-S3n" secondAttribute="leading" id="Csr-UJ-6AV"/>
-                <constraint firstItem="CJg-4Z-FoC" firstAttribute="top" secondItem="YOR-ti-6tm" secondAttribute="top" constant="31" id="IF6-oF-C5D"/>
+                <constraint firstItem="CJg-4Z-FoC" firstAttribute="top" secondItem="YOR-ti-6tm" secondAttribute="top" priority="900" constant="31" id="IF6-oF-C5D"/>
                 <constraint firstItem="SHo-DD-cro" firstAttribute="top" secondItem="gNf-Wt-Ta2" secondAttribute="bottom" constant="34" id="JDy-8T-MXw"/>
                 <constraint firstItem="gNf-Wt-Ta2" firstAttribute="leading" secondItem="KAo-Bf-UiJ" secondAttribute="leading" id="KoQ-D6-pfM"/>
                 <constraint firstItem="M7W-q7-S3n" firstAttribute="top" secondItem="cma-gh-gRV" secondAttribute="bottom" constant="52" id="NVe-Qq-tta"/>
@@ -149,6 +149,7 @@
                 <constraint firstItem="SHo-DD-cro" firstAttribute="width" secondItem="qai-UF-Qt9" secondAttribute="width" multiplier="0.7" id="szZ-sE-tIr"/>
                 <constraint firstItem="kvB-jN-QDE" firstAttribute="trailing" secondItem="M7W-q7-S3n" secondAttribute="trailing" id="t3t-VP-YxM"/>
                 <constraint firstItem="cma-gh-gRV" firstAttribute="top" secondItem="CJg-4Z-FoC" secondAttribute="bottom" constant="13" id="tbN-sm-Fyx"/>
+                <constraint firstItem="CJg-4Z-FoC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qai-UF-Qt9" secondAttribute="top" constant="51" id="uVQ-Bi-Y0u"/>
                 <constraint firstItem="PeS-hv-jpt" firstAttribute="top" secondItem="M7W-q7-S3n" secondAttribute="bottom" constant="2" id="vw3-mx-EoQ"/>
                 <constraint firstItem="SHo-DD-cro" firstAttribute="width" secondItem="SHo-DD-cro" secondAttribute="height" multiplier="526:80" id="xbP-i7-7lV"/>
                 <constraint firstItem="gNf-Wt-Ta2" firstAttribute="top" secondItem="KAo-Bf-UiJ" secondAttribute="bottom" constant="2" id="zj1-rY-bxC"/>
