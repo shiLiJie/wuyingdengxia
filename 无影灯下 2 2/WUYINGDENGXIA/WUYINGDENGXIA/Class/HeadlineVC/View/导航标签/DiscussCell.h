@@ -10,5 +10,6 @@
 
 @interface DiscussCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *discussLab;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end

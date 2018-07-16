@@ -33,6 +33,56 @@
     self.niimage21.clipsToBounds = YES;
     self.niimage22.clipsToBounds = YES;
     self.niimage23.clipsToBounds = YES;
+    
+    //吸顶
+//    [self.mainTitle alignTop];
+//    [self.mainTitle1 alignTop];
+//    [self.mainTitle2 alignTop];
+//    [self.nimainTitle alignTop];
+//    [self.nimainTitle1 alignTop];
+//    [self.nimainTitle2 alignTop];
+    
+    [self.mainTitle sizeToFit];
+    [self.mainTitle1 sizeToFit];
+    [self.mainTitle2 sizeToFit];
+    [self.nimainTitle sizeToFit];
+    [self.nimainTitle1 sizeToFit];
+    [self.nimainTitle2 sizeToFit];
+
+}
+
+
+/**
+ 给标题前添加月亮币
+
+ @param mooncash 月亮币个数
+ @param title 标题
+ */
+-(void)setTitleLabMoonCash:(NSString *)mooncash
+                     title:(NSString *)title
+                     lable:(UILabel *)lable{
+
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",mooncash,title]];
+
+    // 添加表情
+    NSTextAttachment *attch = [[NSTextAttachment alloc] init];
+    // 表情图片
+    attch.image = [UIImage imageNamed:@"yueliangbi-1"];
+    // 设置图片大小
+    attch.bounds = CGRectMake(0, -3, 16, 16);
+    // 创建带有图片的富文本
+    NSAttributedString *string = [NSAttributedString attributedStringWithAttachment:attch];
+    [attri insertAttributedString:string atIndex:0];
+    
+    [attri addAttribute:NSForegroundColorAttributeName value:RGB(252, 168, 42) range:NSMakeRange(1, mooncash.length)];
+    [attri addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(1, mooncash.length)];
+    
+    [attri addAttributes:@{NSKernAttributeName:@(1)} range:NSMakeRange(mooncash.length, [title length])];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 8;
+    [attri addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [title length])];
+    
+    lable.attributedText = attri;
 }
 
 #pragma mark - 按钮点击方法 -
@@ -48,42 +98,49 @@
 }
 
 
+
+
+
+
 /**
  设置行间距
  */
 -(void)setLabelSpace{
     if (!kStringIsEmpty(self.detailPage.text)) {
         [self setLabelHangjianj:self.detailPage];
-        [QATableVIewCell changeWordSpaceForLabel:self.detailPage WithSpace:1.5 highSpace:1];
+        [QATableVIewCell changeWordSpaceForLabel:self.detailPage WithSpace:1.5 highSpace:1.5];
         
     }
     if (!kStringIsEmpty(self.detailPage2.text)) {
         [self setLabelHangjianj:self.detailPage2];
-        [QATableVIewCell changeWordSpaceForLabel:self.detailPage2 WithSpace:1.5 highSpace:1];
+        [QATableVIewCell changeWordSpaceForLabel:self.detailPage2 WithSpace:1.5 highSpace:1.5];
         
     }
-    if (!kStringIsEmpty(self.mainTitle1.text)) {
-        [self setLabelHangjianj:self.mainTitle1];
-        [QATableVIewCell changeWordSpaceForLabel:self.mainTitle1 WithSpace:1 highSpace:4];
-        
-    }
+//    if (!kStringIsEmpty(self.mainTitle1.text)) {
+//        [self setLabelHangjianj:self.mainTitle1];
+//        [QATableVIewCell changeWordSpaceForLabel:self.mainTitle1 WithSpace:1 highSpace:4];
+//        
+//    }
     
     
     if (!kStringIsEmpty(self.nidetailPage.text)) {
         [self setLabelHangjianj:self.nidetailPage];
-        [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage WithSpace:1.5 highSpace:1];
+        [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage WithSpace:1.5 highSpace:1.5];
         
     }
     if (!kStringIsEmpty(self.nidetailPage2.text)) {
         [self setLabelHangjianj:self.nidetailPage2];
-        [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage2 WithSpace:1.5 highSpace:1];
+        [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage2 WithSpace:1.5 highSpace:1.5];
         
     }
-    if (!kStringIsEmpty(self.nimainTitle1.text)) {
-        [self setLabelHangjianj:self.nimainTitle1];
-        [QATableVIewCell changeWordSpaceForLabel:self.nimainTitle1 WithSpace:1 highSpace:4];
-        
-    }
+//    if (!kStringIsEmpty(self.nimainTitle1.text)) {
+//        [self setLabelHangjianj:self.nimainTitle1];
+//        [QATableVIewCell changeWordSpaceForLabel:self.nimainTitle1 WithSpace:1 highSpace:4];
+//
+//    }
+    
+    
+    
 //    if (!kStringIsEmpty(self.detailPage1.text)) {
 //        [self setLabelHangjianj:self.detailPage1];
 //        [QATableVIewCell changeWordSpaceForLabel:self.detailPage1 WithSpace:1.5 highSpace:1];

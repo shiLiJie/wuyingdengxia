@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WUYINGDENGXIA/Class/QuickQAVC/Controller/QuickQAViewController.m"
-            timestampString = "552817102.909201"
+            filePath = "WUYINGDENGXIA/Class/LoginVC/vc/LoginVc.m"
+            timestampString = "553422130.022346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
-            landmarkName = "-searchViewController:didSelectSearchSuggestionAtIndexPath:searchBar:"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "-wechatLoginByRequestForUserInfo"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

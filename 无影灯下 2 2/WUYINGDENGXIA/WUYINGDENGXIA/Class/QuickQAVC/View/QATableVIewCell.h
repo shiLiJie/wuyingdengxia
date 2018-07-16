@@ -130,6 +130,15 @@
 -(void)setLabelSpace;
 
 
+/**
+ 给标题前添加月亮币
+ 
+ @param mooncash 月亮币个数
+ @param title 标题
+ */
+-(void)setTitleLabMoonCash:(NSString *)mooncash
+                     title:(NSString *)title
+                     lable:(UILabel *)lable;
 
 
 

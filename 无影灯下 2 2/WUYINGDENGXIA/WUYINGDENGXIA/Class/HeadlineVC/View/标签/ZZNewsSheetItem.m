@@ -214,7 +214,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [closeButton setTitle:@"X" forState:UIControlStateNormal];
 //    [closeButton setBackgroundImage:GetImage(@"cha-1") forState:UIControlStateNormal];
-    closeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+//    closeButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [closeButton addTarget:self action:@selector(zz_close) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeButton];
     self.closeButton = closeButton;

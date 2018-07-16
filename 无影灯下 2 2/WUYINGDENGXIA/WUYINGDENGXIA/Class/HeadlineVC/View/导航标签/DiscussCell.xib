@@ -48,8 +48,9 @@
             <size key="customSize" width="320" height="147"/>
             <connections>
                 <outlet property="discussLab" destination="CZt-3R-J1x" id="vyP-R8-Ksu"/>
+                <outlet property="imageView" destination="yMJ-ep-Yt1" id="tG9-zl-4Yc"/>
             </connections>
-            <point key="canvasLocation" x="-76" y="7"/>
+            <point key="canvasLocation" x="-268" y="-12"/>
         </collectionViewCell>
     </objects>
     <resources>

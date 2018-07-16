@@ -23,6 +23,10 @@
                 <outlet property="loginBtn" destination="OdE-Zb-OgI" id="8VO-Zi-8we"/>
                 <outlet property="phoneField" destination="bWy-tv-5MG" id="jGX-k1-Hwf"/>
                 <outlet property="pwdField" destination="Nbl-eO-nMI" id="3zA-dg-KYb"/>
+                <outlet property="sanfangBtn" destination="efj-dY-BF7" id="UXJ-ar-dNn"/>
+                <outlet property="sanfangLab" destination="hil-lQ-Xe9" id="DUk-fY-PrR"/>
+                <outlet property="sanfangLab1" destination="4d8-G3-93k" id="SXV-ck-FKJ"/>
+                <outlet property="sanfangLab2" destination="VHZ-Zm-3Ke" id="Zey-id-N7t"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -199,7 +203,7 @@
                 <constraint firstItem="bWy-tv-5MG" firstAttribute="leading" secondItem="g5Q-BK-gzc" secondAttribute="leading" id="zXM-MT-M7j"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-318" y="15"/>
+            <point key="canvasLocation" x="-791" y="-9"/>
         </view>
     </objects>
     <resources>

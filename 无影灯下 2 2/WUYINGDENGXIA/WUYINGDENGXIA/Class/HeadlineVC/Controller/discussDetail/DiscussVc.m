@@ -71,7 +71,8 @@
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
     
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://39.106.2.216/Wuyingdengxia/DiscussDetails.html?key_dis_id=%@&userid=%@",self.model.key_dis_id ,user.userid]]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://39.106.2.216/Wuyingdengxia/DiscussDetails.html?key_dis_id=%@&userid=%@&type=%@",self.model.key_dis_id ,user.userid,self.model.type]]]];
+    
     
     [self.view addSubview:_webView];
     

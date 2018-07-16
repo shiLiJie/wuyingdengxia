@@ -49,6 +49,7 @@ static NSString *ID = @"DiscussCell";
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_hot_labelList?key_id=0"]]
                                                 parameters:nil
                                                    success:^(id obj) {
+                                                       
                                                        NSArray *arr = obj[@"data"];
                                                        NSMutableArray *arrayM = [NSMutableArray array];
                                                        for (int i = 0; i < arr.count; i ++) {
@@ -91,6 +92,9 @@ static NSString *ID = @"DiscussCell";
     
     discussModel *model = [[discussModel alloc] init];
     model = self.modelArr[indexPath.row];
+    if ([model.type isEqualToString:@"1"]) {
+        cell.imageView.image = GetImage(@"wtzj");
+    }
     
     cell.discussLab.text = model.key_dis_title;
     

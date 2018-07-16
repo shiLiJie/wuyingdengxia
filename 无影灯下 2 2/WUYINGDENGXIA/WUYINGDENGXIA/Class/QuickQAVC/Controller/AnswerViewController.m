@@ -23,6 +23,8 @@
 @property (nonatomic,copy) NSString *inputStr;
 //收藏按钮
 @property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
+//转发按钮
+@property (weak, nonatomic) IBOutlet UIButton *zhuanfaBtn;
 //是否收藏的标记
 @property (nonatomic, assign) BOOL isShoucang;
 //评论id
@@ -65,6 +67,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"WXShare" object:nil];
     
     self.isPinglun = YES;
+    
+    // 检查是否装了微信
+    if ([WXApi isWXAppInstalled]) {
+        
+    }else{
+        self.zhuanfaBtn.hidden = YES;
+    }
 }
 
 //问题详情
@@ -167,7 +176,7 @@
 }
 
 -(NSMutableAttributedString *)setTitle{
-    return [self changeTitle:!kStringIsEmpty(self.questionModel.question_title) ? self.questionModel.question_title : @"问题详情"];
+    return [self changeTitle:@"问题详情"];
 //    return [self changeTitle:@"问题详情"];
 }
 

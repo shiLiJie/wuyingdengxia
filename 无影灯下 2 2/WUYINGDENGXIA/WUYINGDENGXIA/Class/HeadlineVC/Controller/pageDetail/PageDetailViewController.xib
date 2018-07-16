@@ -17,6 +17,7 @@
                 <outlet property="shoucangBtn" destination="eV3-Ux-A0q" id="LHV-Wj-DCZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zanBtn" destination="aLl-Ux-MiG" id="AKO-m0-hp8"/>
+                <outlet property="zhuanfaBtn" destination="jKf-4D-G6v" id="p8C-Lc-T4g"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -106,7 +107,7 @@
                 <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="ZmD-un-sQ8" secondAttribute="bottom" constant="34" id="iiv-Q6-EuY"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-624" y="-336"/>
+            <point key="canvasLocation" x="-1185" y="-304"/>
         </view>
     </objects>
     <resources>

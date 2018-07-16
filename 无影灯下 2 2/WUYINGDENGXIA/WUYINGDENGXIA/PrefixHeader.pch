@@ -16,6 +16,7 @@
 #import "Macros.h"
 #import "HeadlineViewController.h"
 #import "TrainViewController.h"
+#import "QuickQAViewController.h"
 #import "InforViewController.h"
 #import "MyViewController.h"
 #import "Masonry.h"

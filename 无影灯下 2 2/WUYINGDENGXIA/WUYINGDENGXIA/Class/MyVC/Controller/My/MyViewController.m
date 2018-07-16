@@ -131,7 +131,55 @@
 //四个大按钮
 -(void)addBtn{
     
-    UIButton *tougao = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5, 13, 42, 42)];
+//    UIButton *tougao = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5, 13, 42, 42)];
+//    [tougao setImage:GetImage(@"wodetougaoicon") forState:UIControlStateNormal];
+//    [tougao addTarget:self action:@selector(tougaoClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.buttonView addSubview:tougao];
+//    UILabel *tougaolab = [[UILabel alloc] initWithFrame:CGRectMake(0, 61, 61, 20)];
+//    tougaolab.textAlignment = NSTextAlignmentCenter;
+//    tougaolab.textColor = RGB51;
+//    tougaolab.font = [UIFont systemFontOfSize:13];
+//    tougaolab.center = CGPointMake(tougao.center.x, 73);
+//    tougaolab.text = @"我的投稿";
+//    [self.buttonView addSubview:tougaolab];
+//
+//    UIButton *xuyuan = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5 * 2 + 42, 13, 42, 42)];
+//    [xuyuan setImage:GetImage(@"xuyuanchiicon") forState:UIControlStateNormal];
+//    [xuyuan addTarget:self action:@selector(xuyuanClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.buttonView addSubview:xuyuan];
+//    UILabel *xuyuanlab = [[UILabel alloc] initWithFrame:CGRectMake(0, 61, 61, 20)];
+//    xuyuanlab.textAlignment = NSTextAlignmentCenter;
+//    xuyuanlab.textColor = RGB51;
+//    xuyuanlab.font = [UIFont systemFontOfSize:13];
+//    xuyuanlab.center = CGPointMake(xuyuan.center.x, 73);
+//    xuyuanlab.text = @"许愿池";
+//    [self.buttonView addSubview:xuyuanlab];
+//
+//    UIButton *shujia = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5 * 3 + 84, 13, 42, 42)];
+//    [shujia setImage:GetImage(@"keshishujiaicon") forState:UIControlStateNormal];
+//    [shujia addTarget:self action:@selector(shujiaClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.buttonView addSubview:shujia];
+//    UILabel *shujialab = [[UILabel alloc] initWithFrame:CGRectMake(0, 61, 61, 20)];
+//    shujialab.textAlignment = NSTextAlignmentCenter;
+//    shujialab.textColor = RGB51;
+//    shujialab.font = [UIFont systemFontOfSize:13];
+//    shujialab.center = CGPointMake(shujia.center.x, 73);
+//    shujialab.text = @"我的科室";
+//    [self.buttonView addSubview:shujialab];
+//
+//    UIButton *qiandao = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5 * 4 + 126, 13, 42, 42)];
+//    [qiandao setImage:GetImage(@"每日签到") forState:UIControlStateNormal];
+//    [qiandao addTarget:self action:@selector(qiandaoClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.buttonView addSubview:qiandao];
+//    UILabel *qiandaolab = [[UILabel alloc] initWithFrame:CGRectMake(0, 61, 61, 20)];
+//    qiandaolab.textAlignment = NSTextAlignmentCenter;
+//    qiandaolab.textColor = RGB51;
+//    qiandaolab.font = [UIFont systemFontOfSize:13];
+//    qiandaolab.center = CGPointMake(qiandao.center.x, 73);
+//    qiandaolab.text = @"每日签到";
+//    [self.buttonView addSubview:qiandaolab];
+    
+    UIButton *tougao = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*3)/4, 13, 42, 42)];
     [tougao setImage:GetImage(@"wodetougaoicon") forState:UIControlStateNormal];
     [tougao addTarget:self action:@selector(tougaoClick) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonView addSubview:tougao];
@@ -143,7 +191,7 @@
     tougaolab.text = @"我的投稿";
     [self.buttonView addSubview:tougaolab];
     
-    UIButton *xuyuan = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5 * 2 + 42, 13, 42, 42)];
+    UIButton *xuyuan = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*3)/4 * 2 + 42, 13, 42, 42)];
     [xuyuan setImage:GetImage(@"xuyuanchiicon") forState:UIControlStateNormal];
     [xuyuan addTarget:self action:@selector(xuyuanClick) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonView addSubview:xuyuan];
@@ -155,19 +203,19 @@
     xuyuanlab.text = @"许愿池";
     [self.buttonView addSubview:xuyuanlab];
     
-    UIButton *shujia = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5 * 3 + 84, 13, 42, 42)];
-    [shujia setImage:GetImage(@"keshishujiaicon") forState:UIControlStateNormal];
-    [shujia addTarget:self action:@selector(shujiaClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonView addSubview:shujia];
-    UILabel *shujialab = [[UILabel alloc] initWithFrame:CGRectMake(0, 61, 61, 20)];
-    shujialab.textAlignment = NSTextAlignmentCenter;
-    shujialab.textColor = RGB51;
-    shujialab.font = [UIFont systemFontOfSize:13];
-    shujialab.center = CGPointMake(shujia.center.x, 73);
-    shujialab.text = @"我的科室";
-    [self.buttonView addSubview:shujialab];
+//    UIButton *shujia = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*3)/5 * 3 + 84, 13, 42, 42)];
+//    [shujia setImage:GetImage(@"keshishujiaicon") forState:UIControlStateNormal];
+//    [shujia addTarget:self action:@selector(shujiaClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.buttonView addSubview:shujia];
+//    UILabel *shujialab = [[UILabel alloc] initWithFrame:CGRectMake(0, 61, 61, 20)];
+//    shujialab.textAlignment = NSTextAlignmentCenter;
+//    shujialab.textColor = RGB51;
+//    shujialab.font = [UIFont systemFontOfSize:13];
+//    shujialab.center = CGPointMake(shujia.center.x, 73);
+//    shujialab.text = @"我的科室";
+//    [self.buttonView addSubview:shujialab];
     
-    UIButton *qiandao = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*4)/5 * 4 + 126, 13, 42, 42)];
+    UIButton *qiandao = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*3)/4 * 3 + 84, 13, 42, 42)];
     [qiandao setImage:GetImage(@"每日签到") forState:UIControlStateNormal];
     [qiandao addTarget:self action:@selector(qiandaoClick) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonView addSubview:qiandao];

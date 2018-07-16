@@ -19,6 +19,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;//手机号text
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;//密码text
 
+//三方登录用控件,没有微信时隐藏
+@property (weak, nonatomic) IBOutlet UILabel *sanfangLab;
+@property (weak, nonatomic) IBOutlet UILabel *sanfangLab1;
+@property (weak, nonatomic) IBOutlet UILabel *sanfangLab2;
+@property (weak, nonatomic) IBOutlet UIButton *sanfangBtn;
+
 @end
 
 @implementation LoginVc
@@ -38,10 +44,19 @@
     if (isIOS10) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXLoginSucessWithOpenIdAPPdelegate:) name:@"WXLogin" object:nil];
+    
+    // 检查是否装了微信
+    if ([WXApi isWXAppInstalled]) {
+        
+    }else{
+        self.sanfangLab.hidden = YES;
+        self.sanfangLab1.hidden = YES;
+        self.sanfangLab2.hidden = YES;
+        self.sanfangBtn.hidden = YES;
+        
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -228,7 +243,7 @@
     NSString *openID = [[NSUserDefaults standardUserDefaults] objectForKey:WX_OPEN_ID];
     
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, accessToken, openID] parameters:nil success:^(id obj) {
-//        NSLog(@"请求用户信息的response = %@", obj);
+        NSLog(@"请求用户信息的response = %@", obj);
     
         UserInfoModel *user = [UserInfoModel shareUserModel];
         [user loadUserInfoFromSanbox];
@@ -236,6 +251,7 @@
         user.headimg = obj[@"headimgurl"];
         user.usercity = obj[@"city"];
         user.we_chat_id = openID;
+        user.we_chat_id = obj[@"unionid"];
         
         NSString *sex = [NSString stringWithFormat:@"%@",obj[@"sex"]];
         if ([sex isEqualToString:@"1"]) {
@@ -249,7 +265,7 @@
         self.loginBlock(YES, nil);
         
         //登录成功后向后台发送openid验证是否绑定手机号
-        [self WXLoginSucessWithOpenId:openID];
+        [self WXLoginSucessWithOpenId:obj[@"unionid"]];
         
     } fail:^(NSError *error) {
 //        NSLog(@"获取用户信息时出错 = %@", error);

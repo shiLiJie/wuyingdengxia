@@ -47,11 +47,11 @@
 
     TrainViewController *secondViewController = [[TrainViewController alloc]init];
     LJNavigationController *secondNavigationController = [[LJNavigationController alloc]initWithRootViewController:secondViewController];
-    
-//    QuickQAViewController *fourViewController1 = [[QuickQAViewController alloc]init];
-//    LJNavigationController *fourNavigationController1 = [[LJNavigationController alloc]initWithRootViewController:fourViewController1];
 
-    InforViewController *thirdViewController = [[InforViewController alloc]init];
+//    InforViewController *thirdViewController = [[InforViewController alloc]init];
+//    LJNavigationController *thirdNavigationController = [[LJNavigationController alloc]initWithRootViewController:thirdViewController];
+    
+    QuickQAViewController *thirdViewController = [[QuickQAViewController alloc]init];
     LJNavigationController *thirdNavigationController = [[LJNavigationController alloc]initWithRootViewController:thirdViewController];
     
     MyViewController *fourViewController = [[MyViewController alloc]init];
@@ -62,7 +62,6 @@
     
     NSArray *viewControllers = @[firstNavigationController,
                                  secondNavigationController,
-//                                 fourNavigationController1,
                                  thirdNavigationController,
                                  fourNavigationController];
     
@@ -88,9 +87,9 @@
 //                                                 CYLTabBarItemSelectedImage : @"",
 //                                                 };
     NSDictionary *thirdTabBarItemsAttributes = @{
-                                                 CYLTabBarItemTitle : @"管理工具",
-                                                 CYLTabBarItemImage : @"Page 1",
-                                                 CYLTabBarItemSelectedImage : @"2",
+                                                 CYLTabBarItemTitle : @"问答",
+                                                 CYLTabBarItemImage : @"wdicon1",
+                                                 CYLTabBarItemSelectedImage : @"wdicon",
                                                  };
     
     NSDictionary *fourTabBarItemsAttributes = @{

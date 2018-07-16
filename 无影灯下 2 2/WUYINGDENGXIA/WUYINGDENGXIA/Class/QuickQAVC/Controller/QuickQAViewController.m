@@ -27,6 +27,7 @@
 #import "PageDetailViewController.h"
 #import "AnswerViewController.h"
 #import "DetailTableViewCell.h"
+#import "QATableVIewCell.h"
 
 @interface QuickQAViewController ()<
                                     QATableVIewDelegate,
@@ -210,7 +211,7 @@
     
     self.segment = [DFSegmentView1 new];
     if (kDevice_Is_iPhoneX) {
-        self.segment.frame = CGRectMake(0,90, Main_Screen_Width, kScreen_Height-90-56);
+        self.segment.frame = CGRectMake(0,90, Main_Screen_Width, kScreen_Height-90-56 - 24);
     }else{
         if (isIOS10) {
             self.segment.frame = CGRectMake(0,0, Main_Screen_Width, kScreen_Height-66-56);
@@ -376,16 +377,19 @@
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:url
                                                 parameters:nil
                                                    success:^(id obj) {
-                                                       
+
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                            NSArray *arr = obj[@"data"];
                                                            NSMutableArray *arrayM = [NSMutableArray array];
                                                            for (int i = 0; i < arr.count; i ++) {
                                                                NSDictionary *dict = arr[i];
-                                                               [arrayM addObject:[searchResultModel searchResultWithDict:dict]];
-                                                               
+                                                               searchResultModel *model = [searchResultModel searchResultWithDict:dict];
+                                                               if ([model.type isEqualToString:@"2"]) {
+                                                                   [arrayM addObject:model];
+                                                               }
                                                            }
                                                            self.searchArr= arrayM;
+                                                           
                                                            
                                                        }else{
                                                            
@@ -464,9 +468,9 @@
                                                         success:^(id obj) {
                                                             if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                                 
-                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
+//                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
                                                             }else{
-                                                                [MBProgressHUD showError:obj[@"msg"]];
+//                                                                [MBProgressHUD showError:obj[@"msg"]];
                                                             }
                                                             
                                                         } fail:^(NSError *error) {
@@ -508,7 +512,7 @@
 //        [searchViewController.navigationController pushViewController:vc animated:YES];
 //    }
     
-    if ([model.type isEqualToString:@"3"]) {
+    if ([model.type isEqualToString:@"2"]) {
         AnswerViewController *vc = [[AnswerViewController alloc] init];
         QusetionModel *qmodel = [[QusetionModel alloc] init];
         qmodel.question_id = model.type_id;
@@ -516,8 +520,6 @@
         vc.choosetype = questionType;
         [searchViewController.navigationController pushViewController:vc animated:YES];
     }
-    
-    
 }
 
 
@@ -525,10 +527,10 @@
     
     searchResultModel *model = self.searchArr[indexPath.row];
     static NSString * reuseID = @"cell";
-    DetailTableViewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
-    cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
+    QATableVIewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
+    cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][0];
     cell.mainTitle.text = model.title;
-    cell.pageDetail.text = model.content;
+    cell.detailPage.text = model.content;
     
     return cell;
 }

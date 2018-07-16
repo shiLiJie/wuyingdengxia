@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *pinglunBtn;
 //点赞
 @property (weak, nonatomic) IBOutlet UIButton *zanBtn;
+//转发
+@property (weak, nonatomic) IBOutlet UIButton *zhuanfaBtn;
 //收藏
 @property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
 //底部评论view
@@ -64,6 +66,13 @@
     self.isPinglun = YES;
     
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    // 检查是否装了微信
+    if ([WXApi isWXAppInstalled]) {
+        
+    }else{
+        self.zhuanfaBtn.hidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

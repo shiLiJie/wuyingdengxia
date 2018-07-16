@@ -32,6 +32,7 @@
 #import "searchResultModel.h"
 #import "AnswerViewController.h"
 #import "QusetionModel.h"
+#import "QATableVIewCell.h"
 
 @interface HeadlineViewController ()<UISearchBarDelegate,
                                     SearchBarDelegate,
@@ -62,6 +63,8 @@
 @property (nonatomic, strong) NSMutableArray *labelnameArr;
 
 @property (nonatomic, strong) DFSegmentView *segment;
+//二维码扫描后返回字符串
+@property (nonatomic,copy) NSString *scanStr;
 
 
 @end
@@ -218,8 +221,8 @@
     _scrollView.imageHeightPoor = 10; // 设置中间卡片与两边卡片的高度差
     // 设置要加载的图片
     [self getBannerNetData];
-
 }
+
 //banner网络请求
 -(void)getBannerNetData{
     __weak typeof(self) weakSelf = self;
@@ -398,33 +401,64 @@
 }
 //二维码扫一扫
 -(void)left_button_event:(UIButton *)sender{
-    MMScanViewController *scanVc = [[MMScanViewController alloc] initWithQrType:MMScanTypeQrCode onFinish:^(NSString *result, NSError *error) {
-        if (error) {
-
-        } else {
+    
+    __weak typeof(self) weakSelf = self;
+    MMScanViewController *scanVc = [[MMScanViewController alloc] initWithQrType:MMScanTypeAll onFinish:^(NSString *result, NSError *error) {
+        
+        
+        weakSelf.scanStr = result;
+    //        if (error) {
+    //
+    //        } else {
             UserInfoModel *user = [UserInfoModel shareUserModel];
             [user loadUserInfoFromSanbox];
-            result = [result stringByAppendingString:[NSString stringWithFormat:@"&user_token=%@&user_id=%@",user.user_token,user.userid]];
-            
-            NSURL *url;
-            if ([result hasPrefix:@"http://"] || [result hasPrefix:@"https://"]) {
-                url = [NSURL URLWithString:result];
-            } else {
-                url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", result]];
+        
+            if ([weakSelf.scanStr containsString:@"type=2"]) {
+                
+                //会议签到
+                NSArray *array = [weakSelf.scanStr componentsSeparatedByString:@"toid="];
+                NSDictionary *dict = @{
+                                       @"userid" : user.userid,
+                                       @"type" : @"2",
+                                       @"toid" : array[1]
+                                       };
+                
+                [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_sign.html"] parameters:dict success:^(id obj) {
+                    if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                        
+                        [MBProgressHUD showSuccess:obj[@"msg"]];
+                    }else{
+                        [MBProgressHUD showError:obj[@"msg"]];
+                    }
+                } fail:^(NSError *error) {
+                    [MBProgressHUD showError:@"签到失败"];
+                }];
+                
+            }else{
+                
+                //扫码登录
+                weakSelf.scanStr = [weakSelf.scanStr stringByAppendingString:[NSString stringWithFormat:@"&user_token=%@&user_id=%@",user.user_token,user.userid]];
+                
+                NSURL *url;
+                if ([weakSelf.scanStr containsString:@"http://"] || [weakSelf.scanStr containsString:@"https://"]) {
+                    url = [NSURL URLWithString:weakSelf.scanStr];
+                } else {
+                    url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", weakSelf.scanStr]];
+                }
+                
+                AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+                [manager GET:[url absoluteString] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                    
+                    if (responseObject)
+                    {
+                        
+                    }
+                } failure:^(NSURLSessionTask *operation, NSError *error) {
+                }];
             }
             
-//            NSLog(@"%@",result);
             
-            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            [manager GET:[url absoluteString] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-                
-                if (responseObject)
-                {
-
-                }
-            } failure:^(NSURLSessionTask *operation, NSError *error) {
-            }];
-        }
+//        }
     }];
     [self.navigationController pushViewController:scanVc animated:YES];
     self.searchBar.hidden = YES;
@@ -545,15 +579,21 @@
             NSMutableArray *arrayM = [NSMutableArray array];
             for (int i = 0; i < arr.count; i ++) {
                 NSDictionary *dict = arr[i];
-                [arrayM addObject:[searchResultModel searchResultWithDict:dict]];
+                searchResultModel *model = [searchResultModel searchResultWithDict:dict];
+                if ([model.type isEqualToString:@"1"]) {
+                    [arrayM addObject:model];
+                }
+                if ([model.type isEqualToString:@"2"]) {
+                    [arrayM addObject:model];
+                }
+                
                 
             }
             self.searchArr= arrayM;
 
         }else{
 
-        }
-        
+        } 
     }
                                                       fail:^(NSError *error) {  
     }];
@@ -627,9 +667,9 @@
                                                         success:^(id obj) {
                                                             if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                                 
-                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
+//                                                                [MBProgressHUD showSuccess:obj[@"msg"]];
                                                             }else{
-                                                                [MBProgressHUD showError:obj[@"msg"]];
+//                                                                [MBProgressHUD showError:obj[@"msg"]];
                                                             }
                                                             
         } fail:^(NSError *error) {
@@ -683,7 +723,7 @@
         vc.articleid = model.type_id;
         [searchViewController.navigationController pushViewController:vc animated:YES];
     }
-    if ([model.type isEqualToString:@"3"]) {
+    if ([model.type isEqualToString:@"2"]) {
         AnswerViewController *vc = [[AnswerViewController alloc] init];
         QusetionModel *qmodel = [[QusetionModel alloc] init];
         qmodel.question_id = model.type_id;
@@ -699,12 +739,22 @@
     
     searchResultModel *model = self.searchArr[indexPath.row];
     static NSString * reuseID = @"cell";
-    DetailTableViewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
-    cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
-    cell.mainTitle.text = model.title;
-    cell.pageDetail.text = model.content;
-    
-    return cell;
+    if ([model.type isEqualToString:@"1"]) {
+        DetailTableViewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
+        cell = [[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil][0];
+        cell.mainTitle.text = model.title;
+        cell.pageDetail.text = model.content;
+        
+        return cell;
+    }else{
+        QATableVIewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
+        cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][0];
+        cell.mainTitle.text = model.title;
+        cell.detailPage.text = model.content;
+        
+        return cell;
+    }
+
 }
 
 
@@ -766,9 +816,19 @@
                 self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
                 self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
             }else{
-                self.scrollView.frame = CGRectMake(0,-bannerHigh + 64, Main_Screen_Width, bannerHigh);
+                if (kDevice_Is_iPhoneX) {
+                    self.scrollView.frame = CGRectMake(0,-bannerHigh + 88, Main_Screen_Width, bannerHigh);
+                }else{
+                    self.scrollView.frame = CGRectMake(0,-bannerHigh + 64, Main_Screen_Width, bannerHigh);
+                }
+                
                 //        self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -44-headerViewY-bannerHigh);
-                self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
+                if (kDevice_Is_iPhoneX){
+                    self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight - 78);
+                }else{
+                    self.segment.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+1, Main_Screen_Width, kScreen_Height -22 -TopBarHeight);
+                }
+                
                 self.addMenuBtn.frame = CGRectMake(Main_Screen_Width-segViewHigh, CGRectGetMaxY(self.scrollView.frame), segViewHigh, segViewHigh);
                 self.discuss.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame)+44, Main_Screen_Width, 78);
             }

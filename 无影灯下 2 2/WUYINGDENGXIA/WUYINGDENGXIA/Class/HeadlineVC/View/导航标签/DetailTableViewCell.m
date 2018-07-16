@@ -42,7 +42,7 @@
     //4行间距
     if (!kStringIsEmpty(self.pageDetail.text)) {
         
-        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail WithSpace:1.5 highSpace:1];
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail WithSpace:1.5 highSpace:1.5];
     }
     if (!kStringIsEmpty(self.mainTitle1.text)) {
         
@@ -50,11 +50,11 @@
     }
     if (!kStringIsEmpty(self.pageDetail1.text)) {
         
-        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail1 WithSpace:1 highSpace:1];
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail1 WithSpace:1 highSpace:1.5];
     }
     if (!kStringIsEmpty(self.pageDetail3.text)) {
         
-        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail3 WithSpace:1 highSpace:1] ;
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail3 WithSpace:1 highSpace:1.5] ;
     }
 }
 

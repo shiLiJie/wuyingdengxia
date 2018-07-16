@@ -89,6 +89,7 @@
                                                             [MBProgressHUD showSuccess:obj[@"msg"]];
                                                             //登录成功
                                                             NSDictionary *dic = obj[@"data"];
+                                                            
                                                             UserInfoModel *user = [UserInfoModel shareUserModel];
                                                             user.userName = dic[@"username"];
                                                             user.passWord = @"";

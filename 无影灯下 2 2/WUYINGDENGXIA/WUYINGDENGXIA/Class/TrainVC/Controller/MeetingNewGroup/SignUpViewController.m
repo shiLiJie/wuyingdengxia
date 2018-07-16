@@ -49,7 +49,6 @@
 //备注lab
 @property (weak, nonatomic) IBOutlet UILabel *beizhuLab;
 
-
 @end
 
 @implementation SignUpViewController
