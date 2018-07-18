@@ -530,7 +530,7 @@
     QATableVIewCell *cell = [searchSuggestionView dequeueReusableCellWithIdentifier:reuseID];
     cell = [[NSBundle mainBundle] loadNibNamed:@"QATableVIewCell" owner:nil options:nil][0];
     cell.mainTitle.text = model.title;
-    cell.detailPage.text = model.content;
+//    cell.detailPage.text = model.content;
     
     return cell;
 }
@@ -549,7 +549,7 @@
 
 - (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return 130;
 }
 
 #pragma mark - DetailTableViewController代理方法 -

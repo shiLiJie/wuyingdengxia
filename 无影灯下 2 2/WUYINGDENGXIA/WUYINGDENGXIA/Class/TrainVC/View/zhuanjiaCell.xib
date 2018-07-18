@@ -68,7 +68,7 @@
                 <outlet property="zhuanjiaDetail" destination="nAm-Ve-9IS" id="yOd-Lz-4YC"/>
                 <outlet property="zhuanjiaName" destination="wdJ-gI-W8d" id="OMa-au-ta6"/>
             </connections>
-            <point key="canvasLocation" x="-295" y="-66"/>
+            <point key="canvasLocation" x="-302" y="-85"/>
         </collectionViewCell>
     </objects>
 </document>

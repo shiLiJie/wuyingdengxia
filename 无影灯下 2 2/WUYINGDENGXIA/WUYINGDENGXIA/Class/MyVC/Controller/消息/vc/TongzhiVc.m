@@ -23,6 +23,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.estimatedRowHeight = 75;//估算高度
 }
 
 #pragma mark - tableviewDelegate -
@@ -31,10 +32,10 @@
     return self.dataArr.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 73;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    return 73;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -64,6 +65,7 @@
     if ([dict[@"type"] isEqualToString:@"4"]){
         cell.xiaoxiType = wenjuanType;
         cell.xiaoxiTitle.text = @"问卷调查";
+        cell.xiaoxiDetail.text = dict[@"content"];
         [cell setUpImage];
     }
     //设置背景色,切圆角,点击不变色
