@@ -233,13 +233,13 @@
 #pragma mark - 私有方法 -
 //获取用户认证信息
 -(void)getUserInfo{
-    UserInfoModel *USER = [UserInfoModel shareUserModel];
+    __block UserInfoModel *USER = [UserInfoModel shareUserModel];
     [USER loadUserInfoFromSanbox];
     __weak typeof(self) weakSelf = self;
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@&current_userid=%@",BaseUrl,USER.userid,USER.userid]
                                                 parameters:nil
                                                    success:^(id obj) {
-                                                       
+
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                            
                                                            NSDictionary *ditc = obj[@"data"];
@@ -249,11 +249,39 @@
                                                                USER.isfinishCer = user.isfinishCer;
                                                                [USER saveUserInfoToSanbox];
                                                                
-                                                               if ([user.isfinishCer isEqualToString:@"1"]) {
-                                                                   weakSelf.vipImage.image = GetImage(@"v");
-                                                               }else{
-                                                                   weakSelf.vipImage.image = GetImage(@"v1");
+                                                               if (USER.loginStatus) {
+                                                                   if ([user.isfinishCer isEqualToString:@"1"]) {
+                                                                       weakSelf.vipImage.image = GetImage(@"v");
+                                                                   }else{
+                                                                       weakSelf.vipImage.image = GetImage(@"v1");
+                                                                   }
                                                                }
+                                                               
+                                                           }
+                                                           if (!kStringIsEmpty(user.fansnum)) {
+                                                               USER.fansnum = user.fansnum;
+                                                               [USER saveUserInfoToSanbox];
+                                                               if (USER.loginStatus) {
+                                                                   weakSelf.fensiNum.text = user.fansnum !=nil ? user.fansnum : @"0";
+                                                               }
+                                                               
+                                                           }
+                                                           else{
+                                                               USER.fansnum = @"0";
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                           if (!kStringIsEmpty(user.supportnum)) {
+                                                               USER.supportnum = user.supportnum;
+                                                               [USER saveUserInfoToSanbox];
+                                                               if (USER.loginStatus) {
+                                                                   weakSelf.zanNum.text = user.supportnum !=nil ? user.fansnum : @"0";
+                                                               }
+                                                               
+                                                           }
+                                                           else{
+                                                               USER.supportnum = @"0";
+                                                               [USER saveUserInfoToSanbox];
                                                            }
                                                            
                                                        }else{

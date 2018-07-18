@@ -295,6 +295,7 @@
     }
     
 }
+
 - (IBAction)zhuanfa:(UIButton *)sender {
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
@@ -302,7 +303,8 @@
     
     WXMediaMessage * message = [WXMediaMessage message];
     message.title = self.questionModel.question_title;
-    message.description = self.questionModel.question_content;
+//    message.description = self.questionModel.question_content;
+    message.description = @"";
     //    [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
     
     WXWebpageObject * webpageObject = [WXWebpageObject object];
@@ -348,7 +350,6 @@
     } cancelBlock:^{
         
     }];
-
 }
 
 #pragma mark - textinput代理 -

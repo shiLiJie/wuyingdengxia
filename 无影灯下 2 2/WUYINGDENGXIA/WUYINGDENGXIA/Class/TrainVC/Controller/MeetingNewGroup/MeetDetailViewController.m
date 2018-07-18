@@ -46,6 +46,7 @@
     //设置lab行间距
     [MeetDetailViewController changeWordSpaceForLabel:self.meetDetailText WithSpace:1.5 highSpace:5];
     [MeetDetailViewController changeWordSpaceForLabel:self.meetAddress WithSpace:1.5 highSpace:5];
+    
 }
 
 - (void)viewDidLoad {
@@ -54,13 +55,13 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    layout.sectionInset = UIEdgeInsetsMake(0 , 0, 0, 0 );
-    layout.itemSize = CGSizeMake(kScreen_Width/3, 180);
+    layout.sectionInset = UIEdgeInsetsMake(-20 , 0, 0, 0 );
+    layout.itemSize = CGSizeMake(kScreen_Width/3, 230);
     
     // 设置最小行间距
     layout.minimumLineSpacing = 10 ;
     // 设置最小列间距
-    self.zhuangjiaCol = [[zhuangjiaCollectionView alloc] initWithFrame:CGRectMake(0, 50, self.zhuanjiaView.frame.size.width, self.zhuanjiaView.frame.size.height-50) collectionViewLayout:layout];
+    self.zhuangjiaCol = [[zhuangjiaCollectionView alloc] initWithFrame:CGRectMake(0, 40, self.zhuanjiaView.frame.size.width, self.zhuanjiaView.frame.size.height-40) collectionViewLayout:layout];
     [self.zhuanjiaView addSubview:self.zhuangjiaCol];
 
     //会议顶部图片设置
@@ -128,6 +129,8 @@
     
     //获取用户认证信息
     [self getUserInfo];
+    
+//    self.richengTableView.estimatedRowHeight = 300;//估算高度
 }
 
 //-(void)viewWillAppear:(BOOL)animated{
@@ -478,7 +481,7 @@
 
     self.viewheight+= height;
     self.viewHeight.constant = self.viewheight;
-    
+
     return height;
 }
 
@@ -492,7 +495,7 @@
     self.cell = [[[NSBundle mainBundle] loadNibNamed:@"MeetRichengCell" owner:nil options:nil] firstObject];
     self.cell.timeLab.text = self.timeaArr[indexPath.row];
     self.cell.detailLab.text = self.detailaArr[indexPath.row];
-    [self.cell.detailLab alignTop];
+//    [self.cell.detailLab alignTop];
 //    [self.cell.detailLab sizeToFit];
 //    [self setLabelHangjianj:self.cell.detailLab];
     

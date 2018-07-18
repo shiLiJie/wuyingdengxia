@@ -48,6 +48,23 @@
     [self.nimainTitle sizeToFit];
     [self.nimainTitle1 sizeToFit];
     [self.nimainTitle2 sizeToFit];
+    
+    if (kDevice_Is_iPhone5) {
+        self.mainTitle.font = BOLDSYSTEMFONT(14);
+        self.mainTitle1.font = BOLDSYSTEMFONT(14);
+        self.mainTitle2.font = BOLDSYSTEMFONT(14);
+        self.nimainTitle.font = BOLDSYSTEMFONT(14);
+        self.nimainTitle1.font = BOLDSYSTEMFONT(14);
+        self.nimainTitle2.font = BOLDSYSTEMFONT(14);
+    }
+    if (kDevice_Is_iPhone4) {
+        self.mainTitle.font = BOLDSYSTEMFONT(14);
+        self.mainTitle1.font = BOLDSYSTEMFONT(14);
+        self.mainTitle2.font = BOLDSYSTEMFONT(14);
+        self.nimainTitle.font = BOLDSYSTEMFONT(14);
+        self.nimainTitle1.font = BOLDSYSTEMFONT(14);
+        self.nimainTitle2.font = BOLDSYSTEMFONT(14);
+    }
 
 }
 

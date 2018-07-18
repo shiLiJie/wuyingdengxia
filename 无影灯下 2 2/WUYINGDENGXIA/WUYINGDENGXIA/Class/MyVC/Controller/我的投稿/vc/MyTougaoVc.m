@@ -142,6 +142,9 @@
     if ([model.is_check isEqualToString:@"1"]) {
         cell.choosetype = susscessType;
     }
+    if ([model.is_check isEqualToString:@"2"]) {
+        cell.choosetype = tuigaoType;
+    }
     [cell setUIWithchooseType:cell.choosetype];
     
     

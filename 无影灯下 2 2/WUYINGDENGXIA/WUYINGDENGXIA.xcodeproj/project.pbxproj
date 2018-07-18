@@ -166,6 +166,7 @@
 		047B8CF220A41BE400892F61 /* MyhuidaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047B8CF120A41BE400892F61 /* MyhuidaModel.m */; };
 		047B8CF620A430A100892F61 /* LiwuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047B8CF520A430A100892F61 /* LiwuModel.m */; };
 		047B8CF920A43F8200892F61 /* DuihuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047B8CF820A43F8200892F61 /* DuihuanModel.m */; };
+		047BE2ED20FDCCE700663262 /* TopLeftLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047BE2EC20FDCCE700663262 /* TopLeftLabel.m */; };
 		047E96101FFCBDEF0062F1E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */; };
 		047E96181FFCBDEF0062F1E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047E96171FFCBDEF0062F1E1 /* Assets.xcassets */; };
 		047E961E1FFCBDEF0062F1E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E961D1FFCBDEF0062F1E1 /* main.m */; };
@@ -636,6 +637,8 @@
 		047B8CF520A430A100892F61 /* LiwuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiwuModel.m; sourceTree = "<group>"; };
 		047B8CF720A43F8200892F61 /* DuihuanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DuihuanModel.h; sourceTree = "<group>"; };
 		047B8CF820A43F8200892F61 /* DuihuanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DuihuanModel.m; sourceTree = "<group>"; };
+		047BE2EB20FDCCE700663262 /* TopLeftLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopLeftLabel.h; sourceTree = "<group>"; };
+		047BE2EC20FDCCE700663262 /* TopLeftLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopLeftLabel.m; sourceTree = "<group>"; };
 		047E960B1FFCBDEF0062F1E1 /* WUYINGDENGXIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WUYINGDENGXIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		047E960E1FFCBDEF0062F1E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		047E960F1FFCBDEF0062F1E1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2065,6 +2068,8 @@
 			children = (
 				0480504D208F249C000FAA6C /* UILabel+VerticalAlign.h */,
 				0480504E208F249C000FAA6C /* UILabel+VerticalAlign.m */,
+				047BE2EB20FDCCE700663262 /* TopLeftLabel.h */,
+				047BE2EC20FDCCE700663262 /* TopLeftLabel.m */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -2991,6 +2996,7 @@
 				0487A12F206382D500198B33 /* HX_AssetContainerVC.m in Sources */,
 				047E966A1FFCC20C0062F1E1 /* SLJJudgementString.m in Sources */,
 				04C10E9F20107BA0003C204D /* QuestionsViewController.m in Sources */,
+				047BE2ED20FDCCE700663262 /* TopLeftLabel.m in Sources */,
 				048EEFE42004A5D100C6510B /* PageDetailViewController.m in Sources */,
 				046BEB2A207DDC98006F0AE8 /* XuyuanchiVc.m in Sources */,
 				042F7D3620033BB7005138C0 /* UIColor+Tools.m in Sources */,

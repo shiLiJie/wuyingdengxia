@@ -34,6 +34,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="fau-3N-bca" secondAttribute="bottom" constant="65" id="y79-BD-6YF"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="-71" y="-173"/>
         </view>
     </objects>
 </document>

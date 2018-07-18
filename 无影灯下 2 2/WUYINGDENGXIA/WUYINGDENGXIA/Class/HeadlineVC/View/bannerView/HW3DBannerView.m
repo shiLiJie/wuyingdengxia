@@ -70,21 +70,29 @@
     [self addSubview:self.mainScrollView];
     //图片视图；左边
     self.leftIV = [[UIImageView alloc] init];
-    self.leftIV.contentMode = UIViewContentModeScaleToFill;
+//    self.leftIV.contentMode = UIViewContentModeScaleToFill;
+    self.leftIV.contentMode = UIViewContentModeScaleAspectFill;
+    self.leftIV.clipsToBounds = YES;
     self.leftIV.userInteractionEnabled = YES;
     [self.leftIV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftTapGes)]];
     [self.mainScrollView addSubview:self.leftIV];
+    self.leftIV.contentMode = UIViewContentModeScaleAspectFill;
+    self.leftIV.clipsToBounds = YES;
     
     //图片视图；中间
     self.centerIV = [[UIImageView alloc] init];
-    self.centerIV.contentMode = UIViewContentModeScaleToFill;
+//    self.centerIV.contentMode = UIViewContentModeScaleToFill;
+    self.centerIV.contentMode = UIViewContentModeScaleAspectFill;
+    self.centerIV.clipsToBounds = YES;
     self.centerIV.userInteractionEnabled = YES;
     [self.centerIV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(centerTapGes)]];
     [self.mainScrollView addSubview:self.centerIV];
     
     //图片视图；右边
     self.rightIV = [[UIImageView alloc] init];
-    self.rightIV.contentMode = UIViewContentModeScaleToFill;
+//    self.rightIV.contentMode = UIViewContentModeScaleToFill;
+    self.rightIV.contentMode = UIViewContentModeScaleAspectFill;
+    self.rightIV.clipsToBounds = YES;
     self.rightIV.userInteractionEnabled = YES;
     [self.rightIV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightTapGes)]];
     [self.mainScrollView addSubview:self.rightIV];

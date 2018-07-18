@@ -314,10 +314,10 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
                                                                                @"label_name":@""
                                                                                };
                                                         for (dict in arr) {
-                                                            if (![dict[@"label_name"] isEqualToString:@"热门"]) {
+                                                            if (![dict[@"label_name"] isEqualToString:@"热门"] && ![weakSelf.mySubjectArray containsObject:dict[@"label_name"]]) {
                                                                 [labArr addObject:dict[@"label_name"]];
                                                             }
-                                                            if (![dict[@"label_name"] isEqualToString:@"最新"]) {
+                                                            if (![dict[@"label_name"] isEqualToString:@"最新"] && ![weakSelf.mySubjectArray containsObject:dict[@"label_name"]]) {
                                                                 [labArr addObject:dict[@"label_name"]];
                                                             }
                                                         }

@@ -83,8 +83,9 @@
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
+
 - (IBAction)goBackBtnClick:(UIButton *)sender {
-    // 开启返回手势
+    //开启返回手势
     NSNotification *notification =[NSNotification notificationWithName:@"HUIFUFANHUI" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     //返回设置页
@@ -95,7 +96,7 @@
 //查看进度
 - (IBAction)lookProBtnClick:(UIButton *)sender {
 
-    self.tabBarController.selectedIndex = 4;
+    self.tabBarController.selectedIndex = 3;
     
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0/*延迟执行时间*/ * NSEC_PER_SEC));
     

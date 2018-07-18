@@ -32,6 +32,17 @@
     self.headImage3.layer.cornerRadius = CGRectGetHeight(self.headImage3.frame)/2;//半径大小
     self.headImage3.layer.masksToBounds = YES;//是否切割
     
+    if (kDevice_Is_iPhone5) {
+        self.mainTitle.font = BOLDSYSTEMFONT(14);
+        self.mainTitle1.font = BOLDSYSTEMFONT(14);
+        self.mainTitle3.font = BOLDSYSTEMFONT(14);
+    }
+    if (kDevice_Is_iPhone4) {
+        self.mainTitle.font = BOLDSYSTEMFONT(14);
+        self.mainTitle1.font = BOLDSYSTEMFONT(14);
+        self.mainTitle3.font = BOLDSYSTEMFONT(14);
+    }
+    
 }
 
 

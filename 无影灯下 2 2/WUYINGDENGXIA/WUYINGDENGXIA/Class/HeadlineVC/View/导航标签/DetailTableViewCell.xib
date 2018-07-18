@@ -396,21 +396,21 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uEv-7r-oLp">
-                        <rect key="frame" x="15" y="277" width="196.5" height="116"/>
+                        <rect key="frame" x="15" y="277" width="197" height="116"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="uEv-7r-oLp" secondAttribute="height" multiplier="185:109" id="EXQ-Kf-9uU"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lS4-Zu-SpQ">
-                        <rect key="frame" x="419" y="277" width="196.5" height="116"/>
+                        <rect key="frame" x="418.5" y="277" width="197" height="116"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="lS4-Zu-SpQ" secondAttribute="height" multiplier="185:109" id="e5y-WD-gmU"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vCs-tc-6IP">
-                        <rect key="frame" x="216.5" y="277" width="197.5" height="116"/>
+                        <rect key="frame" x="217" y="277" width="196.5" height="116"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                 </subviews>

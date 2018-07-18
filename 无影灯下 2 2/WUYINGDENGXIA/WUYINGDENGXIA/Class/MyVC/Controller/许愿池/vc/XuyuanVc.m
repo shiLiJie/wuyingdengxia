@@ -49,6 +49,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    if (!kStringIsEmpty(user.moon_cash)) {
+        self.menoyLab.text = user.moon_cash;
+    }else{
+        self.menoyLab.text = @"0";
+    }
+    
+    
     //输入内容框
     self.detailTextView = [[UITextView alloc] init];
     if (kDevice_Is_iPhoneX) {
@@ -143,10 +152,10 @@
 //投稿按钮点击方法
 -(void)right_button_event:(UIButton *)sender{
     if (self.isEditor) {
-        UserInfoModel *user = [UserInfoModel shareUserModel];
+        __block UserInfoModel *user = [UserInfoModel shareUserModel];
         [user loadUserInfoFromSanbox];
         if (user.loginStatus) {
-            NSString *mooncash = @"";
+            __block NSString *mooncash = @"";
             if ([self.yueliangbibtn.titleLabel.text integerValue]>0) {
                 mooncash = self.yueliangbibtn.titleLabel.text;
             }else{
@@ -157,12 +166,15 @@
                                    @"content":self.detailTextView.text,
                                    @"cash":mooncash
                                    };
+            NSLog(@"%@",mooncash);
             [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_desire"]
                                                          parameters:dict
                                                             success:^(id obj) {
                                                                 
                                                                 if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                                    
+                                                                    NSInteger moon = [user.moon_cash integerValue] - [mooncash integerValue];
+                                                                    user.moon_cash = [NSString stringWithFormat:@"%ld",moon];
+                                                                    [user saveUserInfoToSanbox];
                                                                     //跳转到提交结果界面
                                                                     XuyuanResultVc *QuestionResult = [[XuyuanResultVc alloc] init];
                                                                     [self.navigationController pushViewController:QuestionResult animated:YES];

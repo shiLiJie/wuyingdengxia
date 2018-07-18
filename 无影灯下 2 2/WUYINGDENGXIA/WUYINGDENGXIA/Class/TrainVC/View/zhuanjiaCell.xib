@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,11 +25,14 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zKI-d3-WNN">
-                        <rect key="frame" x="0.0" y="5" width="202" height="95"/>
+                        <rect key="frame" x="0.0" y="5" width="202" height="105"/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="105" id="lUn-KP-N6o"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdJ-gI-W8d">
-                        <rect key="frame" x="0.0" y="110.5" width="202" height="19.5"/>
+                        <rect key="frame" x="0.0" y="120.5" width="202" height="19.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19.5" id="VIK-3h-j7Z"/>
                         </constraints>
@@ -38,8 +40,8 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAm-Ve-9IS">
-                        <rect key="frame" x="0.0" y="130" width="202" height="60"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAm-Ve-9IS" customClass="TopLeftLabel">
+                        <rect key="frame" x="0.0" y="140" width="202" height="50"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.396078431372549" green="0.396078431372549" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -57,7 +59,6 @@
                 <constraint firstAttribute="trailing" secondItem="wdJ-gI-W8d" secondAttribute="trailing" id="Kas-49-FKY"/>
                 <constraint firstItem="wdJ-gI-W8d" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PaW-nE-il6"/>
                 <constraint firstItem="zKI-d3-WNN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SzZ-w9-7rG"/>
-                <constraint firstItem="zKI-d3-WNN" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.5" id="TgV-6M-xOl"/>
                 <constraint firstAttribute="trailing" secondItem="nAm-Ve-9IS" secondAttribute="trailing" id="aTz-7K-4Bn"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>

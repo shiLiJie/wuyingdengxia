@@ -210,7 +210,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ijl-op-UBL">
-                            <rect key="frame" x="0.0" y="529" width="414" height="230"/>
+                            <rect key="frame" x="0.0" y="529" width="414" height="270"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="专家介绍" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KH5-59-GY5">
                                     <rect key="frame" x="18" y="10" width="70" height="21"/>
@@ -221,7 +221,7 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="230" id="DFC-O6-Xfv"/>
+                                <constraint firstAttribute="height" constant="270" id="DFC-O6-Xfv"/>
                                 <constraint firstItem="KH5-59-GY5" firstAttribute="top" secondItem="ijl-op-UBL" secondAttribute="top" constant="10" id="gbW-Th-RpY"/>
                             </constraints>
                         </view>

@@ -25,6 +25,10 @@
             self.shenheLab.text = @"投稿成功";
             self.shenheLab.textColor = RGB(19, 151, 255);
             break;
+        case tuigaoType:
+            self.shenheLab.text = @"未通过";
+            self.shenheLab.textColor = RGB(227, 79, 79);
+            break;
             
         default:
             break;

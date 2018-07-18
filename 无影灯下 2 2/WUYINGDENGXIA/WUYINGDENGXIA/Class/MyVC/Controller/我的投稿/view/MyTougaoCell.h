@@ -11,7 +11,8 @@
 typedef enum _chooseType{
     
     waitType = 0,//标题类型
-    susscessType    //内容类型
+    susscessType = 1,
+    tuigaoType = 2//内容类型
     
 } chooseType;
 

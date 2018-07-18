@@ -115,6 +115,7 @@
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allgoods"]
                                                 parameters:nil
                                                    success:^(id obj) {
+                                                       
                                                        NSArray *arr = obj[@"data"];
                                                        NSMutableArray *arrayM = [NSMutableArray array];
                                                        for (int i = 0; i < arr.count; i ++) {

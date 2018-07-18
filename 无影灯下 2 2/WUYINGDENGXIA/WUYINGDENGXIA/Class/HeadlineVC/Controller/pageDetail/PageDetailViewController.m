@@ -363,9 +363,10 @@
         
         WXMediaMessage * message = [WXMediaMessage message];
         message.title = self.model.article_title;
-        message.description = self.model.article_content;
+
+//        message.description = self.model.article_content;
+        message.description = @"";
         [message setThumbImage:[UIImage imageNamed:self.model.article_img_path]];
-//        [message setThumbImage:GetImage(@"tx")];
         
         WXWebpageObject * webpageObject = [WXWebpageObject object];
         
@@ -376,7 +377,7 @@
             //普通文章详情
             webpageObject.webpageUrl = [NSString stringWithFormat:@"http://cloud.yszg.org/Wuyingdengxia/article_details.html?articleid=%@&userid=%@",self.articleid,user.userid];
         }
-        
+
         message.mediaObject = webpageObject;
         
         SendMessageToWXReq * req = [[SendMessageToWXReq alloc] init];

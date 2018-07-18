@@ -630,7 +630,9 @@
                                                                                @"label_name":@""
                                                                                };
                                                         for (dict in arr) {
-                                                            [labArr addObject:dict[@"label_name"]];
+                                                            if (![sheetMenu.mySubjectArray containsObject:dict[@"label_name"]]) {
+                                                                [labArr addObject:dict[@"label_name"]];
+                                                            }
                                                         }
                                                         sheetMenu.recommendSubjectArray = labArr;
                                                         [weakSelf.newsMenu layoutSubviews];

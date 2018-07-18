@@ -93,9 +93,9 @@ static NSString *ID = @"zhuanjiaCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (kDevice_Is_iPhoneX) {
-        return  CGSizeMake(kScreen_Width/3, 180);
+        return  CGSizeMake(kScreen_Width/3, 230);
     }else{
-        return  CGSizeMake(kScreen_Width/3, 180);
+        return  CGSizeMake(kScreen_Width/3, 230);
     }
 }
 
@@ -104,9 +104,15 @@ static NSString *ID = @"zhuanjiaCell";
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     if (kDevice_Is_iPhoneX) {
-        return UIEdgeInsetsMake(5, 15, 0,50);
+        return UIEdgeInsetsMake(-40, 15, 0,50);
+    }else if(kDevice_Is_iPhoneP){
+        return UIEdgeInsetsMake(-40, 15, 0,0);
+    }else if(kDevice_Is_iPhone8){
+        return UIEdgeInsetsMake(-40, 15, 0,50);
+    }else if(kDevice_Is_iPhone5){
+        return UIEdgeInsetsMake(-40, 15, 0,100);
     }else{
-        return UIEdgeInsetsMake(5, 15, 0,0);
+        return UIEdgeInsetsMake(-40, 15, 0,100);
     }
 }
 
