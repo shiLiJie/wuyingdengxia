@@ -57,6 +57,9 @@
     
     self.imageArr = [[NSMutableArray alloc] init];
     
+    //获取用户token
+    [self getUserToken];
+    
 }
 
 #pragma mark - UI -
@@ -93,12 +96,95 @@
 }
 
 #pragma mark - 私有方法 -
+//获取用户token
+-(void)getUserToken{
+    __block UserInfoModel *USER = [UserInfoModel shareUserModel];
+    [USER loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@&current_userid=%@",BaseUrl,USER.userid,USER.userid]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSDictionary *ditc = obj[@"data"];
+                                                           
+                                                           userModel *user = [userModel userWithDict:ditc];
+                                                           
+                                                           //粉丝数
+                                                           if (!kStringIsEmpty(user.user_token)) {
+                                                               USER.user_token = user.user_token;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                       }else{
+                                                           //失败
+                                                       }
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       //
+                                                   }];
+}
+
 //下一步
 - (IBAction)nextStep:(UIButton *)sender {
     
     //认证
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
+    
+    if ([self.shenfenField isEqualToString:@"主任委员"]) {
+        self.shenfenField = @"0";
+    }
+    if ([self.shenfenField isEqualToString:@"副主任委员"]) {
+        self.shenfenField = @"1";
+    }
+    if ([self.shenfenField isEqualToString:@"常务副主任委员"]) {
+        self.shenfenField = @"2";
+    }
+    if ([self.shenfenField isEqualToString:@"秘书"]) {
+        self.shenfenField = @"3";
+    }
+    if ([self.shenfenField isEqualToString:@"青年委员"]) {
+        self.shenfenField = @"4";
+    }
+    if ([self.shenfenField isEqualToString:@"行业专家"]) {
+        self.shenfenField = @"5";
+    }
+    if ([self.shenfenField isEqualToString:@"普通"]) {
+        self.shenfenField = @"6";
+    }
+    
+    
+    if ([self.zhuanweih isEqualToString:@"手术装备与材料专业委员会"]) {
+        self.zhuanweih = @"0";
+    }
+    if ([self.zhuanweih isEqualToString:@"内镜装备与材料专业委员会"]) {
+        self.zhuanweih = @"1";
+    }
+    if ([self.zhuanweih isEqualToString:@"护理设备专业委员会"]) {
+        self.zhuanweih = @"2";
+    }
+    if ([self.zhuanweih isEqualToString:@"耗材管理专业委员会"]) {
+        self.zhuanweih = @"3";
+    }
+    if ([self.zhuanweih isEqualToString:@"血液净化装备与材料专业委员会"]) {
+        self.zhuanweih = @"4";
+    }
+    if ([self.zhuanweih isEqualToString:@"区域器材灭菌管理专业委员会"]) {
+        self.zhuanweih = @"5";
+    }
+    if ([self.zhuanweih isEqualToString:@"安全防护专业委员会"]) {
+        self.zhuanweih = @"6";
+    }
+    if ([self.zhuanweih isEqualToString:@"康复与老年护理专业委员会"]) {
+        self.zhuanweih = @"7";
+    }
+    if ([self.zhuanweih isEqualToString:@"介入装备与材料专业委员会"]) {
+        self.zhuanweih = @"8";
+    }
+    if ([self.zhuanweih isEqualToString:@"重症医学装备与材料专业委员会"]) {
+        self.zhuanweih = @"9";
+    }
     
     NSDictionary *dict = @{
                            @"userid" : user.userid,
@@ -114,7 +200,9 @@
                            @"userpost":self.zhiwuField,
 //                           @"userunit":user.userUnit,
                            @"userposition":self.shenfenField,
-                           @"useridcard":self.useridcard
+                           @"useridcard":self.useridcard,
+                           @"special_committee":self.zhuanweih,//专委会
+                           @"user_identity":self.shenfenField,//身份
 //                           @"userschool":user.userSchool,
 //                           @"usermajor":user.userMajor,
 //                           @"userdegree":user.userDegree,
@@ -136,6 +224,8 @@
                                                             user.userPost = weakSelf.zhiwuField;
                                                             user.userPosition = weakSelf.shenfenField;
                                                             user.userIdcard = weakSelf.useridcard;
+                                                            user.special_committee = weakSelf.zhuanweih;
+                                                            user.user_identity = weakSelf.shenfenField;
                                                             [user saveUserInfoToSanbox];
                                                             
                                                             
@@ -190,7 +280,7 @@
                                                                 });
                                                             }else{
                                                                 //发送认证请求
-                                                                [weakSelf postRenzhengWithUid:user.userid userToken:user.usertoken imgPath:arr];
+                                                                [weakSelf postRenzhengWithUid:user.userid userToken:user.user_token imgPath:arr];
                                                             }
                                                             
                                                         }else{

@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *shenfenField;//身份field
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;//下一步按钮
 @property (weak, nonatomic) IBOutlet UITextField *userCarId;//身份证号field
+@property (weak, nonatomic) IBOutlet UITextField *zhuanweihuiField;//专委会field
 
 
 @end
@@ -44,9 +45,69 @@
             self.nameField.text = user.userReal_name;
         }
     }
-    if (!kStringIsEmpty(user.userPosition)) {
-        if (![user.userPosition isEqualToString:@" "]) {
-            self.shenfenField.text = user.userPosition;
+    if (!kStringIsEmpty(user.user_identity)) {
+        if (![user.user_identity isEqualToString:@" "]) {
+            
+            
+            if ([user.user_identity isEqualToString:@"0"]) {
+                user.user_identity = @"主任委员";
+            }
+            if ([user.user_identity isEqualToString:@"1"]) {
+                user.user_identity = @"副主任委员";
+            }
+            if ([user.user_identity isEqualToString:@"2"]) {
+                user.user_identity = @"常务副主任委员";
+            }
+            if ([user.user_identity isEqualToString:@"3"]) {
+                user.user_identity = @"秘书";
+            }
+            if ([user.user_identity isEqualToString:@"4"]) {
+                user.user_identity = @"青年委员";
+            }
+            if ([user.user_identity isEqualToString:@"5"]) {
+                user.user_identity = @"行业专家";
+            }
+            if ([user.user_identity isEqualToString:@"6"]) {
+                user.user_identity = @"普通";
+            }
+            
+            self.shenfenField.text = user.user_identity;
+        }
+    }
+    if (!kStringIsEmpty(user.special_committee)) {
+        if (![user.special_committee isEqualToString:@" "]) {
+            
+            if ([user.special_committee isEqualToString:@"0"]) {
+                user.special_committee = @"手术装备与材料专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"1"]) {
+                user.special_committee = @"内镜装备与材料专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"2"]) {
+                user.special_committee = @"护理设备专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"3"]) {
+                user.special_committee = @"耗材管理专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"4"]) {
+                user.special_committee = @"血液净化装备与材料专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"5"]) {
+                user.special_committee = @"区域器材灭菌管理专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"6"]) {
+                user.special_committee = @"安全防护专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"7"]) {
+                user.special_committee = @"康复与老年护理专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"8"]) {
+                user.special_committee = @"介入装备与材料专业委员会";
+            }
+            if ([user.special_committee isEqualToString:@"9"]) {
+                user.special_committee = @"重症医学装备与材料专业委员会";
+            }
+            self.zhuanweihuiField.text = user.special_committee;
         }
     }
 }
@@ -85,13 +146,26 @@
 }
 
 #pragma mark - 私有方法 -
+//选择专委会
+- (IBAction)chooseZhuanweihui:(UIButton *)sender {
+    [self.nameField resignFirstResponder];
+    [self.phoneField resignFirstResponder];
+    [self.userCarId resignFirstResponder];
+    
+    NSArray *arr = @[@"手术装备与材料专业委员会",@"内镜装备与材料专业委员会",@"护理设备专业委员会",@"耗材管理专业委员会",@"血液净化装备与材料专业委员会",@"区域器材灭菌管理专业委员会",@"安全防护专业委员会",@"康复与老年护理专业委员会",@"介入装备与材料专业委员会",@"重症医学装备与材料专业委员会"];
+    __weak typeof(self) weakSelf = self;
+    [BRStringPickerView showStringPickerWithTitle:@"请选择您的身份" dataSource:arr defaultSelValue:@"委员" resultBlock:^(id selectValue) {
+        weakSelf.zhuanweihuiField.text = selectValue;
+    }];
+}
+
 //选择身份
 - (IBAction)chooseShenfenClick:(UIButton *)sender {
     [self.nameField resignFirstResponder];
     [self.phoneField resignFirstResponder];
     [self.userCarId resignFirstResponder];
     
-    NSArray *arr = @[@"核心组",@"委员",@"主委",@"行业专家",@"普通"];
+    NSArray *arr = @[@"主任委员",@"副主任委员",@"常务副主任委员",@"秘书",@"青年委员",@"行业专家",@"普通"];
     __weak typeof(self) weakSelf = self;
     [BRStringPickerView showStringPickerWithTitle:@"请选择您的身份" dataSource:arr defaultSelValue:@"委员" resultBlock:^(id selectValue) {
         weakSelf.shenfenField.text = selectValue;
@@ -110,6 +184,7 @@
                     vc.phoneField = self.phoneField.text;
                     vc.shenfenField = self.shenfenField.text;
                     vc.usercardid = self.userCarId.text;
+                    vc.zhuanweihui = self.zhuanweihuiField.text;
                     
                     [self.navigationController pushViewController:vc animated:YES];
                 }else{

@@ -25,22 +25,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setHidden:YES];
+    
     
     //配置环境
     WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc]init];
     userContentController =[[WKUserContentController alloc]init];
     configuration.userContentController = userContentController;
-    //wkweb
-    if (kDevice_Is_iPhoneX) {
-        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, -44, kScreen_Width, kScreen_Height+44)configuration:configuration];
+    
+    if ([self.url containsString:@"yszg.org"]){
+        [self.navigationController.navigationBar setHidden:YES];
+        //wkweb
+        if (kDevice_Is_iPhoneX) {
+            _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, -44, kScreen_Width, kScreen_Height+44)configuration:configuration];
+        }else{
+            _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, -22, kScreen_Width, kScreen_Height+22)configuration:configuration];
+        }
     }else{
-        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, -22, kScreen_Width, kScreen_Height+22)configuration:configuration];
+        [self.navigationController.navigationBar setHidden:NO];
+        //wkweb
+        if (kDevice_Is_iPhoneX) {
+            _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 88.5, kScreen_Width, kScreen_Height-88.5)configuration:configuration];
+        }else{
+            _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 64.5, kScreen_Width, kScreen_Height-64.5)configuration:configuration];
+        }
     }
+    
+    
+    
     
     
     _webView.UIDelegate = self;
     //    _webView.navigationDelegate = self;
+    
+
     
     if ([self.url containsString:@"http"]) {
         [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
@@ -48,7 +65,7 @@
         NSString *urlstr = [@"https://" stringByAppendingString:self.url];
         [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]]];
     }
-    
+
     [self.view addSubview:_webView];
     
     [self.view bringSubviewToFront:self.leftBtn];

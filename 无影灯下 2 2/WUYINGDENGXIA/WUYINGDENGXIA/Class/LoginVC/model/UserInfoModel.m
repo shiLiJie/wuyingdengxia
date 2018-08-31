@@ -265,6 +265,18 @@ static UserInfoModel * _userInfoModel;
     }else{
         [defaults setObject:@"" forKey:@"user_birthday"];
     }
+    
+    if (!kObjectIsEmpty(self.special_committee) && ![self.special_committee isEqualToString:@""]) {
+        [defaults setObject:self.special_committee forKey:@"special_committee"];
+    }else{
+        [defaults setObject:@"" forKey:@"special_committee"];
+    }
+    
+    if (!kObjectIsEmpty(self.user_identity) && ![self.user_identity isEqualToString:@""]) {
+        [defaults setObject:self.user_identity forKey:@"user_identity"];
+    }else{
+        [defaults setObject:@"" forKey:@"user_identity"];
+    }
 
     [defaults synchronize];
 }
@@ -315,6 +327,9 @@ static UserInfoModel * _userInfoModel;
     self.moon_cash = [defaults objectForKey:@"moon_cash"];
     self.we_chat_id = [defaults objectForKey:@"we_chat_id"];
     self.user_birthday = [defaults objectForKey:@"user_birthday"];
+    self.special_committee = [defaults objectForKey:@"special_committee"];
+    self.user_identity = [defaults objectForKey:@"user_identity"];
+
     
 }
 

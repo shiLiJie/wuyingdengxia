@@ -46,6 +46,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //获取用户认证信息
+    [self getUserInfo];
 
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
@@ -60,7 +63,29 @@
         
         self.yiyuan = user.userHospital;
         self.keshi = user.userOffice;
-        self.shenfen = user.userPosition;
+        
+        if ([user.user_identity isEqualToString:@"0"]) {
+            user.user_identity = @"主任委员";
+        }
+        if ([user.user_identity isEqualToString:@"1"]) {
+            user.user_identity = @"副主任委员";
+        }
+        if ([user.user_identity isEqualToString:@"2"]) {
+            user.user_identity = @"常务副主任委员";
+        }
+        if ([user.user_identity isEqualToString:@"3"]) {
+            user.user_identity = @"秘书";
+        }
+        if ([user.user_identity isEqualToString:@"4"]) {
+            user.user_identity = @"青年委员";
+        }
+        if ([user.user_identity isEqualToString:@"5"]) {
+            user.user_identity = @"行业专家";
+        }
+        if ([user.user_identity isEqualToString:@"6"]) {
+            user.user_identity = @"普通";
+        }
+        self.shenfen = user.user_identity;
         self.zhiwei = user.userPost;
     }
 
@@ -114,6 +139,87 @@
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
+
+
+#pragma mark - 私有方法 -
+//获取用户认证信息
+-(void)getUserInfo{
+    UserInfoModel *USER = [UserInfoModel shareUserModel];
+    [USER loadUserInfoFromSanbox];
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@&current_userid=%@",BaseUrl,USER.userid,USER.userid]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           NSDictionary *ditc = obj[@"data"];
+                                                           userModel *user = [userModel userWithDict:ditc];
+                                                           
+                                                           if (!kStringIsEmpty(user.isfinishCer)) {
+                                                               USER.isfinishCer = user.isfinishCer;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userPost)) {
+                                                               USER.userPost = user.userPost;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userReal_name)) {
+                                                               USER.userReal_name = user.userReal_name;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.phoneNum)) {
+                                                               USER.phoneNum = user.phoneNum;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userIdcard)) {
+                                                               USER.userIdcard = user.userIdcard;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userPosition)) {
+                                                               USER.userPosition = user.userPosition;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                           if (!kStringIsEmpty(user.special_committee)) {
+                                                               USER.special_committee = user.special_committee;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                           if (!kStringIsEmpty(user.user_identity)) {
+                                                               if ([user.user_identity isEqualToString:@"0"]) {
+                                                                   user.user_identity = @"主任委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"1"]) {
+                                                                   user.user_identity = @"副主任委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"2"]) {
+                                                                   user.user_identity = @"常务副主任委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"3"]) {
+                                                                   user.user_identity = @"秘书";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"4"]) {
+                                                                   user.user_identity = @"青年委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"5"]) {
+                                                                   user.user_identity = @"行业专家";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"6"]) {
+                                                                   user.user_identity = @"普通";
+                                                               }
+                                                               USER.user_identity = user.user_identity;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                       }else{
+                                                           //失败
+                                                       }
+                                                       
+                                                   } fail:^(NSError *error) {
+                                                       //
+                                                   }];
+}
+
 #pragma mark - tableviewDelegate -
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

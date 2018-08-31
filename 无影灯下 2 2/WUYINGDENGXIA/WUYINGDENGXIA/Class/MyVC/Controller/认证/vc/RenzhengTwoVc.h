@@ -14,5 +14,6 @@
 @property (nonatomic,copy) NSString *phoneField;
 @property (nonatomic,copy) NSString *shenfenField;
 @property (nonatomic,copy) NSString *usercardid;
+@property (nonatomic,copy) NSString *zhuanweihui;
 
 @end

@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *danwei;
 @property (weak, nonatomic) IBOutlet UILabel *bumen;
 @property (weak, nonatomic) IBOutlet UILabel *zhiwu;
+@property (weak, nonatomic) IBOutlet UILabel *zhuanweihui;
 
 @end

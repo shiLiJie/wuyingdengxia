@@ -53,6 +53,9 @@
         self.user_birthday = dict[@"user_birthday"];
         self.is_follow = dict[@"is_follow"];
         
+        self.special_committee = dict[@"special_committee"];
+        self.user_identity = dict[@"user_identity"];
+        
     }
     return self;
 }

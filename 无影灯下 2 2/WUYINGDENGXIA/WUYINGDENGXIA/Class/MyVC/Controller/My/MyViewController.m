@@ -190,7 +190,7 @@
     tougaolab.center = CGPointMake(tougao.center.x, 73);
     tougaolab.text = @"我的投稿";
     [self.buttonView addSubview:tougaolab];
-    
+
     UIButton *xuyuan = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*3)/4 * 2 + 42, 13, 42, 42)];
     [xuyuan setImage:GetImage(@"xuyuanchiicon") forState:UIControlStateNormal];
     [xuyuan addTarget:self action:@selector(xuyuanClick) forControlEvents:UIControlEventTouchUpInside];
@@ -202,19 +202,7 @@
     xuyuanlab.center = CGPointMake(xuyuan.center.x, 73);
     xuyuanlab.text = @"许愿池";
     [self.buttonView addSubview:xuyuanlab];
-    
-//    UIButton *shujia = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*3)/5 * 3 + 84, 13, 42, 42)];
-//    [shujia setImage:GetImage(@"keshishujiaicon") forState:UIControlStateNormal];
-//    [shujia addTarget:self action:@selector(shujiaClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.buttonView addSubview:shujia];
-//    UILabel *shujialab = [[UILabel alloc] initWithFrame:CGRectMake(0, 61, 61, 20)];
-//    shujialab.textAlignment = NSTextAlignmentCenter;
-//    shujialab.textColor = RGB51;
-//    shujialab.font = [UIFont systemFontOfSize:13];
-//    shujialab.center = CGPointMake(shujia.center.x, 73);
-//    shujialab.text = @"我的科室";
-//    [self.buttonView addSubview:shujialab];
-    
+
     UIButton *qiandao = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width-42*3)/4 * 3 + 84, 13, 42, 42)];
     [qiandao setImage:GetImage(@"每日签到") forState:UIControlStateNormal];
     [qiandao addTarget:self action:@selector(qiandaoClick) forControlEvents:UIControlEventTouchUpInside];
@@ -236,6 +224,7 @@
     __block UserInfoModel *USER = [UserInfoModel shareUserModel];
     [USER loadUserInfoFromSanbox];
     __weak typeof(self) weakSelf = self;
+
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[NSString stringWithFormat:@"%@get_myinfo?userid=%@&current_userid=%@",BaseUrl,USER.userid,USER.userid]
                                                 parameters:nil
                                                    success:^(id obj) {
@@ -243,8 +232,17 @@
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
                                                            
                                                            NSDictionary *ditc = obj[@"data"];
+                                                           
                                                            userModel *user = [userModel userWithDict:ditc];
-
+                                                           
+                                                           //粉丝数
+                                                           if (!kStringIsEmpty(user.user_token)) {
+                                                               USER.user_token = user.user_token;
+                                                               [USER saveUserInfoToSanbox];
+                                                               
+                                                           }
+                                                           
+                                                           //是否认证
                                                            if (!kStringIsEmpty(user.isfinishCer)) {
                                                                USER.isfinishCer = user.isfinishCer;
                                                                [USER saveUserInfoToSanbox];
@@ -256,30 +254,43 @@
                                                                        weakSelf.vipImage.image = GetImage(@"v1");
                                                                    }
                                                                }
-                                                               
                                                            }
+                                                           
+                                                           //月亮币
+                                                           if (!kStringIsEmpty(user.moon_cash)) {
+                                                               USER.moon_cash = user.moon_cash;
+                                                               [USER saveUserInfoToSanbox];
+                                                               if (USER.loginStatus) {
+                                                                   [weakSelf.yueliangbiNum setTitle:![user.moon_cash isEqualToString:@""] ? [NSString stringWithFormat:@" %@",user.moon_cash] : @" 0" forState:UIControlStateNormal];
+                                                               }
+                                                               
+                                                           }else{
+                                                               USER.moon_cash = @"0";
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                           //粉丝数
                                                            if (!kStringIsEmpty(user.fansnum)) {
                                                                USER.fansnum = user.fansnum;
                                                                [USER saveUserInfoToSanbox];
                                                                if (USER.loginStatus) {
-                                                                   weakSelf.fensiNum.text = user.fansnum !=nil ? user.fansnum : @"0";
+                                                                    weakSelf.fensiNum.text = user.fansnum !=nil ? user.fansnum : @"0";
                                                                }
                                                                
-                                                           }
-                                                           else{
+                                                           }else{
                                                                USER.fansnum = @"0";
                                                                [USER saveUserInfoToSanbox];
                                                            }
                                                            
+                                                           //点赞数
                                                            if (!kStringIsEmpty(user.supportnum)) {
                                                                USER.supportnum = user.supportnum;
                                                                [USER saveUserInfoToSanbox];
                                                                if (USER.loginStatus) {
-                                                                   weakSelf.zanNum.text = user.supportnum !=nil ? user.fansnum : @"0";
+                                                                   weakSelf.zanNum.text = user.supportnum !=nil ? user.supportnum : @"0";
                                                                }
                                                                
-                                                           }
-                                                           else{
+                                                           }else{
                                                                USER.supportnum = @"0";
                                                                [USER saveUserInfoToSanbox];
                                                            }

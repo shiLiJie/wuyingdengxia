@@ -182,21 +182,21 @@
                                                                weakSelf.baomingBtn.backgroundColor = RGB(233, 233, 233);
                                                                [weakSelf.baomingBtn setUserInteractionEnabled:NO];
                                                                [weakSelf.baomingBtn setTitle:@"已报名" forState:UIControlStateNormal];
-                                                               
                                                            }
                                                            
                                                            NSArray *zhuangjiaArr = dict[@"meet_talk"];
                                                            if (kArrayIsEmpty(zhuangjiaArr)) {
-                                                               return;
+//                                                               return;
+                                                           }else{
+                                                               NSMutableArray *arrayM = [NSMutableArray array];
+                                                               for (int i = 0; i < zhuangjiaArr.count; i ++) {
+                                                                   NSDictionary *dict = zhuangjiaArr[i];
+                                                                   [arrayM addObject:[zhuangjiaModel zhuagnjiaWithDict:dict]];
+                                                                   
+                                                               }
+                                                               weakSelf.zhuangjiaCol.zhuangjiaDataArr = arrayM;
+                                                               [weakSelf.zhuangjiaCol reloadData];
                                                            }
-                                                           NSMutableArray *arrayM = [NSMutableArray array];
-                                                           for (int i = 0; i < zhuangjiaArr.count; i ++) {
-                                                               NSDictionary *dict = zhuangjiaArr[i];
-                                                               [arrayM addObject:[zhuangjiaModel zhuagnjiaWithDict:dict]];
-                                                               
-                                                           }
-                                                           weakSelf.zhuangjiaCol.zhuangjiaDataArr = arrayM;
-                                                           [weakSelf.zhuangjiaCol reloadData];
                                                            
                                                            weakSelf.meetdetailModel.meet_date = dict[@"meet_date"];
                                                            NSArray *arr = dict[@"meet_date"];
@@ -206,13 +206,17 @@
                                                            NSDictionary *dic = arr[0];
                                                            NSArray *arry = [dic objectForKey:@"meet_class"];
                                                            NSDictionary *dicy = [[NSDictionary alloc] init];
+                                                           if (kObjectIsEmpty(arry)) {
+                                                               return;
+                                                           }
                                                            for (dicy in arry) {
                                                                //                                                           [self.timeaArr addObject:dicy[@"meet_class_begin"]];
                                                                //                                                           [self.timeaArr addObject:dicy[@"meet_class_end"]];
-                                                               NSString *timeStr = [NSString stringWithFormat:@"%@-%@",dicy[@"meet_class_begin"],dicy[@"meet_class_end"]];
-                                                               [self.timeaArr addObject:timeStr];
-                                                               [self.detailaArr addObject:dicy[@"main_content"]];
-                                                               
+                                                               if (!kObjectIsEmpty(dicy[@"meet_class_begin"]) && !kObjectIsEmpty(dicy[@"meet_class_end"])) {
+                                                                   NSString *timeStr = [NSString stringWithFormat:@"%@-%@",dicy[@"meet_class_begin"],dicy[@"meet_class_end"]];
+                                                                   [self.timeaArr addObject:timeStr];
+                                                                   [self.detailaArr addObject:dicy[@"main_content"]];
+                                                               }
                                                            }
  
                                                            //给会议日程加载多少条赋值
@@ -330,6 +334,57 @@
                                                            
                                                            if (!kStringIsEmpty(user.isfinishCer)) {
                                                                USER.isfinishCer = user.isfinishCer;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userPost)) {
+                                                               USER.userPost = user.userPost;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userReal_name)) {
+                                                               USER.userReal_name = user.userReal_name;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.phoneNum)) {
+                                                               USER.phoneNum = user.phoneNum;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userIdcard)) {
+                                                               USER.userIdcard = user.userIdcard;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           if (!kStringIsEmpty(user.userPosition)) {
+                                                               USER.userPosition = user.userPosition;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                           if (!kStringIsEmpty(user.special_committee)) {
+                                                               USER.special_committee = user.special_committee;
+                                                               [USER saveUserInfoToSanbox];
+                                                           }
+                                                           
+                                                           if (!kStringIsEmpty(user.user_identity)) {
+                                                               if ([user.user_identity isEqualToString:@"0"]) {
+                                                                   user.user_identity = @"主任委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"1"]) {
+                                                                   user.user_identity = @"副主任委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"2"]) {
+                                                                   user.user_identity = @"常务副主任委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"3"]) {
+                                                                   user.user_identity = @"秘书";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"4"]) {
+                                                                   user.user_identity = @"青年委员";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"5"]) {
+                                                                   user.user_identity = @"行业专家";
+                                                               }
+                                                               if ([user.user_identity isEqualToString:@"6"]) {
+                                                                   user.user_identity = @"普通";
+                                                               }
+                                                               USER.user_identity = user.user_identity;
                                                                [USER saveUserInfoToSanbox];
                                                            }
                                                            

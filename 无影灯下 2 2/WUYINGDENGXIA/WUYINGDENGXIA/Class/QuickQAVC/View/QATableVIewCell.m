@@ -109,6 +109,7 @@
     [self.delegate tableviewDidSelectUserHeadImage:sender.tag];
     
 }
+
 //点击回答按钮点击到回答页面
 - (IBAction)answerToAnswerPage:(UIButton *)sender {
     
@@ -126,12 +127,12 @@
     if (!kStringIsEmpty(self.detailPage.text)) {
         [self setLabelHangjianj:self.detailPage];
         [QATableVIewCell changeWordSpaceForLabel:self.detailPage WithSpace:1.5 highSpace:1.5];
-        
+        self.detailPage.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     if (!kStringIsEmpty(self.detailPage2.text)) {
         [self setLabelHangjianj:self.detailPage2];
         [QATableVIewCell changeWordSpaceForLabel:self.detailPage2 WithSpace:1.5 highSpace:1.5];
-        
+        self.detailPage2.lineBreakMode = NSLineBreakByTruncatingTail;
     }
 //    if (!kStringIsEmpty(self.mainTitle1.text)) {
 //        [self setLabelHangjianj:self.mainTitle1];
@@ -139,16 +140,15 @@
 //        
 //    }
     
-    
     if (!kStringIsEmpty(self.nidetailPage.text)) {
         [self setLabelHangjianj:self.nidetailPage];
         [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage WithSpace:1.5 highSpace:1.5];
-        
+        self.nidetailPage.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     if (!kStringIsEmpty(self.nidetailPage2.text)) {
         [self setLabelHangjianj:self.nidetailPage2];
         [QATableVIewCell changeWordSpaceForLabel:self.nidetailPage2 WithSpace:1.5 highSpace:1.5];
-        
+        self.nidetailPage2.lineBreakMode = NSLineBreakByTruncatingTail;
     }
 //    if (!kStringIsEmpty(self.nimainTitle1.text)) {
 //        [self setLabelHangjianj:self.nimainTitle1];

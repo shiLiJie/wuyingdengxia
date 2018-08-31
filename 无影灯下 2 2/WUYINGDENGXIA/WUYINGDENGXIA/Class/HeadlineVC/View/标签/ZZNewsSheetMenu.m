@@ -53,7 +53,6 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     }else{
         rect = CGRectMake(0, 64, KScreenWidth, KScreenHeight - statuHeight);
     }
-    
     [UIView animateWithDuration:kAnimationDuration delay:0.05 usingSpringWithDamping:0.8 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveLinear animations:^{
         self.frame = rect;
         self.alpha = 1.0f;
@@ -307,7 +306,8 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_labels_rand?limit=10&type=%@",self.pageOrqa]]
                                                  parameters:nil
                                                     success:^(id obj) {
-//                                                        NSLog(@"%@",weakSelf.pageOrqa);
+                                                        
+                                                        
                                                         NSMutableArray *labArr = [[NSMutableArray alloc] init];
                                                         NSArray *arr = obj[@"data"];
                                                         NSDictionary *dict = @{
@@ -315,10 +315,14 @@ static NSTimeInterval const kAnimationDuration = 0.25f;
                                                                                };
                                                         for (dict in arr) {
                                                             if (![dict[@"label_name"] isEqualToString:@"热门"] && ![weakSelf.mySubjectArray containsObject:dict[@"label_name"]]) {
-                                                                [labArr addObject:dict[@"label_name"]];
+                                                                if (![labArr containsObject:dict[@"label_name"]]) {
+                                                                    [labArr addObject:dict[@"label_name"]];
+                                                                }
                                                             }
                                                             if (![dict[@"label_name"] isEqualToString:@"最新"] && ![weakSelf.mySubjectArray containsObject:dict[@"label_name"]]) {
-                                                                [labArr addObject:dict[@"label_name"]];
+                                                                if (![labArr containsObject:dict[@"label_name"]]) {
+                                                                    [labArr addObject:dict[@"label_name"]];
+                                                                }
                                                             }
                                                         }
 

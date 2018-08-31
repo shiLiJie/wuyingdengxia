@@ -261,7 +261,7 @@
         }
         
         [user saveUserInfoToSanbox];
-        [MBProgressHUD showSuccess:@"登录成功"];
+        
         self.loginBlock(YES, nil);
         
         //登录成功后向后台发送openid验证是否绑定手机号
@@ -310,7 +310,7 @@
                                                 parameters:nil
                                                    success:^(id obj) {
                                                        if ([obj[@"code"] isEqualToString:SucceedCoder]) {
-                                                           
+
                                                            //登录成功
                                                            NSDictionary *dic = obj[@"data"];
                                                            UserInfoModel *user = [UserInfoModel shareUserModel];
@@ -355,9 +355,9 @@
                                                            
                                                            [user saveUserInfoToSanbox];
                                                            
-                                                           self.loginBlock(YES, nil);
-                                                           
-                                                           [self.navigationController popToRootViewControllerAnimated:YES];
+                                                           weakSelf.loginBlock(YES, nil);
+                                                           [MBProgressHUD showSuccess:@"登录成功"];
+                                                           [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                                                            
                                                        }else{
                                                            if ([obj[@"msg"] isEqualToString:@"请完善信息"]) {

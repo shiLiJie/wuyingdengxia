@@ -98,6 +98,7 @@
                 vc.zhiwuField = self.zhiwuField.text;
                 
                 
+                vc.zhuanweih = self.zhuanweihui;
                 vc.nameField = self.nameField;
                 vc.phoneField = self.phoneField;
                 vc.shenfenField = self.shenfenField;

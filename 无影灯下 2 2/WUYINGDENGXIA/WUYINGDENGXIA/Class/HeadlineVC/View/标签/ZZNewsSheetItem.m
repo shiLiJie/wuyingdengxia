@@ -173,7 +173,7 @@ static NSTimeInterval const kAnimationItemDuration = 0.25f;
     shakeAnimation.timeOffset = [self.layer convertTime:CACurrentMediaTime()+timeArc 
                                                 toLayer:nil];
     
-//    shakeAnimation.duration = 0.3f;
+    shakeAnimation.duration = 0.3f;
     shakeAnimation.fillMode = kCAFillModeForwards;
     shakeAnimation.repeatCount = HUGE_VAL;
     shakeAnimation.removedOnCompletion = NO;

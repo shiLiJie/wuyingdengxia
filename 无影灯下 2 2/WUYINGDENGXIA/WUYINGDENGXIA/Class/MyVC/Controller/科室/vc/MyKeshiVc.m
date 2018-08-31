@@ -12,6 +12,8 @@
 
 @interface MyKeshiVc ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;//科室列表
+@property (nonatomic, strong) NSArray *keshiArr;//科室数组
+
 
 @end
 
@@ -22,6 +24,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.keshiArr = [[NSArray alloc] init];
+    //获取科室列表
+    [self get_myofficelist];
 }
 
 #pragma mark - UI -
@@ -55,6 +60,27 @@
     [title addAttribute:NSForegroundColorAttributeName value:HEXCOLOR(0x000000) range:NSMakeRange(0, title.length)];
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
+}
+
+#pragma marl - 私有方法 -
+//获取列表
+-(void)get_myofficelist{
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    
+    [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"get_myofficelist?user_id=%@",user.userid]]
+                                                parameters:nil
+                                                   success:^(id obj) {
+                                                       if ([obj[@"code"] isEqualToString:SucceedCoder]) {
+                                                           
+                                                           
+                                                       }else{
+                                                           
+                                                       }
+    } fail:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - tableviewDelegate -

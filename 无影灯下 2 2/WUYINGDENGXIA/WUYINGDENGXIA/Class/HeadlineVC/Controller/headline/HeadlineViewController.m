@@ -248,16 +248,18 @@
                                                            model1 = arrayM[currentIndex];
                                                            UserInfoModel *user = [UserInfoModel shareUserModel];
                                                            [user loadUserInfoFromSanbox];
-                                                           model1.banner_link = [model1.banner_link stringByAppendingString:[NSString stringWithFormat:@"&user_id=%@",user.userid]];
+                                                           if ([model1.banner_link hasPrefix:@"yszg.org"]) {
+                                                               model1.banner_link = [model1.banner_link stringByAppendingString:[NSString stringWithFormat:@"&user_id=%@",user.userid]];
+                                                           }
                                                            //当前banner的链接,点的时候直接加载就ok
-                                                           //            NSLog(@"%@",model1.banner_link);
                                                            bannerResultvc *vc = [[bannerResultvc alloc] init];
                                                            
                                                            if ([model1.banner_link hasPrefix:@"http://"] || [model1.banner_link hasPrefix:@"https://"]) {
-                                                               
+
                                                            } else {
                                                                model1.banner_link = [NSString stringWithFormat:@"http://%@", model1.banner_link];
                                                            }
+                                                           
                                                            vc.url = model1.banner_link;
                                                            [weakSelf.navigationController pushViewController:vc animated:YES];
                                                            weakSelf.searchBar.hidden = YES;
@@ -294,7 +296,6 @@
     
     //  在这里可以获取到当前的baseViewController
     NSLog(@"%ld",(long)index);
-
 }
 
 //添加segview标签控制器
@@ -586,8 +587,6 @@
                 if ([model.type isEqualToString:@"2"]) {
                     [arrayM addObject:model];
                 }
-                
-                
             }
             self.searchArr= arrayM;
 
@@ -643,7 +642,7 @@
                                                        }];
 
     [self.newsMenu updateNewSheetConfig:^(ZZNewsSheetConfig *cofig) {
-        //        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
+//        cofig.sheetItemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/4, 35);
     }];
 
 
@@ -775,7 +774,7 @@
 - (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView
         heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 110;
+    return 130;
 }
 
 

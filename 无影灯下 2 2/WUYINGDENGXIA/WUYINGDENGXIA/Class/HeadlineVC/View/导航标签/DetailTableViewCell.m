@@ -53,19 +53,28 @@
     //4行间距
     if (!kStringIsEmpty(self.pageDetail.text)) {
         
-        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail WithSpace:1.5 highSpace:1.5];
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail WithSpace:1.5 highSpace:2.5];
+        self.pageDetail.lineBreakMode = NSLineBreakByTruncatingTail;
+    }
+    if (!kStringIsEmpty(self.mainTitle.text)) {
+        
+        [DetailTableViewCell changeWordSpaceForLabel:self.mainTitle WithSpace:1 highSpace:4];
+        self.mainTitle.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     if (!kStringIsEmpty(self.mainTitle1.text)) {
         
         [DetailTableViewCell changeWordSpaceForLabel:self.mainTitle1 WithSpace:1 highSpace:4];
+        self.mainTitle1.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     if (!kStringIsEmpty(self.pageDetail1.text)) {
         
-        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail1 WithSpace:1 highSpace:1.5];
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail1 WithSpace:1 highSpace:2.5];
+        self.pageDetail1.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     if (!kStringIsEmpty(self.pageDetail3.text)) {
         
-        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail3 WithSpace:1 highSpace:1.5] ;
+        [DetailTableViewCell changeWordSpaceForLabel:self.pageDetail3 WithSpace:1 highSpace:2.5] ;
+        self.pageDetail3.lineBreakMode = NSLineBreakByTruncatingTail;
     }
 }
 

@@ -77,6 +77,9 @@
                             <state key="normal" title="⋯">
                                 <color key="titleColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="morePersonBtnClick:" destination="-1" eventType="touchUpInside" id="2SG-ey-Qw5"/>
+                            </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y20-3A-TeF">
                             <rect key="frame" x="231" y="50.5" width="28" height="28"/>
@@ -102,10 +105,18 @@
                             </constraints>
                             <state key="normal" image="tx"/>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5w-gu-agh">
+                            <rect key="frame" x="15" y="7" width="290" height="30"/>
+                            <connections>
+                                <action selector="clickKeshiTitle:" destination="-1" eventType="touchUpInside" id="1vN-TM-qth"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="y20-3A-TeF" firstAttribute="leading" secondItem="YJT-1m-QeX" secondAttribute="trailing" constant="10" id="0YQ-4f-nwV"/>
+                        <constraint firstItem="i5w-gu-agh" firstAttribute="leading" secondItem="Hd5-tO-F19" secondAttribute="leading" constant="15" id="29N-eE-MgB"/>
+                        <constraint firstAttribute="trailing" secondItem="i5w-gu-agh" secondAttribute="trailing" constant="15" id="94w-Mh-ewp"/>
                         <constraint firstItem="Rcj-W3-t54" firstAttribute="centerY" secondItem="YJT-1m-QeX" secondAttribute="centerY" id="9Wc-UF-aU7"/>
                         <constraint firstItem="6z2-7j-FdW" firstAttribute="centerY" secondItem="L0R-BR-Mgm" secondAttribute="centerY" id="EF0-Ok-DNa"/>
                         <constraint firstItem="y20-3A-TeF" firstAttribute="centerY" secondItem="CPn-5Z-HNn" secondAttribute="centerY" id="Evu-nk-Io0"/>
@@ -117,6 +128,7 @@
                         <constraint firstItem="Dow-Um-GLR" firstAttribute="top" secondItem="L0R-BR-Mgm" secondAttribute="bottom" constant="12" id="Qwd-6B-CAr"/>
                         <constraint firstItem="Ppm-mv-vbp" firstAttribute="leading" secondItem="Dow-Um-GLR" secondAttribute="leading" id="RuR-1c-aEB"/>
                         <constraint firstItem="Ppm-mv-vbp" firstAttribute="height" secondItem="Dow-Um-GLR" secondAttribute="height" id="Tdm-2b-lrw"/>
+                        <constraint firstItem="i5w-gu-agh" firstAttribute="centerY" secondItem="L0R-BR-Mgm" secondAttribute="centerY" id="TfM-FN-NpA"/>
                         <constraint firstAttribute="trailingMargin" secondItem="6z2-7j-FdW" secondAttribute="trailing" constant="15" id="YiJ-Co-ie1"/>
                         <constraint firstAttribute="height" constant="90" id="Ytz-qo-aND"/>
                         <constraint firstItem="YJT-1m-QeX" firstAttribute="leading" secondItem="Rcj-W3-t54" secondAttribute="trailing" constant="10" id="jeX-fn-HKW"/>
@@ -211,7 +223,7 @@
                 <constraint firstItem="8jp-y2-PsG" firstAttribute="top" secondItem="Hd5-tO-F19" secondAttribute="bottom" id="vYD-1M-BdY"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="-907" y="39"/>
+            <point key="canvasLocation" x="-1114" y="34"/>
         </view>
     </objects>
     <resources>

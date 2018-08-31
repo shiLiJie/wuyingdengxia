@@ -406,6 +406,55 @@
             </connections>
             <point key="canvasLocation" x="-190" y="246"/>
         </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="SBp-tv-bUB" customClass="SignUpTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SBp-tv-bUB" id="9F5-5h-OoY">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="专委会" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIS-mJ-pgd">
+                        <rect key="frame" x="16" y="13.5" width="61.5" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="61.5" id="3g2-S8-APA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5R-vZ-ffS">
+                        <rect key="frame" x="107.5" y="23" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IbL-dt-rxO">
+                        <rect key="frame" x="107.5" y="40" width="196.5" height="1"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="FKI-rW-TYK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="IbL-dt-rxO" secondAttribute="trailing" id="46X-4U-LGy"/>
+                    <constraint firstItem="kIS-mJ-pgd" firstAttribute="leading" secondItem="9F5-5h-OoY" secondAttribute="leadingMargin" id="61X-Wj-6zm"/>
+                    <constraint firstItem="IbL-dt-rxO" firstAttribute="leading" secondItem="Y5R-vZ-ffS" secondAttribute="leading" id="8C4-cV-Za5"/>
+                    <constraint firstItem="Y5R-vZ-ffS" firstAttribute="leading" secondItem="kIS-mJ-pgd" secondAttribute="trailing" constant="30" id="9a2-9j-ABA"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="IbL-dt-rxO" secondAttribute="bottom" constant="-8" id="cwH-LQ-nAw"/>
+                    <constraint firstItem="Y5R-vZ-ffS" firstAttribute="centerY" secondItem="kIS-mJ-pgd" secondAttribute="centerY" id="fnM-hj-mdz"/>
+                    <constraint firstItem="kIS-mJ-pgd" firstAttribute="centerY" secondItem="9F5-5h-OoY" secondAttribute="centerY" id="ytM-iY-KnJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Nsj-C4-NnW"/>
+            <connections>
+                <outlet property="zhuanweihui" destination="Y5R-vZ-ffS" id="yqG-YL-K87"/>
+            </connections>
+            <point key="canvasLocation" x="-190" y="331"/>
+        </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nUU-nI-OKK" customClass="SignUpTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -413,7 +462,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="职务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wd-gb-cKe">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wd-gb-cKe">
                         <rect key="frame" x="16" y="13.5" width="61.5" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="61.5" id="gVk-68-iau"/>
@@ -453,7 +502,7 @@
             <connections>
                 <outlet property="zhiwu" destination="pba-a7-fei" id="z3n-tJ-CMy"/>
             </connections>
-            <point key="canvasLocation" x="-190" y="327"/>
+            <point key="canvasLocation" x="-190" y="415"/>
         </tableViewCell>
     </objects>
 </document>

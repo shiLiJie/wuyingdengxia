@@ -52,6 +52,9 @@
 @property (nonatomic ,copy)NSString *we_chat_id;
 @property (nonatomic ,copy)NSString *user_birthday;
 
+@property (nonatomic,copy) NSString *special_committee;//专委会
+@property (nonatomic,copy) NSString *user_identity;//身份
+
 
 
 //单例

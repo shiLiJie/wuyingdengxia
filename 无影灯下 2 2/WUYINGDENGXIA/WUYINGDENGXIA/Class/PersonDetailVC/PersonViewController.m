@@ -14,6 +14,7 @@
 #import "DetailTableViewController.h"
 #import "PageDetailViewController.h"
 #import "userModel.h"
+#import "XWScanImage.h"
 
 
 #define segViewHigh     44
@@ -53,6 +54,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     self.headImageView.layer.cornerRadius = CGRectGetHeight(self.headImageView.frame)/2;//半径大小
     self.headImageView.layer.masksToBounds = YES;//是否切割
+    [self.navigationController.navigationBar setHidden:YES];
 }
 
 - (void)viewDidLoad {
@@ -83,6 +85,12 @@
     
     self.headImageView.layer.cornerRadius = CGRectGetHeight(self.headImageView.frame)/2;//半径大小
     self.headImageView.layer.masksToBounds = YES;//是否切割
+    
+    //为UIImageView1添加点击事件
+    UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scanBigImageClick1:)];
+    [self.headImageView addGestureRecognizer:tapGestureRecognizer1];
+    //让UIImageView和它的父类开启用户交互属性
+    [self.headImageView setUserInteractionEnabled:YES];
 
     UserInfoModel *USER = [UserInfoModel shareUserModel];
     [USER loadUserInfoFromSanbox];
@@ -261,6 +269,12 @@
     //    vc.delegate = self;
     
     return vc;
+}
+
+-(void)scanBigImageClick1:(UITapGestureRecognizer *)tap{
+    NSLog(@"点击图片");
+    UIImageView *clickedImageView = (UIImageView *)tap.view;
+    [XWScanImage scanBigImageWithImageView:clickedImageView];
 }
 
 #pragma mark - DetailTableViewController代理方法 -

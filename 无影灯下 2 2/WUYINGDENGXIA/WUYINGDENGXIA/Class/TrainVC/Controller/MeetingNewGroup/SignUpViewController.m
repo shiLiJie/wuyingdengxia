@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *totalDateBtn;
 //住宿view距离上个控件的约束,添加乘车信息是约束增大
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *zhusuViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *zhusuViewHeight;
+
 //添加乘车信息的次数
 @property (nonatomic, assign) int addNum;
 //火车票数组
@@ -48,6 +50,21 @@
 @property (nonatomic, strong) NSMutableDictionary *baomingDict;
 //备注lab
 @property (weak, nonatomic) IBOutlet UILabel *beizhuLab;
+//添加乘车信息按钮
+@property (weak, nonatomic) IBOutlet UIButton *addCarBtn;
+//拼住人输入框
+@property (weak, nonatomic) IBOutlet UITextField *pinzhurenField;
+//是否需要帮忙订房
+@property (weak, nonatomic) IBOutlet UILabel *dingpiaoLab;
+
+//需要隐藏的没用控件
+@property (weak, nonatomic) IBOutlet UILabel *ruzhu;
+@property (weak, nonatomic) IBOutlet UILabel *likai;
+@property (weak, nonatomic) IBOutlet UILabel *xian1;
+@property (weak, nonatomic) IBOutlet UILabel *xian2;
+@property (weak, nonatomic) IBOutlet UILabel *fangxing;
+@property (weak, nonatomic) IBOutlet UILabel *pinzhu;
+@property (weak, nonatomic) IBOutlet UISwitch *switchBtn;
 
 @end
 
@@ -59,6 +76,8 @@
     self.huocheArr = [[NSArray alloc] init];
     //设置UI
     [self setupUi];
+    //设置选择车次view
+    [self addTakecarview];
     
     UserInfoModel *user = [UserInfoModel shareUserModel];
     [user loadUserInfoFromSanbox];
@@ -85,6 +104,8 @@
                            @"begin_time":@" ",
                            @"end_time":@" ",
                            @"remark":@" ",
+                           @"room_type":@" ",
+                           @"together_people":@" ",
                            }.mutableCopy;
 }
 
@@ -109,23 +130,92 @@
 }
 
 #pragma mark - UI -
-//设置UI
+
+/** 
+ 设置UI
+ */
 -(void)setupUi{
+
+    //隐藏底部线,设置代理
+    self.tableview.separatorStyle =NO;
+    self.tableview.delegate = self;
+    self.tableview.dataSource = self;
     
+    //禁止滚动
+    self.tableview.userInteractionEnabled = NO;
+    
+    //报名按钮切圆角
+    self.pushBtn.layer.cornerRadius = CGRectGetHeight(self.pushBtn.frame)/2;//半径大小
+    self.pushBtn.layer.masksToBounds = YES;//是否切割
+    //初始化时候添加乘车次数为0;
+    self.addNum = 0 ;
+   
+//    self.ruzhu.hidden = YES;
+//    self.ruzhuBtn.hidden = YES;
+//    self.likai.hidden = YES;
+//    self.likaiBtn.hidden = YES;
+//    self.totalDateBtn.hidden = YES;
+//    self.xian1.hidden = YES;
+//    self.xian2.hidden = YES;
+//    self.fangxing.hidden = YES;
+//    self.pinzhu.hidden = YES;
+}
+
+
+/**
+ 添加乘车信息view
+ */
+-(void)addTakecarview{
+
     //先添加一个选择乘车信息view占位
     self.takecarView = [[TakeCarView alloc] initWithFrame:
-                        CGRectMake(0, CGRectGetMaxY(self.tableview.frame)+10, CGRectGetWidth(self.acrollerView.frame), 295)
+                        CGRectMake(0, CGRectGetMaxY(self.tableview.frame)+10, CGRectGetWidth(self.acrollerView.frame), 0)
                         ];
-
+    
     [self.acrollerView addSubview:self.takecarView];
+    
+    UserInfoModel *user = [UserInfoModel shareUserModel];
+    [user loadUserInfoFromSanbox];
+    //判断身份级别是否可以给他订票
+    if (!kObjectIsEmpty(user.user_identity) && ![user.user_identity isEqualToString:@"行业专家"] && ![user.user_identity isEqualToString:@"普通"]) {
+        self.takecarView.hidden = NO;
+        self.zhusuViewConstraint.constant = 311;
+        self.addCarBtn.hidden = NO;
+        self.switchBtn.hidden = YES;
+        self.switchBtn.on = YES;
+        self.fangxing.text = @"备注";
+        self.pinzhu.hidden = YES;
+        self.pinzhurenField.hidden = YES;
+        self.dingpiaoLab.text = @"订票信息";
+    }else{
+        self.takecarView.hidden = YES;
+        self.zhusuViewConstraint.constant = 0;
+        self.addCarBtn.hidden = YES;
+        self.switchBtn.on = NO;
+        self.fangxing.text = @"选择房型";
+        self.dingpiaoLab.text = @"是否需要订票";
+        
+        
+        self.ruzhu.hidden = YES;
+        self.ruzhuBtn.hidden = YES;
+        self.likai.hidden = YES;
+        self.likaiBtn.hidden = YES;
+        self.totalDateBtn.hidden = YES;
+        self.xian1.hidden = YES;
+        self.xian2.hidden = YES;
+        self.fangxing.hidden = YES;
+        self.pinzhu.hidden = YES;
+        self.pinzhurenField.hidden = YES;
+    }
     
     [self.takecarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).with.offset(0);
         make.top.equalTo(self.contentview.mas_bottom).with.offset(10);
         make.right.equalTo(self.view).with.offset(0);
         make.height.mas_equalTo(300);
-    }];
 
+    }];
+    
     //回调回来选择好的信息
     __weak typeof(self) weakSelf = self;
     self.takecarView.takeCarViewkBlcok = ^(NSArray *arr, BOOL isZuo, BOOL isYou) {
@@ -135,7 +225,7 @@
         [weakSelf.navigationController pushViewController:car animated:YES];
         car.choosecarViewkBlcok = ^(NSString *car) {
             if (isZuo) {
-//                NSLog(@"%@",car);
+                //                NSLog(@"%@",car);
                 [weakSelf.takecarView.zuoCity setTitle:car forState:UIControlStateNormal];
                 [weakSelf.baomingDict setValue:car forKey:@"from1"];
             }else{
@@ -177,22 +267,8 @@
             textField.placeholder = @"请输入备注";
         }];
         [weakSelf presentViewController:alertController animated:true completion:nil];
-
+        
     };
-    
-    //隐藏底部线,设置代理
-    self.tableview.separatorStyle =NO;
-    self.tableview.delegate = self;
-    self.tableview.dataSource = self;
-    
-    //禁止滚动
-    self.tableview.userInteractionEnabled = NO;
-    
-    //报名按钮切圆角
-    self.pushBtn.layer.cornerRadius = CGRectGetHeight(self.pushBtn.frame)/2;//半径大小
-    self.pushBtn.layer.masksToBounds = YES;//是否切割
-    //初始化时候添加乘车次数为0;
-    self.addNum = 0 ;
 }
 
 -(NSMutableAttributedString *)setTitle{
@@ -220,26 +296,111 @@
 }
 
 #pragma mark - 私有方法 -
+//是否订票开关按钮
+- (IBAction)dingPiaoSwitch:(UISwitch *)sender {
+    if (sender.on) {
+        //开了
+        self.zhusuViewHeight.constant = 250;
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2/*延迟执行时间*/ * NSEC_PER_SEC));
+        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+            
+            UserInfoModel *user = [UserInfoModel shareUserModel];
+            [user loadUserInfoFromSanbox];
+            if (!kObjectIsEmpty(user.user_identity) && ![user.user_identity isEqualToString:@"行业专家"] && ![user.user_identity isEqualToString:@"普通"]){
+                self.ruzhu.hidden = NO;
+                self.ruzhuBtn.hidden = NO;
+                self.likai.hidden = NO;
+                self.likaiBtn.hidden = NO;
+                self.totalDateBtn.hidden = NO;
+                self.xian1.hidden = NO;
+                self.xian2.hidden = NO;
+                self.fangxing.hidden = NO;
+//                self.pinzhu.hidden = NO;
+//                self.pinzhurenField.hidden = NO;
+                self.acrollerView.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhusuView.frame));
+            }else{
+                self.ruzhu.hidden = NO;
+                self.ruzhuBtn.hidden = NO;
+                self.likai.hidden = NO;
+                self.likaiBtn.hidden = NO;
+                self.totalDateBtn.hidden = NO;
+                self.xian1.hidden = NO;
+                self.xian2.hidden = NO;
+                self.fangxing.hidden = NO;
+                self.pinzhu.hidden = NO;
+                self.pinzhurenField.hidden = NO;
+                self.acrollerView.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhusuView.frame));
+            }
+
+        });
+    }else{
+        //关了
+//        self.zhusuViewHeight.constant = 90;
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2/*延迟执行时间*/ * NSEC_PER_SEC));
+        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+            
+            self.ruzhu.hidden = YES;
+            self.ruzhuBtn.hidden = YES;
+            self.likai.hidden = YES;
+            self.likaiBtn.hidden = YES;
+            self.totalDateBtn.hidden = YES;
+            self.xian1.hidden = YES;
+            self.xian2.hidden = YES;
+            self.fangxing.hidden = YES;
+            self.pinzhu.hidden = YES;
+            self.pinzhurenField.hidden = YES;
+            self.acrollerView.contentSize =  CGSizeMake(0, CGRectGetMaxY(self.zhusuView.frame));
+        });
+    }
+}
+
+
 //底部备注
 - (IBAction)beiZhu:(UIButton *)sender {
-//    self.beizhuLab.text
+
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"备注" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    //增加确定按钮；
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //获取第1个输入框；
-        UITextField *beizhuTextfield = alertController.textFields.firstObject;
-        self.beizhuLab.text = beizhuTextfield.text;
-//        [weakSelf.baomingDict setValue:beizhuTextfield.text forKey:@"special2"];
-    }]];
-    //增加取消按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
-    //定义第一个输入框；
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入备注";
-    }];
-    [weakSelf presentViewController:alertController animated:true completion:nil];
+    if ([self.fangxing.text isEqualToString:@"选择房型"]) {
+        //普通身份,房间可选
+        NSArray *arr = @[@"大床房",@"标准间单住",@"标准间拼住"];
+        [BRStringPickerView showStringPickerWithTitle:@"请选择房型" dataSource:arr defaultSelValue:@"大床房" resultBlock:^(id selectValue) {
+            weakSelf.beizhuLab.text = selectValue;
+            if ([selectValue isEqualToString:@"大床房"]) {
+                selectValue = @"0";
+            }
+            if ([selectValue isEqualToString:@"标准间单住"]) {
+                selectValue = @"1";
+            }
+            if ([selectValue isEqualToString:@"标准间拼住"]) {
+                selectValue = @"2";
+            }
+            
+            [self.baomingDict setValue:selectValue forKey:@"room_type"];
+        }];
+    }else{
+        //委员身份,房间固定
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"备注" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        //增加确定按钮；
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //获取第1个输入框；
+            UITextField *beizhuTextfield = alertController.textFields.firstObject;
+            self.beizhuLab.text = beizhuTextfield.text;
+            [weakSelf.baomingDict setValue:beizhuTextfield.text forKey:@"special2"];
+        }]];
+        //增加取消按钮；
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+        //定义第一个输入框；
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入备注";
+        }];
+        [weakSelf presentViewController:alertController animated:true completion:nil];
+    }
+    
+    
+    
+
+    
 }
 
 
@@ -491,6 +652,11 @@
     [self.baomingDict setValue:self.likaiBtn.currentTitle forKey:@"end_time"];
     
     [MBProgressHUD showMessage:@"请稍后..."];
+    
+    if (!kStringIsEmpty(self.pinzhurenField.text)) {
+        [self.baomingDict setValue:self.pinzhurenField.text forKey:@"together_people"];
+    }
+    
     [[HttpRequest shardWebUtil] postNetworkRequestURLString:[BaseUrl stringByAppendingString:@"post_attend"] parameters:self.baomingDict success:^(id obj) {
         
         if ([obj[@"code"] isEqualToString:SucceedCoder]) {
@@ -532,7 +698,7 @@
     if (section == 0) {
         return 2;
     }else{
-        return 7;
+        return 8;
     }
 }
 
@@ -564,10 +730,34 @@
             cell.userSex.text = user.usersex;
             cell.danwei.text = user.userHospital;
             cell.bumen.text = user.userOffice;
-            cell.zhiwu.text = user.userPost;
-
+            cell.zhuanweihui.text = user.special_committee;
+            
+            if (!kStringIsEmpty(user.user_identity)) {
+                if ([user.user_identity isEqualToString:@"0"]) {
+                    user.user_identity = @"主任委员";
+                }
+                if ([user.user_identity isEqualToString:@"1"]) {
+                    user.user_identity = @"副主任委员";
+                }
+                if ([user.user_identity isEqualToString:@"2"]) {
+                    user.user_identity = @"常务副主任委员";
+                }
+                if ([user.user_identity isEqualToString:@"3"]) {
+                    user.user_identity = @"秘书";
+                }
+                if ([user.user_identity isEqualToString:@"4"]) {
+                    user.user_identity = @"青年委员";
+                }
+                if ([user.user_identity isEqualToString:@"5"]) {
+                    user.user_identity = @"行业专家";
+                }
+                if ([user.user_identity isEqualToString:@"6"]) {
+                    user.user_identity = @"普通";
+                }
+                cell.zhiwu.text = user.user_identity;
+            }
+            
         }
-        
     }
     
     return cell;

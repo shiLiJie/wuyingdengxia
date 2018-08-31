@@ -87,6 +87,38 @@
     [title addAttribute:NSFontAttributeName value:BOLDSYSTEMFONT(18) range:NSMakeRange(0, title.length)];
     return title;
 }
+#pragma mark  - privateAction -
+//点击科室标题按钮
+- (IBAction)clickKeshiTitle:(UIButton *)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改科室标题" preferredStyle:UIAlertControllerStyleAlert];
+    //增加确定按钮；
+    __weak typeof(self) weakSelf =self;
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3/*延迟执行时间*/ * NSEC_PER_SEC));
+        
+        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+            //获取第1个输入框；
+            UITextField *userNameTextField = alertController.textFields.firstObject;
+            weakSelf.keshiName.text = userNameTextField.text;
+        });
+    }]];
+    
+    //增加取消按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    
+    //定义第一个输入框；
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"修改科室标题";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+    }];
+    
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+//更多成员按钮点击
+- (IBAction)morePersonBtnClick:(UIButton *)sender {
+}
 
 #pragma mark  - CollectionView -
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

@@ -163,6 +163,7 @@
 		047960A620A14DEA00373D9F /* UIImage+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 047960A520A14DEA00373D9F /* UIImage+Video.m */; };
 		047960A920A17B3B00373D9F /* huiguDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047960A820A17B3B00373D9F /* huiguDetailModel.m */; };
 		047960AD20A1AECB00373D9F /* MytiwenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047960AC20A1AECB00373D9F /* MytiwenModel.m */; };
+		0479B8AF211AD19800F6B978 /* XWScanImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0479B8AE211AD19800F6B978 /* XWScanImage.m */; };
 		047B8CF220A41BE400892F61 /* MyhuidaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047B8CF120A41BE400892F61 /* MyhuidaModel.m */; };
 		047B8CF620A430A100892F61 /* LiwuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047B8CF520A430A100892F61 /* LiwuModel.m */; };
 		047B8CF920A43F8200892F61 /* DuihuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047B8CF820A43F8200892F61 /* DuihuanModel.m */; };
@@ -353,6 +354,8 @@
 		04EDD78420AE982300EC0F0E /* ChooseCarGViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EDD78220AE982300EC0F0E /* ChooseCarGViewController.xib */; };
 		04EDD78820AE99B000EC0F0E /* ChooseCarGCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDD78620AE99B000EC0F0E /* ChooseCarGCell.m */; };
 		04EDD78920AE99B000EC0F0E /* ChooseCarGCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EDD78720AE99B000EC0F0E /* ChooseCarGCell.xib */; };
+		04EFDF742126B28E007A1B63 /* shujiaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFDF722126B28E007A1B63 /* shujiaTableViewCell.m */; };
+		04EFDF752126B28E007A1B63 /* shujiaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EFDF732126B28E007A1B63 /* shujiaTableViewCell.xib */; };
 		99026D2A15BB502A7E5EBEE0 /* Pods_WUYINGDENGXIA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */; };
 /* End PBXBuildFile section */
 
@@ -631,6 +634,8 @@
 		047960A820A17B3B00373D9F /* huiguDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = huiguDetailModel.m; sourceTree = "<group>"; };
 		047960AB20A1AECB00373D9F /* MytiwenModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MytiwenModel.h; sourceTree = "<group>"; };
 		047960AC20A1AECB00373D9F /* MytiwenModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MytiwenModel.m; sourceTree = "<group>"; };
+		0479B8AD211AD19800F6B978 /* XWScanImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWScanImage.h; sourceTree = "<group>"; };
+		0479B8AE211AD19800F6B978 /* XWScanImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWScanImage.m; sourceTree = "<group>"; };
 		047B8CF020A41BE400892F61 /* MyhuidaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyhuidaModel.h; sourceTree = "<group>"; };
 		047B8CF120A41BE400892F61 /* MyhuidaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyhuidaModel.m; sourceTree = "<group>"; };
 		047B8CF420A430A100892F61 /* LiwuModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiwuModel.h; sourceTree = "<group>"; };
@@ -959,6 +964,9 @@
 		04EDD78520AE99B000EC0F0E /* ChooseCarGCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseCarGCell.h; sourceTree = "<group>"; };
 		04EDD78620AE99B000EC0F0E /* ChooseCarGCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseCarGCell.m; sourceTree = "<group>"; };
 		04EDD78720AE99B000EC0F0E /* ChooseCarGCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseCarGCell.xib; sourceTree = "<group>"; };
+		04EFDF712126B28E007A1B63 /* shujiaTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shujiaTableViewCell.h; sourceTree = "<group>"; };
+		04EFDF722126B28E007A1B63 /* shujiaTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shujiaTableViewCell.m; sourceTree = "<group>"; };
+		04EFDF732126B28E007A1B63 /* shujiaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = shujiaTableViewCell.xib; sourceTree = "<group>"; };
 		1D03E933F3EB50688D9EDD23 /* Pods_WUYINGDENGXIA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WUYINGDENGXIA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DEB56FF3770F67287BFA43 /* Pods-WUYINGDENGXIA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.release.xcconfig"; sourceTree = "<group>"; };
 		D59E5D584A9C7A9F934CEE87 /* Pods-WUYINGDENGXIA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUYINGDENGXIA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUYINGDENGXIA/Pods-WUYINGDENGXIA.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1706,6 +1714,15 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		0479B8AC211AD18300F6B978 /* XWScanImage */ = {
+			isa = PBXGroup;
+			children = (
+				0479B8AD211AD19800F6B978 /* XWScanImage.h */,
+				0479B8AE211AD19800F6B978 /* XWScanImage.m */,
+			);
+			path = XWScanImage;
+			sourceTree = "<group>";
+		};
 		047B8CEF20A41BCB00892F61 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1848,6 +1865,7 @@
 		047E965A1FFCC16E0062F1E1 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				0479B8AC211AD18300F6B978 /* XWScanImage */,
 				045198C420E0D023008AFEA7 /* ShareView */,
 				04896F9820A2EEA700792031 /* PhotoPicker */,
 				045ED96E2088A8B5009746B7 /* MMScanner */,
@@ -2509,6 +2527,9 @@
 				0477D4FD207F3AE500F0B0C4 /* shujiaCollectionCell.h */,
 				0477D4FE207F3AE500F0B0C4 /* shujiaCollectionCell.m */,
 				0477D4FF207F3AE500F0B0C4 /* shujiaCollectionCell.xib */,
+				04EFDF712126B28E007A1B63 /* shujiaTableViewCell.h */,
+				04EFDF722126B28E007A1B63 /* shujiaTableViewCell.m */,
+				04EFDF732126B28E007A1B63 /* shujiaTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2751,6 +2772,7 @@
 				047E96EB1FFCC4C00062F1E1 /* InforViewController.xib in Resources */,
 				0487A15E206382F700198B33 /* photo_original_def@2x.png in Resources */,
 				04701E27206B4429007AB2D0 /* MeetRichengCell.xib in Resources */,
+				04EFDF752126B28E007A1B63 /* shujiaTableViewCell.xib in Resources */,
 				045A78E3208466C0008BB180 /* TongzhiVc.xib in Resources */,
 				046653892005C63F0051B276 /* PersonViewController.xib in Resources */,
 				04D6A5EF208747B000F6C6D8 /* README.txt in Resources */,
@@ -2980,6 +3002,7 @@
 				047E96C91FFCC29D0062F1E1 /* UIImageView+XHLaunchAdCache.m in Sources */,
 				047E96CE1FFCC29D0062F1E1 /* XHLaunchAdCache.m in Sources */,
 				04787A53207C690900D6DB67 /* MyLiwuCell.m in Sources */,
+				04EFDF742126B28E007A1B63 /* shujiaTableViewCell.m in Sources */,
 				04372A681FFDDD9500D0762C /* SearchBarEffectController.m in Sources */,
 				04C704D82084A2A50057AD75 /* SettingCell.m in Sources */,
 				047E96AB1FFCC2870062F1E1 /* UIImage+Merge.m in Sources */,
@@ -3130,6 +3153,7 @@
 				04816B9920B2E2FC00EF9458 /* DFSegmentHeadView.m in Sources */,
 				045C35232011A06000B128CD /* MyDetailViewController.m in Sources */,
 				043E2D4D2073681500C68835 /* SearchResultVcViewController.m in Sources */,
+				0479B8AF211AD19800F6B978 /* XWScanImage.m in Sources */,
 				0487A141206382DF00198B33 /* DragCellCollectionView.m in Sources */,
 				047E96A21FFCC2870062F1E1 /* UIImage+Orientation.m in Sources */,
 				0423C3EB200711E6005E3F9D /* MeetingNewCell.m in Sources */,

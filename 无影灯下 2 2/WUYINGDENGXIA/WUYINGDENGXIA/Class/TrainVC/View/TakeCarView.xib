@@ -99,7 +99,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNa-P9-UW8">
-                    <rect key="frame" x="10" y="311" width="355" height="1"/>
+                    <rect key="frame" x="10" y="321" width="355" height="1"/>
                     <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="mLR-pu-Q0p"/>
@@ -209,7 +209,7 @@
                 <constraint firstItem="g2z-hp-xOt" firstAttribute="leading" secondItem="j4P-Sa-dvo" secondAttribute="leading" id="NQf-nz-bjA"/>
                 <constraint firstItem="eVW-FP-wrs" firstAttribute="top" secondItem="ONh-6y-f5Y" secondAttribute="bottom" constant="15" id="PHr-yS-50N"/>
                 <constraint firstItem="aIa-Pq-vuo" firstAttribute="centerY" secondItem="mNH-CT-FMB" secondAttribute="centerY" id="Pub-le-O5g"/>
-                <constraint firstItem="ZNa-P9-UW8" firstAttribute="top" secondItem="aIa-Pq-vuo" secondAttribute="bottom" constant="15" id="QKb-KQ-Ra3"/>
+                <constraint firstItem="ZNa-P9-UW8" firstAttribute="top" secondItem="aIa-Pq-vuo" secondAttribute="bottom" constant="25" id="QKb-KQ-Ra3"/>
                 <constraint firstItem="A24-ae-Wt1" firstAttribute="centerY" secondItem="Wfz-4c-afw" secondAttribute="centerY" id="QvW-fC-kTb"/>
                 <constraint firstItem="oJa-Jp-B0j" firstAttribute="leading" secondItem="PhM-67-TaW" secondAttribute="trailing" constant="9" id="RDk-0q-NPX"/>
                 <constraint firstItem="PhM-67-TaW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="13" id="RGY-f0-bhR"/>
@@ -255,7 +255,7 @@
                 <outlet property="youCity" destination="A24-ae-Wt1" id="Zkm-tf-F19"/>
                 <outlet property="zuoCity" destination="Wfz-4c-afw" id="Rck-Fl-WFi"/>
             </connections>
-            <point key="canvasLocation" x="-115" y="-259"/>
+            <point key="canvasLocation" x="-353" y="-322"/>
         </view>
     </objects>
     <resources>

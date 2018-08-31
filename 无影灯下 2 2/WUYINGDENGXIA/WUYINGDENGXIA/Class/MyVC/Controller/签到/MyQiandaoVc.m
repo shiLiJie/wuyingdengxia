@@ -109,7 +109,7 @@
     self.headImage.layer.masksToBounds = YES;//是否切割
 }
 
-#pragma mark - 私有方法 -
+#pragma mark - 私有方法 - 
 //获取礼物列表
 -(void)getLiwuList{
     [[HttpRequest shardWebUtil] getNetworkRequestURLString:[BaseUrl stringByAppendingString:@"get_allgoods"]
